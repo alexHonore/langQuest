@@ -12,6 +12,7 @@ import '../../core/audio/clip_player.dart';
 import '../../core/audio/clip_player_provider.dart';
 import '../../core/audio/take_recorder.dart';
 import '../../core/backend/account.dart';
+import '../../core/backend/api_client.dart';
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/backend/server_course.dart';
 import '../../core/content/content_bundle.dart';
@@ -100,25 +101,45 @@ class CourseCharacter {
   String? get rosterId => rosterIdFor(id);
 }
 
-/// The active course's characters (`GET /v1/courses/:trackId/manifest`), when live calls back the course.
-final courseCharactersProvider = FutureProvider.autoDispose<List<CourseCharacter>>((ref) async {
+/// The active course's manifest as the server holds it (`GET /v1/courses/:trackId/manifest`), when live calls back
+/// the course; null otherwise, or when it cannot be read.
+final courseManifestProvider = FutureProvider.autoDispose<Map<String, Object?>?>((ref) async {
   final call = ref.watch(liveCallCourseProvider);
   final api = ref.watch(apiProvider);
-  final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  final trackId = ref.watch(appStateProvider.select((s) => s.activeCourse?.track.id));
+  final source = ref.watch(appStateProvider.select((s) => s.activeCourse?.source));
+  if (call == null || api == null || trackId == null || source == null) return null;
+  try {
+    return await api.courseManifest(trackId, source);
+  } catch (_) {
+    return null;
+  }
+});
+
+/// The active course's characters (from its manifest), when live calls back the course.
+final courseCharactersProvider = FutureProvider.autoDispose<List<CourseCharacter>>((ref) async {
+  final manifest = await ref.watch(courseManifestProvider.future);
   final language = ref.watch(appStateProvider.select((s) => s.uiLanguage));
   // The roles only: a course's chapters arriving must not ask the server again.
   ref.watch(contentBundleProvider.select((b) => b.roles));
   final bundle = ref.read(contentBundleProvider);
-  if (call == null || api == null || course == null) return const [];
-  try {
-    return [
-      for (final c in await api.courseCharacters(course.track.id, course.source))
-        if (c['id'] is String && c['name'] is String)
-          CourseCharacter(id: c['id'] as String, name: c['name'] as String, role: roleIn(bundle, c['id'] as String, '${c['role'] ?? ''}', language)),
-    ];
-  } catch (_) {
-    return const [];
-  }
+  if (manifest == null) return const [];
+  return [
+    for (final c in LangQuestApi.manifestCharacters(manifest))
+      if (c['id'] is String && c['name'] is String)
+        CourseCharacter(id: c['id'] as String, name: c['name'] as String, role: roleIn(bundle, c['id'] as String, '${c['role'] ?? ''}', language)),
+  ];
+});
+
+/// Whether the server has [missionKey] of the active course, so a call can be about it. False only when its
+/// manifest is read and does not list the mission (a chapter newer than the server's curriculum); true while that
+/// is not known, so the Talk stop does not flicker.
+final missionOnServerProvider = Provider.autoDispose.family<bool, String>((ref, missionKey) {
+  final manifest = ref.watch(courseManifestProvider).asData?.value;
+  final ids = manifest == null ? null : LangQuestApi.manifestMissionIds(manifest);
+  if (ids == null) return true;
+  final mission = ref.watch(appStateProvider.select((s) => s.content.mission(missionKey)));
+  return mission == null || ids.contains(missionServerId(mission.chapterKey, mission.key));
 });
 
 /// The Talk stop: a live phone call with a character of the mission (`/v1/ai/conversation/*`). The learner taps Call

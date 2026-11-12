@@ -42,7 +42,8 @@ class MissionPathScreen extends ConsumerWidget {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final l10n = context.l10n;
-    final call = ref.watch(liveCallCourseProvider);
+    // A call about this mission needs the server to have it (a newer chapter may not be published there yet).
+    final call = ref.watch(missionOnServerProvider(missionKey)) ? ref.watch(liveCallCourseProvider) : null;
     final stops = stopsOfPlan(plan, canTalk: call != null);
     final game = ref.watch(missionGameProvider(missionKey));
     final done = appState.stopsDone(missionKey);

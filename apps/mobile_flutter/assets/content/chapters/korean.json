@@ -3206,6 +3206,2659 @@
           ]
         }
       ]
+    },
+    {
+      "key": "korean_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "korean",
+      "targetVarietyId": "ko",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Seoul",
+        "fr": "Prendre ses marques à Séoul"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Korean (ko); native review required before publishing.",
+        "Polite 해요체 with every stranger and with the host, with honorific -(으)세요 when addressing them, as in chapter 1; the fixed 합니다-style formulas are kept where they are the norm (잘 먹겠습니다, 잘 먹었습니다, 감사합니다). 반말 only with the friend 지훈, taken to be a close friend of the same age: the decline_invitation slot, polite in the blueprint, is filled by a 반말 line (미안, 토요일은 안 돼) and labelled casual.",
+        "Wordings to check first: 어머님 for the neighbour's mother, 손주가 있으세요? as table talk, the host's 한국말을 참 잘하네요!, 형제가 어떻게 돼요? and 한국에 언제까지 있어요? (no -시- towards a younger guest), 여기에 땅콩 들어가요?, 탈의실 (shops often say 피팅룸), 카드 돼요?, 괜찮아요, 조금 쉬면 돼요.",
+        "Romanization follows chapter 1: lower case, spaced like the Hangul, sound changes inside a word written out (gungmuri, hangungmareul, eotteoke, and busannyeogeseo with the inserted n, like chapter 1's jihacheollyeogi), tensification not shown (chatgo, yakguk).",
+        "The sibling line uses 남동생 / 여동생 so that it works for any learner; 형 / 누나 / 오빠 / 언니 depend on the learner's gender and are only explained in the note. Facts to verify: 9,000 won a portion for 김치찌개, 35,000 won for trousers, Busan Station as the KTX terminus, Yeouinaru (line 5) for the Han River park, emergency numbers 119 and 112."
+      ],
+      "characters": [
+        {
+          "key": "korean_junho_waiter",
+          "name": "준호",
+          "role": "waiter",
+          "personality": "quick, friendly, proud of the house stew",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "korean_seoyeon_shop_assistant",
+          "name": "서연",
+          "role": "shop assistant",
+          "personality": "attentive, cheerful, honest about what fits",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "korean_hyeonu_ticket_clerk",
+          "name": "현우",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "korean_eunji_bystander",
+          "name": "은지",
+          "role": "helpful bystander",
+          "personality": "calm, reassuring, quick to help",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "korean_yeongsuk_host",
+          "name": "영숙",
+          "role": "host",
+          "personality": "warm, keeps refilling your plate, curious about your family",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "korean_jihun_friend",
+          "name": "지훈",
+          "role": "friend",
+          "personality": "easy-going, always has a plan for the weekend",
+          "homeRegion": "Seoul",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "korean_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "korean_junho_waiter",
+          "titles": {
+            "en": "Lunch at the restaurant",
+            "fr": "Déjeuner au restaurant"
+          },
+          "sceneNotes": {
+            "en": "A small family-run restaurant in Jongno, Seoul, at lunchtime; the waiter is quick and recommends the house kimchi stew.",
+            "fr": "Vous déjeunez dans un petit restaurant familial de Jongno, à Séoul ; le serveur est rapide et recommande le ragoût de kimchi de la maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "어서 오세요! 몇 분이세요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "어서 오세요! 몇 분이세요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "eoseo oseyo! myeot buniseyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! How many of you are there?",
+                  "note": "어서 오세요 greets customers in every shop and restaurant. 분 is the honorific counter for people: staff use it for you, you use 명 for yourself.",
+                  "literal": "quickly come(honorific)! how-many persons(honorific)-are"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Vous êtes combien ?",
+                  "note": "어서 오세요 accueille les clients dans tous les commerces. 분 est le compteur honorifique des personnes : le personnel l'emploie pour vous ; pour vous-même, dites 명. Le « eo » de 어서 est un o ouvert, comme dans « porte ».",
+                  "literal": "vite venez(honorifique) ! combien personnes(honorifique)-êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "eo is an open o, close to the vowel of 'cut': uh-suh o-se-yo."
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "두 명이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "두 명이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "du myeongieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are two of us.",
+                  "note": "You simply say how many you are. People are counted with native Korean numbers: 한 명, 두 명, 세 명, 네 명.",
+                  "literal": "two persons-are"
+                },
+                "fr": {
+                  "meaning": "Nous sommes deux.",
+                  "note": "On annonce simplement le nombre. Les personnes se comptent avec les nombres coréens natifs : 한 명 (han), 두 명 (du), 세 명 (se), 네 명 (ne). Le verbe « être » (이에요) se colle au nom, en fin de phrase.",
+                  "literal": "deux personnes-sommes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "여기 뭐가 맛있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "여기 뭐가 맛있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "yeogi mwoga masisseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's good here?",
+                  "note": "The natural way to ask for a recommendation. 가 marks the subject: 뭐가 = 'what', as the thing that is tasty.",
+                  "literal": "here what [subject] is-tasty"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui est bon ici ?",
+                  "note": "La façon naturelle de demander une recommandation. La particule 가 marque le sujet. 맛있어요 se prononce « ma-chi-sso-yo » : le ㅅ final se lie à la syllabe suivante.",
+                  "literal": "ici quoi [sujet] est-bon"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "맛있어요 is said ma-si-sseo-yo: the ㅅ links onto the next syllable."
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:best_dish",
+              "key": "best_dish",
+              "intentKey": "state_opinion",
+              "slotId": "best_dish",
+              "speaker": "character",
+              "text": "김치찌개가 제일 맛있어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "김치찌개가 제일 맛있어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "gimchijjigaega jeil masisseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The kimchi stew is the best.",
+                  "note": "김치찌개 is a bubbling stew of aged kimchi, usually with pork and tofu, served with rice and side dishes. 제일 = the most.",
+                  "literal": "kimchi-stew [subject] most is-tasty"
+                },
+                "fr": {
+                  "meaning": "Le ragoût de kimchi est ce qu'il y a de meilleur.",
+                  "note": "Le 김치찌개 est un ragoût bouillonnant de kimchi fermenté, souvent avec du porc et du tofu, servi avec du riz et des accompagnements. 제일 (jeil) = le plus. Le ㅉ est un « tch » tendu, sans souffle.",
+                  "literal": "ragoût-de-kimchi [sujet] le-plus est-bon"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "그럼 김치찌개 이 인분 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "그럼 김치찌개 이 인분 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "geureom gimchijjigae i inbun juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then two portions of kimchi stew, please.",
+                  "note": "Stews and grilled meat are ordered by the portion (인분) with Sino-Korean numbers: 일 인분, 이 인분, 삼 인분. No object particle is needed in speech.",
+                  "literal": "then kimchi-stew two portions give-please"
+                },
+                "fr": {
+                  "meaning": "Alors, deux portions de ragoût de kimchi, s'il vous plaît.",
+                  "note": "Ragoûts et grillades se commandent à la portion (인분, inbun) avec les nombres sino-coréens : 일 인분, 이 인분, 삼 인분. À l'oral, on omet souvent la particule d'objet 를. Le verbe 주세요 vient en dernier.",
+                  "literal": "alors ragoût-de-kimchi deux portions donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "여기에 땅콩 들어가요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "여기에 땅콩 들어가요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "yeogie ttangkong deureogayo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are there peanuts in this?",
+                  "note": "들어가다 (to go in) is the everyday verb for what a dish contains. Swap in 고기 (meat), 새우 (prawn), 계란 (egg).",
+                  "literal": "here-in peanuts go-in"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a des cacahuètes dedans ?",
+                  "note": "들어가다 (entrer) dit ce que contient un plat. Remplacez 땅콩 par 고기 (gogi, viande), 새우 (saeu, crevette), 계란 (gyeran, œuf). Le ㄸ de 땅 est un « t » tendu, sans souffle ; le ㅋ de 콩, lui, est soufflé.",
+                  "literal": "ici-dans cacahuètes entrent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "땅 starts with a tense tt: tight, with no puff of air."
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:no_peanuts",
+              "key": "no_peanuts",
+              "intentKey": "confirm_order",
+              "slotId": "no_peanuts",
+              "speaker": "character",
+              "text": "아니요, 안 들어가요. 잠시만요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "아니요, 안 들어가요. 잠시만요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "aniyo, an deureogayo. jamsimanyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there aren't. Just a moment.",
+                  "note": "안 before a verb makes it negative. 잠시만요 = 'just a moment', heard constantly in shops and restaurants.",
+                  "literal": "no, not go-in. moment-only(polite)"
+                },
+                "fr": {
+                  "meaning": "Non, il n'y en a pas. Un instant.",
+                  "note": "안 placé devant le verbe le rend négatif : un seul mot là où le français dit « ne… pas ». 잠시만요 (jamsimanyo) = « un instant » : vous l'entendrez sans cesse dans les commerces.",
+                  "literal": "non, ne-pas entrent. instant-seulement(poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "국물이 정말 맛있어요!",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "국물이 정말 맛있어요!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "gungmuri jeongmal masisseoyo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The broth is really delicious!",
+                  "note": "국물 is the broth of a soup or stew. 정말 = really; 진짜 is a more casual synonym.",
+                  "literal": "broth [subject] really is-tasty"
+                },
+                "fr": {
+                  "meaning": "Le bouillon est vraiment délicieux !",
+                  "note": "국물 = le bouillon d'une soupe ou d'un ragoût. 정말 = vraiment (plus familier : 진짜). Devant ㅁ, le ㄱ se prononce « ng » : on dit « goung-moul », d'où la romanisation gungmuri.",
+                  "literal": "bouillon [sujet] vraiment est-bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "국물 is said gung-mul: ㄱ before ㅁ turns into ng."
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "잘 먹었습니다. 계산할게요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "잘 먹었습니다. 계산할게요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jal meogeotseumnida. gyesanhalgeyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you for the meal. I'd like to pay.",
+                  "note": "잘 먹었습니다 is the set phrase after a meal. In most Korean restaurants you pay at the counter by the door on your way out; there is no tipping.",
+                  "literal": "well I-ate. I-will-pay"
+                },
+                "fr": {
+                  "meaning": "Merci pour ce repas. Je vais régler.",
+                  "note": "잘 먹었습니다 est la formule de fin de repas. Dans la plupart des restaurants, on paie à la caisse, près de la sortie, en partant ; pas de pourboire. ㅂ devant ㄴ se prononce m : -seumnida.",
+                  "literal": "bien j'ai-mangé. je-vais-payer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "네, 만 팔천 원이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "네, 만 팔천 원이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ne, man palcheon wonieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, that's 18,000 won.",
+                  "note": "Prices use Sino-Korean numbers. 만 is 10,000, a unit of its own: 18,000 is 'one ten-thousand, eight thousand'.",
+                  "literal": "yes, ten-thousand eight-thousand won-is"
+                },
+                "fr": {
+                  "meaning": "Oui, ça fait 18 000 wons.",
+                  "note": "Les prix utilisent les nombres sino-coréens. 만 (man) = 10 000, une unité à part entière : 18 000 se dit « un dix-mille huit mille ». On compte donc par tranches de quatre zéros, et non de trois.",
+                  "literal": "oui, dix-mille huit-mille wons-c'est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:any_table",
+              "key": "any_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "두 명인데, 자리 있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "두 명인데, 자리 있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "du myeonginde, jari isseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are two of us; do you have a table?",
+                  "note": "Useful when the place looks full. -인데 sets the scene before a question: 'we're two, so…'. 자리 = a seat, a place.",
+                  "literal": "two persons-are-and, seat exists"
+                },
+                "fr": {
+                  "meaning": "Nous sommes deux ; il y a de la place ?",
+                  "note": "Utile quand le restaurant semble plein. -인데 pose le contexte avant une question : « nous sommes deux, alors… ». 자리 (jari) = une place. 있어요 se prononce « i-sso-yo », avec un s tendu.",
+                  "literal": "deux personnes-sommes-et, place il-y-a"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_restaurant_order_meal:bibimbap_no_meat",
+              "key": "bibimbap_no_meat",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "비빔밥 하나, 고기 빼고 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "비빔밥 하나, 고기 빼고 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "bibimbap hana, gogi ppaego juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One bibimbap, without meat, please.",
+                  "note": "빼고 = leaving out: the phrase for asking to have an ingredient left out. 하나 = one, when counting things in general.",
+                  "literal": "bibimbap one, meat leaving-out give-please"
+                },
+                "fr": {
+                  "meaning": "Un bibimbap sans viande, s'il vous plaît.",
+                  "note": "빼고 (ppaego) = en enlevant : la formule pour faire retirer un ingrédient. 하나 = un, pour compter des choses en général. Le ㅃ est un « p » tendu, prononcé sans souffle.",
+                  "literal": "bibimbap un, viande en-enlevant donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "korean_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "korean_seoyeon_shop_assistant",
+          "titles": {
+            "en": "Buying trousers",
+            "fr": "Acheter un pantalon"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop in Hongdae, Seoul's student fashion district; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de Hongdae, le quartier étudiant de Séoul ; la vendeuse est attentive et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:looking_for",
+              "key": "looking_for",
+              "intentKey": "offer_help",
+              "slotId": "looking_for",
+              "speaker": "character",
+              "text": "찾으시는 거 있으세요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "찾으시는 거 있으세요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "chajeusineun geo isseuseyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you looking for anything in particular?",
+                  "note": "The classic opening from shop staff. The -시- inside both verbs is the honorific marker: it shows respect for the person you are talking about, here you.",
+                  "literal": "you-are-looking-for(honorific) thing exists(honorific)"
+                },
+                "fr": {
+                  "meaning": "Vous cherchez quelque chose en particulier ?",
+                  "note": "La phrase d'accueil classique des vendeurs. Le -시- glissé dans les deux verbes est la marque honorifique : il honore la personne dont on parle, ici vous. On ne l'emploie jamais pour soi.",
+                  "literal": "que-vous-cherchez(honorifique) chose il-y-a(honorifique)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "그냥 좀 둘러볼게요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "그냥 좀 둘러볼게요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "geunyang jom dulleobolgeyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll just look around a little.",
+                  "note": "그냥 = just; 좀 (a bit) softens what you say. The ending -ㄹ게요 announces what you are about to do.",
+                  "literal": "just a-bit I-will-look-around"
+                },
+                "fr": {
+                  "meaning": "Je vais juste faire un petit tour.",
+                  "note": "그냥 = juste, simplement ; 좀 (un peu) adoucit le propos. La terminaison -ㄹ게요 annonce ce que l'on s'apprête à faire. Le « eu » de 그 se dit lèvres étirées, sans les arrondir : un son entre « eu » et « ou ».",
+                  "literal": "juste un-peu je-vais-faire-le-tour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "바지를 찾고 있어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "바지를 찾고 있어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "bajireul chatgo isseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for trousers.",
+                  "note": "Verb stem + 고 있어요 = to be doing. 를 marks the object. Swap in 치마 (skirt), 셔츠 (shirt), 신발 (shoes).",
+                  "literal": "trousers [object] looking-for am"
+                },
+                "fr": {
+                  "meaning": "Je cherche un pantalon.",
+                  "note": "Radical du verbe + 고 있어요 = être en train de. La particule 를 marque l'objet. Remplacez 바지 par 치마 (chima, jupe), 셔츠 (syeocheu, chemise), 신발 (sinbal, chaussures).",
+                  "literal": "pantalon [objet] en-train-de-chercher suis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:how_about_this",
+              "key": "how_about_this",
+              "intentKey": "offer_options",
+              "slotId": "how_about_this",
+              "speaker": "character",
+              "text": "이건 어떠세요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "이건 어떠세요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "igeon eotteoseyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about this one?",
+                  "note": "이건 is short for 이것은, 'this one' + topic. 어떠세요 is the honorific 'how is it (for you)?'.",
+                  "literal": "this-one [topic] how-is(honorific)"
+                },
+                "fr": {
+                  "meaning": "Que pensez-vous de celui-ci ?",
+                  "note": "이건 est la contraction de 이것은 : « ceci » + particule de thème. 어떠세요 = « comment est-ce (pour vous) ? », à la forme honorifique.",
+                  "literal": "ceci [thème] comment-est(honorifique)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:try_on",
+              "key": "try_on",
+              "intentKey": "ask_permission",
+              "slotId": "try_on",
+              "speaker": "learner",
+              "text": "입어 봐도 돼요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "입어 봐도 돼요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ibeo bwado dwaeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "May I try it on?",
+                  "note": "Verb + 도 돼요? asks permission, as in chapter 1's 타도 돼요? 입어 보다 = to try on (clothes); for shoes say 신어 봐도 돼요?",
+                  "literal": "wearing try-even is-okay"
+                },
+                "fr": {
+                  "meaning": "Je peux l'essayer ?",
+                  "note": "Verbe + 도 돼요 ? = « est-ce que je peux… ? », comme 타도 돼요 ? au chapitre 1. 입어 보다 = essayer un vêtement ; pour des chaussures : 신어 봐도 돼요 ? 돼요 se prononce « dwè-yo ».",
+                  "literal": "porter essayer-même ça-va"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "돼요 is one quick glide: dweh-yo."
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:fitting_room",
+              "key": "fitting_room",
+              "intentKey": "grant_permission",
+              "slotId": "fitting_room",
+              "speaker": "character",
+              "text": "네, 탈의실은 저쪽이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "네, 탈의실은 저쪽이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ne, taruisireun jeojjogieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, the fitting room is over there.",
+                  "note": "이쪽 (this way), 그쪽 (that way, near you), 저쪽 (over there). 은 marks the topic.",
+                  "literal": "yes, fitting-room [topic] that-side-is"
+                },
+                "fr": {
+                  "meaning": "Oui, la cabine d'essayage est par là-bas.",
+                  "note": "이쪽 (par ici), 그쪽 (par là, près de vous), 저쪽 (là-bas). La particule 은 marque le thème. Le ㅉ de 쪽 est un « tch » tendu, sans souffle.",
+                  "literal": "oui, cabine-d'essayage [thème] ce-côté-là-est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "좀 더 큰 사이즈 있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "좀 더 큰 사이즈 있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jom deo keun saijeu isseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a slightly bigger size?",
+                  "note": "좀 더 = a little more; 큰 = big, 작은 = small. Many small shops sell 'free size' (프리 사이즈), one size only.",
+                  "literal": "a-bit more big size exists"
+                },
+                "fr": {
+                  "meaning": "Vous avez une taille un peu plus grande ?",
+                  "note": "좀 더 = un peu plus ; 큰 (keun) = grand, 작은 (jageun) = petit. Beaucoup de petites boutiques vendent en taille unique, « free size » (프리 사이즈). Ce qui qualifie un nom se place toujours avant lui.",
+                  "literal": "un-peu plus grande taille il-y-a"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "이 바지 얼마예요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "이 바지 얼마예요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "i baji eolmayeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are these trousers?",
+                  "note": "이 + noun = this…; 얼마예요? = how much is it? On its own, 이거 얼마예요? works for anything you can point at.",
+                  "literal": "this trousers how-much-is"
+                },
+                "fr": {
+                  "meaning": "Combien coûte ce pantalon ?",
+                  "note": "이 + nom = ce…-ci ; 얼마예요 ? = c'est combien ? Pour tout ce que l'on peut montrer du doigt : 이거 얼마예요 ? Le « eo » de 얼 est un o ouvert, comme dans « or ».",
+                  "literal": "ce pantalon combien-c'est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "삼만 오천 원이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "삼만 오천 원이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "samman ocheon wonieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's 35,000 won.",
+                  "note": "만 = 10,000: 35,000 is 'three ten-thousands, five thousand'. Prices always use Sino-Korean numbers (일, 이, 삼…).",
+                  "literal": "three-ten-thousand five-thousand won-is"
+                },
+                "fr": {
+                  "meaning": "Ça fait 35 000 wons.",
+                  "note": "만 (man) = 10 000 : 35 000 se dit « trois dix-mille cinq mille ». Les prix utilisent toujours les nombres sino-coréens (일, 이, 삼…).",
+                  "literal": "trois-dix-mille cinq-mille wons-c'est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "그럼 이걸로 할게요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "그럼 이걸로 할게요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "geureom igeollo halgeyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then I'll take this one.",
+                  "note": "이걸로 = 이것 (this) + 으로 (as, with): the particle for the option you choose. 할게요 = I'll do, I'll go for.",
+                  "literal": "then this-one-with I-will-do"
+                },
+                "fr": {
+                  "meaning": "Alors, je prends celui-ci.",
+                  "note": "이걸로 = 이것 (ceci) + 으로, la particule de l'option choisie, déjà vue dans 아이스로 주세요. 할게요 = « je vais faire », c'est-à-dire « je prends ».",
+                  "literal": "alors avec-ceci je-vais-faire"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "카드 돼요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "카드 돼요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "kadeu dwaeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards?",
+                  "note": "Literally 'card works?'. Cards are accepted almost everywhere in Korea, even for small amounts. Cash is 현금.",
+                  "literal": "card works"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte ?",
+                  "note": "Mot à mot « carte, ça marche ? ». La carte est acceptée presque partout en Corée, même pour de petites sommes. Espèces = 현금 (hyeongeum). Le ㅋ de 카드 est soufflé, comme un k suivi d'un léger h.",
+                  "literal": "carte ça-marche"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ㅋ is a k with a strong puff of air; the eu in 드 is very short."
+            },
+            {
+              "id": "korean_ch2:korean_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "다른 색도 있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "다른 색도 있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "dareun saekdo isseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have other colours too?",
+                  "note": "다른 = other; 도 = also, too. Colours: 검은색 (black), 흰색 (white), 파란색 (blue), 빨간색 (red).",
+                  "literal": "other colour-also exists"
+                },
+                "fr": {
+                  "meaning": "Vous avez aussi d'autres couleurs ?",
+                  "note": "다른 = autre ; la particule 도 = aussi. Couleurs : 검은색 (geomeunsaek, noir), 흰색 (huinsaek, blanc), 파란색 (paransaek, bleu), 빨간색 (ppalgansaek, rouge).",
+                  "literal": "autre couleur-aussi il-y-a"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "korean_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "korean_hyeonu_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Busan",
+            "fr": "Un billet de train pour Busan"
+          },
+          "sceneNotes": {
+            "en": "The ticket counter at Seoul Station on a busy morning; you are taking the KTX high-speed train to Busan.",
+            "fr": "Vous êtes au guichet de la gare de Séoul, un matin d'affluence ; vous prenez le KTX, le train à grande vitesse, pour Busan."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "부산 가는 기차표 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "부산 가는 기차표 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "busan ganeun gichapyo juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A train ticket to Busan, please.",
+                  "note": "가는 = 'going': the verb comes before the noun it describes, so 'Busan-going ticket'. 기차 = train, 표 = ticket.",
+                  "literal": "Busan going train-ticket give-please"
+                },
+                "fr": {
+                  "meaning": "Un billet de train pour Busan, s'il vous plaît.",
+                  "note": "가는 = « qui va » : en coréen, ce qui précise un nom se place avant lui, « Busan-allant billet ». 기차 (gicha) = train, 표 (pyo) = billet. Le ㅊ et le ㅍ sont soufflés, comme suivis d'un léger h.",
+                  "literal": "Busan allant billet-de-train donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "편도요, 왕복이요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "편도요, 왕복이요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "pyeondoyo, wangbogiyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": "Two short questions in a row stand for 'A or B?'. Adding 요 (이요 after a consonant) keeps a one-word answer or question polite.",
+                  "literal": "one-way(polite), round-trip(polite)"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "Deux questions courtes à la suite valent « A ou B ? ». Ajouter 요 (이요 après une consonne) suffit à rendre poli un mot isolé.",
+                  "literal": "aller-simple(poli), aller-retour(poli)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "왕복으로 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "왕복으로 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "wangbogeuro juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": "The same 로 / 으로 as in chapter 1's 아이스로 주세요: it marks the option you choose (으로 after a consonant).",
+                  "literal": "as-round-trip give-please"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": "Le même 로 / 으로 que dans 아이스로 주세요 (chapitre 1) : il marque l'option choisie (으로 après une consonne). Le ㄱ final de 왕복 se lie à la voyelle suivante : wang-bo-geu-ro.",
+                  "literal": "en-aller-retour donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "다음 기차는 몇 시에 출발해요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "다음 기차는 몇 시에 출발해요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "daeum gichaneun myeot sie chulbalhaeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "다음 = next; 몇 시 = what time; 에 marks the time. 출발하다 = to depart; 도착하다 = to arrive.",
+                  "literal": "next train [topic] what hour-at departs"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "다음 = prochain ; 몇 시 (myeot si) = quelle heure ; 에 marque le moment. 출발하다 = partir ; 도착하다 (dochakada) = arriver. Le verbe est toujours à la fin.",
+                  "literal": "prochain train [thème] quelle heure-à part"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "열 시 십오 분에 출발해요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "열 시 십오 분에 출발해요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "yeol si sibo bune chulbalhaeyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at 10:15.",
+                  "note": "Hours take native numbers (한 시, 두 시… 열 시), minutes take Sino-Korean ones (오 분, 십오 분, 삼십 분). 반 = half past.",
+                  "literal": "ten hour fifteen minute-at departs"
+                },
+                "fr": {
+                  "meaning": "Il part à 10 h 15.",
+                  "note": "Les heures se disent avec les nombres natifs (한 시, 두 시… 열 시), les minutes avec les nombres sino-coréens (오 분, 십오 분, 삼십 분). 반 (ban) = et demie.",
+                  "literal": "dix heures quinze minutes-à part"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "어른 두 장 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "어른 두 장 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "eoreun du jang juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two adults, please.",
+                  "note": "장 counts flat things such as tickets: 한 장, 두 장, 세 장. 어른 = adult, 어린이 = child.",
+                  "literal": "adult two sheets give-please"
+                },
+                "fr": {
+                  "meaning": "Deux adultes, s'il vous plaît.",
+                  "note": "장 (jang) est le compteur des objets plats, comme les billets : 한 장, 두 장, 세 장. 어른 (eoreun) = adulte, 어린이 (eorini) = enfant. L'ordre est : nom + nombre + compteur.",
+                  "literal": "adulte deux feuilles donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "어느 역에서 내려요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "어느 역에서 내려요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "eoneu yeogeseo naeryeoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I get off at?",
+                  "note": "어느 = which; 에서 marks where an action happens. 내리다 = to get off; 타다 = to get on.",
+                  "literal": "which station-at get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle gare est-ce que je descends ?",
+                  "note": "어느 (eoneu) = quel ; 에서 marque le lieu où se fait l'action. 내리다 = descendre ; 타다 = monter. Pas de « je » : le sujet se comprend d'après le contexte.",
+                  "literal": "quelle gare-à descends"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "부산역에서 내리세요. 종점이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "부산역에서 내리세요. 종점이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "busannyeogeseo naeriseyo. jongjeomieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at Busan Station. It's the last stop.",
+                  "note": "-세요 on a verb is a polite instruction: 내리세요, please get off. 종점 = terminus.",
+                  "literal": "Busan-station-at get-off-please. terminus-is"
+                },
+                "fr": {
+                  "meaning": "Descendez à la gare de Busan. C'est le terminus.",
+                  "note": "-세요 ajouté au verbe donne une consigne polie : 내리세요, descendez. 종점 (jongjeom) = terminus. À l'oral, un n s'intercale devant 역 : on dit « bou-san-nyok », d'où la romanisation busannyeok.",
+                  "literal": "gare-de-Busan-à descendez. terminus-c'est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "부산역 is said bu-san-nyeok: an n slips in before 역."
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "카드로 결제해도 돼요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "카드로 결제해도 돼요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "kadeuro gyeoljehaedo dwaeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "May I pay by card?",
+                  "note": "로 here marks the means: 카드로 = by card, 현금으로 = in cash. 결제하다 is the word for making a payment.",
+                  "literal": "by-card paying-even is-okay"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "Ici 로 marque le moyen : 카드로 = par carte, 현금으로 (hyeongeumeuro) = en espèces. 결제하다 = régler, effectuer un paiement.",
+                  "literal": "par-carte payer-même ça-va"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:insert_card",
+              "key": "insert_card",
+              "intentKey": "grant_permission",
+              "slotId": "insert_card",
+              "speaker": "character",
+              "text": "네, 여기에 카드 꽂아 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "네, 여기에 카드 꽂아 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ne, yeogie kadeu kkoja juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, please insert your card here.",
+                  "note": "You will hear this at every till: you put the card in the reader yourself. Verb + 아/어 주세요 = please do it (for me).",
+                  "literal": "yes, here-in card insert give-please"
+                },
+                "fr": {
+                  "meaning": "Oui, insérez votre carte ici, s'il vous plaît.",
+                  "note": "Vous l'entendrez à toutes les caisses : on insère soi-même sa carte dans le lecteur. Verbe + 아/어 주세요 = « faites-le (pour moi), s'il vous plaît ». Le ㄲ de 꽂아 est un « k » tendu, sans souffle.",
+                  "literal": "oui, ici-dans carte insérer donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_buy_train_ticket:one_adult",
+              "key": "one_adult",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "부산까지 어른 한 장 주세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "부산까지 어른 한 장 주세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "busankkaji eoreun han jang juseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One adult to Busan, please.",
+                  "note": "까지 = as far as, to, as in chapter 1's taxi ride. How people often ask at the counter: destination, who, how many.",
+                  "literal": "Busan-as-far-as adult one sheet give-please"
+                },
+                "fr": {
+                  "meaning": "Un adulte pour Busan, s'il vous plaît.",
+                  "note": "까지 (kkaji) = jusqu'à, déjà vu dans le taxi au chapitre 1. C'est souvent ainsi qu'on demande au guichet : la destination, puis qui, puis combien.",
+                  "literal": "Busan-jusqu'à adulte une feuille donnez-s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "korean_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "korean_eunji_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "A hot, humid summer afternoon in Myeongdong; you suddenly feel unwell and a passer-by stops to help.",
+            "fr": "Par un après-midi d'été chaud et humide, à Myeongdong, vous avez soudain un malaise ; une passante s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "저기요, 좀 도와주세요!",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "저기요, 좀 도와주세요!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jeogiyo, jom dowajuseyo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please help me!",
+                  "note": "In an emergency dial 119 for an ambulance or the fire brigade, 112 for the police. 좀 softens the request; in real danger shout 도와주세요! on its own.",
+                  "literal": "excuse-me, a-bit help-give-please"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, aidez-moi, s'il vous plaît !",
+                  "note": "En cas d'urgence : le 119 pour une ambulance ou les pompiers, le 112 pour la police. 좀 adoucit la demande ; en cas de vrai danger, criez simplement 도와주세요 ! (dowajuseyo).",
+                  "literal": "excusez-moi, un-peu aidez-s'il-vous-plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "무슨 일이에요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "무슨 일이에요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "museun irieyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the matter?",
+                  "note": "무슨 = what kind of; 일 = matter, thing that happens (also 'work').",
+                  "literal": "what-kind-of matter-is"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui se passe ?",
+                  "note": "무슨 (museun) = quel genre de ; 일 (il) = affaire, événement (et aussi « travail »). Mot à mot : « c'est quelle affaire ? ».",
+                  "literal": "quelle affaire-c'est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "갑자기 몸이 안 좋아요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "갑자기 몸이 안 좋아요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "gapjagi momi an joayo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I suddenly don't feel well.",
+                  "note": "몸이 안 좋아요, 'the body is not good', is the general way to say you feel unwell. Dizzy = 어지러워요.",
+                  "literal": "suddenly body [subject] not is-good"
+                },
+                "fr": {
+                  "meaning": "Je ne me sens pas bien, tout à coup.",
+                  "note": "몸이 안 좋아요, mot à mot « le corps n'est pas bien », est la façon générale de dire que l'on se sent mal. Avoir la tête qui tourne : 어지러워요 (eojireowoyo). Le ㅎ de 좋아요 est muet : jo-a-yo.",
+                  "literal": "soudain corps [sujet] ne-pas est-bien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "머리가 너무 아파요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "머리가 너무 아파요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "meoriga neomu apayo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My head hurts a lot.",
+                  "note": "Body part + 가/이 아파요: 배 (stomach), 이 (tooth), 목 (throat), 다리 (leg). 너무 = too much, very.",
+                  "literal": "head [subject] too-much hurts"
+                },
+                "fr": {
+                  "meaning": "J'ai très mal à la tête.",
+                  "note": "Partie du corps + 가/이 아파요 = avoir mal à… : 배 (bae, ventre), 이 (i, dent), 목 (mok, gorge), 다리 (dari, jambe). 너무 = trop, très. Pas de possessif : on comprend qu'il s'agit de vous.",
+                  "literal": "tête [sujet] trop fait-mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "괜찮으세요? 구급차 불러 드릴까요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "괜찮으세요? 구급차 불러 드릴까요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "gwaenchaneuseyo? gugeupcha bulleo deurilkkayo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you all right? Shall I call an ambulance for you?",
+                  "note": "Verb + 아/어 드릴까요? = shall I do it for you?, the respectful way to offer help. An ambulance called on 119 is free.",
+                  "literal": "are-you-okay(honorific)? ambulance call shall-I-give(humble)"
+                },
+                "fr": {
+                  "meaning": "Ça va aller ? Voulez-vous que j'appelle une ambulance ?",
+                  "note": "Verbe + 아/어 드릴까요 ? = « voulez-vous que je le fasse pour vous ? » : la façon respectueuse de proposer son aide. L'ambulance appelée au 119 est gratuite.",
+                  "literal": "ça-va(honorifique) ? ambulance appeler vous-donnerai-je(humble)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:rest",
+              "key": "rest",
+              "intentKey": "decline_offer",
+              "slotId": "rest",
+              "speaker": "learner",
+              "text": "괜찮아요, 조금 쉬면 돼요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "괜찮아요, 조금 쉬면 돼요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "gwaenchanayo, jogeum swimyeon dwaeyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's all right, I just need to rest a little.",
+                  "note": "괜찮아요 is the gentle way to turn down an offer. Verb + 면 돼요 = 'if I…, it's fine', i.e. all I need is to…",
+                  "literal": "it's-okay, a-little if-rest is-fine"
+                },
+                "fr": {
+                  "meaning": "Ça va, il me suffit de me reposer un peu.",
+                  "note": "괜찮아요 est la façon douce de décliner une offre. Verbe + 면 돼요 = « si je…, ça suffit ». 쉬 se prononce à peu près « chwi ».",
+                  "literal": "ça-va, un-peu si-repose ça-suffit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "괜찮아요 is said roughly gwen-cha-na-yo: the ㅎ is silent."
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "이 근처에 약국 있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "이 근처에 약국 있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "i geuncheoe yakguk isseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Place + 에 + thing + 있어요? = is there a… in…? Pharmacies show a big 약 sign; many close in the evening and on Sundays.",
+                  "literal": "this vicinity-in pharmacy exists"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "Lieu + 에 + chose + 있어요 ? = y a-t-il… ? Les pharmacies se repèrent à leur grande enseigne 약 (yak, médicament) ; beaucoup ferment le soir et le dimanche.",
+                  "literal": "ce voisinage-dans pharmacie il-y-a"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "저기 편의점 옆에 있어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "저기 편의점 옆에 있어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jeogi pyeonuijeom yeope isseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There's one over there, next to the convenience store.",
+                  "note": "옆에 = next to, placed after the noun: 편의점 옆에. Convenience stores (편의점) are on every corner and sell basic remedies too.",
+                  "literal": "over-there convenience-store side-at exists"
+                },
+                "fr": {
+                  "meaning": "Il y en a une là-bas, à côté de la supérette.",
+                  "note": "옆에 (yeope) = à côté de, placé après le nom : 편의점 옆에. Les supérettes ouvertes jour et nuit (편의점, pyeonuijeom) sont à tous les coins de rue et vendent aussi quelques médicaments de base.",
+                  "literal": "là-bas supérette côté-à il-y-a"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "네, 알겠어요. 감사합니다.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "네, 알겠어요. 감사합니다."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ne, algesseoyo. gamsahamnida."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I see. Thank you.",
+                  "note": "알겠어요 = 'I've got it', the polite way to show you have understood. The opposite is 모르겠어요, I don't know.",
+                  "literal": "yes, I-understand. thank-you"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci.",
+                  "note": "알겠어요 (algesseoyo) = « c'est compris » : la façon polie de montrer que l'on a saisi. Le contraire : 모르겠어요, je ne sais pas.",
+                  "literal": "oui, je-comprends. merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_emergency_ask_help:hospital",
+              "key": "hospital",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "병원에 가고 싶어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "병원에 가고 싶어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "byeongwone gago sipeoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to go to a hospital.",
+                  "note": "Verb stem + 고 싶어요 = I want to. In Korea 병원 covers both hospitals and ordinary doctors' clinics.",
+                  "literal": "hospital-to go want"
+                },
+                "fr": {
+                  "meaning": "Je voudrais aller à l'hôpital.",
+                  "note": "Radical du verbe + 고 싶어요 = je veux… En Corée, 병원 (byeongwon) désigne aussi bien l'hôpital que le cabinet d'un médecin de quartier.",
+                  "literal": "hôpital-à aller veux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "korean_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "korean_yeongsuk_host",
+          "titles": {
+            "en": "Sunday lunch with the family",
+            "fr": "Déjeuner du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour's family home; her mother, Yeong-suk, keeps filling your plate and wants to know all about your family.",
+            "fr": "Vous déjeunez un dimanche chez la famille de votre voisine ; sa mère, Yeong-suk, remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_talk_about_family:eat_up",
+              "key": "eat_up",
+              "intentKey": "welcome_someone",
+              "slotId": "eat_up",
+              "speaker": "character",
+              "text": "차린 건 없지만 많이 드세요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "차린 건 없지만 많이 드세요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "charin geon eopjiman mani deuseyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's nothing special, but please eat plenty.",
+                  "note": "A host's ritual modesty, said even over a table full of dishes. 드세요 is the honorific 'please eat', from 드시다.",
+                  "literal": "prepared thing [topic] there-is-not-but a-lot eat(honorific)-please"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas grand-chose, mais servez-vous bien.",
+                  "note": "Modestie rituelle de l'hôte, même devant une table couverte de plats. 드세요 = « mangez », à la forme honorifique (verbe 드시다). 많이 se prononce « ma-ni » : le ㅎ est muet.",
+                  "literal": "préparé chose [thème] il-n'y-a-pas-mais beaucoup mangez(honorifique)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "많이 is said ma-ni: the ㅎ is silent."
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:thanks_meal",
+              "key": "thanks_meal",
+              "intentKey": "thank",
+              "slotId": "thanks_meal",
+              "speaker": "learner",
+              "text": "잘 먹겠습니다.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "잘 먹겠습니다."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jal meokgetseumnida."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'll enjoy it. (said before eating)",
+                  "note": "Said to the host before the first bite; after the meal it becomes 잘 먹었습니다. Wait for the eldest person to start eating first.",
+                  "literal": "well I-will-eat"
+                },
+                "fr": {
+                  "meaning": "Merci pour ce repas. (avant de manger)",
+                  "note": "Se dit à l'hôte avant la première bouchée ; après le repas : 잘 먹었습니다. Attendez que la personne la plus âgée commence à manger. ㅂ devant ㄴ se prononce m : -seumnida.",
+                  "literal": "bien je-mangerai"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "-습니다 is said seum-ni-da: ㅂ before ㄴ sounds like m."
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "어머님, 잡채가 진짜 맛있어요!",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "어머님, 잡채가 진짜 맛있어요!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "eomeonim, japchaega jinjja masisseoyo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Ma'am, the japchae is really delicious!",
+                  "note": "You call a friend's or neighbour's mother 어머님 ('mother' + honorific 님). 잡채 = stir-fried glass noodles with vegetables, a party dish.",
+                  "literal": "mother(honorific), japchae [subject] really is-tasty"
+                },
+                "fr": {
+                  "meaning": "Madame, le japchae est vraiment délicieux !",
+                  "note": "On appelle la mère d'un ami ou d'une voisine 어머님 (« mère » + suffixe honorifique 님). Le 잡채 : nouilles de patate douce sautées aux légumes, un plat de fête. 진짜 (jinjja) = vraiment, avec un « tch » tendu.",
+                  "literal": "mère(honorifique), japchae [sujet] vraiment est-bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:korean_good",
+              "key": "korean_good",
+              "intentKey": "compliment",
+              "slotId": "korean_good",
+              "speaker": "character",
+              "text": "한국말을 참 잘하네요!",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "한국말을 참 잘하네요!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "hangungmareul cham jalhaneyo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Korean really well!",
+                  "note": "You will hear this after your very first 안녕하세요. The ending -네요 shows pleasant surprise. 참 = really, truly.",
+                  "literal": "Korean-language [object] truly do-well(surprise)"
+                },
+                "fr": {
+                  "meaning": "Vous parlez vraiment bien coréen !",
+                  "note": "Vous l'entendrez dès votre premier 안녕하세요. La terminaison -네요 exprime une surprise agréable. 참 (cham) = vraiment. 한국말 se prononce « han-goung-mal » : le ㄱ devient « ng » devant ㅁ.",
+                  "literal": "langue-coréenne [objet] vraiment faites-bien(surprise)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "한국말 is said han-gung-mal: ㄱ before ㅁ turns into ng."
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "아니에요, 아직 멀었어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "아니에요, 아직 멀었어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "anieyo, ajik meoreosseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not at all, I still have a long way to go.",
+                  "note": "Modesty is the expected reply to a compliment. 아직 멀었어요 is literally 'it is still far'.",
+                  "literal": "it-is-not, still is-far"
+                },
+                "fr": {
+                  "meaning": "Mais non, j'ai encore beaucoup de chemin à faire.",
+                  "note": "La modestie est la réponse attendue à un compliment ; un simple merci peut sembler prétentieux. 아직 멀었어요, mot à mot « c'est encore loin » : vous retrouvez le 멀어요 (loin) du chapitre 1.",
+                  "literal": "ce-n'est-pas, encore c'est-loin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "손주가 있으세요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "손주가 있으세요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "sonjuga isseuseyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have grandchildren?",
+                  "note": "있으세요 is the honorific of 있어요, used when asking an older person. 손주 = grandchild, 아들 = son, 딸 = daughter.",
+                  "literal": "grandchild [subject] exists(honorific)"
+                },
+                "fr": {
+                  "meaning": "Vous avez des petits-enfants ?",
+                  "note": "있으세요 est la forme honorifique de 있어요, de rigueur pour interroger une personne plus âgée. 손주 (sonju) = petit-enfant, 아들 (adeul) = fils, 딸 (ttal) = fille. « Avoir » se dit « il y a » : 가 marque ce que l'on a.",
+                  "literal": "petit-enfant [sujet] il-y-a(honorifique)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "네, 둘 있어요. 형제가 어떻게 돼요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "네, 둘 있어요. 형제가 어떻게 돼요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ne, dul isseoyo. hyeongjega eotteoke dwaeyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I have two. What about you, any brothers or sisters?",
+                  "note": "어떻게 돼요? ('how does it come to?') is the polite set way to ask about family, age or name. 형제 covers brothers and sisters.",
+                  "literal": "yes, two exist. siblings [subject] how become"
+                },
+                "fr": {
+                  "meaning": "Oui, j'en ai deux. Et vous, vous avez des frères et sœurs ?",
+                  "note": "어떻게 돼요 ? (mot à mot « ça devient comment ? ») est la formule polie pour s'enquérir de la famille, de l'âge ou du nom. 형제 (hyeongje) désigne frères et sœurs. 어떻게 se prononce « o-tto-ké ».",
+                  "literal": "oui, deux il-y-a. frères-et-sœurs [sujet] comment devient"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "남동생 한 명하고 여동생 한 명 있어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "남동생 한 명하고 여동생 한 명 있어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "namdongsaeng han myeonghago yeodongsaeng han myeong isseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have one younger brother and one younger sister.",
+                  "note": "하고 = and, between nouns. For older siblings the word depends on your own gender: 형 / 누나 if you are a man, 오빠 / 언니 if you are a woman.",
+                  "literal": "younger-brother one person-and younger-sister one person exist"
+                },
+                "fr": {
+                  "meaning": "J'ai un petit frère et une petite sœur.",
+                  "note": "하고 = et, entre deux noms. Pour les aînés, le mot dépend de votre propre sexe : 형 / 누나 (grand frère / grande sœur) si vous êtes un homme, 오빠 / 언니 si vous êtes une femme.",
+                  "literal": "petit-frère une personne-et petite-sœur une personne il-y-a"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "한국에 언제까지 있어요?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "한국에 언제까지 있어요?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "hanguge eonjekkaji isseoyo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How long are you staying in Korea?",
+                  "note": "언제 = when; 까지 = until. 있어요 means both 'there is' and 'to be / stay' somewhere.",
+                  "literal": "Korea-in when-until are"
+                },
+                "fr": {
+                  "meaning": "Vous restez en Corée jusqu'à quand ?",
+                  "note": "언제 (eonje) = quand ; 까지 = jusqu'à. 있어요 veut dire à la fois « il y a » et « être, rester » quelque part. 한국에 se lie à l'oral : han-gou-gué.",
+                  "literal": "Corée-en quand-jusqu'à êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "아직 잘 모르겠어요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "아직 잘 모르겠어요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "ajik jal moreugesseoyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm not really sure yet.",
+                  "note": "아직 = still, yet. 잘 모르겠어요, 'I don't know well', is softer and more polite than a flat 몰라요.",
+                  "literal": "yet well I-don't-know"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore très bien.",
+                  "note": "아직 (ajik) = encore, pas encore. 잘 모르겠어요, mot à mot « je ne sais pas bien », est plus doux et plus poli qu'un 몰라요 tout sec.",
+                  "literal": "encore bien je-ne-sais-pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "저는 외동이에요.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "저는 외동이에요."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "jeoneun oedongieyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "저는 = 'as for me' (저 is the humble 'I'). 외동 = only child; you can also say 형제가 없어요, I have no brothers or sisters.",
+                  "literal": "I [topic] only-child-am"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "저는 = « quant à moi » (저 est le « je » humble). 외동 (oedong) = enfant unique ; on peut dire aussi 형제가 없어요, je n'ai ni frère ni sœur. 외 se prononce à peu près « wé ».",
+                  "literal": "moi [thème] enfant-unique-suis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "korean_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "korean_jihun_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Ji-hun wants to go to the Han River this weekend, but the day he suggests does not suit you.",
+            "fr": "Votre ami Ji-hun veut aller au bord du fleuve Han ce week-end, mais le jour qu'il propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:han_river",
+              "key": "han_river",
+              "intentKey": "invite",
+              "slotId": "han_river",
+              "speaker": "character",
+              "text": "토요일에 한강 갈래?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "토요일에 한강 갈래?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "toyoire hangang gallae?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Want to go to the Han River on Saturday?",
+                  "note": "Close friends of the same age drop the polite 요: this is 반말, casual speech. -ㄹ래? asks what the other person feels like doing.",
+                  "literal": "Saturday-on Han-River want-to-go"
+                },
+                "fr": {
+                  "meaning": "Ça te dit d'aller au bord du fleuve Han samedi ?",
+                  "note": "Entre amis proches du même âge, on laisse tomber le 요 poli : c'est le 반말 (banmal), le tutoiement coréen. -ㄹ래 ? demande à l'autre ce dont il a envie. Les parcs du fleuve Han sont le lieu de sortie favori des Séoulites.",
+                  "literal": "samedi-à fleuve-Han veux-aller"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "미안, 토요일은 안 돼.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "미안, 토요일은 안 돼."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "mian, toyoireun an dwae."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, Saturday's no good for me.",
+                  "note": "미안 is the casual 'sorry'; to a stranger say 죄송해요. 안 돼 = it won't work. 은 singles out Saturday: another day might do.",
+                  "literal": "sorry, Saturday [topic] not works"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), samedi ça ne va pas être possible.",
+                  "note": "미안 (mian) est le « pardon » familier ; à un inconnu, dites 죄송해요. 안 돼 = ça ne marche pas. La particule 은 isole samedi : sous-entendu, un autre jour serait possible.",
+                  "literal": "pardon, samedi [thème] ne-pas marche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "일요일은 어때?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "일요일은 어때?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "iryoireun eottae?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday?",
+                  "note": "X은/는 어때? = how about X? The polite version just adds 요: 어때요?",
+                  "literal": "Sunday [topic] how-is"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, ça t'irait ?",
+                  "note": "X은/는 어때 ? = « et X, ça te dit ? ». La version polie ajoute simplement 요 : 어때요 ? Le ㄹ de 일요일 se lie à la voyelle suivante : i-ryo-il.",
+                  "literal": "dimanche [thème] comment-c'est"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "응, 일요일은 괜찮아.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "응, 일요일은 괜찮아."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "eung, iryoireun gwaenchana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yeah, Sunday's fine.",
+                  "note": "응 is the casual 네. 괜찮아 is 괜찮아요 without the polite 요.",
+                  "literal": "yeah, Sunday [topic] is-fine"
+                },
+                "fr": {
+                  "meaning": "Ouais, dimanche ça me va.",
+                  "note": "응 (eung) est le « oui » familier (poli : 네). 괜찮아 = 괜찮아요 sans le 요 de politesse.",
+                  "literal": "ouais, dimanche [thème] ça-va"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "한강에서 치킨 먹을까?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "한강에서 치킨 먹을까?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "hangangeseo chikin meogeulkka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we have fried chicken by the Han River?",
+                  "note": "-ㄹ까? = shall we…? Ordering fried chicken (치킨) to your picnic mat in a Han River park is a Seoul classic, often with beer: 치맥.",
+                  "literal": "Han-River-at fried-chicken shall-we-eat"
+                },
+                "fr": {
+                  "meaning": "On se mange un poulet frit au bord du fleuve Han ?",
+                  "note": "-ㄹ까 ? = « et si on… ? ». Se faire livrer du poulet frit (치킨, chikin) sur sa natte dans un parc du fleuve Han est un classique séoulite, souvent avec une bière : le 치맥 (chimaek).",
+                  "literal": "fleuve-Han-à poulet-frit mangerons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "다섯 시에 여의나루역에서 만나자.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "다섯 시에 여의나루역에서 만나자."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "daseot sie yeouinaruyeogeseo mannaja."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's meet at Yeouinaru station at five.",
+                  "note": "-자 = let's (casual). People usually meet at a subway station, often at a numbered exit. Yeouinaru (line 5) is right by the Han River park.",
+                  "literal": "five hour-at Yeouinaru-station-at let's-meet"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à cinq heures à la station Yeouinaru.",
+                  "note": "-자 = « faisons… » (familier). On se donne rendez-vous à une station de métro, souvent à une sortie numérotée. Yeouinaru (ligne 5) donne directement sur le parc du fleuve Han. 에 pour l'heure, 에서 pour le lieu.",
+                  "literal": "cinq heures-à station-Yeouinaru-à retrouvons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:noraebang",
+              "key": "noraebang",
+              "intentKey": "invite",
+              "slotId": "noraebang",
+              "speaker": "character",
+              "text": "그래. 치킨 먹고 노래방도 갈래?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "그래. 치킨 먹고 노래방도 갈래?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "geurae. chikin meokgo noraebangdo gallae?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK. Want to go to a noraebang after the chicken, too?",
+                  "note": "A 노래방 ('song room') is a private karaoke room rented by the hour. Verb stem + 고 = and then: 먹고, after eating. 도 = too.",
+                  "literal": "okay. fried-chicken eat-and song-room-too want-to-go"
+                },
+                "fr": {
+                  "meaning": "D'accord. Et après le poulet, on va aussi au noraebang ?",
+                  "note": "Le 노래방 (« salle de chant ») est un karaoké en salon privé, loué à l'heure. Radical du verbe + 고 = et ensuite : 먹고, après avoir mangé. 도 = aussi.",
+                  "literal": "d'accord. poulet-frit manger-et salle-de-chant-aussi veux-aller"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "좋아, 가자!",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "좋아, 가자!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "joa, gaja!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great, let's go!",
+                  "note": "좋아 = good, I like it (polite: 좋아요). 가자 = let's go.",
+                  "literal": "good, let's-go"
+                },
+                "fr": {
+                  "meaning": "Super, on y va !",
+                  "note": "좋아 = c'est bien, ça me plaît (poli : 좋아요). 가자 = allons-y. Le ㅎ de 좋아 est muet : « djo-a ».",
+                  "literal": "bien, allons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ㅎ in 좋아 is silent: jo-a."
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "그럼 일요일 다섯 시에 봐.",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "그럼 일요일 다섯 시에 봐."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "geureom iryoil daseot sie bwa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, see you on Sunday at five.",
+                  "note": "그럼 = so, then. 봐 is the casual form of 봐요 (from 보다, to see), as in chapter 1's 다음에 또 봐요.",
+                  "literal": "then Sunday five hour-at see"
+                },
+                "fr": {
+                  "meaning": "Alors, on se voit dimanche à cinq heures.",
+                  "note": "그럼 (geureom) = alors, donc. 봐 est la forme familière de 봐요 (verbe 보다, voir), que vous connaissez par 다음에 또 봐요 au chapitre 1.",
+                  "literal": "alors dimanche cinq heures-à voyons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "korean_ch2:korean_make_weekend_plans:film",
+              "key": "film",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "영화 보러 갈래?",
+              "forms": [
+                {
+                  "script": "Kore",
+                  "scheme": null,
+                  "text": "영화 보러 갈래?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "revised-romanization",
+                  "text": "yeonghwa boreo gallae?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Want to go and see a film?",
+                  "note": "Verb stem + (으)러 가다 = to go in order to: 보러 가다, go to see; 먹으러 가다, go to eat.",
+                  "literal": "film to-see want-to-go"
+                },
+                "fr": {
+                  "meaning": "Ça te dit d'aller voir un film ?",
+                  "note": "Radical du verbe + (으)러 가다 = aller faire quelque chose : 보러 가다, aller voir ; 먹으러 가다 (meogeureo gada), aller manger.",
+                  "literal": "film pour-voir veux-aller"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

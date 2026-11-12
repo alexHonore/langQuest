@@ -2756,6 +2756,2299 @@
           ]
         }
       ]
+    },
+    {
+      "key": "italian_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "italian",
+      "targetVarietyId": "it",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Bologna",
+        "fr": "Prendre ses marques à Bologne"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Italian (it); native review required before publishing.",
+        "Standard Italian set in Bologna: the learner says Lei to the waiter, the shop assistant, the clerk, the passer-by and the elderly host; the host and the friend say tu to the learner. A reviewer should confirm the host's tu against the learner's Lei.",
+        "Wordings to check first: \"Do solo un'occhiata, grazie.\", \"Ce l'ha in una taglia più grande?\", \"No, grazie, non c'è bisogno.\", \"Facciamo domenica?\", \"Certo, ci sto!\".",
+        "Local facts to verify: the pharmacy in Piazza Maggiore open day and night, the walk to San Luca starting at Porta Saragozza, Mestre before Venezia Santa Lucia, the sales in January and July, binario 4.",
+        "The learner's lines avoid gendered forms except the variant \"Sono figlio unico\" (figlia unica is in the note); \"La mia amica si sente male\" needs its masculine counterpart recorded."
+      ],
+      "characters": [
+        {
+          "key": "italian_luca_waiter",
+          "name": "Luca",
+          "role": "waiter",
+          "personality": "quick, proud of the home-made pasta, knows the menu by heart",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "italian_chiara_shop_assistant",
+          "name": "Chiara",
+          "role": "shop assistant",
+          "personality": "attentive, stylish, honest about what fits",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_paola_ticket_clerk",
+          "name": "Paola",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_andrea_bystander",
+          "name": "Andrea",
+          "role": "helpful bystander",
+          "personality": "calm, quick to help",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "italian_franca_host",
+          "name": "Franca",
+          "role": "host",
+          "personality": "warm, insists you eat more, curious about your family",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_matteo_friend",
+          "name": "Matteo",
+          "role": "friend",
+          "personality": "easy-going, football fan, always has a plan for the weekend",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "italian_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "italian_luca_waiter",
+          "titles": {
+            "en": "Dinner at the trattoria",
+            "fr": "Dîner à la trattoria"
+          },
+          "sceneNotes": {
+            "en": "A small family trattoria under the porticoes of Bologna on a busy evening; the waiter is proud of the home-made tagliatelle al ragù.",
+            "fr": "Vous dînez dans une petite trattoria familiale sous les arcades de Bologne, un soir d'affluence ; le serveur est fier des tagliatelles au ragù faites maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Buonasera! Quanti siete?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buonasera! Quanti siete?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many are you?",
+                  "note": "Siete is the plural 'you are': the waiter is speaking to your whole group. You may also hear Avete prenotato? (have you booked?).",
+                  "literal": "good-evening! how-many are-you(all)"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous êtes combien ?",
+                  "note": "« Siete » = vous êtes, au pluriel (voi) : le serveur s'adresse à tout le groupe. On entend aussi « Avete prenotato? » (vous avez réservé ?).",
+                  "literal": "bonsoir ! combien êtes-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Un tavolo per due, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un tavolo per due, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Change the number as needed: per uno, per tre, per quattro.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "Changez le nombre : per uno, per tre, per quattro. « Tavolo » est masculin et s'accentue sur la première syllabe : TA-vo-lo.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the first syllable: TAH-vo-lo."
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Che cosa ci consiglia?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che cosa ci consiglia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Consiglia is the polite Lei form; to a friend you would say Che cosa ci consigli?",
+                  "literal": "what thing to-us you-recommend"
+                },
+                "fr": {
+                  "meaning": "Que nous conseillez-vous ?",
+                  "note": "« Consiglia » est la forme de politesse (Lei), l'équivalent du « vous ». « gli » se prononce comme « lli » dans « million » : con-SI-lia.",
+                  "literal": "quelle chose nous conseille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gli is like the lli in 'million': kon-SEE-lyah."
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:speciality",
+              "key": "speciality",
+              "intentKey": "state_opinion",
+              "slotId": "speciality",
+              "speaker": "character",
+              "text": "Le tagliatelle al ragù sono fatte in casa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le tagliatelle al ragù sono fatte in casa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The tagliatelle with ragù are home-made.",
+                  "note": "In Bologna the meat sauce is called ragù and goes on fresh egg tagliatelle: nobody here serves 'spaghetti bolognese'.",
+                  "literal": "the tagliatelle with-the ragù are made in house"
+                },
+                "fr": {
+                  "meaning": "Les tagliatelles au ragù sont faites maison.",
+                  "note": "À Bologne, la sauce à la viande s'appelle « ragù » et se sert sur des tagliatelles fraîches : les « spaghettis bolognaise » n'existent pas ici.",
+                  "literal": "les tagliatelles au ragù sont faites en maison"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Che cosa c'è nel ragù?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che cosa c'è nel ragù?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is in the ragù?",
+                  "note": "C'è = there is; nel = in + il. For one ingredient: C'è il maiale? (is there pork in it?)",
+                  "literal": "what thing there-is in-the ragù"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a dans le ragù ?",
+                  "note": "« C'è » = il y a ; « nel » = in + il. Faux ami : le « ragù » est une sauce à la viande pour les pâtes, pas un ragoût.",
+                  "literal": "quelle chose il-y-a dans-le ragù"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:ragu_contents",
+              "key": "ragu_contents",
+              "intentKey": "explain_meaning",
+              "slotId": "ragu_contents",
+              "speaker": "character",
+              "text": "Carne di manzo, pancetta e pomodoro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Carne di manzo, pancetta e pomodoro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Beef, pancetta and tomato.",
+                  "note": "Manzo = beef, maiale = pork, pollo = chicken.",
+                  "literal": "meat of beef, pancetta and tomato"
+                },
+                "fr": {
+                  "meaning": "Du bœuf, de la pancetta et de la tomate.",
+                  "note": "Manzo = bœuf, maiale = porc, pollo = poulet. La pancetta est de la poitrine de porc salée ; le z de « manzo » se prononce « dz ».",
+                  "literal": "viande de bœuf, pancetta et tomate"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Per me le tagliatelle al ragù, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Per me le tagliatelle al ragù, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For me the tagliatelle with ragù, thank you.",
+                  "note": "Per me plus the dish is the simplest way to order. Pasta is a first course (primo); meat or fish follows as a secondo.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pour moi, les tagliatelles au ragù, merci.",
+                  "note": "« Per me » + le plat : la façon la plus simple de commander. Les pâtes sont un « primo » ; viande ou poisson viennent ensuite, en « secondo ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:to_drink",
+              "key": "to_drink",
+              "intentKey": "offer_options",
+              "slotId": "to_drink",
+              "speaker": "character",
+              "text": "Benissimo. E da bere?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Benissimo. E da bere?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Very good. And to drink?",
+                  "note": null,
+                  "literal": "very-well. and to drink"
+                },
+                "fr": {
+                  "meaning": "Très bien. Et comme boisson ?",
+                  "note": "« Da » + infinitif : da bere (à boire), da mangiare (à manger), exactement comme en français.",
+                  "literal": "très-bien. et à boire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:wine",
+              "key": "wine",
+              "intentKey": "request_drink",
+              "slotId": "wine",
+              "speaker": "learner",
+              "text": "Mezzo litro di vino rosso, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mezzo litro di vino rosso, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Half a litre of red wine, please.",
+                  "note": "House wine (vino della casa) comes by the carafe: un quarto, mezzo litro, un litro.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un demi-litre de vin rouge, s'il vous plaît.",
+                  "note": "Le vin de la maison (vino della casa) se commande en carafe : un quarto, mezzo litro, un litro. « Mezzo » se prononce « MÈD-dzo ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zz in mezzo is dz: MED-dzo."
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Le tagliatelle sono buonissime!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le tagliatelle sono buonissime!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The tagliatelle are delicious!",
+                  "note": "The ending -issimo means 'very'. It agrees with the dish: buonissime for le tagliatelle, buonissimo for il risotto.",
+                  "literal": "the tagliatelle are very-good"
+                },
+                "fr": {
+                  "meaning": "Les tagliatelles sont délicieuses !",
+                  "note": "Le suffixe -issimo renforce l'adjectif, comme « -issime », et s'accorde : buonissime (le tagliatelle), buonissimo (il risotto).",
+                  "literal": "les tagliatelles sont très-bonnes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Ci porta il conto, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ci porta il conto, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring us the bill, please?",
+                  "note": "The bill usually includes il coperto, a small cover charge per person; a tip is welcome but not expected.",
+                  "literal": "to-us you-bring the bill, please"
+                },
+                "fr": {
+                  "meaning": "Vous nous apportez l'addition, s'il vous plaît ?",
+                  "note": "L'addition comprend en général « il coperto », un petit forfait par personne ; le pourboire n'est pas obligatoire. « Porta » : forme de politesse (Lei).",
+                  "literal": "nous apporte le compte, par faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Avete un tavolo per due?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Avete un tavolo per due?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two?",
+                  "note": "Avete (you all have) addresses the restaurant as a whole: the natural form for asking what a place has.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux ?",
+                  "note": "« Avete » (voi, pluriel) s'adresse au restaurant dans son ensemble : la forme naturelle pour demander ce qu'un établissement propose.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "italian_chiara_shop_assistant",
+          "titles": {
+            "en": "Buying a jacket",
+            "fr": "Acheter une veste"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop under the porticoes of via dell'Indipendenza in Bologna, during the sales; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique sous les arcades de la via dell'Indipendenza, à Bologne, en pleine période de soldes ; la vendeuse est attentive et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Buongiorno! Cerca qualcosa in particolare?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buongiorno! Cerca qualcosa in particolare?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning! Are you looking for something in particular?",
+                  "note": "Cerca is the polite Lei form of cercare. You will also hear Posso aiutarla? (can I help you?).",
+                  "literal": "good-day! you-seek something in particular"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous cherchez quelque chose en particulier ?",
+                  "note": "« Cerca » est la forme de politesse (Lei) de « cercare ». « ce » se prononce « tché » : TCHÈR-ca.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Do solo un'occhiata, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Do solo un'occhiata, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just having a look, thanks.",
+                  "note": "Dare un'occhiata = to have a look (occhio = eye). Do is 'I give'.",
+                  "literal": "I-give only a glance, thanks"
+                },
+                "fr": {
+                  "meaning": "Je jette juste un coup d'œil, merci.",
+                  "note": "« Dare un'occhiata » = jeter un coup d'œil (occhio = œil) ; « do » = je donne. « cchi » se prononce « kki » : ok-KIA-ta.",
+                  "literal": "je-donne seulement un coup-d'œil, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "cchi is a hard k: ok-KYAH-tah."
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Scusi, cerco una giacca.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Scusi, cerco una giacca."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, I'm looking for a jacket.",
+                  "note": "Cercare needs no 'for'. Other items: una camicia (a shirt), un maglione (a jumper).",
+                  "literal": "excuse, I-seek a jacket"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je cherche une veste.",
+                  "note": "« Cercare » se construit sans préposition, comme « chercher ». « Giacca » se prononce « DJAK-ka », en appuyant sur le double c.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gia = jah, and hold the double c: JAHK-kah."
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:try_medium",
+              "key": "try_medium",
+              "intentKey": "offer_options",
+              "slotId": "try_medium",
+              "speaker": "character",
+              "text": "Questa è una M. Vuole provarla?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Questa è una M. Vuole provarla?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This one is an M. Would you like to try it on?",
+                  "note": "Provare = to try on. The pronoun la (it) is attached to the end of the infinitive: provarla. The fitting room is il camerino.",
+                  "literal": "this is an M. you-want to-try-it"
+                },
+                "fr": {
+                  "meaning": "Celle-ci est un M. Vous voulez l'essayer ?",
+                  "note": "« Provare » = essayer. Le pronom « la » se colle à la fin de l'infinitif : provarla. La cabine d'essayage : il camerino.",
+                  "literal": "celle-ci est une M. voulez essayer-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Ce l'ha in una taglia più grande?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce l'ha in una taglia più grande?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in a bigger size?",
+                  "note": "Ce l'ha? is the everyday 'do you have it?' (polite). Più piccola = smaller. Taglia is for clothes; shoe size is numero.",
+                  "literal": "there it you-have in a size more big"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une taille au-dessus ?",
+                  "note": "« Ce l'ha? » = vous l'avez ? (Lei) ; ce « ce » de renfort est d'usage à l'oral. « Più piccola » = plus petite ; pour les chaussures, on dit « numero ».",
+                  "literal": "y l'avez en une taille plus grande"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:here_large",
+              "key": "here_large",
+              "intentKey": "confirm_understood",
+              "slotId": "here_large",
+              "speaker": "character",
+              "text": "Certo, ecco la L.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Certo, ecco la L."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, here is the L.",
+                  "note": "Ecco = here is, here you are.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bien sûr, voici le L.",
+                  "note": "« Ecco » = voici, voilà. Les tailles sont au féminin (la taglia) : la M, la L.",
+                  "literal": "certes, voici la L"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Quanto costa questa giacca?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quanto costa questa giacca?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this jacket?",
+                  "note": "You will also hear the colloquial Quanto viene? (literally 'how much does it come?').",
+                  "literal": "how-much costs this jacket"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette veste ?",
+                  "note": "On entend aussi, plus familier, « Quanto viene? ». « qu » se prononce « kou » : KOUAN-to, KOUÈS-ta.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Sessantanove euro, è in saldo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sessantanove euro, è in saldo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sixty-nine euros, it's on sale.",
+                  "note": "The sales (i saldi) run in January and July. Euro never changes in the plural: due euro.",
+                  "literal": "sixty-nine euro, it-is in sale"
+                },
+                "fr": {
+                  "meaning": "Soixante-neuf euros, elle est en solde.",
+                  "note": "Les soldes (i saldi) ont lieu en janvier et en juillet. « Euro » est invariable : due euro ; soixante-dix se dit simplement « settanta ».",
+                  "literal": "soixante-neuf euro, est en solde"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Mi piace, la prendo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi piace, la prendo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like it, I'll take it.",
+                  "note": "La for a feminine item (la giacca), lo for a masculine one (il maglione).",
+                  "literal": "to-me it-pleases, it I-take"
+                },
+                "fr": {
+                  "meaning": "Elle me plaît, je la prends.",
+                  "note": "« Piacere » se construit comme « plaire » : mi piace. « La » pour un féminin (la giacca), « lo » pour un masculin (il maglione).",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Posso pagare con la carta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posso pagare con la carta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Shops may ask Bancomat o carta di credito? (debit or credit card?). In contanti = in cash.",
+                  "literal": "can-I pay with the card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "On vous demandera peut-être « Bancomat o carta di credito? » (débit ou crédit ?). « In contanti » = en espèces.",
+                  "literal": "puis-je payer avec la carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_shop_for_clothes:just_browsing",
+              "key": "just_browsing",
+              "intentKey": "say_just_looking",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sto solo guardando, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sto solo guardando, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Sto guardando is the -ing form: stare + the verb in -ando or -endo.",
+                  "literal": "I-am only looking, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Sto guardando » = je suis en train de regarder : stare + gérondif. « gua » se prononce « goua ».",
+                  "literal": "je-suis seulement regardant, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "italian_paola_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Venice",
+            "fr": "Un billet de train pour Venise"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Bologna Centrale on a busy morning; the next train to Venice leaves in a few minutes.",
+            "fr": "Vous êtes au guichet de la gare de Bologna Centrale, un matin chargé ; le prochain train pour Venise part dans quelques minutes."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Un biglietto per Venezia, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un biglietto per Venezia, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Venice, please.",
+                  "note": "A paper ticket for a regional train must be stamped in the platform machine before you board (convalidare).",
+                  "literal": "a ticket for Venice, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Venise, s'il vous plaît.",
+                  "note": "Un billet papier de train régional se composte avant de monter (convalidare). « gli » = « lli » : bi-LIÈT-to ; le z de « Venezia » se prononce « ts ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gli = lly: bee-LYET-to; z = ts: veh-NET-syah."
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Solo andata o andata e ritorno?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Solo andata o andata e ritorno?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": null,
+                  "literal": "only going or going and return"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": null,
+                  "literal": "seulement aller ou aller et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "Andata e ritorno, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Andata e ritorno, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, thank you.",
+                  "note": null,
+                  "literal": "going and return, thanks"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, merci.",
+                  "note": "« Andata » vient de « andare » (aller) : c'est exactement « l'aller ». Pour un aller simple : « Solo andata, grazie. »",
+                  "literal": "aller et retour, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:alone",
+              "key": "alone",
+              "intentKey": "ask_clarification",
+              "slotId": "alone",
+              "speaker": "character",
+              "text": "Viaggia da solo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Viaggia da solo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you travelling alone?",
+                  "note": "Da solo to a man, da sola to a woman.",
+                  "literal": "you-travel by alone"
+                },
+                "fr": {
+                  "meaning": "Vous voyagez seul ?",
+                  "note": "« Da solo » à un homme, « da sola » à une femme. « ggi » se prononce « ddj » : VIAD-dja.",
+                  "literal": "voyage de seul"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "No, siamo in due.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, siamo in due."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there are two of us.",
+                  "note": "Siamo in due, in tre, in quattro = there are two, three, four of us. For the tickets themselves: Due biglietti, per favore.",
+                  "literal": "no, we-are in two"
+                },
+                "fr": {
+                  "meaning": "Non, nous sommes deux.",
+                  "note": "L'italien ajoute « in » : siamo in due, in tre, in quattro. Pour les billets eux-mêmes : « Due biglietti, per favore. »",
+                  "literal": "non, nous-sommes en deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "A che ora parte il prossimo treno?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A che ora parte il prossimo treno?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": null,
+                  "literal": "at what hour leaves the next train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "Presque du mot à mot. « che » se prononce « ké » : le h ne sert qu'à garder le son [k].",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Parte alle dieci e venti dal binario quattro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parte alle dieci e venti dal binario quattro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at twenty past ten from platform four.",
+                  "note": "Hours take alle: alle dieci. E un quarto = quarter past; e mezza = half past. Binario = platform.",
+                  "literal": "it-leaves at-the ten and twenty from-the platform four"
+                },
+                "fr": {
+                  "meaning": "Il part à dix heures vingt, voie quatre.",
+                  "note": "L'heure se dit avec « alle » (a + le) : alle dieci. « E un quarto » = et quart ; « e mezza » = et demie ; « binario » = la voie.",
+                  "literal": "part à-les dix et vingt de-la voie quatre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "A quale stazione devo scendere?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A quale stazione devo scendere?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I have to get off at?",
+                  "note": "Dovere + infinitive = to have to. Scendere = to get off; salire = to get on.",
+                  "literal": "at which station I-must get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Scendere » = descendre, « salire » = monter (rien à voir avec « salir »). « sce » se prononce « ché » : CHÈN-dé-ré.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "sce = sheh: SHEN-deh-reh."
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "A Venezia Santa Lucia, dopo Mestre.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A Venezia Santa Lucia, dopo Mestre."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At Venezia Santa Lucia, after Mestre.",
+                  "note": "Venezia Mestre is on the mainland: stay on the train. Santa Lucia, the last stop, is right on the Grand Canal.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À Venezia Santa Lucia, après Mestre.",
+                  "note": "Venezia Mestre est sur la terre ferme : restez dans le train. Santa Lucia, le terminus, donne directement sur le Grand Canal.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Si può pagare con la carta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Si può pagare con la carta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it possible to pay by card?",
+                  "note": "Si può = 'one can': the impersonal way to ask whether something is possible or allowed.",
+                  "literal": "oneself can pay with the card"
+                },
+                "fr": {
+                  "meaning": "On peut payer par carte ?",
+                  "note": "« Si può » = « on peut » : le « si » impersonnel remplace notre « on ». Très utile : « Si può entrare? » (on peut entrer ?).",
+                  "literal": "se peut payer avec la carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_buy_train_ticket:two_returns",
+              "key": "two_returns",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Due biglietti per Venezia, andata e ritorno.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Due biglietti per Venezia, andata e ritorno."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets to Venice, return.",
+                  "note": "Everything in one go, as people often say it at the counter. Biglietto becomes biglietti in the plural.",
+                  "literal": "two tickets for Venice, going and return"
+                },
+                "fr": {
+                  "meaning": "Deux billets pour Venise, aller-retour.",
+                  "note": "Tout en une phrase, comme on le dit souvent au guichet. Le pluriel des noms en -o se fait en -i : un biglietto, due biglietti.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "italian_andrea_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "In Piazza Maggiore on a hot July afternoon, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Sur la Piazza Maggiore, par un après-midi de juillet très chaud, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Aiuto! Mi può aiutare?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aiuto! Mi può aiutare?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Can you help me?",
+                  "note": "For a real emergency anywhere in Italy, call 112.",
+                  "literal": "help! me you-can help"
+                },
+                "fr": {
+                  "meaning": "À l'aide ! Vous pouvez m'aider ?",
+                  "note": "En cas d'urgence, partout en Italie, composez le 112. « Aiuto » se prononce « a-YOU-to » ; « può » est la forme de politesse (Lei).",
+                  "literal": "aide ! me pouvez aider"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Three clear vowels: ah-YOO-toh."
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Che cosa è successo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che cosa è successo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": "Succedere (to happen) forms its past with essere: è successo.",
+                  "literal": "what thing is happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Succedere » = se passer, arriver (et non « succéder ») ; « cce » se prononce « ttché » : sout-TCHÈS-so.",
+                  "literal": "quelle chose est arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "La mia amica si sente male.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La mia amica si sente male."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is feeling unwell.",
+                  "note": "Italian keeps the article before 'my': la mia amica. For a man: Il mio amico si sente male.",
+                  "literal": "the my friend herself feels badly"
+                },
+                "fr": {
+                  "meaning": "Mon amie se sent mal.",
+                  "note": "L'italien garde l'article devant le possessif : la mia amica. Pour un homme : « Il mio amico si sente male. »",
+                  "literal": "la mon amie se sent mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Ha un forte mal di testa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ha un forte mal di testa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a bad headache.",
+                  "note": "Mal di + body part: mal di testa, mal di stomaco, mal di denti. 'She feels dizzy' is Le gira la testa.",
+                  "literal": "she-has a strong ache of head"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "« Mal di » + partie du corps : mal di testa, mal di stomaco. Sans pronom sujet, « ha » vaut pour il ou elle ; « elle a la tête qui tourne » : le gira la testa.",
+                  "literal": "a un fort mal de tête"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "Oddio! Chiamo un'ambulanza?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oddio! Chiamo un'ambulanza?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh dear! Shall I call an ambulance?",
+                  "note": "The plain present, said as a question, is how Italians offer to do something: Chiamo? = shall I call?",
+                  "literal": "oh-God! I-call an ambulance"
+                },
+                "fr": {
+                  "meaning": "Mon Dieu ! J'appelle une ambulance ?",
+                  "note": "Le présent, sur un ton interrogatif, suffit pour proposer, comme en français. « chi » se prononce « ki » : KIA-mo ; le z de « ambulanza » = « ts ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:no_need",
+              "key": "no_need",
+              "intentKey": "decline_offer",
+              "slotId": "no_need",
+              "speaker": "learner",
+              "text": "No, grazie, non c'è bisogno.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, grazie, non c'è bisogno."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, there's no need.",
+                  "note": null,
+                  "literal": "no, thanks, not there-is need"
+                },
+                "fr": {
+                  "meaning": "Non merci, ce n'est pas la peine.",
+                  "note": "« Non c'è bisogno » = il n'y a pas besoin. « gn » se prononce comme dans « agneau » : bi-ZO-gno.",
+                  "literal": "non, merci, n'y a besoin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "C'è una farmacia qui vicino?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C'è una farmacia qui vicino?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Pharmacies show a green cross; at night look for the farmacia di turno (duty pharmacy).",
+                  "literal": "there-is a pharmacy here near"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "Croix verte, comme en France ; la nuit, cherchez la « farmacia di turno » (de garde). Accent sur le i : far-ma-TCHI-a.",
+                  "literal": "il-y-a une pharmacie ici près"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The stress falls on the i: far-ma-CHEE-ah."
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Sì, ce n'è una qui in piazza.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sì, ce n'è una qui in piazza."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's one right here in the square.",
+                  "note": "Ce n'è una = there is one (of them). The pharmacy in Piazza Maggiore is open day and night.",
+                  "literal": "yes, there of-them is one here in square"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une ici, sur la place.",
+                  "note": "« Ce n'è una » = il y en a une : « ne » correspond exactement à notre « en ». La pharmacie de la Piazza Maggiore est ouverte jour et nuit.",
+                  "literal": "oui, y en est une ici en place"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Va bene, ho capito. Grazie!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Va bene, ho capito. Grazie!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All right, I've understood. Thank you!",
+                  "note": null,
+                  "literal": "it-goes well, I-have understood. thanks"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci !",
+                  "note": "« Ho capito » = j'ai compris ; le h de « ho » est muet. On vous demandera souvent « Capito? » (compris ?).",
+                  "literal": "va bien, ai compris. merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ho bisogno di un medico.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ho bisogno di un medico."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": null,
+                  "literal": "I-have need of a doctor"
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Avere bisogno di » = avoir besoin de, mot pour mot. « Medico » s'accentue sur la première syllabe : MÈ-di-co.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the first syllable: MEH-dee-ko."
+            }
+          ]
+        },
+        {
+          "key": "italian_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "italian_franca_host",
+          "titles": {
+            "en": "Sunday lunch with the family",
+            "fr": "Déjeuner du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at the home of your neighbour Marta's mother; Franca keeps filling your plate with lasagne and wants to know everything about your family.",
+            "fr": "Vous êtes invité au déjeuner du dimanche chez la mère de votre voisine Marta ; Franca remplit sans cesse votre assiette de lasagnes et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_talk_about_family:eat_more",
+              "key": "eat_more",
+              "intentKey": "offer_options",
+              "slotId": "eat_more",
+              "speaker": "character",
+              "text": "Mangia, mangia! Ancora un po' di lasagne?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mangia, mangia! Ancora un po' di lasagne?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Eat, eat! A little more lasagne?",
+                  "note": "An older host often says tu to a younger guest straight away. Ancora = more, again.",
+                  "literal": "eat, eat! again a little of lasagne"
+                },
+                "fr": {
+                  "meaning": "Mange, mange ! Encore un peu de lasagnes ?",
+                  "note": "Une hôtesse âgée tutoie volontiers un invité plus jeune. « Mangia » se prononce « MAN-dja » ; « gn » comme dans « agneau ».",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:more_please",
+              "key": "more_please",
+              "intentKey": "accept_offer",
+              "slotId": "more_please",
+              "speaker": "learner",
+              "text": "Sì, grazie, volentieri!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sì, grazie, volentieri!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, thank you, gladly!",
+                  "note": "To refuse kindly: No, grazie, basta così (no thanks, that's enough).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oui, merci, volontiers !",
+                  "note": "Pour refuser gentiment : « No, grazie, basta così » (non merci, ça suffit comme ça).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "vo-len-TYEH-ree."
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "È tutto squisito, signora!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "È tutto squisito, signora!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Everything is delicious, madam!",
+                  "note": "Squisito = exquisite, a warm compliment for home cooking. Signora is the respectful way to address an older woman.",
+                  "literal": "it-is all exquisite, madam"
+                },
+                "fr": {
+                  "meaning": "Tout est délicieux, madame !",
+                  "note": "« Squisito » = exquis ; « qui » se prononce « koui » : skoui-ZI-to. « Signora » s'emploie seul, sans le nom.",
+                  "literal": "est tout exquis, madame"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "squi = skwee: skwee-ZEE-toh."
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Grazie! E come parli bene l'italiano!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie! E come parli bene l'italiano!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you! And how well you speak Italian!",
+                  "note": null,
+                  "literal": "thanks! and how you-speak well the Italian"
+                },
+                "fr": {
+                  "meaning": "Merci ! Et comme tu parles bien l'italien !",
+                  "note": "« Come » + verbe = « comme … ! », sur le même modèle qu'en français. « Parli » : tutoiement.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Grazie, ma sto ancora imparando.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie, ma sto ancora imparando."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, but I'm still learning.",
+                  "note": "Sto imparando = I am learning: stare + the -ando form. Ancora here means 'still'.",
+                  "literal": "thanks, but I-am still learning"
+                },
+                "fr": {
+                  "meaning": "Merci, mais j'apprends encore.",
+                  "note": "« Sto imparando » = je suis en train d'apprendre (stare + gérondif). « Ancora » = encore, toujours.",
+                  "literal": "merci, mais je-suis encore apprenant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Lei ha nipoti, signora?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Lei ha nipoti, signora?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have grandchildren, madam?",
+                  "note": "You keep Lei with an older person even when she says tu to you. Nipoti also means nephews and nieces.",
+                  "literal": "you(formal) have grandchildren, madam"
+                },
+                "fr": {
+                  "meaning": "Vous avez des petits-enfants, madame ?",
+                  "note": "On garde le vouvoiement (Lei) avec une personne âgée, même si elle vous tutoie. « Nipoti » désigne aussi les neveux et nièces.",
+                  "literal": "vous avez petits-enfants, madame"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Sì, quattro! E tu, hai fratelli o sorelle?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sì, quattro! E tu, hai fratelli o sorelle?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, four! And you, do you have brothers or sisters?",
+                  "note": null,
+                  "literal": "yes, four! and you, you-have brothers or sisters"
+                },
+                "fr": {
+                  "meaning": "Oui, quatre ! Et toi, tu as des frères ou des sœurs ?",
+                  "note": "« Hai » = tu as (h muet) ; pas d'article partitif en italien. « qua » se prononce « koua » : KOUAT-tro.",
+                  "literal": "oui, quatre ! et toi, as frères ou sœurs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Ho un fratello e due sorelle.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ho un fratello e due sorelle."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and two sisters.",
+                  "note": "Plurals: fratello → fratelli, sorella → sorelle. The h of ho is silent.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et deux sœurs.",
+                  "note": "Pluriels : fratello → fratelli, sorella → sorelle. Le h de « ho » est muet ; prononcez bien les doubles l.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "E quanto resti a Bologna?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E quanto resti a Bologna?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how long are you staying in Bologna?",
+                  "note": "Quanto alone can mean 'how long' (quanto tempo).",
+                  "literal": "and how-much you-stay in Bologna"
+                },
+                "fr": {
+                  "meaning": "Et tu restes combien de temps à Bologne ?",
+                  "note": "« Quanto » seul peut signifier « combien de temps ». « gn » comme dans « agneau » : bo-LO-gna.",
+                  "literal": "et combien restes à Bologne"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Non lo so ancora.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non lo so ancora."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Italian keeps the pronoun lo (it): non lo so.",
+                  "literal": "not it I-know yet"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "L'italien garde le pronom « lo » : non lo so (je ne le sais pas). « Non … ancora » = pas encore.",
+                  "literal": "ne le sais encore"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sono figlio unico.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sono figlio unico."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "A woman says Sono figlia unica.",
+                  "literal": "I-am son only"
+                },
+                "fr": {
+                  "meaning": "Je suis fils unique.",
+                  "note": "Une femme dit « Sono figlia unica ». « gli » se prononce comme « lli » dans « million » : FI-lio.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gli is like the lli in 'million': FEE-lyo."
+            }
+          ]
+        },
+        {
+          "key": "italian_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "italian_matteo_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Matteo wants to take you to the stadium on Saturday, but you are busy; you settle on Sunday and a walk up to San Luca.",
+            "fr": "Votre ami Matteo veut vous emmener au stade samedi, mais vous n'êtes pas libre ; vous vous mettez d'accord pour dimanche et une montée à pied à San Luca."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:stadium_saturday",
+              "key": "stadium_saturday",
+              "intentKey": "invite",
+              "slotId": "stadium_saturday",
+              "speaker": "character",
+              "text": "Ti va di venire allo stadio sabato?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ti va di venire allo stadio sabato?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you fancy coming to the stadium on Saturday?",
+                  "note": "Ti va di …? = do you feel like …? Days take no preposition: sabato = on Saturday.",
+                  "literal": "to-you it-goes of to-come to-the stadium Saturday"
+                },
+                "fr": {
+                  "meaning": "Ça te dit de venir au stade samedi ?",
+                  "note": "« Ti va di …? » = « ça te dit de … ? ». Le Bologna FC joue au stade Dall'Ara ; « sabato » s'accentue sur la première syllabe.",
+                  "literal": "te va de venir au stade samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Mi dispiace, sabato non posso.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi dispiace, sabato non posso."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm sorry, I can't on Saturday.",
+                  "note": null,
+                  "literal": "to-me it-displeases, Saturday not I-can"
+                },
+                "fr": {
+                  "meaning": "Désolé, samedi je ne peux pas.",
+                  "note": "« Mi dispiace » = je suis désolé, mot à mot « ça me déplaît » ; invariable, pour un homme comme pour une femme.",
+                  "literal": "me déplaît, samedi ne peux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Facciamo domenica?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Facciamo domenica?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we make it Sunday?",
+                  "note": "Facciamo (let's make) plus a day or a time is the quickest way to propose one: Facciamo alle otto?",
+                  "literal": "we-make Sunday"
+                },
+                "fr": {
+                  "meaning": "On dit dimanche ?",
+                  "note": "« Facciamo » (faisons) + un jour ou une heure : la façon la plus rapide de proposer. « ccia » se prononce « ttcha » : fat-TCHA-mo.",
+                  "literal": "faisons dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "cci = ch: fah-CHAH-mo; do-MEH-nee-kah."
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Domenica per me va benissimo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Domenica per me va benissimo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sunday is perfect for me.",
+                  "note": null,
+                  "literal": "Sunday for me goes very-well"
+                },
+                "fr": {
+                  "meaning": "Dimanche, pour moi, c'est parfait.",
+                  "note": "« Va bene » = ça va, d'accord ; « va benissimo » = c'est parfait.",
+                  "literal": "dimanche pour moi va très-bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Andiamo a San Luca a piedi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Andiamo a San Luca a piedi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we walk up to San Luca?",
+                  "note": "Andiamo …? (we go?) is how you suggest an outing. The hilltop church of San Luca is reached on foot under almost four kilometres of porticoes.",
+                  "literal": "we-go to San Luca at feet"
+                },
+                "fr": {
+                  "meaning": "On monte à San Luca à pied ?",
+                  "note": "« Andiamo …? » (nous allons ?) sert à proposer une sortie. Le sanctuaire de San Luca se rejoint à pied, sous près de quatre kilomètres d'arcades.",
+                  "literal": "allons à San Luca à pieds"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Ci vediamo alle dieci a Porta Saragozza?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ci vediamo alle dieci a Porta Saragozza?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at ten at Porta Saragozza?",
+                  "note": "Ci vediamo = we'll see each other: the usual way to fix a meeting. The porticoes to San Luca start at Porta Saragozza.",
+                  "literal": "each-other we-see at-the ten at Porta Saragozza"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à dix heures à Porta Saragozza ?",
+                  "note": "« Ci vediamo » = on se voit : la formule habituelle pour fixer un rendez-vous. Les arcades de San Luca partent de Porta Saragozza.",
+                  "literal": "nous voyons à-les dix à Porta Saragozza"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:aperitivo_after",
+              "key": "aperitivo_after",
+              "intentKey": "invite",
+              "slotId": "aperitivo_after",
+              "speaker": "character",
+              "text": "Perfetto! E la sera facciamo un aperitivo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perfetto! E la sera facciamo un aperitivo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Perfect! And in the evening shall we have an aperitivo?",
+                  "note": "The aperitivo is an Italian ritual: a drink with snacks around 7 p.m., before dinner.",
+                  "literal": "perfect! and the evening we-make an aperitivo"
+                },
+                "fr": {
+                  "meaning": "Parfait ! Et le soir, on prend un apéro ?",
+                  "note": "L'aperitivo est un rituel italien : un verre et de quoi grignoter, vers 19 heures. On dit « fare un aperitivo » (faire), pas « prendre ».",
+                  "literal": "parfait ! et le soir faisons un apéritif"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Certo, ci sto!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Certo, ci sto!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, I'm in!",
+                  "note": "Ci sto (literally 'I stay in it') is the casual way to say 'count me in'.",
+                  "literal": "certain, there I-stay"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, je suis partant !",
+                  "note": "« Ci sto » (mot à mot « j'y suis ») est la façon familière de dire « j'en suis ». « ce » et « ci » se prononcent « tché », « tchi ».",
+                  "literal": "certes, j'y reste"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "CHER-toh, chee STOH."
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Allora a domenica, alle dieci!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Allora a domenica, alle dieci!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you Sunday at ten, then!",
+                  "note": "A + a day = 'see you …': a domenica, a domani (see you tomorrow).",
+                  "literal": "then to Sunday, at-the ten"
+                },
+                "fr": {
+                  "meaning": "Alors à dimanche, à dix heures !",
+                  "note": "« A domenica » = à dimanche, « a domani » = à demain : comme en français.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch2:italian_make_weekend_plans:cinema",
+              "key": "cinema",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Che ne dici di andare al cinema?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che ne dici di andare al cinema?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you say to going to the cinema?",
+                  "note": "Che ne dici di …? = how about …? A + il = al.",
+                  "literal": "what of-it you-say of to-go to-the cinema"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que tu dirais d'aller au cinéma ?",
+                  "note": "« Che ne dici di …? » = « qu'en dis-tu ? » : « ne » correspond à notre « en ». « ci » se prononce « tchi » : TCHI-né-ma.",
+                  "literal": "que en dis de aller au cinéma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

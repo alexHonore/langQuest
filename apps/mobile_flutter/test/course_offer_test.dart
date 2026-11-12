@@ -49,7 +49,9 @@ void main() {
     expect(find.textContaining('phone voices speak Modern Standard Arabic'), findsNothing);
     expect(find.text('Audio recorded by native speakers'), findsOneWidget);
     // Checked against Tatoeba: the phrases found as written there (examples.json), counted for this course.
-    expect(find.text('4 of 60 phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'), findsOneWidget);
+    // (Chapter 1's phrases were checked; chapter 2's are not in examples.json yet.)
+    final phrases = testBundle.course('arabic-moroccan', 'fr')!.missions.fold<int>(0, (n, m) => n + m.expressions.length);
+    expect(find.text('4 of $phrases phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'), findsOneWidget);
   });
 
   testWidgets('offline (no offer): nothing an account would add is promised', (t) async {

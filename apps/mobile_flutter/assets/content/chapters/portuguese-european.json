@@ -2666,6 +2666,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "portuguese_european_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "portuguese-european",
+      "targetVarietyId": "pt-PT",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Settling into Porto",
+        "fr": "S'installer à Porto"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Portuguese (European) (pt-PT); native review required before publishing.",
+        "Set in Porto (most of chapter 1's characters are from there). European usage throughout: polite third person without a pronoun and o senhor with strangers and the elderly host, tu with the friend, se faz favor, comboio, camisola, multibanco, urgências, estar a + infinitive.",
+        "Idioms a reviewer from Portugal should confirm first: 'Fico com a verde', 'Pode ser com cartão?', 'dá-te jeito / dá-me jeito', 'Sim, alinho!', 'É já ali, ao fundo da rua', 'Afinal são dois bilhetes', 'Traz-nos a conta, por favor?'.",
+        "Facts written from memory, to verify: Porto-Campanhã to Coimbra-B in about an hour, 28 euros for two singles, 'linha três' for the platform, Matosinhos on metro line A via Trindade.",
+        "Learner lines keep chapter 1's masculine default (obrigado), with the feminine in the note; the host addresses the learner in the polite third person, as the neighbour did in chapter 1."
+      ],
+      "characters": [
+        {
+          "key": "portuguese_european_joaquim_waiter",
+          "name": "Joaquim",
+          "role": "waiter",
+          "personality": "courteous, unhurried, knows what the kitchen does best",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "portuguese_european_ines_shop_assistant",
+          "name": "Inês",
+          "role": "shop assistant",
+          "personality": "polite, discreet, honest about what is left in stock",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "portuguese_european_carla_ticket_clerk",
+          "name": "Carla",
+          "role": "ticket clerk",
+          "personality": "brisk, precise, helpful",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "portuguese_european_miguel_bystander",
+          "name": "Miguel",
+          "role": "helpful bystander",
+          "personality": "calm, reassuring, knows the neighbourhood",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "portuguese_european_armando_host",
+          "name": "Armando",
+          "role": "host",
+          "personality": "courteous, proud of his baking and of his city, gently teasing",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "portuguese_european_catarina_friend",
+          "name": "Catarina",
+          "role": "friend",
+          "personality": "sporty, spontaneous, loves the beach",
+          "homeRegion": "Porto",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "portuguese_european_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "portuguese_european_joaquim_waiter",
+          "titles": {
+            "en": "Dinner at a tasca",
+            "fr": "Dîner dans une tasca"
+          },
+          "sceneNotes": {
+            "en": "A small family-run tasca near the Ribeira in Porto, at dinner time; the waiter knows exactly what is best tonight.",
+            "fr": "Vous dînez dans une petite tasca familiale près de la Ribeira, à Porto ; le serveur sait exactement ce qu'il y a de meilleur ce soir."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:how_many",
+              "key": "how_many",
+              "intentKey": "welcome_someone",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Boa noite. Quantos são?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Boa noite. Quantos são?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening. How many of you are there?",
+                  "note": "Boa noite is both the evening hello and the goodbye at night.",
+                  "literal": "good night. how-many are(you)"
+                },
+                "fr": {
+                  "meaning": "Bonsoir. Vous êtes combien ?",
+                  "note": "« Boa noite » sert à la fois de « bonsoir » et de « bonne nuit ». Le -e final de « noite » s'entend à peine.",
+                  "literal": "bonne nuit. combien êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Somos dois. Tem uma mesa livre?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Somos dois. Tem uma mesa livre?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are two of us. Do you have a free table?",
+                  "note": "Tem, with no pronoun, is the polite 'you have': the usual way to address a stranger in Portugal.",
+                  "literal": "we-are two. have(you) a table free"
+                },
+                "fr": {
+                  "meaning": "Nous sommes deux. Vous avez une table libre ?",
+                  "note": "« Tem » sans pronom, à la 3e personne : le vouvoiement courant au Portugal. Le s final se prononce « ch » : « so-mouch doïch ».",
+                  "literal": "sommes deux. a une table libre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "A final s sounds like sh: SOH-moosh doysh. The s in mesa sounds like z: MEH-zuh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "O que nos aconselha?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O que nos aconselha?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Aconselhar = to advise. After a question word the pronoun goes before the verb.",
+                  "literal": "the what to-us (you)advise"
+                },
+                "fr": {
+                  "meaning": "Que nous conseillez-vous ?",
+                  "note": "« Aconselhar » = conseiller. Après un mot interrogatif, le pronom passe devant le verbe. « lh » se prononce comme « li » dans « lien ».",
+                  "literal": "le quoi nous conseille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "lh is like the lli in 'million': uh-kon-SEH-lyuh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:house_cod",
+              "key": "house_cod",
+              "intentKey": "state_opinion",
+              "slotId": "house_cod",
+              "speaker": "character",
+              "text": "Recomendo o bacalhau à Gomes de Sá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Recomendo o bacalhau à Gomes de Sá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I recommend the bacalhau à Gomes de Sá.",
+                  "note": "A Porto recipe: salt cod baked with potatoes, onion, olives and hard-boiled egg.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je vous recommande la morue à la Gomes de Sá.",
+                  "note": "Recette née à Porto : morue au four avec pommes de terre, oignons, olives et œuf dur. « lh » = « li » de « lien » : « ba-ca-liaou ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Esse prato leva marisco?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Esse prato leva marisco?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Does that dish have shellfish in it?",
+                  "note": "Levar (to carry) is the verb for what a dish contains. Swap in ovo (egg), leite (milk), glúten.",
+                  "literal": "that dish carries shellfish"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a des fruits de mer dans ce plat ?",
+                  "note": "« Levar » (porter, emporter) dit ce que contient un plat. Remplacez par ovo (œuf), leite (lait), glúten.",
+                  "literal": "ce plat porte fruits-de-mer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:no_shellfish",
+              "key": "no_shellfish",
+              "intentKey": "confirm_order",
+              "slotId": "no_shellfish",
+              "speaker": "character",
+              "text": "Não, não leva. É só bacalhau, batata e ovo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Não, não leva. É só bacalhau, batata e ovo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it doesn't. It's just cod, potato and egg.",
+                  "note": "The answer repeats the verb: Leva? Não, não leva.",
+                  "literal": "no, not it-carries. it-is only cod, potato and egg"
+                },
+                "fr": {
+                  "meaning": "Non, il n'y en a pas. Juste de la morue, des pommes de terre et de l'œuf.",
+                  "note": "On répond en reprenant le verbe : Leva? Não, não leva. « Não » est nasal, sans prononcer de n.",
+                  "literal": "non, ne porte pas. est seulement morue, pomme-de-terre et œuf"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Então queria o bacalhau, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Então queria o bacalhau, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then I'd like the cod, please.",
+                  "note": "Queria (I wanted) is the soft way to order. Se faz favor is Portugal's everyday 'please'; por favor works too.",
+                  "literal": "then I-wanted the cod, if (it)does favour"
+                },
+                "fr": {
+                  "meaning": "Alors je voudrais la morue, s'il vous plaît.",
+                  "note": "« Queria » : l'imparfait de politesse, comme « je voulais ». « Se faz favor », souvent avalé en « s'faz favor », est le « s'il vous plaît » courant.",
+                  "literal": "alors je-voulais la morue, si fait faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:to_drink",
+              "key": "to_drink",
+              "intentKey": "ask_clarification",
+              "slotId": "to_drink",
+              "speaker": "character",
+              "text": "Muito bem. E para beber?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muito bem. E para beber?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Very good. And to drink?",
+                  "note": null,
+                  "literal": "very well. and for to-drink"
+                },
+                "fr": {
+                  "meaning": "Très bien. Et comme boisson ?",
+                  "note": "« Muito » se prononce avec une nasale : « mouin-tou ».",
+                  "literal": "très bien. et pour boire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:water",
+              "key": "water",
+              "intentKey": "request_drink",
+              "slotId": "water",
+              "speaker": "learner",
+              "text": "Uma água fresca, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Uma água fresca, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A chilled water, please.",
+                  "note": "Water comes fresca (chilled) or natural (room temperature); the waiter will often ask which.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Une eau fraîche, s'il vous plaît.",
+                  "note": "L'eau se commande « fresca » (fraîche) ou « natural » (à température ambiante). Devant une consonne, le s se prononce « ch » : « frèch-ca ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "O bacalhau está ótimo!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O bacalhau está ótimo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The cod is excellent!",
+                  "note": "Está (not é) for food you are tasting right now.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "La morue est excellente !",
+                  "note": "On dit « está » (et non « é ») pour un plat que l'on est en train de goûter. Le o final se prononce « ou » : « o-ti-mou ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Traz-nos a conta, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Traz-nos a conta, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring us the bill, please?",
+                  "note": "In Portugal the pronoun is hooked on after the verb: traz-nos (bring us), traz-me (bring me).",
+                  "literal": "(you)bring-us the bill, please"
+                },
+                "fr": {
+                  "meaning": "Vous nous apportez l'addition, s'il vous plaît ?",
+                  "note": "Au Portugal, le pronom s'accroche après le verbe avec un trait d'union : traz-nos (vous nous apportez), traz-me.",
+                  "literal": "apporte-nous le compte, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Traz-nos sounds like TRAZH-noosh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:would_like_to_pay",
+              "key": "would_like_to_pay",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Queria pagar, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Queria pagar, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to pay, please.",
+                  "note": "Another everyday way to ask for the bill. You will also hear era a conta: era (it was) softens a request.",
+                  "literal": "I-wanted to-pay, if (it)does favour"
+                },
+                "fr": {
+                  "meaning": "Je voudrais payer, s'il vous plaît.",
+                  "note": "Autre façon courante de demander l'addition. On entend aussi « era a conta » : l'imparfait « era » (c'était) adoucit la demande.",
+                  "literal": "je-voulais payer, si fait faveur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_restaurant_order_meal:francesinha",
+              "key": "francesinha",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Para mim, é uma francesinha.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Para mim, é uma francesinha."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For me, a francesinha.",
+                  "note": "Porto's famous hot sandwich: meats and melted cheese under a spicy tomato-and-beer sauce.",
+                  "literal": "for me, it-is a little-Frenchwoman"
+                },
+                "fr": {
+                  "meaning": "Pour moi, ce sera une francesinha.",
+                  "note": "La « petite Française » : le sandwich chaud de Porto, inspiré du croque-monsieur, nappé de fromage fondu et de sauce tomate à la bière.",
+                  "literal": "pour moi, c'est une petite-Française"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "portuguese_european_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "portuguese_european_ines_shop_assistant",
+          "titles": {
+            "en": "Buying a jumper",
+            "fr": "Acheter un pull"
+          },
+          "sceneNotes": {
+            "en": "A small shop on Rua de Santa Catarina, Porto's main shopping street; you want a wool jumper, but not every colour is left.",
+            "fr": "Vous entrez dans une petite boutique de la Rua de Santa Catarina, la grande rue commerçante de Porto ; vous cherchez un pull en laine, mais il ne reste pas toutes les couleurs."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:need_help",
+              "key": "need_help",
+              "intentKey": "offer_help",
+              "slotId": "need_help",
+              "speaker": "character",
+              "text": "Bom dia! Precisa de ajuda?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bom dia! Precisa de ajuda?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning! Do you need any help?",
+                  "note": "Precisar always takes de: preciso de ajuda = I need help.",
+                  "literal": "good day! (you)need of help"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous avez besoin d'aide ?",
+                  "note": "« Precisar de » = avoir besoin de. Le j de « ajuda » se prononce comme dans « jour ».",
+                  "literal": "bon jour ! a-besoin d'aide"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Estou só a ver, obrigado.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Estou só a ver, obrigado."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thank you.",
+                  "note": "Estar a + verb is how Portugal says 'to be doing': estou a ver. A woman says obrigada.",
+                  "literal": "I-am only at to-see, obliged"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Estar a » + infinitif = être en train de. Une femme dit « obrigada ». « Estou » se réduit presque à « ch-tô ».",
+                  "literal": "je-suis seulement à voir, obligé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Desculpe, procuro uma camisola de lã.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Desculpe, procuro uma camisola de lã."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, I'm looking for a wool jumper.",
+                  "note": "In Portugal a camisola is a jumper or sweater. Procurar needs no 'for'.",
+                  "literal": "excuse(me), I-seek a jumper of wool"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je cherche un pull en laine.",
+                  "note": "Deux faux amis : « procurar » veut dire chercher, et « camisola » désigne un pull, pas une camisole. « Lã » : a nasal.",
+                  "literal": "excusez, je-cherche un pull de laine"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lã is a nasal 'lang' without the g."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:we_have",
+              "key": "we_have",
+              "intentKey": "offer_options",
+              "slotId": "we_have",
+              "speaker": "character",
+              "text": "Temos estas, em verde e em cinzento.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Temos estas, em verde e em cinzento."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We have these, in green and in grey.",
+                  "note": "Cinzento is the European Portuguese word for grey.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Nous avons ceux-ci, en vert et en gris.",
+                  "note": "La couleur s'introduit par « em », comme « en ». « Cinzento » (gris) vient de « cinza », la cendre.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Tem esta em azul?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tem esta em azul?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have this one in blue?",
+                  "note": "Other colours: preto (black), branco (white), vermelho (red).",
+                  "literal": "have(you) this-one in blue"
+                },
+                "fr": {
+                  "meaning": "Vous avez celui-ci en bleu ?",
+                  "note": "« Esta » (celle-ci) est au féminin, comme « camisola ». Autres couleurs : preto (noir), branco (blanc), vermelho (rouge).",
+                  "literal": "a celle-ci en bleu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:sold_out",
+              "key": "sold_out",
+              "intentKey": "say_unavailable",
+              "slotId": "sold_out",
+              "speaker": "character",
+              "text": "Em azul já não temos, lamento.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em azul já não temos, lamento."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We don't have it in blue any more, I'm sorry.",
+                  "note": "Já não = no longer, not any more.",
+                  "literal": "in blue already not we-have, I-regret"
+                },
+                "fr": {
+                  "meaning": "En bleu, nous n'en avons plus, je regrette.",
+                  "note": "« Já não » = ne… plus (mot à mot « déjà ne pas »). « Lamento » = je regrette.",
+                  "literal": "en bleu déjà n'avons pas, je-regrette"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Quanto custa a verde?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quanto custa a verde?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is the green one?",
+                  "note": "A verde = the green one: Portuguese simply leaves out the noun.",
+                  "literal": "how-much costs the green"
+                },
+                "fr": {
+                  "meaning": "Combien coûte le vert ?",
+                  "note": "« A verde » = la verte (la camisola). Dans « quanto », le u s'entend : « kouan-tou ».",
+                  "literal": "combien coûte la verte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "São trinta e cinco euros.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "São trinta e cinco euros."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's thirty-five euros.",
+                  "note": "Prices take são (they are). Tens and units are joined with e.",
+                  "literal": "they-are thirty and five euros"
+                },
+                "fr": {
+                  "meaning": "Ça fait trente-cinq euros.",
+                  "note": "Un prix se donne avec « são » (ils sont). Dizaines et unités se relient par « e ».",
+                  "literal": "sont trente et cinq euros"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Fico com a verde.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Fico com a verde."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll take the green one.",
+                  "note": "Ficar com (to stay with) is the idiomatic 'I'll take it' when you decide to buy.",
+                  "literal": "I-stay with the green"
+                },
+                "fr": {
+                  "meaning": "Je prends le vert.",
+                  "note": "« Ficar com » (rester avec) : la tournure idiomatique pour dire que l'on prend un article.",
+                  "literal": "je-reste avec la verte"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Posso pagar com multibanco?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posso pagar com multibanco?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Multibanco is Portugal's bank-card network, and the everyday word for paying by debit card.",
+                  "literal": "can-I pay with Multibanco"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« Multibanco » est le réseau de cartes bancaires portugais : « pagar com multibanco » = payer par carte.",
+                  "literal": "puis-je payer avec Multibanco"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_shop_for_clothes:size_up",
+              "key": "size_up",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tem um tamanho acima?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tem um tamanho acima?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have the next size up?",
+                  "note": "Um tamanho acima = one size up; um tamanho abaixo = one size down.",
+                  "literal": "have(you) a size above"
+                },
+                "fr": {
+                  "meaning": "Vous avez la taille au-dessus ?",
+                  "note": "« Acima » = au-dessus ; « abaixo » = en dessous. « nh » se prononce « gn » : « ta-ma-gnou ».",
+                  "literal": "a une taille au-dessus"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "portuguese_european_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "portuguese_european_carla_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Coimbra",
+            "fr": "Un billet de train pour Coimbra"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Porto-Campanhã station on a busy morning; the next train south leaves in a few minutes.",
+            "fr": "Vous êtes au guichet de la gare de Porto-Campanhã, un matin d'affluence ; le prochain train vers le sud part dans quelques minutes."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Um bilhete para Coimbra, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Um bilhete para Coimbra, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Coimbra, please.",
+                  "note": "Bilhete is the word for any ticket in Portugal: train, bus or cinema.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un billet pour Coimbra, s'il vous plaît.",
+                  "note": "« lh » se prononce comme « li » dans « lien », et le -e final est presque muet : « bi-lièt' ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "lh is like the lli in 'million': bee-LYET. Coimbra is koo-EEM-bruh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Só ida ou ida e volta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Só ida ou ida e volta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": null,
+                  "literal": "only going or going and return"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Ida » = l'aller, « volta » = le retour.",
+                  "literal": "seulement aller ou aller et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:single",
+              "key": "single",
+              "intentKey": "choose_option",
+              "slotId": "single",
+              "speaker": "learner",
+              "text": "Só ida, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Só ida, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way, please.",
+                  "note": null,
+                  "literal": "only going, if (it)does favour"
+                },
+                "fr": {
+                  "meaning": "Un aller simple, s'il vous plaît.",
+                  "note": null,
+                  "literal": "seulement aller, si fait faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "A que horas parte o próximo comboio?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A que horas parte o próximo comboio?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "Comboio is the European word for train (Brazil says trem).",
+                  "literal": "at what hours departs the next train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "« Comboio » = train (à ne pas confondre avec « convoi ») ; le Brésil dit « trem ». Le x de « próximo » se prononce [s].",
+                  "literal": "à quelles heures part le prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The x in próximo is an s sound: PRO-see-moo."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Parte às dez e um quarto, da linha três.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parte às dez e um quarto, da linha três."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at a quarter past ten, from platform three.",
+                  "note": "E um quarto = quarter past; e meia = half past. In stations, linha means platform.",
+                  "literal": "it-departs at-the ten and a quarter, from-the line three"
+                },
+                "fr": {
+                  "meaning": "Il part à dix heures et quart, voie trois.",
+                  "note": "« E um quarto » = et quart ; « e meia » = et demie. Dans une gare, « linha » désigne la voie. « Dez » se prononce « dèch ».",
+                  "literal": "part à-les dix et un quart, de-la ligne trois"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Afinal são dois bilhetes, se faz favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Afinal são dois bilhetes, se faz favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Actually, make that two tickets, please.",
+                  "note": "Afinal = actually, after all. São dois + noun is the usual way to state a quantity when ordering.",
+                  "literal": "after-all they-are two tickets, if (it)does favour"
+                },
+                "fr": {
+                  "meaning": "Finalement, ce sera deux billets, s'il vous plaît.",
+                  "note": "« Afinal » = finalement, en fait. « São dois » + nom (ce sont deux) : la façon courante d'annoncer une quantité.",
+                  "literal": "finalement sont deux billets, si fait faveur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Em que estação tenho de sair?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em que estação tenho de sair?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I have to get off at?",
+                  "note": "Ter de + verb = to have to. Sair (to go out) is the usual verb for getting off a train or bus.",
+                  "literal": "in what station I-have of to-go-out"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Ter de » + infinitif = devoir. « Sair » (sortir) est le verbe courant pour descendre d'un train ou d'un bus.",
+                  "literal": "en quelle gare j'ai de sortir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Estação is shtuh-SOWNG, with the last syllable through the nose."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:coimbra_b",
+              "key": "coimbra_b",
+              "intentKey": "state_destination",
+              "slotId": "coimbra_b",
+              "speaker": "character",
+              "text": "Em Coimbra-B. É cerca de uma hora de viagem.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em Coimbra-B. É cerca de uma hora de viagem."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At Coimbra-B. It's about an hour's journey.",
+                  "note": "Coimbra-B is the main-line station, a little outside the old town.",
+                  "literal": "in Coimbra-B. it-is about of one hour of journey"
+                },
+                "fr": {
+                  "meaning": "À Coimbra-B. Il y a environ une heure de trajet.",
+                  "note": "Coimbra-B est la gare des grandes lignes, un peu à l'écart de la vieille ville. « Cerca de » = environ.",
+                  "literal": "en Coimbra-B. est environ une heure de voyage"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Pode ser com cartão?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pode ser com cartão?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Pode ser (can it be?) is a handy, polite way to ask whether something is all right.",
+                  "literal": "can(it) be with card"
+                },
+                "fr": {
+                  "meaning": "C'est possible par carte ?",
+                  "note": "« Pode ser » (ça peut être) : une façon simple et polie de demander si quelque chose convient.",
+                  "literal": "peut être avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Pode, sim. São vinte e oito euros.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pode, sim. São vinte e oito euros."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course. That's twenty-eight euros.",
+                  "note": "To say yes, Portuguese repeats the verb of the question: Pode? Pode, sim.",
+                  "literal": "(it)can, yes. they-are twenty and eight euros"
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr. Ça fait vingt-huit euros.",
+                  "note": "Pour dire oui, on reprend le verbe de la question : Pode? Pode, sim.",
+                  "literal": "peut, oui. sont vingt et huit euros"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_buy_train_ticket:return_ticket",
+              "key": "return_ticket",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Queria um bilhete de ida e volta.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Queria um bilhete de ida e volta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a return ticket.",
+                  "note": "The imperfect queria (I wanted) softens the request, like 'I'd like'.",
+                  "literal": "I-wanted a ticket of going and return"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un billet aller-retour.",
+                  "note": "L'imparfait « queria » adoucit la demande, comme « je voulais » en français.",
+                  "literal": "je-voulais un billet d'aller et retour"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "portuguese_european_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "portuguese_european_miguel_bystander",
+          "titles": {
+            "en": "A fall in the street",
+            "fr": "Une chute dans la rue"
+          },
+          "sceneNotes": {
+            "en": "It has rained on the steep cobbled streets of Porto's old town; you slip, hurt your ankle, and a passer-by comes over.",
+            "fr": "Il a plu sur les rues pavées et pentues du vieux Porto ; vous glissez, vous vous faites mal à la cheville et un passant s'approche."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Ajude-me, por favor!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ajude-me, por favor!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help me, please!",
+                  "note": "In real danger shout Socorro! The emergency number is 112.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "En cas de danger, criez « Socorro! ». Le numéro d'urgence est le 112, comme partout en Europe.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "j is the s of 'measure': uh-ZHOOD-muh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "O que se passou?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O que se passou?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": "Portugal uses this simple past even for something that has just happened.",
+                  "literal": "the what itself passed"
+                },
+                "fr": {
+                  "meaning": "Que s'est-il passé ?",
+                  "note": "« Passar-se » = se passer. Le portugais emploie ici le passé simple là où le français dit « s'est passé ».",
+                  "literal": "le quoi se passa"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Caí e torci o pé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Caí e torci o pé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I fell and twisted my ankle.",
+                  "note": "Torcer o pé (to twist the foot) is the everyday expression for a twisted ankle.",
+                  "literal": "I-fell and I-twisted the foot"
+                },
+                "fr": {
+                  "meaning": "Je suis tombé(e) et je me suis tordu la cheville.",
+                  "note": "« Torcer o pé » (se tordre le pied) est l'expression courante. « Caí » : deux syllabes, ca-Í.",
+                  "literal": "je-tombai et tordis le pied"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Dói-me muito o tornozelo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dói-me muito o tornozelo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My ankle hurts a lot.",
+                  "note": "Dói-me = it hurts me, then the body part with o or a: dói-me a cabeça (my head hurts).",
+                  "literal": "hurts-me much the ankle"
+                },
+                "fr": {
+                  "meaning": "J'ai très mal à la cheville.",
+                  "note": "« Dói-me » + la partie du corps avec l'article : dói-me a cabeça (j'ai mal à la tête). « Dói » se prononce « doï ».",
+                  "literal": "me-fait-mal beaucoup la cheville"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dói rhymes with 'boy'; tornozelo is toor-noo-ZEH-loo."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:calm_walk",
+              "key": "calm_walk",
+              "intentKey": "react_with_empathy",
+              "slotId": "calm_walk",
+              "speaker": "character",
+              "text": "Tenha calma. Consegue andar?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tenha calma. Consegue andar?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Stay calm. Can you walk?",
+                  "note": "Conseguir = to manage to. Tenha calma is the polite form; to a friend, tem calma.",
+                  "literal": "have calm. (you)manage to-walk"
+                },
+                "fr": {
+                  "meaning": "Gardez votre calme. Vous arrivez à marcher ?",
+                  "note": "« Conseguir » = arriver à, réussir à. « Tenha calma » est la forme polie ; à un ami : tem calma.",
+                  "literal": "ayez calme. réussit marcher"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:can_walk",
+              "key": "can_walk",
+              "intentKey": "state_opinion",
+              "slotId": "can_walk",
+              "speaker": "learner",
+              "text": "Acho que sim, mas devagar.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Acho que sim, mas devagar."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I think so, but slowly.",
+                  "note": "Acho que sim = I think so; acho que não = I don't think so.",
+                  "literal": "I-find that yes, but slowly"
+                },
+                "fr": {
+                  "meaning": "Je crois que oui, mais lentement.",
+                  "note": "« Acho que sim » = je crois que oui ; « acho que não » = je ne crois pas.",
+                  "literal": "je-trouve que oui, mais lentement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Há alguma farmácia aqui perto?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Há alguma farmácia aqui perto?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Há = there is / there are. The pharmacy on night duty is the farmácia de serviço.",
+                  "literal": "there-is some pharmacy here near"
+                },
+                "fr": {
+                  "meaning": "Y a-t-il une pharmacie près d'ici ?",
+                  "note": "« Há » = il y a, invariable ; le h est muet. La pharmacie de garde s'appelle « farmácia de serviço ».",
+                  "literal": "il-y-a quelque pharmacie ici près"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Há is just 'ah': the h is silent."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Há, sim. É já ali, ao fundo da rua.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Há, sim. É já ali, ao fundo da rua."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there is. It's just there, at the end of the street.",
+                  "note": "Já ali = just over there. Ao fundo da rua = at the far end of the street.",
+                  "literal": "there-is, yes. it-is already there, at-the bottom of-the street"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une. C'est juste là, au bout de la rue.",
+                  "note": "« Já ali » = juste là (mot à mot « déjà là »). « Ao fundo da rua » = au bout de la rue.",
+                  "literal": "il-y-a, oui. est déjà là, au fond de-la rue"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Ao fundo da rua. Percebi, obrigado!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ao fundo da rua. Percebi, obrigado!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the end of the street. Got it, thank you!",
+                  "note": "Perceber is Portugal's everyday verb for 'to understand'. A woman says obrigada.",
+                  "literal": "at-the bottom of-the street. I-understood, obliged"
+                },
+                "fr": {
+                  "meaning": "Au bout de la rue. J'ai compris, merci !",
+                  "note": "Faux ami : « perceber » veut dire comprendre, pas « percevoir ». Une femme dit « obrigada ».",
+                  "literal": "au fond de-la rue. je-compris, obligé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_emergency_ask_help:emergency_department",
+              "key": "emergency_department",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Onde ficam as urgências?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Onde ficam as urgências?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the emergency department?",
+                  "note": "As urgências (always plural) is the hospital emergency department.",
+                  "literal": "where stay the emergencies"
+                },
+                "fr": {
+                  "meaning": "Où se trouvent les urgences ?",
+                  "note": "« As urgências », toujours au pluriel, comme « les urgences ». « Ficar » (rester) sert à situer un lieu.",
+                  "literal": "où restent les urgences"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "portuguese_european_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "portuguese_european_armando_host",
+          "titles": {
+            "en": "Sunday tea at Senhor Armando's",
+            "fr": "Un dimanche chez monsieur Armando"
+          },
+          "sceneNotes": {
+            "en": "Your neighbour Fernanda takes you to her father's for Sunday tea; Senhor Armando serves his home-made cake under a wall of family photos.",
+            "fr": "Votre voisine Fernanda vous emmène goûter chez son père un dimanche ; monsieur Armando sert son gâteau maison sous un mur de photos de famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Entre, faça favor! Prove este pão de ló.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Entre, faça favor! Prove este pão de ló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, please! Try this sponge cake.",
+                  "note": "Pão de ló is Portugal's light sponge cake; Ovar, near Porto, is famous for it.",
+                  "literal": "enter, do favour! taste this bread of ló"
+                },
+                "fr": {
+                  "meaning": "Entrez, je vous en prie ! Goûtez ce pão de ló.",
+                  "note": "« Entre », « faça favor », « prove » : impératifs de politesse. Le pão de ló est la génoise portugaise ; celle d'Ovar, près de Porto, est réputée.",
+                  "literal": "entrez, faites faveur ! goûtez ce pain de ló"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "O pão de ló está mesmo bom!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O pão de ló está mesmo bom!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The sponge cake is really good!",
+                  "note": "Mesmo before an adjective means 'really': mesmo bom.",
+                  "literal": "the bread of ló is really good"
+                },
+                "fr": {
+                  "meaning": "Le pão de ló est vraiment bon !",
+                  "note": "« Mesmo » devant un adjectif = vraiment. « Pão » : « ão » nasal, sans prononcer de n.",
+                  "literal": "le pain de ló est même bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Pão is a nasal 'powng' with no hard g; ló has an open o, like 'law'."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "E fala muito bem português!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E fala muito bem português!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And you speak Portuguese very well!",
+                  "note": "No pronoun: the he/she form fala on its own is the polite 'you speak'.",
+                  "literal": "and (you)speak very well Portuguese"
+                },
+                "fr": {
+                  "meaning": "Et vous parlez très bien portugais !",
+                  "note": "Pas de pronom : « fala », à la 3e personne, suffit pour vouvoyer.",
+                  "literal": "et parle très bien portugais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Obrigado, o senhor é muito simpático.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Obrigado, o senhor é muito simpático."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, you're very kind.",
+                  "note": "O senhor (a senhora to a woman) is the respectful 'you'. A woman says obrigada.",
+                  "literal": "obliged, the gentleman is very nice"
+                },
+                "fr": {
+                  "meaning": "Merci, vous êtes très aimable.",
+                  "note": "« O senhor » (« a senhora » pour une femme) : le vouvoiement de respect. Une femme dit « obrigada ».",
+                  "literal": "obligé, le monsieur est très sympathique"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "São os seus netos, na fotografia?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "São os seus netos, na fotografia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are those your grandchildren in the photo?",
+                  "note": "Os seus = your (polite). Filhos = children, netos = grandchildren.",
+                  "literal": "are the your grandchildren, in-the photograph"
+                },
+                "fr": {
+                  "meaning": "Ce sont vos petits-enfants, sur la photo ?",
+                  "note": "« Os seus » = vos ; au Portugal, l'article précède le possessif. Filhos = enfants, netos = petits-enfants.",
+                  "literal": "sont les vos petits-enfants, dans-la photographie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:and_parents",
+              "key": "and_parents",
+              "intentKey": "ask_about_family",
+              "slotId": "and_parents",
+              "speaker": "character",
+              "text": "São, sim. E os seus pais, vivem cá?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "São, sim. E os seus pais, vivem cá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, they are. And your parents, do they live here?",
+                  "note": "Pais = parents. Cá is a very common word for 'here' in Portugal.",
+                  "literal": "they-are, yes. and the your parents, they-live here"
+                },
+                "fr": {
+                  "meaning": "Oui, ce sont eux. Et vos parents, ils vivent ici ?",
+                  "note": "« Pais » = parents ; attention, « parentes » désigne toute la parenté. « Cá » = ici, très courant au Portugal.",
+                  "literal": "sont, oui. et les vos parents, vivent ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Não, os meus pais vivem em Londres.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Não, os meus pais vivem em Londres."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, my parents live in London.",
+                  "note": "Swap in your own city. Portugal keeps the article before the possessive: os meus pais.",
+                  "literal": "no, the my parents live in London"
+                },
+                "fr": {
+                  "meaning": "Non, mes parents vivent à Londres.",
+                  "note": "Remplacez « Londres » par votre ville : em Paris, em Lyon. L'article devant le possessif est de règle au Portugal.",
+                  "literal": "non, les mes parents vivent en Londres"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:porto_or_lisbon",
+              "key": "porto_or_lisbon",
+              "intentKey": "ask_opinion",
+              "slotId": "porto_or_lisbon",
+              "speaker": "character",
+              "text": "E gosta mais do Porto ou de Lisboa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E gosta mais do Porto ou de Lisboa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And do you prefer Porto or Lisbon?",
+                  "note": "A question you will be asked in Porto, half in jest. Porto keeps its article (do Porto); Lisboa has none.",
+                  "literal": "and (you)like more of-the Porto or of Lisbon"
+                },
+                "fr": {
+                  "meaning": "Et vous préférez Porto ou Lisbonne ?",
+                  "note": "La question piège, posée en souriant à Porto. « O Porto » garde son article (do Porto), Lisbonne n'en a pas (de Lisboa).",
+                  "literal": "et aime plus du Porto ou de Lisbonne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Não sei, ainda não conheço Lisboa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Não sei, ainda não conheço Lisboa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know, I haven't been to Lisbon yet.",
+                  "note": "Conhecer = to know a place or a person; saber = to know a fact.",
+                  "literal": "not I-know, still not I-know Lisbon"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas, je ne connais pas encore Lisbonne.",
+                  "note": "« Saber » et « conhecer » se partagent comme « savoir » et « connaître ». « Ainda não » = pas encore.",
+                  "literal": "ne sais, encore ne connais Lisbonne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ç is always s: koo-NYEH-soo. Lisboa is leezh-BOH-uh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_talk_about_family:three_siblings",
+              "key": "three_siblings",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Somos três irmãos.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Somos três irmãos."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are three of us children.",
+                  "note": "The masculine plural irmãos covers brothers and sisters together.",
+                  "literal": "we-are three siblings"
+                },
+                "fr": {
+                  "meaning": "Nous sommes trois frères et sœurs.",
+                  "note": "Le masculin pluriel « irmãos » réunit frères et sœurs (irmão, irmã).",
+                  "literal": "sommes trois frères"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "portuguese_european_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "portuguese_european_catarina_friend",
+          "titles": {
+            "en": "A Sunday at the beach",
+            "fr": "Un dimanche à la plage"
+          },
+          "sceneNotes": {
+            "en": "Your friend Catarina wants to go to the beach this weekend, but Saturday does not suit you; you settle on Sunday in Matosinhos.",
+            "fr": "Votre amie Catarina veut aller à la plage ce week-end, mais samedi ne vous convient pas ; vous vous mettez d'accord sur dimanche, à Matosinhos."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:beach_saturday",
+              "key": "beach_saturday",
+              "intentKey": "invite",
+              "slotId": "beach_saturday",
+              "speaker": "character",
+              "text": "Queres ir à praia no sábado?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Queres ir à praia no sábado?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want to go to the beach on Saturday?",
+                  "note": "Queres is the tu form, used between friends.",
+                  "literal": "you-want to-go to-the beach on-the Saturday"
+                },
+                "fr": {
+                  "meaning": "Tu veux aller à la plage samedi ?",
+                  "note": "« Queres » : 2e personne (tu), entre amis. Les jours prennent « no » ou « na » : no sábado.",
+                  "literal": "veux aller à-la plage dans-le samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "No sábado não posso, desculpa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No sábado não posso, desculpa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I can't on Saturday, sorry.",
+                  "note": "Desculpa is 'sorry' to a friend (tu); to a stranger say desculpe.",
+                  "literal": "on-the Saturday not I-can, excuse"
+                },
+                "fr": {
+                  "meaning": "Samedi je ne peux pas, désolé.",
+                  "note": "« Desculpa » pour un ami (tu) ; à un inconnu, on dit « desculpe ».",
+                  "literal": "dans-le samedi ne peux, excuse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "E no domingo, dá-te jeito?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E no domingo, dá-te jeito?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday, does that suit you?",
+                  "note": "Dar jeito = to be convenient, a very Portuguese idiom: dá-me jeito (it suits me).",
+                  "literal": "and on-the Sunday, gives-you knack"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, ça t'arrange ?",
+                  "note": "« Dar jeito » = arranger, convenir : dá-me jeito (ça m'arrange), não me dá jeito (ça ne m'arrange pas).",
+                  "literal": "et dans-le dimanche, te-donne arrangement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Jeito is ZHAY-too; dá-te is DAH-tuh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Sim, no domingo dá-me jeito.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sim, no domingo dá-me jeito."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday suits me.",
+                  "note": null,
+                  "literal": "yes, on-the Sunday gives-me knack"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche ça m'arrange.",
+                  "note": "Le pronom change avec la personne : dá-te jeito, dá-me jeito.",
+                  "literal": "oui, dans-le dimanche me-donne arrangement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Vamos à praia de Matosinhos?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vamos à praia de Matosinhos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go to Matosinhos beach?",
+                  "note": "Matosinhos is Porto's big town beach, on metro line A.",
+                  "literal": "we-go to-the beach of Matosinhos"
+                },
+                "fr": {
+                  "meaning": "On va à la plage de Matosinhos ?",
+                  "note": "« Vamos » (nous allons) sert à proposer. Matosinhos est la grande plage de Porto, sur la ligne A du métro.",
+                  "literal": "allons à-la plage de Matosinhos"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "nh is like the ny in 'canyon': muh-too-ZEE-nyoosh."
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Encontramo-nos às dez na Trindade?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Encontramo-nos às dez na Trindade?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at ten at Trindade?",
+                  "note": "Encontramos + nos loses its s: encontramo-nos. Trindade is the metro station where the lines cross.",
+                  "literal": "we-meet-ourselves at-the ten in-the Trindade"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à dix heures à Trindade ?",
+                  "note": "« Encontramos » + « nos » perd son s : encontramo-nos. Trindade est la station où se croisent les lignes du métro de Porto.",
+                  "literal": "retrouvons-nous à-les dix dans-la Trindade"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:lunch_after",
+              "key": "lunch_after",
+              "intentKey": "invite",
+              "slotId": "lunch_after",
+              "speaker": "character",
+              "text": "Está bem. E depois almoçamos peixe grelhado?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Está bem. E depois almoçamos peixe grelhado?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All right. And afterwards shall we have grilled fish for lunch?",
+                  "note": "Matosinhos is known for its grilled-fish restaurants. Almoçar = to have lunch.",
+                  "literal": "it-is well. and after we-lunch fish grilled"
+                },
+                "fr": {
+                  "meaning": "D'accord. Et après, on déjeune d'un poisson grillé ?",
+                  "note": "Matosinhos est réputé pour ses restaurants de poisson grillé. « Almoçar » = déjeuner ; le petit-déjeuner se dit « pequeno-almoço ».",
+                  "literal": "est bien. et après déjeunons poisson grillé"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Sim, alinho! Adoro peixe grelhado.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sim, alinho! Adoro peixe grelhado."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I'm in! I love grilled fish.",
+                  "note": "Alinhar = to go along with a plan; alinho is the casual 'count me in'.",
+                  "literal": "yes, I-line-up! I-adore fish grilled"
+                },
+                "fr": {
+                  "meaning": "Oui, je suis partant ! J'adore le poisson grillé.",
+                  "note": "« Alinhar » (s'aligner) = être partant, en langage familier : Alinhas? Alinho! Dans « peixe », le x se prononce « ch ».",
+                  "literal": "oui, je-m'aligne ! j'adore poisson grillé"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Então até domingo, às dez!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Então até domingo, às dez!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you on Sunday at ten, then!",
+                  "note": "Até + a day or a time = see you then: até domingo, até amanhã.",
+                  "literal": "then until Sunday, at-the ten"
+                },
+                "fr": {
+                  "meaning": "Alors à dimanche, dix heures !",
+                  "note": "« Até » + un jour ou un moment = « à… » : até domingo, até amanhã (à demain).",
+                  "literal": "alors jusqu'à dimanche, à-les dix"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:foz",
+              "key": "foz",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Apetece-te ir até à Foz?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Apetece-te ir até à Foz?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you fancy going down to Foz?",
+                  "note": "Apetece-te + verb = do you feel like? Foz is where the Douro meets the sea.",
+                  "literal": "appeals-to-you to-go until to-the Foz"
+                },
+                "fr": {
+                  "meaning": "Ça te dit d'aller jusqu'à la Foz ?",
+                  "note": "« Apetece-te » + infinitif = « ça te dit de… ? ». La Foz : l'embouchure du Douro, promenade favorite au coucher du soleil.",
+                  "literal": "te-fait-envie aller jusqu'à-la Foz"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "portuguese_european_ch2:portuguese_european_make_weekend_plans:fine_by_me",
+              "key": "fine_by_me",
+              "intentKey": "accept_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Por mim, tudo bem.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Por mim, tudo bem."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine by me.",
+                  "note": "A relaxed way to agree to whatever is suggested.",
+                  "literal": "by me, all well"
+                },
+                "fr": {
+                  "meaning": "Pour moi, pas de problème.",
+                  "note": "Une façon détendue d'accepter ce que l'on vous propose.",
+                  "literal": "par moi, tout bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

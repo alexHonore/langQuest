@@ -2636,6 +2636,2299 @@
           ]
         }
       ]
+    },
+    {
+      "key": "danish_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "danish",
+      "targetVarietyId": "da",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Copenhagen",
+        "fr": "Prendre ses marques à Copenhague"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Danish (da); native review required before publishing.",
+        "Du with every character, as in chapter 1 and in everyday Danish (the formal De is not used, not even with the elderly host); I only as a plural (the table, the shop). The French meanings say vous to strangers and from the learner to the host, and the notes explain that Danish du is not familiar.",
+        "Wordings to check first: \"Jeg skal have nogle billetter til Helsingør\", \"Hvor skal vi stå af til Kronborg?\", \"Prøv den her. Den er i medium.\", \"Har du lyst til en dukkert i havnebadet på lørdag?\", \"Bagefter kunne vi spise på Reffen.\"",
+        "Facts to verify: the fare for two adults from København H to Helsingør (220 kr is an estimate) and the platform, MobilePay at a shop till, the 1813 medical helpline, Reffen's summer season, stegt flæsk med persillesovs as the 2014 national dish.",
+        "Everything is set in Copenhagen (with a day trip to Helsingør). The learner's lines avoid gendered forms except in the emergency: \"Min veninde er ved at besvime\" and \"Hun har ondt i hovedet\" need masculine counterparts (min ven, han) recorded."
+      ],
+      "characters": [
+        {
+          "key": "danish_mads_waiter",
+          "name": "Mads",
+          "role": "waiter",
+          "personality": "unhurried, friendly, proud of the old Danish classics on the menu",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "danish_camilla_shop_assistant",
+          "name": "Camilla",
+          "role": "shop assistant",
+          "personality": "straightforward, helpful, honest about what fits",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "danish_lene_ticket_clerk",
+          "name": "Lene",
+          "role": "ticket clerk",
+          "personality": "calm, precise, patient with travellers",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "danish_rasmus_bystander",
+          "name": "Rasmus",
+          "role": "helpful bystander",
+          "personality": "level-headed, kind, quick to help",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "danish_bodil_host",
+          "name": "Bodil",
+          "role": "host",
+          "personality": "Magnus's grandmother: warm, bakes for every guest, curious about your family",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "danish_magnus_friend",
+          "name": "Magnus",
+          "role": "friend",
+          "personality": "easy-going, cycles everywhere, always up for a swim in the harbour",
+          "homeRegion": "Copenhagen",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "danish_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "danish_mads_waiter",
+          "titles": {
+            "en": "Dinner at a Danish restaurant",
+            "fr": "Dîner dans un restaurant danois"
+          },
+          "sceneNotes": {
+            "en": "A small, old-fashioned restaurant in central Copenhagen on a busy evening; the waiter recommends the Danish classic of the day.",
+            "fr": "Vous dînez dans un petit restaurant à l'ancienne du centre de Copenhague, un soir d'affluence ; le serveur recommande le grand classique danois du jour."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Hej, velkommen! Har I bestilt bord?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hej, velkommen! Har I bestilt bord?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi, welcome! Have you booked a table?",
+                  "note": "I (always written with a capital, said like 'ee') is the plural 'you': the waiter is speaking to your whole table.",
+                  "literal": "hi, welcome! have you(all) ordered table"
+                },
+                "fr": {
+                  "meaning": "Bonsoir, bienvenue ! Vous avez réservé ?",
+                  "note": "« I » (toujours avec une majuscule, prononcé « i ») est le « vous » pluriel : le serveur s'adresse à toute la table. « Bestille bord » = réserver une table.",
+                  "literal": "salut, bienvenue ! avez vous commandé table"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Et bord til to, tak.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et bord til to, tak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Change the number as needed: til tre, til fire. Tak means 'thank you' and also does the job of 'please'.",
+                  "literal": "a table for two, thanks"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "Changez le nombre : til tre, til fire. « Tak » veut dire « merci » et sert aussi de « s'il vous plaît ». Dans « bord », le d est muet et le r presque avalé : « bô ».",
+                  "literal": "une table pour deux, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The d in bord is silent and the r barely there: 'boh'. Tak is short: 'tahk'."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Hvad kan du anbefale?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvad kan du anbefale?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What can you recommend?",
+                  "note": "Danes say du to everyone, waiters included: here it is simply the normal, polite 'you'.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Que pouvez-vous recommander ?",
+                  "note": "Les Danois tutoient tout le monde, serveur compris : « du » n'a rien de familier, c'est le « vous » de tous les jours. Le h et le d de « hvad » sont muets : « va ».",
+                  "literal": "quoi peux tu recommander"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hv is just v and the d of hvad is silent: 'va'. Anbefale: AN-beh-fah-leh."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "state_opinion",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Dagens ret er stegt flæsk med persillesovs.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dagens ret er stegt flæsk med persillesovs."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The dish of the day is crispy pork with parsley sauce.",
+                  "note": "Stegt flæsk med persillesovs, crispy fried pork belly with potatoes and parsley sauce, was voted Denmark's national dish in 2014.",
+                  "literal": "the-day's dish is fried pork with parsley-sauce"
+                },
+                "fr": {
+                  "meaning": "Le plat du jour, c'est la poitrine de porc grillée sauce persil.",
+                  "note": "Le « stegt flæsk med persillesovs », poitrine de porc croustillante, pommes de terre et sauce au persil, a été élu plat national du Danemark en 2014. « Dagens ret » = le plat du jour.",
+                  "literal": "du-jour plat est frit lard avec persil-sauce"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Hvad er der i sovsen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvad er der i sovsen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's in the sauce?",
+                  "note": "The definite article is a suffix: sovs (sauce), sovsen (the sauce). Swap in retten (the dish) or kagen (the cake).",
+                  "literal": "what is there in sauce-the"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a dans la sauce ?",
+                  "note": "L'article défini se colle à la fin du nom : sovs (sauce) → sovsen (la sauce). « Der er » = il y a. « Sovs » se prononce à peu près « saouss ».",
+                  "literal": "quoi est là dans sauce-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sovsen: 'SOW-sen', rhyming with 'how'."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:sauce_answer",
+              "key": "sauce_answer",
+              "intentKey": "explain_meaning",
+              "slotId": "sauce_answer",
+              "speaker": "character",
+              "text": "Smør, mel, mælk og masser af persille.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Smør, mel, mælk og masser af persille."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Butter, flour, milk and lots of parsley.",
+                  "note": "Masser af = lots of. Ask about mælk (milk) or gluten in the same way if you have an allergy.",
+                  "literal": "butter, flour, milk and masses of parsley"
+                },
+                "fr": {
+                  "meaning": "Du beurre, de la farine, du lait et plein de persil.",
+                  "note": "« Masser af » = plein de. Faux ami : « mel » n'est pas le miel mais la farine ; le miel se dit « honning ».",
+                  "literal": "beurre, farine, lait et masses de persil"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Så tager jeg dagens ret, tak.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Så tager jeg dagens ret, tak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then I'll have the dish of the day, please.",
+                  "note": "After så (then) the verb stays second and jeg moves behind it: så tager jeg. The verb is always the second element of a Danish sentence.",
+                  "literal": "then take I the-day's dish, thanks"
+                },
+                "fr": {
+                  "meaning": "Alors je prends le plat du jour, s'il vous plaît.",
+                  "note": "Après « så » (alors), le verbe reste en deuxième position et le sujet passe derrière : « så tager jeg », un peu comme « aussi prends-je ». « Tager » se dit « tar », le g est muet.",
+                  "literal": "alors prends je du-jour plat, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tager is usually said 'tar': the g is silent."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Det smager rigtig godt!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det smager rigtig godt!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It tastes really good!",
+                  "note": "Rigtig (really, literally 'right') is the everyday intensifier. Lækkert (delicious) works too: det er lækkert!",
+                  "literal": "it tastes right good"
+                },
+                "fr": {
+                  "meaning": "C'est vraiment très bon !",
+                  "note": "« Rigtig » (vraiment, mot à mot « juste ») renforce l'adjectif. « Godt » se dit « gotte », le d est muet ; « rigtig » se dit à peu près « rék-ti ».",
+                  "literal": "ça goûte vraiment bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Godt sounds like 'got' (silent d); rigtig like 'REK-tee'."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Må vi bede om regningen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Må vi bede om regningen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could we have the bill, please?",
+                  "note": "Bede om = to ask for. Service is included in Danish prices: a tip is welcome but never expected.",
+                  "literal": "may we ask for the-bill"
+                },
+                "fr": {
+                  "meaning": "Pourrions-nous avoir l'addition ?",
+                  "note": "« Bede om » = demander. Au Danemark, le service est compris : un pourboire fait plaisir mais n'est jamais attendu. « Regningen » se dit à peu près « RAÏ-ning-en ».",
+                  "literal": "pouvons nous demander addition-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Regningen: 'RYE-ning-en'. Bede: 'BAY-the', with a soft d."
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "Selvfølgelig. Jeg kommer straks med den.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Selvfølgelig. Jeg kommer straks med den."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course. I'll bring it right away.",
+                  "note": "Komme med (come with) = to bring. In selvfølgelig (of course) the v and the second g are silent: sel-FUL-yeh-lee.",
+                  "literal": "of-course. I come at-once with it"
+                },
+                "fr": {
+                  "meaning": "Bien sûr. Je vous l'apporte tout de suite.",
+                  "note": "« Komme med » (venir avec) = apporter. « Selvfølgelig » (bien sûr) se dit « sel-FEUL-yé-li » : le v et le second g sont muets.",
+                  "literal": "bien-sûr. je viens tout-de-suite avec elle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Har I et bord til to?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har I et bord til to?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two?",
+                  "note": "Handy when you walk in without booking; I here means 'you, the restaurant'.",
+                  "literal": "have you(all) a table for two"
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux ?",
+                  "note": "Pratique quand on arrive sans réservation ; « I » désigne ici le restaurant, d'où le pluriel.",
+                  "literal": "avez vous une table pour deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_restaurant_order_meal:want_meatballs",
+              "key": "want_meatballs",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Jeg vil gerne have frikadeller med kartofler.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg vil gerne have frikadeller med kartofler."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like meatballs with potatoes.",
+                  "note": "Frikadeller, fried pork meatballs, are a home-cooking classic, usually served with potatoes and brown gravy (brun sovs).",
+                  "literal": "I will gladly have meatballs with potatoes"
+                },
+                "fr": {
+                  "meaning": "Je voudrais des boulettes avec des pommes de terre.",
+                  "note": "« Jeg vil gerne have » = je voudrais (mot à mot « je veux volontiers avoir »). Les « frikadeller », boulettes de porc poêlées, sont un pilier de la cuisine familiale danoise.",
+                  "literal": "je veux volontiers avoir boulettes avec pommes-de-terre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "danish_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "danish_camilla_shop_assistant",
+          "titles": {
+            "en": "Buying a rain jacket",
+            "fr": "Acheter un imperméable"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop in Nørrebro on a rainy day; the assistant is friendly and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de Nørrebro, un jour de pluie ; la vendeuse est sympathique et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Hej! Kan jeg hjælpe dig med noget?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hej! Kan jeg hjælpe dig med noget?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi! Can I help you with anything?",
+                  "note": "Noget = something, anything. Hj- is said like y: hjælpe sounds like 'YEL-peh'.",
+                  "literal": "hi! can I help you with something"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Je peux vous aider ?",
+                  "note": "« Noget » = quelque chose. « Hj » se prononce comme le « y » de « yaourt » : hjælpe → « yèl-pe ».",
+                  "literal": "salut ! peux je aider toi avec quelque-chose"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Jeg kigger bare lidt, tak.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg kigger bare lidt, tak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Kigge = to look, bare = just, lidt = a little. Danish has no -ing form: jeg kigger is both 'I look' and 'I'm looking'.",
+                  "literal": "I look just a-little, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Kigge » = regarder, « bare » = juste, « lidt » = un peu. Comme en français, un seul présent : « jeg kigger » = je regarde, je suis en train de regarder.",
+                  "literal": "je regarde juste un-peu, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Jeg leder efter en regnjakke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg leder efter en regnjakke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a rain jacket.",
+                  "note": "Lede efter = to look for. Danes cycle in all weathers, so a good rain jacket is a must.",
+                  "literal": "I search after a rain-jacket"
+                },
+                "fr": {
+                  "meaning": "Je cherche un imperméable.",
+                  "note": "« Lede efter » = chercher : le danois ajoute « efter » (après), là où le français n'a pas de préposition. « Regn » se dit « raïn » et le j comme un « y ».",
+                  "literal": "je cherche après une pluie-veste"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Regn sounds much like English 'rain'; the j is a y: RINE-yak-keh."
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:try_this",
+              "key": "try_this",
+              "intentKey": "offer_options",
+              "slotId": "try_this",
+              "speaker": "character",
+              "text": "Prøv den her. Den er i medium.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Prøv den her. Den er i medium."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try this one. It's a medium.",
+                  "note": "Den her = this one, for an en-word like jakke. Prøve = to try, and also to try on.",
+                  "literal": "try it here. it is in medium"
+                },
+                "fr": {
+                  "meaning": "Essayez celui-ci. Il est en M.",
+                  "note": "« Den her » = celui-ci, pour un nom en « en » comme « jakke ». « Prøve » = essayer, y compris un vêtement. Le ø se prononce comme le « eu » de « peu ».",
+                  "literal": "essaie le ici. il est en medium"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Har du den i en større størrelse?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har du den i en større størrelse?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in a bigger size?",
+                  "note": "Mindre = smaller. Den stands for jakken (the jacket); for an et-word, say det.",
+                  "literal": "have you it in a bigger size"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une taille au-dessus ?",
+                  "note": "« Mindre » = plus petit. « Den » reprend « jakken » (un nom en « en ») ; pour un nom en « et », on dit « det ». Le ø de « større » se prononce comme le « eu » de « peur ».",
+                  "literal": "as tu le dans une plus-grande taille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ø is like the vowel in 'fur', said with rounded lips: STUR-er, STUR-el-seh."
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:sold_out",
+              "key": "sold_out",
+              "intentKey": "say_unavailable",
+              "slotId": "sold_out",
+              "speaker": "character",
+              "text": "Ja, men kun i sort. Den gule er udsolgt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, men kun i sort. Den gule er udsolgt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, but only in black. The yellow one is sold out.",
+                  "note": "After den (the), adjectives take -e: gul → den gule. Udsolgt = sold out.",
+                  "literal": "yes, but only in black. the yellow is sold-out"
+                },
+                "fr": {
+                  "meaning": "Oui, mais seulement en noir. Le jaune est épuisé.",
+                  "note": "Après « den » (le, la), l'adjectif prend un -e : gul → den gule. « Udsolgt » = épuisé, vendu jusqu'au dernier.",
+                  "literal": "oui, mais seulement en noir. le jaune est vendu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Hvad koster den?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvad koster den?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it?",
+                  "note": "Den still stands for the jacket; for something general, ask hvad koster det?",
+                  "literal": "what costs it"
+                },
+                "fr": {
+                  "meaning": "Il coûte combien ?",
+                  "note": "« Den » désigne toujours l'imperméable ; pour une question plus générale : « Hvad koster det? » (ça coûte combien ?).",
+                  "literal": "quoi coûte il"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Den koster seks hundrede kroner.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Den koster seks hundrede kroner."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It costs six hundred kroner.",
+                  "note": "Prices are in Danish kroner (DKK): 100 kroner is about 13 euros. One krone, two kroner.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Il coûte six cents couronnes.",
+                  "note": "Les prix sont en couronnes danoises (DKK) : 100 couronnes valent environ 13 euros. Une « krone », des « kroner ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Fint, så tager jeg den sorte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Fint, så tager jeg den sorte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine, then I'll take the black one.",
+                  "note": "Den sorte = the black one: the adjective works on its own. Notice the verb-second order again after så.",
+                  "literal": "fine, then take I the black"
+                },
+                "fr": {
+                  "meaning": "Bon, alors je prends le noir.",
+                  "note": "« Den sorte » = le noir : l'adjectif s'emploie seul, comme en français. Encore l'inversion après « så » : « så tager jeg ».",
+                  "literal": "bien, alors prends je le noir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Tager I MobilePay?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tager I MobilePay?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take MobilePay?",
+                  "note": "MobilePay is the Danish phone-payment app that almost everyone uses; bank cards are accepted almost everywhere too.",
+                  "literal": "take you(all) MobilePay"
+                },
+                "fr": {
+                  "meaning": "Vous acceptez MobilePay ?",
+                  "note": "MobilePay est l'application de paiement mobile qu'utilisent presque tous les Danois ; la carte bancaire est acceptée presque partout. « I » (vous, pluriel) désigne la boutique.",
+                  "literal": "prenez vous MobilePay"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Har du den i en anden farve?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har du den i en anden farve?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour?",
+                  "note": "Anden = other, for en-words; for et-words it is andet: et andet mønster (another pattern).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« Anden » = autre devant un nom en « en » ; devant un nom en « et », on dit « andet ». Le d de « anden » est muet : « a-nen ».",
+                  "literal": "as tu le dans une autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "danish_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "danish_lene_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Helsingør",
+            "fr": "Un billet de train pour Elseneur"
+          },
+          "sceneNotes": {
+            "en": "The ticket desk at Copenhagen Central Station on a busy morning; you and a friend want to visit Kronborg Castle in Helsingør.",
+            "fr": "Vous êtes au guichet de la gare centrale de Copenhague, un matin chargé ; avec un ami, vous voulez visiter le château de Kronborg, à Elseneur."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Jeg skal have nogle billetter til Helsingør.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg skal have nogle billetter til Helsingør."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need some tickets to Helsingør.",
+                  "note": "Jeg skal have (literally 'I shall have') is the everyday way to say what you want at a counter.",
+                  "literal": "I shall have some tickets to Helsingør"
+                },
+                "fr": {
+                  "meaning": "Il me faudrait des billets pour Elseneur.",
+                  "note": "« Jeg skal have » (mot à mot « je dois avoir ») est la façon courante de dire ce qu'on veut à un guichet. Helsingør, c'est l'Elseneur de Hamlet ; l'accent tombe sur la fin : hèl-sing-EUR.",
+                  "literal": "je dois avoir quelques billets à Helsingør"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Helsingør is stressed on the last syllable: hel-sing-UR."
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:how_many",
+              "key": "how_many",
+              "intentKey": "ask_clarification",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Hvor mange er I?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvor mange er I?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many of you are there?",
+                  "note": "Hvor mange = how many. I is the plural 'you' again.",
+                  "literal": "how many are you(all)"
+                },
+                "fr": {
+                  "meaning": "Vous êtes combien ?",
+                  "note": "Attention : « hvor » veut dire « où », mais « hvor mange » = combien, et « hvor gammel » = quel âge.",
+                  "literal": "combien nombreux êtes vous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "To voksne, tak.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "To voksne, tak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two adults, please.",
+                  "note": "Voksne = adults; children are børn. At the counter you count travellers, not tickets.",
+                  "literal": "two adults, thanks"
+                },
+                "fr": {
+                  "meaning": "Deux adultes, s'il vous plaît.",
+                  "note": "« Voksne » = adultes ; les enfants : « børn ». Au guichet, on compte les voyageurs plutôt que les billets. « To » (deux) se prononce « tô ».",
+                  "literal": "deux adultes, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Hvornår kører det næste tog?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvornår kører det næste tog?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When does the next train leave?",
+                  "note": "Trains kører (drive) in Danish. Toget = the train; det næste tog = the next train.",
+                  "literal": "when drives the next train"
+                },
+                "fr": {
+                  "meaning": "Quand part le prochain train ?",
+                  "note": "En danois, le train « roule » (køre) plutôt qu'il ne « part ». « Hvornår » = quand, se dit « vor-NOR » ; « tog » se dit « tô-ou ».",
+                  "literal": "quand roule le prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hvornår: 'vor-NOR'. Tog rhymes with 'tow'."
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Klokken halv elleve, fra spor tre.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Klokken halv elleve, fra spor tre."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At half past ten, from track three.",
+                  "note": "Careful: halv elleve (half eleven) means 10:30, half an hour before eleven. Kvart over ti = 10:15.",
+                  "literal": "the-clock half eleven, from track three"
+                },
+                "fr": {
+                  "meaning": "À dix heures et demie, voie trois.",
+                  "note": "Piège : « halv elleve » (« demi onze ») veut dire 10 h 30, la demi-heure avant onze heures. « Kvart over ti » = 10 h 15. « Spor » = la voie.",
+                  "literal": "horloge demi onze, de voie trois"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Hvor skal vi stå af til Kronborg?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvor skal vi stå af til Kronborg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do we get off for Kronborg?",
+                  "note": "Stå af = to get off (literally 'stand off'); to get on is stige på.",
+                  "literal": "where shall we stand off to Kronborg"
+                },
+                "fr": {
+                  "meaning": "Où devons-nous descendre pour Kronborg ?",
+                  "note": "« Stå af » = descendre (mot à mot « se tenir hors ») ; monter se dit « stige på ». « Skal » exprime ici ce qu'on doit faire.",
+                  "literal": "où devons nous tenir hors pour Kronborg"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "I Helsingør. Det er endestationen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I Helsingør. Det er endestationen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "In Helsingør. It's the last stop.",
+                  "note": "Kronborg, Hamlet's castle, is about a ten-minute walk from Helsingør station.",
+                  "literal": "in Helsingør. it is end-station-the"
+                },
+                "fr": {
+                  "meaning": "À Elseneur. C'est le terminus.",
+                  "note": "Kronborg, le château de Hamlet, est à une dizaine de minutes à pied de la gare d'Elseneur. « Endestationen » = la gare terminus.",
+                  "literal": "à Helsingør. c'est fin-gare-la"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Kan jeg betale med kort?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kan jeg betale med kort?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Locals mostly travel with a Rejsekort travel card or the DSB app; at the desk a bank card is fine.",
+                  "literal": "can I pay with card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "Les habitants voyagent surtout avec la carte de transport Rejsekort ou l'appli des chemins de fer (DSB) ; au guichet, la carte bancaire suffit.",
+                  "literal": "peux je payer avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Ja. Det bliver to hundrede og tyve kroner.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja. Det bliver to hundrede og tyve kroner."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes. That'll be two hundred and twenty kroner.",
+                  "note": "Det bliver (it becomes) is how a total is announced at any till.",
+                  "literal": "yes. it becomes two hundred and twenty kroner"
+                },
+                "fr": {
+                  "meaning": "Oui. Ça fera deux cent vingt couronnes.",
+                  "note": "« Det bliver » (ça devient) est la formule pour annoncer un total, comme « ça fera ».",
+                  "literal": "oui. ça devient deux cents et vingt couronnes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:would_like_tickets",
+              "key": "would_like_tickets",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Jeg vil gerne købe to billetter til Helsingør.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg vil gerne købe to billetter til Helsingør."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to buy two tickets to Helsingør.",
+                  "note": "A fuller, slightly more careful way to ask. Købe = to buy.",
+                  "literal": "I will gladly buy two tickets to Helsingør"
+                },
+                "fr": {
+                  "meaning": "Je voudrais acheter deux billets pour Elseneur.",
+                  "note": "Une façon plus complète de demander. « Købe » (acheter) se dit « keu-be », avec un b très doux.",
+                  "literal": "je veux volontiers acheter deux billets à Helsingør"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_buy_train_ticket:two_tickets",
+              "key": "two_tickets",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "To billetter, tak.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "To billetter, tak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "« Billet » vient du français, mais le pluriel danois est « billetter ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "danish_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "danish_rasmus_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "On Strøget on a hot afternoon, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Sur Strøget, par un après-midi très chaud, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Hjælp! Kan nogen hjælpe os?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hjælp! Kan nogen hjælpe os?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Can someone help us?",
+                  "note": "In an emergency anywhere in Denmark, call 112.",
+                  "literal": "help! can someone help us"
+                },
+                "fr": {
+                  "meaning": "À l'aide ! Quelqu'un peut nous aider ?",
+                  "note": "En cas d'urgence, partout au Danemark, composez le 112. « Hjælp » se prononce « yèlp » : le h est muet devant j.",
+                  "literal": "aide ! peut quelqu'un aider nous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hj is said like y: 'yelp'. Nogen: 'NOH-en', the g is silent."
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Hvad er der sket?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvad er der sket?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": "Sket comes from ske, to happen.",
+                  "literal": "what is there happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Ske » = se passer, arriver. Le danois forme ce passé avec « er » (être), comme « s'est passé ».",
+                  "literal": "quoi est là arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Min veninde er ved at besvime.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Min veninde er ved at besvime."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is about to faint.",
+                  "note": "Være ved at = to be about to. Veninde is a female friend; for a man, say min ven.",
+                  "literal": "my friend(female) is at to-faint"
+                },
+                "fr": {
+                  "meaning": "Mon amie va s'évanouir.",
+                  "note": "« Være ved at » = être sur le point de. « Veninde » = une amie ; pour un homme, « min ven ». Le d de « veninde » est muet : « vé-NIN-e ».",
+                  "literal": "mon amie est à s'évanouir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Veninde: veh-NIN-eh (silent d). Besvime: beh-SVEE-meh."
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Hun har ondt i hovedet.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hun har ondt i hovedet."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a headache.",
+                  "note": "Have ondt i + body part = to have a pain in: jeg har ondt i maven (I have a stomach ache). For a man: han har ondt i hovedet.",
+                  "literal": "she has pain in head-the"
+                },
+                "fr": {
+                  "meaning": "Elle a mal à la tête.",
+                  "note": "« Have ondt i » + partie du corps se construit exactement comme « avoir mal à » : jeg har ondt i maven (j'ai mal au ventre). Pour un homme : « han har… ».",
+                  "literal": "elle a mal dans tête-la"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ondt: 'oont'. Hovedet: roughly 'HOH-eth', with a soft v and d."
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "Skal jeg ringe efter en ambulance?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Skal jeg ringe efter en ambulance?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I call an ambulance?",
+                  "note": "Ringe efter = to call for. For urgent advice when it is not life-threatening, the Copenhagen region has the medical helpline 1813.",
+                  "literal": "shall I ring after an ambulance"
+                },
+                "fr": {
+                  "meaning": "Vous voulez que j'appelle une ambulance ?",
+                  "note": "« Ringe efter » = appeler, faire venir. Pour un problème médical urgent mais pas vital, la région de Copenhague a un numéro dédié : le 1813.",
+                  "literal": "dois je sonner après une ambulance"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Nej tak. Er der et apotek i nærheden?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nej tak. Er der et apotek i nærheden?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you. Is there a pharmacy nearby?",
+                  "note": "Apotek = pharmacy; i nærheden = nearby (literally 'in the nearness').",
+                  "literal": "no thanks. is there a pharmacy in the-nearness"
+                },
+                "fr": {
+                  "meaning": "Non merci. Il y a une pharmacie près d'ici ?",
+                  "note": "« Apotek » rappelle « apothicaire ». « Er der… ? » = est-ce qu'il y a… ? ; « i nærheden » = à proximité.",
+                  "literal": "non merci. est là une pharmacie dans proximité-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Ja, der ligger et lige rundt om hjørnet.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, der ligger et lige rundt om hjørnet."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's one just around the corner.",
+                  "note": "Buildings and shops ligger (lie) somewhere: der ligger et apotek = there is a pharmacy. Lige = just.",
+                  "literal": "yes, there lies one just round about corner-the"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une juste au coin de la rue.",
+                  "note": "Pour situer un bâtiment ou un magasin, le danois dit qu'il « est couché » (ligger) quelque part. « Lige » = juste.",
+                  "literal": "oui, là est-couchée une juste autour du coin-le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Okay, jeg forstår. Mange tak!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okay, jeg forstår. Mange tak!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I understand. Thanks so much!",
+                  "note": "Forstå = to understand; jeg forstår ikke = I don't understand.",
+                  "literal": "okay, I understand. many thanks"
+                },
+                "fr": {
+                  "meaning": "D'accord, je comprends. Merci beaucoup !",
+                  "note": "« Forstå » = comprendre ; « jeg forstår ikke » = je ne comprends pas. Le r final est presque muet : « for-STO ».",
+                  "literal": "d'accord, je comprends. beaucoup mercis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vi har brug for en læge.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vi har brug for en læge."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need a doctor.",
+                  "note": "Have brug for (literally 'have use for') = to need. Læge = doctor, said 'LAY-yeh'.",
+                  "literal": "we have use for a doctor"
+                },
+                "fr": {
+                  "meaning": "Nous avons besoin d'un médecin.",
+                  "note": "« Have brug for » (avoir usage de) = avoir besoin de. « Læge » (médecin) se prononce « LÈ-ye ».",
+                  "literal": "nous avons usage pour un médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_emergency_ask_help:excuse_help",
+              "key": "excuse_help",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Undskyld, kan du hjælpe mig?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Undskyld, kan du hjælpe mig?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can you help me?",
+                  "note": "A calmer way to stop a passer-by when it is not a matter of seconds.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous pouvez m'aider ?",
+                  "note": "Pour arrêter un passant plus calmement, quand ce n'est pas une question de secondes. Le d de « undskyld » est muet : « onn-skul ».",
+                  "literal": "pardon, peux tu aider moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "danish_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "danish_bodil_host",
+          "titles": {
+            "en": "Coffee and cake at Bodil's",
+            "fr": "Café et gâteau chez Bodil"
+          },
+          "sceneNotes": {
+            "en": "Your friend Magnus takes you to his grandmother Bodil's flat in Frederiksberg for afternoon coffee; she has baked, and she wants to know all about your family.",
+            "fr": "Votre ami Magnus vous emmène prendre le café chez sa grand-mère Bodil, à Frederiksberg ; elle a fait un gâteau et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Kom bare ind! Jeg har bagt drømmekage.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kom bare ind! Jeg har bagt drømmekage."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do come in! I've baked a dream cake.",
+                  "note": "Drømmekage (dream cake), a soft sponge with a caramelised coconut topping, is a fixture at Danish coffee tables. Bare (just) makes the welcome warm.",
+                  "literal": "come just in! I have baked dream-cake"
+                },
+                "fr": {
+                  "meaning": "Entre donc ! J'ai fait une drømmekage.",
+                  "note": "La « drømmekage » (gâteau-rêve), génoise moelleuse nappée de noix de coco caramélisée, est un incontournable du café danois. « Bare » (juste) rend l'invitation chaleureuse.",
+                  "literal": "viens juste dedans ! j'ai cuit gâteau-rêve"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Hvor er kagen lækker!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvor er kagen lækker!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The cake is so delicious!",
+                  "note": "Hvor (literally 'where') + verb + adjective makes an exclamation: how …! Lækker is the everyday word for delicious.",
+                  "literal": "how is cake-the delicious"
+                },
+                "fr": {
+                  "meaning": "Comme ce gâteau est bon !",
+                  "note": "« Hvor » (où) sert aussi à s'exclamer, comme « comme » en français : « hvor er kagen lækker! ». « Lækker » (délicieux) se prononce « LÈK-ker ».",
+                  "literal": "comme est gâteau-le délicieux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lækker: LEK-ker. Kagen: 'KAY-en', the g is soft."
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Og du taler flot dansk!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Og du taler flot dansk!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And you speak Danish so well!",
+                  "note": "Flot (fine, impressive) is a frequent compliment: det er flot! = well done!",
+                  "literal": "and you speak fine Danish"
+                },
+                "fr": {
+                  "meaning": "Et tu parles très bien danois !",
+                  "note": "« Flot » (beau, impressionnant) est un compliment très courant : « det er flot! » = bravo !",
+                  "literal": "et tu parles beau danois"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Tak, det er sødt sagt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tak, det er sødt sagt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, that's kind of you to say.",
+                  "note": "Literally 'that is sweetly said': the warm, modest reply to a compliment. You say du to Bodil too: Danes almost never use the formal De.",
+                  "literal": "thanks, it is sweetly said"
+                },
+                "fr": {
+                  "meaning": "Merci, c'est gentil de dire ça.",
+                  "note": "Mot à mot « c'est doucement dit » : la réponse modeste et chaleureuse à un compliment. On tutoie aussi Bodil : le « De » de politesse a presque disparu du danois.",
+                  "literal": "merci, c'est doucement dit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sødt: 'sut', with rounded lips; sagt: 'sakt'."
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Er det dine børnebørn på billedet?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Er det dine børnebørn på billedet?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are those your grandchildren in the photo?",
+                  "note": "Børnebørn = children's children. Danish names grandparents by side: mormor (mother's mother), farmor (father's mother).",
+                  "literal": "are it your children-children on picture-the"
+                },
+                "fr": {
+                  "meaning": "Ce sont vos petits-enfants, sur la photo ?",
+                  "note": "« Børnebørn » = enfants d'enfants. Le danois précise le côté : « mormor » (mère de la mère), « farmor » (mère du père). Bodil est la « mormor » de Magnus.",
+                  "literal": "est ce tes enfants-enfants sur photo-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Børnebørn: 'BURN-eh-burn', with rounded lips."
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Ja, alle fem! Har du søskende?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, alle fem! Har du søskende?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, all five! Do you have any brothers or sisters?",
+                  "note": "Søskende means brothers and sisters together, in one word.",
+                  "literal": "yes, all five! have you siblings"
+                },
+                "fr": {
+                  "meaning": "Oui, tous les cinq ! Tu as des frères et sœurs ?",
+                  "note": "« Søskende » désigne en un seul mot les frères et sœurs, ce qui manque au français.",
+                  "literal": "oui, tous cinq ! as tu frères-et-sœurs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Jeg har en bror og en søster.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg har en bror og en søster."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": "Plural: brødre (brothers), søstre (sisters).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "Pluriel : « brødre » (frères), « søstre » (sœurs). Le ø de « søster » se prononce comme le « eu » de « deux ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:parents_visit",
+              "key": "parents_visit",
+              "intentKey": "ask_clarification",
+              "slotId": "parents_visit",
+              "speaker": "character",
+              "text": "Kommer dine forældre snart på besøg?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kommer dine forældre snart på besøg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are your parents coming to visit soon?",
+                  "note": "Komme på besøg = to come and visit. Forældre (parents) is said 'for-EL-reh': the d is silent.",
+                  "literal": "come your parents soon on visit"
+                },
+                "fr": {
+                  "meaning": "Tes parents viennent bientôt te rendre visite ?",
+                  "note": "« Komme på besøg » = venir en visite. Le d de « forældre » (parents) est muet : « for-ÈL-re ».",
+                  "literal": "viennent tes parents bientôt en visite"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Det ved jeg ikke endnu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det ved jeg ikke endnu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Danish likes to put det first: det ved jeg ikke (that I don't know). Endnu = yet, still.",
+                  "literal": "it know I not yet"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "Le danois aime placer « det » en tête : « det ved jeg ikke » (ça, je ne le sais pas). « Ikke » = pas ; « endnu » = encore.",
+                  "literal": "ça sais je pas encore"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ved is said 'veh'; endnu: 'EN-noo'."
+            },
+            {
+              "id": "danish_ch2:danish_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Jeg er enebarn.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jeg er enebarn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "Ene (only) + barn (child), in one word.",
+                  "literal": "I am only-child"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "« Enebarn » = enfant unique, en un seul mot (ene = seul, barn = enfant).",
+                  "literal": "je suis seul-enfant"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "danish_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "danish_magnus_friend",
+          "titles": {
+            "en": "A weekend by the harbour",
+            "fr": "Un week-end au bord du port"
+          },
+          "sceneNotes": {
+            "en": "Your friend Magnus wants to go swimming in the harbour baths this weekend, but the day he suggests does not suit you.",
+            "fr": "Votre ami Magnus veut aller se baigner dans le port ce week-end, mais le jour qu'il propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:harbour_saturday",
+              "key": "harbour_saturday",
+              "intentKey": "invite",
+              "slotId": "harbour_saturday",
+              "speaker": "character",
+              "text": "Har du lyst til en dukkert i havnebadet på lørdag?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har du lyst til en dukkert i havnebadet på lørdag?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you fancy a dip in the harbour baths on Saturday?",
+                  "note": "Har du lyst til…? = do you feel like…? The harbour water is clean enough to swim in, and harbour baths such as Islands Brygge are free in summer.",
+                  "literal": "have you desire to a dip in harbour-bath-the on Saturday"
+                },
+                "fr": {
+                  "meaning": "Ça te dit d'aller te baigner dans le port samedi ?",
+                  "note": "« Har du lyst til…? » = ça te dit… ? (mot à mot « as-tu envie de »). L'eau du port est propre : les bains du port, comme celui d'Islands Brygge, sont gratuits en été.",
+                  "literal": "as tu envie de une trempette dans port-bain-le sur samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Det lyder dejligt, men lørdag kan jeg ikke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det lyder dejligt, men lørdag kan jeg ikke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That sounds lovely, but I can't on Saturday.",
+                  "note": "Say something kind before the no: that is the polite Danish way. Dejligt (lovely) is everywhere.",
+                  "literal": "it sounds lovely, but Saturday can I not"
+                },
+                "fr": {
+                  "meaning": "Ça a l'air super, mais samedi je ne peux pas.",
+                  "note": "On adoucit d'abord, puis on refuse : c'est la façon polie de dire non. « Dejligt » (agréable, délicieux) est partout ; il se dit « DAÏ-lit ».",
+                  "literal": "ça sonne agréable, mais samedi peux je pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dejligt: 'DIE-lit', the g is silent."
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Hvad med søndag?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hvad med søndag?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What about Sunday?",
+                  "note": "Hvad med…? = what about…? It works for anything: hvad med i morgen? (what about tomorrow?)",
+                  "literal": "what with Sunday"
+                },
+                "fr": {
+                  "meaning": "Et dimanche ?",
+                  "note": "« Hvad med…? » (quoi avec… ?) = et… ?, que dirais-tu de… ? : « hvad med i morgen? » = et demain ?",
+                  "literal": "quoi avec dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Ja, søndag passer mig fint.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, søndag passer mig fint."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday suits me fine.",
+                  "note": null,
+                  "literal": "yes, Sunday suits me fine"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche, ça me va très bien.",
+                  "note": "« Passe » = convenir : « det passer mig fint » = ça me va bien.",
+                  "literal": "oui, dimanche convient moi bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Bagefter kunne vi spise på Reffen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bagefter kunne vi spise på Reffen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Afterwards we could eat at Reffen.",
+                  "note": "Reffen is a big summer street-food market on Refshaleøen, by the harbour. Again the verb comes second: bagefter kunne vi.",
+                  "literal": "afterwards could we eat at Reffen"
+                },
+                "fr": {
+                  "meaning": "Après, on pourrait manger à Reffen.",
+                  "note": "Reffen est un grand marché de street food ouvert l'été sur Refshaleøen, au bord du port. Encore l'inversion : « bagefter kunne vi ».",
+                  "literal": "après pourrions nous manger à Reffen"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Skal vi mødes klokken to?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Skal vi mødes klokken to?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at two?",
+                  "note": "Skal vi…? = shall we…? Mødes ends in -s because it means 'meet each other'.",
+                  "literal": "shall we meet-each-other the-clock two"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à deux heures ?",
+                  "note": "« Skal vi…? » = on… ? « Mødes » (se retrouver) finit en -s, qui joue ici le rôle de « se » : « vi mødes » = nous nous retrouvons.",
+                  "literal": "devons nous se-rencontrer horloge deux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mødes: 'MUR-thes', with a soft d."
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:cycle_there",
+              "key": "cycle_there",
+              "intentKey": "invite",
+              "slotId": "cycle_there",
+              "speaker": "character",
+              "text": "Fedt! Skal vi cykle derhen sammen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Fedt! Skal vi cykle derhen sammen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! Shall we cycle there together?",
+                  "note": "Fedt (literally 'fat') is casual for great or cool. In Copenhagen, the bike is the obvious way to get anywhere.",
+                  "literal": "fat! shall we cycle there-to together"
+                },
+                "fr": {
+                  "meaning": "Génial ! On y va à vélo ensemble ?",
+                  "note": "« Fedt » (mot à mot « gras ») veut dire génial, super, en langage familier. À Copenhague, le vélo est le moyen évident d'aller partout.",
+                  "literal": "gras ! devons nous pédaler là-bas ensemble"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Ja, det gør vi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, det gør vi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, let's do that!",
+                  "note": "Literally 'yes, that we do': the usual way to agree to a plan.",
+                  "literal": "yes, that do we"
+                },
+                "fr": {
+                  "meaning": "Oui, on fait comme ça !",
+                  "note": "Mot à mot « oui, ça nous le faisons » : la façon la plus courante d'accepter un projet. « Gør » se dit « geur », avec un r presque muet.",
+                  "literal": "oui, ça faisons nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Gør sounds like 'gur', with the r barely there."
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Så ses vi søndag klokken to!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Så ses vi søndag klokken to!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you on Sunday at two, then!",
+                  "note": "Ses = to see each other; on its own, vi ses! means 'see you!'.",
+                  "literal": "then see-each-other we Sunday the-clock two"
+                },
+                "fr": {
+                  "meaning": "Alors à dimanche, deux heures !",
+                  "note": "« Ses » = se voir ; seul, « vi ses! » veut dire « à plus ! ». Le -s marque ici la réciprocité, comme « se » en français.",
+                  "literal": "alors se-voit nous dimanche horloge deux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:gladly",
+              "key": "gladly",
+              "intentKey": "accept_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ja, gerne!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, gerne!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I'd love to!",
+                  "note": "Gerne (gladly) turns a plain yes into a warm one.",
+                  "literal": "yes, gladly"
+                },
+                "fr": {
+                  "meaning": "Oui, avec plaisir !",
+                  "note": "« Gerne » (volontiers) rend le oui chaleureux. Il se prononce « GÈR-ne », avec un r à peine audible.",
+                  "literal": "oui, volontiers"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "danish_ch2:danish_make_weekend_plans:amager_beach",
+              "key": "amager_beach",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Skal vi tage ud til Amager Strand?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Skal vi tage ud til Amager Strand?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go out to Amager Beach?",
+                  "note": "Amager Strandpark is the city beach, a short metro ride from the centre.",
+                  "literal": "shall we take out to Amager Beach"
+                },
+                "fr": {
+                  "meaning": "Et si on allait à la plage d'Amager ?",
+                  "note": "Amager Strandpark est la plage de la ville, à quelques stations de métro du centre. « Tage ud til » = aller à (mot à mot « prendre dehors vers »).",
+                  "literal": "devons nous prendre dehors à Amager plage"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

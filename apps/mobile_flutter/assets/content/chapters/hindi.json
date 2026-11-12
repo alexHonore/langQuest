@@ -3171,6 +3171,2660 @@
           ]
         }
       ]
+    },
+    {
+      "key": "hindi_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "hindi",
+      "targetVarietyId": "hi",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Delhi",
+        "fr": "Prendre ses marques à Delhi"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Hindi (hi); native review required before publishing.",
+        "Speaker's gender: as in chapter 1 the learner is written as a man. Only one learner line changes for a woman: shop_for_clothes/just_looking (देख रहा हूँ → देख रही हूँ); every other learner line was worded to be the same for both (समझ में आ गया, सोचा नहीं, पैक कर दीजिए, कार्ड चलता है). Lines that change with the other person's gender: emergency/type (मेरे दोस्त को → मेरी दोस्त को for a female friend) and the waiter's लाता हूँ / लाया (a waitress: लाती हूँ / लाई).",
+        "आप/तुम: the learner says आप (-इए forms) to the waiter, the shop assistant, the clerk, the passer-by and the host, as in chapter 1; the learner and the friend Kabir use the gender-neutral 'let's' forms (चलें, मिलें, चलते हैं). The host says तुम and बेटा to the learner while the learner keeps आप with आंटी: please confirm this asymmetry feels right.",
+        "Transliteration follows chapter 1 (aa/ee/oo, kijiye for कीजिए but deejiye for दीजिए, hum for हम, English spelling for loanwords: table, special, bill, size, pack, payment, ticket, train, platform, ambulance, medical store, chemist, aunty, cricket match, metro, momos; place names lowercase like chapter 1's kanaada: aagra, dilli haat; INA kept in capitals).",
+        "Wordings to check first: छूटती है for a train leaving (vs चलती / निकलती है); मेरा एक भाई और एक बहन है (singular है vs हैं); पैक कर दीजिए as the 'I'll take it' line; मेडिकल स्टोर vs केमिस्ट for a Delhi pharmacy; रविवार / शनिवार vs the संडे / सैटरडे most Delhiites say; आंटी spelling (vs आँटी / आन्टी).",
+        "Facts to check: the prices (kurta ₹1,200; two chair-car tickets Delhi–Agra ₹1,100) are indicative; the 6 a.m. departure and platform 1 match the morning Shatabdi from New Delhi but timetables change; 112 is given as the emergency number."
+      ],
+      "characters": [
+        {
+          "key": "hindi_suresh_waiter",
+          "name": "Suresh",
+          "role": "waiter",
+          "personality": "brisk, proud of the house dal, calls everyone 'ji'",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_pooja_shop_assistant",
+          "name": "Pooja",
+          "role": "shop assistant",
+          "personality": "attentive, quick to fetch another size, honest about what fits",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hindi_rakesh_ticket_clerk",
+          "name": "Rakesh",
+          "role": "ticket clerk",
+          "personality": "efficient, a little gruff, patient with travellers",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_neha_bystander",
+          "name": "Neha",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hindi_asha_host",
+          "name": "Asha",
+          "role": "host",
+          "personality": "warm, insists you eat more, curious about your family and your marriage plans",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hindi_kabir_friend",
+          "name": "Kabir",
+          "role": "friend",
+          "personality": "easy-going, cricket fan, always knows where to eat",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "hindi_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "hindi_suresh_waiter",
+          "titles": {
+            "en": "Dinner at a family restaurant",
+            "fr": "Dîner dans un restaurant familial"
+          },
+          "sceneNotes": {
+            "en": "A busy family restaurant in Karol Bagh, Delhi, in the evening; the waiter is proud of the house dal and happy to recommend it.",
+            "fr": "Vous dînez dans un restaurant familial très animé de Karol Bagh, à Delhi ; le serveur est fier du dal de la maison et vous le recommande volontiers."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "आइए, आइए। कितने लोग हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आइए, आइए। कितने लोग हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aaiye, aaiye. kitne log hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, come in. How many of you are there?",
+                  "note": "आइए (aaiye) is the polite 'please come': the -इए ending goes with आप, the respectful 'you'.",
+                  "literal": "come(polite), come(polite). how-many people are"
+                },
+                "fr": {
+                  "meaning": "Entrez, entrez. Vous êtes combien ?",
+                  "note": "« आइए » (aaiye) = « venez », à la forme polie en -इए, celle qui accompagne आप (le « vous » de politesse).",
+                  "literal": "venez(poli), venez(poli). combien personnes sont"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "दो लोगों के लिए एक टेबल चाहिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "दो लोगों के लिए एक टेबल चाहिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "do logon ke liye ek table chaahiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need a table for two.",
+                  "note": "के लिए (ke liye) means 'for' and comes after the noun. Change the number: तीन (teen) three, चार (chaar) four.",
+                  "literal": "two people for one table needed"
+                },
+                "fr": {
+                  "meaning": "Il nous faut une table pour deux.",
+                  "note": "« के लिए » (ke liye) = « pour », mais placé après le nom : c'est une postposition. Changez le nombre : तीन (teen) trois, चार (chaar) quatre. Le « ch » de « chaahiye » se dit « tch ».",
+                  "literal": "deux personnes pour une table il-faut"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The t of table is retroflex in Hindi: curl the tip of the tongue back. chaahiye has a long aa."
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "यहाँ का स्पेशल क्या है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यहाँ का स्पेशल क्या है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yahaan ka special kya hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the speciality here?",
+                  "note": "The usual way to ask a waiter what to order. का (ka) means 'of' and follows its noun: 'the special of here'.",
+                  "literal": "here of special what is"
+                },
+                "fr": {
+                  "meaning": "Quelle est la spécialité de la maison ?",
+                  "note": "La question habituelle pour demander conseil au serveur. « का » (ka) équivaut à « de » mais se place après : « ici-de spécialité ». « यहाँ » finit par une voyelle nasale, comme le « an » de « maman ».",
+                  "literal": "ici de spécialité quoi est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "yahaan ends in a nasal vowel: let the air go through the nose, with no clear n."
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:house_dish",
+              "key": "house_dish",
+              "intentKey": "state_opinion",
+              "slotId": "house_dish",
+              "speaker": "character",
+              "text": "हमारी दाल मखनी बहुत मशहूर है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हमारी दाल मखनी बहुत मशहूर है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hamaari daal makhani bahut mashhoor hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Our dal makhani is very famous.",
+                  "note": "Dal makhani is black lentils simmered for hours with butter and cream, a Delhi classic.",
+                  "literal": "our dal makhani very famous is"
+                },
+                "fr": {
+                  "meaning": "Notre dal makhani est très réputé.",
+                  "note": "Le dal makhani : des lentilles noires mijotées des heures avec du beurre et de la crème, un classique de Delhi. Le verbe « है » (est) vient toujours à la fin de la phrase.",
+                  "literal": "notre dal makhani très célèbre est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "एक दाल मखनी और दो नान ला दीजिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "एक दाल मखनी और दो नान ला दीजिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ek daal makhani aur do naan la deejiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please bring one dal makhani and two naans.",
+                  "note": "ला दीजिए (la deejiye) = 'please bring'. The polite -इए ending already carries the 'please'.",
+                  "literal": "one dal makhani and two naan bring give(polite)"
+                },
+                "fr": {
+                  "meaning": "Apportez-nous un dal makhani et deux naans, s'il vous plaît.",
+                  "note": "« ला दीजिए » (la deejiye) = « apportez, je vous prie » : la terminaison polie en -इए suffit, inutile d'ajouter « s'il vous plaît ». Le naan est le pain cuit au four tandoor.",
+                  "literal": "un dal makhani et deux naan apporter donnez(poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "इसमें काजू तो नहीं है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "इसमें काजू तो नहीं है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ismein kaaju to nahin hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There's no cashew in it, is there?",
+                  "note": "तो नहीं shows you are worried about it. Many rich Delhi gravies contain cashew paste. Swap in मूँगफली (moongphali, peanuts) or अंडा (anda, egg).",
+                  "literal": "this-in cashew (surely) not is"
+                },
+                "fr": {
+                  "meaning": "Il n'y a pas de noix de cajou dedans, au moins ?",
+                  "note": "« तो नहीं » marque l'inquiétude : « il n'y en a pas, au moins ? ». Beaucoup de sauces de Delhi sont liées à la pâte de cajou. À remplacer par मूँगफली (moongphali, cacahuètes) ou अंडा (anda, œuf).",
+                  "literal": "ceci-dans cajou (au-moins) pas est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "nahin ends in a nasal vowel: don't pronounce a clear n."
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:no_cashew",
+              "key": "no_cashew",
+              "intentKey": "confirm_order",
+              "slotId": "no_cashew",
+              "speaker": "character",
+              "text": "नहीं जी, काजू नहीं है। अभी लाता हूँ।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नहीं जी, काजू नहीं है। अभी लाता हूँ।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "nahin jee, kaaju nahin hai. abhi laata hoon."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there's no cashew. I'll bring it right away.",
+                  "note": "जी (jee) adds respect to a yes or a no. लाता हूँ is said by a man; a woman says लाती हूँ.",
+                  "literal": "no (respect), cashew not is. right-now bringing I-am"
+                },
+                "fr": {
+                  "meaning": "Non, il n'y a pas de cajou. Je vous l'apporte tout de suite.",
+                  "note": "« जी » (jee) ajoute du respect au oui comme au non. « लाता हूँ » est dit par un homme ; une femme dirait « लाती हूँ ».",
+                  "literal": "non (respect), cajou pas est. à-l'instant apportant je-suis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "वाह, दाल बहुत बढ़िया है!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "वाह, दाल बहुत बढ़िया है!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "waah, daal bahut badhiya hai!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wow, the dal is really good!",
+                  "note": "बढ़िया (badhiya) = great, excellent: a warm everyday word for food, work or news.",
+                  "literal": "wow, dal very excellent is"
+                },
+                "fr": {
+                  "meaning": "Oh, le dal est vraiment excellent !",
+                  "note": "« बढ़िया » (badhiya) = excellent, super : un mot chaleureux de tous les jours, pour un plat comme pour une nouvelle. Le « ढ़ » est un r battu très bref, langue retournée, suivi d'un léger souffle.",
+                  "literal": "oh, dal très excellent est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ढ़ in badhiya is a breathy flap: flick the curled-back tongue once, like a very quick r."
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "भैया, बिल ले आइए, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "भैया, बिल ले आइए, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bhaiya, bill le aaiye, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Brother, bring the bill, please.",
+                  "note": "ले आइए (le aaiye) = 'bring', literally 'take and come'. भैया (brother) is the friendly way to call a waiter.",
+                  "literal": "brother, bill taking come(polite), please"
+                },
+                "fr": {
+                  "meaning": "Apportez-nous l'addition, s'il vous plaît.",
+                  "note": "« ले आइए » (le aaiye) = « apportez », mot à mot « prenez et venez ». « भैया » (grand frère) est la façon amicale d'interpeller un serveur. Le « bh » se prononce b suivi d'un souffle.",
+                  "literal": "frère, addition prenant venez(poli), s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "जी, अभी लाया।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "जी, अभी लाया।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "jee, abhi laaya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, right away.",
+                  "note": "Literally 'just brought it': waiters use the past tense to say it is as good as done.",
+                  "literal": "yes, right-now brought"
+                },
+                "fr": {
+                  "meaning": "Oui, tout de suite.",
+                  "note": "Mot à mot « à l'instant apporté » : le serveur emploie le passé pour dire que c'est comme si c'était fait.",
+                  "literal": "oui, à-l'instant apporté"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:room_for_two",
+              "key": "room_for_two",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "दो लोगों के लिए जगह है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "दो लोगों के लिए जगह है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "do logon ke liye jagah hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there room for two?",
+                  "note": "A quick way to ask when the place is full. जगह (jagah) = room, space. The rising tone alone makes it a question.",
+                  "literal": "two people for place is"
+                },
+                "fr": {
+                  "meaning": "Il y a de la place pour deux ?",
+                  "note": "Formule rapide quand le restaurant est plein. « जगह » (jagah) = place, espace. Le ton montant suffit à faire la question, comme en français parlé.",
+                  "literal": "deux personnes pour place est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_restaurant_order_meal:veg_thali",
+              "key": "veg_thali",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "मेरे लिए एक वेज थाली।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मेरे लिए एक वेज थाली।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mere liye ek veg thaali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A veg thali for me.",
+                  "note": "A thali is a full meal on one tray: dal, vegetables, rice, bread. वेज (veg) = vegetarian; नॉन-वेज (non-veg) = with meat.",
+                  "literal": "me for one veg thali"
+                },
+                "fr": {
+                  "meaning": "Pour moi, un thali végétarien.",
+                  "note": "Le thali est un repas complet servi sur un plateau : dal, légumes, riz, pain. « वेज » (veg) = végétarien ; « नॉन-वेज » = avec viande. Le « th » est un t suivi d'un souffle.",
+                  "literal": "moi pour un végé thali"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The th of thaali is a t with a puff of air, never the English th."
+            }
+          ]
+        },
+        {
+          "key": "hindi_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "hindi_pooja_shop_assistant",
+          "titles": {
+            "en": "Buying a kurta",
+            "fr": "Acheter une kurta"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop in Lajpat Nagar market, Delhi; the assistant is attentive and the kurtas run small.",
+            "fr": "Vous entrez dans une petite boutique du marché de Lajpat Nagar, à Delhi ; la vendeuse est attentive et les kurtas taillent petit."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:what_to_show",
+              "key": "what_to_show",
+              "intentKey": "offer_help",
+              "slotId": "what_to_show",
+              "speaker": "character",
+              "text": "नमस्ते! बताइए, क्या दिखाऊँ?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नमस्ते! बताइए, क्या दिखाऊँ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "namaste! bataiye, kya dikhaoon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Tell me, what can I show you?",
+                  "note": "What shop assistants say all over Delhi. दिखाऊँ = 'shall I show?'; the -ऊँ ending offers to do something.",
+                  "literal": "hello! tell(polite), what shall-I-show"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Dites-moi, qu'est-ce que je vous montre ?",
+                  "note": "La phrase d'accueil des vendeurs partout à Delhi. « दिखाऊँ » = « que je montre ? » : la terminaison -ऊँ sert à proposer de faire quelque chose.",
+                  "literal": "bonjour ! dites(poli), quoi que-je-montre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "बस देख रहा हूँ, शुक्रिया।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बस देख रहा हूँ, शुक्रिया।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bas dekh raha hoon, shukriya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Said by a man. A woman says देख रही हूँ (dekh rahi hoon). रहा / रही + हूँ makes the -ing form.",
+                  "literal": "just look -ing I-am, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "Dit par un homme ; une femme dit « देख रही हूँ » (dekh rahi hoon). « रहा / रही + हूँ » = être en train de : le verbe s'accorde avec la personne qui parle.",
+                  "literal": "seulement regarder en-train je-suis, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "मुझे एक सूती कुर्ता दिखाइए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे एक सूती कुर्ता दिखाइए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe ek sooti kurta dikhaiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please show me a cotton kurta.",
+                  "note": "दिखाइए (dikhaiye) = 'please show'. सूती = cotton; रेशमी (reshmi) = silk. A kurta is the long collarless shirt worn by men and women.",
+                  "literal": "to-me one cotton kurta show(polite)"
+                },
+                "fr": {
+                  "meaning": "Montrez-moi une kurta en coton, s'il vous plaît.",
+                  "note": "« दिखाइए » (dikhaiye) = « montrez », forme polie. सूती = en coton ; रेशमी (reshmi) = en soie. La kurta est la longue tunique sans col, portée par les hommes comme par les femmes.",
+                  "literal": "à-moi une de-coton kurta montrez(poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The t of sooti and kurta is soft and dental: the tongue touches the teeth."
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:this_one",
+              "key": "this_one",
+              "intentKey": "offer_options",
+              "slotId": "this_one",
+              "speaker": "character",
+              "text": "जी, यह वाला देखिए। मीडियम साइज़ है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "जी, यह वाला देखिए। मीडियम साइज़ है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "jee, yah vaala dekhiye. medium size hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, have a look at this one. It's a medium.",
+                  "note": "वाला (vaala) after a word means 'the … one': यह वाला = this one.",
+                  "literal": "yes, this one look(polite). medium size is"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, regardez celle-ci. C'est une taille M.",
+                  "note": "« वाला » (vaala) après un mot signifie « celui qui est… » : यह वाला = celui-ci, celle-ci. Les tailles se disent en anglais : small, medium, large.",
+                  "literal": "oui, celui-ci regardez(poli). medium taille est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "इसमें एक साइज़ बड़ा मिलेगा?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "इसमें एक साइज़ बड़ा मिलेगा?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ismein ek size bada milega?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I get this one size bigger?",
+                  "note": "मिलेगा = 'will it be available?', the polite way to ask for anything. छोटा (chhota) = smaller.",
+                  "literal": "this-in one size big will-be-available"
+                },
+                "fr": {
+                  "meaning": "Vous l'auriez dans la taille au-dessus ?",
+                  "note": "« मिलेगा » = « sera-t-il disponible ? » : la tournure polie pour demander n'importe quoi. छोटा (chhota) = plus petit. Le « ड़ » de « bada » est un r battu, langue retournée vers le palais.",
+                  "literal": "ceci-dans une taille grande sera-disponible"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ड़ in bada is a flap: flick the curled-back tongue once, like a quick r."
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:here_large",
+              "key": "here_large",
+              "intentKey": "confirm_understood",
+              "slotId": "here_large",
+              "speaker": "character",
+              "text": "जी हाँ, मिलेगा। यह लीजिए, लार्ज।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "जी हाँ, मिलेगा। यह लीजिए, लार्ज।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "jee haan, milega. yah leejiye, large."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, we have it. Here you are, a large.",
+                  "note": "यह लीजिए (yah leejiye), 'please take this', is what you hear whenever someone hands you something.",
+                  "literal": "yes (respect), will-be-available. this take(polite), large"
+                },
+                "fr": {
+                  "meaning": "Oui, nous l'avons. Tenez, voici le L.",
+                  "note": "« यह लीजिए » (yah leejiye), mot à mot « prenez ceci » : la formule que l'on entend dès qu'on vous tend quelque chose.",
+                  "literal": "oui (respect), sera-disponible. ceci prenez(poli), large"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "यह कितने का है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यह कितने का है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yah kitne ka hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": "का agrees with the thing: कितने का है for a kurta (masculine), कितने की है for a sari (feminine).",
+                  "literal": "this how-much of is"
+                },
+                "fr": {
+                  "meaning": "Elle est à combien ?",
+                  "note": "« का » s'accorde avec l'objet : कितने का है pour une kurta (masculin en hindi), कितने की है pour un sari (féminin en hindi). Attention : le genre des mots n'est pas celui du français.",
+                  "literal": "ceci combien de est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "बारह सौ रुपये का है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बारह सौ रुपये का है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "baarah sau rupaye ka hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's twelve hundred rupees.",
+                  "note": "Hindi likes to count in hundreds: बारह सौ = twelve hundred, more common in speech than 'one thousand two hundred'.",
+                  "literal": "twelve hundred rupees of is"
+                },
+                "fr": {
+                  "meaning": "Elle est à mille deux cents roupies.",
+                  "note": "Le hindi compte volontiers en centaines : बारह सौ = « douze cents », comme on dit encore « douze cents » en français. C'est plus courant que « mille deux cents ».",
+                  "literal": "douze cent roupies de est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "ठीक है, यह वाला पैक कर दीजिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है, यह वाला पैक कर दीजिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai, yah vaala pack kar deejiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take this one, please pack it.",
+                  "note": "Asking to have it packed is how you say 'I'll take it' in an Indian shop. English verb + कर दीजिए = 'please do it for me'.",
+                  "literal": "fine is, this one pack do give(polite)"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends celle-ci, emballez-la-moi.",
+                  "note": "Demander d'emballer l'article, c'est la façon de dire « je le prends » dans une boutique indienne. Verbe anglais + « कर दीजिए » = « faites-le pour moi ».",
+                  "literal": "bien est, celui-ci emballer faire donnez(poli)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "क्या कार्ड से पेमेंट हो जाएगा?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या कार्ड से पेमेंट हो जाएगा?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya card se payment ho jaayega?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "से (se) = 'by, with'. Most shops also take UPI phone payments; कैश (cash) is always welcome. क्या at the start marks a yes/no question.",
+                  "literal": "(question) card by payment become will-go"
+                },
+                "fr": {
+                  "meaning": "Est-ce que je peux payer par carte ?",
+                  "note": "« क्या » en tête de phrase joue le rôle de « est-ce que ». « से » (se) = par, avec. Presque partout on paie aussi par téléphone (UPI) ; le liquide se dit कैश (cash).",
+                  "literal": "est-ce-que carte par paiement se-fera"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "यह किसी और रंग में है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यह किसी और रंग में है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yah kisi aur rang mein hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have this in another colour?",
+                  "note": "और means both 'and' and 'other / more': किसी और रंग में = in some other colour.",
+                  "literal": "this some other colour in is"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« और » veut dire à la fois « et » et « autre / encore » : किसी और रंग में = dans une autre couleur. « में » (dans) se place après le nom et se prononce avec une voyelle nasale.",
+                  "literal": "ceci quelque autre couleur dans est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "hindi_rakesh_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Agra",
+            "fr": "Un billet de train pour Agra"
+          },
+          "sceneNotes": {
+            "en": "The ticket counter at New Delhi railway station; you want to go and see the Taj Mahal, and the morning train to Agra leaves early.",
+            "fr": "Vous êtes au guichet de la gare de New Delhi ; vous voulez aller voir le Taj Mahal, et le train du matin pour Agra part très tôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "आगरा का एक टिकट दीजिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आगरा का एक टिकट दीजिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aagra ka ek ticket deejiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One ticket to Agra, please.",
+                  "note": "Hindi says 'a ticket of Agra': the place + का. दीजिए (deejiye) = 'please give'.",
+                  "literal": "Agra of one ticket give(polite)"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Agra, s'il vous plaît.",
+                  "note": "Le hindi dit « un billet d'Agra » : le lieu + « का ». « दीजिए » (deejiye) = « donnez », forme polie qui dispense de « s'il vous plaît ». Les deux t de « ticket » se prononcent la langue retournée vers le palais.",
+                  "literal": "Agra de un billet donnez(poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Both t sounds in ticket are retroflex: curl the tip of the tongue back."
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:today_or_tomorrow",
+              "key": "today_or_tomorrow",
+              "intentKey": "offer_options",
+              "slotId": "today_or_tomorrow",
+              "speaker": "character",
+              "text": "आज के लिए या कल के लिए?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आज के लिए या कल के लिए?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aaj ke liye ya kal ke liye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For today or for tomorrow?",
+                  "note": "आज = today, या = or. Long-distance trains fill up, so tickets are booked for a given day.",
+                  "literal": "today for or tomorrow for"
+                },
+                "fr": {
+                  "meaning": "Pour aujourd'hui ou pour demain ?",
+                  "note": "आज = aujourd'hui, या = ou. Les trains de grandes lignes sont souvent complets : le billet vaut pour un jour précis.",
+                  "literal": "aujourd'hui pour ou demain pour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:tomorrow_morning",
+              "key": "tomorrow_morning",
+              "intentKey": "choose_option",
+              "slotId": "tomorrow_morning",
+              "speaker": "learner",
+              "text": "कल सुबह के लिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "कल सुबह के लिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kal subah ke liye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For tomorrow morning.",
+                  "note": "कल (kal) means both 'tomorrow' and 'yesterday': the verb or the context tells which. सुबह = morning, शाम (shaam) = evening.",
+                  "literal": "tomorrow morning for"
+                },
+                "fr": {
+                  "meaning": "Pour demain matin.",
+                  "note": "Piège : « कल » (kal) signifie à la fois « demain » et « hier » ; c'est le verbe ou le contexte qui tranche. सुबह = le matin, शाम (shaam) = le soir.",
+                  "literal": "demain matin pour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "सुबह की ट्रेन कितने बजे छूटती है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सुबह की ट्रेन कितने बजे छूटती है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "subah ki train kitne baje chhootti hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the morning train leave?",
+                  "note": "कितने बजे = at what time (literally 'at how many strokes'). छूटना is the verb for a train or bus leaving.",
+                  "literal": "morning of train how-many o'clock leaves is"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le train du matin ?",
+                  "note": "« कितने बजे » = à quelle heure (mot à mot « à combien de coups »). « छूटना » est le verbe pour un train ou un bus qui part. « छ » se dit « tch » suivi d'un souffle.",
+                  "literal": "matin de train combien heures part est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "chh is a ch with a strong puff of air: chhoot-ti, with a long oo."
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "सुबह छह बजे, प्लेटफ़ॉर्म नंबर एक से।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सुबह छह बजे, प्लेटफ़ॉर्म नंबर एक से।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "subah chhah baje, platform number ek se."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At six in the morning, from platform number one.",
+                  "note": "Number + बजे = 'at … o'clock': छह बजे at six, दस बजे at ten. से (se) = from.",
+                  "literal": "morning six o'clock, platform number one from"
+                },
+                "fr": {
+                  "meaning": "À six heures du matin, quai numéro un.",
+                  "note": "Nombre + « बजे » = « à … heures » : छह बजे à six heures, दस बजे à dix heures. « से » (se) = depuis, de.",
+                  "literal": "matin six heures, quai numéro un depuis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "हमें दो टिकट चाहिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हमें दो टिकट चाहिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hamein do ticket chaahiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need two tickets.",
+                  "note": "हमें … चाहिए = we need; मुझे … चाहिए = I need. Loanwords like टिकट usually stay the same in the plural.",
+                  "literal": "to-us two ticket needed"
+                },
+                "fr": {
+                  "meaning": "Il nous faut deux billets.",
+                  "note": "« हमें … चाहिए » = il nous faut ; « मुझे … चाहिए » = il me faut : la construction est la même qu'avec « falloir ». Un mot d'emprunt comme टिकट ne change pas au pluriel.",
+                  "literal": "à-nous deux billet il-faut"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "किस स्टेशन पर उतरना है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "किस स्टेशन पर उतरना है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kis station par utarna hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I have to get off at?",
+                  "note": "Infinitive + है = 'have to': उतरना है = (I) have to get off. पर (par) = at, on.",
+                  "literal": "which station at to-get-off is"
+                },
+                "fr": {
+                  "meaning": "À quelle gare faut-il descendre ?",
+                  "note": "Infinitif + « है » = devoir, falloir : उतरना है = il faut descendre. « पर » (par) = à, sur ; faux ami, rien à voir avec le « par » français.",
+                  "literal": "quelle gare à descendre est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:get_off_at",
+              "key": "get_off_at",
+              "intentKey": "state_destination",
+              "slotId": "get_off_at",
+              "speaker": "character",
+              "text": "आगरा कैंट पर उतरिए। ताजमहल वहाँ से पास है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आगरा कैंट पर उतरिए। ताजमहल वहाँ से पास है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aagra cantt par utariye. taajmahal vahaan se paas hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at Agra Cantt. The Taj Mahal is close from there.",
+                  "note": "Agra has several stations; Agra Cantt (Cantonment) is the main one for visitors.",
+                  "literal": "Agra Cantt at get-off(polite). Taj-Mahal there from near is"
+                },
+                "fr": {
+                  "meaning": "Descendez à Agra Cantt. Le Taj Mahal est tout près de là.",
+                  "note": "Agra compte plusieurs gares ; Agra Cantt (Cantonment) est la principale pour les visiteurs.",
+                  "literal": "Agra Cantt à descendez(poli). Taj-Mahal là depuis près est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "क्या यहाँ कार्ड चलता है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या यहाँ कार्ड चलता है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya yahaan card chalta hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards here?",
+                  "note": "चलना (to walk, to run) also means 'to work, to be accepted': कार्ड चलता है = cards are accepted.",
+                  "literal": "(question) here card walks is"
+                },
+                "fr": {
+                  "meaning": "Est-ce que la carte passe ici ?",
+                  "note": "« चलना » (marcher) veut dire aussi « fonctionner, être accepté », exactement comme « ça marche » : कार्ड चलता है = la carte passe.",
+                  "literal": "est-ce-que ici carte marche est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "जी हाँ। दो टिकट के ग्यारह सौ रुपये हुए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "जी हाँ। दो टिकट के ग्यारह सौ रुपये हुए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "jee haan. do ticket ke gyaarah sau rupaye hue."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes. That comes to eleven hundred rupees for two tickets.",
+                  "note": "हुए ('became') is how a total is announced: … रुपये हुए = that makes … rupees.",
+                  "literal": "yes (respect). two ticket of eleven hundred rupees became"
+                },
+                "fr": {
+                  "meaning": "Oui. Ça fait mille cent roupies pour deux billets.",
+                  "note": "« हुए » (sont devenus) sert à annoncer un total : … रुपये हुए = ça fait … roupies. ग्यारह सौ = « onze cents », soit 1 100.",
+                  "literal": "oui (respect). deux billet de onze cent roupies sont-devenues"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_buy_train_ticket:next_train",
+              "key": "next_train",
+              "intentKey": "ask_departure_time",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "अगली ट्रेन कब है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "अगली ट्रेन कब है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "agli train kab hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When is the next train?",
+                  "note": "कब (kab) = when. अगली agrees with ट्रेन, which is feminine in Hindi.",
+                  "literal": "next train when is"
+                },
+                "fr": {
+                  "meaning": "Le prochain train est à quelle heure ?",
+                  "note": "« कब » (kab) = quand. « अगली » s'accorde avec ट्रेन, qui est féminin en hindi : ne vous fiez pas au genre du mot français.",
+                  "literal": "prochain train quand est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "hindi_neha_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "A crowded lane in Chandni Chowk on a very hot afternoon: the friend you are walking with feels faint, and a passer-by stops to help.",
+            "fr": "Dans une ruelle bondée de Chandni Chowk, par un après-midi de grande chaleur, l'ami qui vous accompagne a un malaise ; une passante s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "सुनिए, प्लीज़ मदद कीजिए!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सुनिए, प्लीज़ मदद कीजिए!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "suniye, please madad kijiye!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please help!",
+                  "note": "मदद कीजिए = 'please help' (literally 'do help'). For a real emergency anywhere in India, call 112.",
+                  "literal": "listen(polite), please help do(polite)"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, aidez-moi !",
+                  "note": "« मदद कीजिए » = « aidez », mot à mot « faites aide ». En cas d'urgence, partout en Inde, composez le 112. Les d de « madad » sont dentaux : la langue touche les dents, comme en français.",
+                  "literal": "écoutez(poli), s'il-vous-plaît aide faites(poli)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "अरे, क्या हुआ?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "अरे, क्या हुआ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "are, kya hua?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, what happened?",
+                  "note": "अरे (are) shows surprise or concern, like 'oh!' or 'hey!'.",
+                  "literal": "oh, what happened"
+                },
+                "fr": {
+                  "meaning": "Oh, qu'est-ce qui s'est passé ?",
+                  "note": "« अरे » (are) exprime la surprise ou l'inquiétude, comme « oh ! » ou « mais… ! ». Le r est roulé d'un seul battement.",
+                  "literal": "oh, quoi est-arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "मेरे दोस्त को चक्कर आ रहा है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मेरे दोस्त को चक्कर आ रहा है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mere dost ko chakkar aa raha hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is feeling dizzy.",
+                  "note": "Feelings 'come to' a person in Hindi: दोस्त को चक्कर आ रहा है. For a female friend: मेरी दोस्त को.",
+                  "literal": "my friend to dizziness come -ing is"
+                },
+                "fr": {
+                  "meaning": "Mon ami a la tête qui tourne.",
+                  "note": "En hindi, une sensation « vient à » quelqu'un : दोस्त को चक्कर आ रहा है, « à l'ami le vertige vient ». Pour une amie : मेरी दोस्त को. Le double k de « chakkar » se tient un peu plus longtemps.",
+                  "literal": "mon ami à vertige venir en-train est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hold the double k of chakkar a little longer: chak-kar."
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "उसके सिर में बहुत दर्द है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "उसके सिर में बहुत दर्द है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "uske sir mein bahut dard hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "He has a bad headache.",
+                  "note": "Pain is 'in' a body part: सिर में दर्द = pain in the head. उसके means 'his' or 'her'. For yourself: मेरे सिर में. पेट (pet) = stomach.",
+                  "literal": "his/her head in much pain is"
+                },
+                "fr": {
+                  "meaning": "Il a très mal à la tête.",
+                  "note": "La douleur est « dans » la partie du corps : सिर में दर्द = douleur dans la tête. « उसके » vaut pour « son » comme pour « sa » (à lui ou à elle). Pour soi : मेरे सिर में. पेट (pet) = le ventre.",
+                  "literal": "sa tête dans beaucoup douleur est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "घबराइए मत। एम्बुलेंस बुलाऊँ?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "घबराइए मत। एम्बुलेंस बुलाऊँ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ghabraiye mat. ambulance bulaoon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't panic. Shall I call an ambulance?",
+                  "note": "मत (mat) after a verb means 'don't'. बुलाऊँ? = 'shall I call?'.",
+                  "literal": "panic(polite) don't. ambulance shall-I-call"
+                },
+                "fr": {
+                  "meaning": "Ne vous affolez pas. J'appelle une ambulance ?",
+                  "note": "« मत » (mat) après le verbe marque la défense : « ne … pas ». « बुलाऊँ ? » = « est-ce que j'appelle ? ». Le « gh » est un g suivi d'un souffle.",
+                  "literal": "affolez-vous(poli) ne-pas. ambulance que-j'appelle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:no_ambulance",
+              "key": "no_ambulance",
+              "intentKey": "decline_offer",
+              "slotId": "no_ambulance",
+              "speaker": "learner",
+              "text": "नहीं, अभी एम्बुलेंस की ज़रूरत नहीं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नहीं, अभी एम्बुलेंस की ज़रूरत नहीं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "nahin, abhi ambulance ki zaroorat nahin."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there's no need for an ambulance right now.",
+                  "note": "… की ज़रूरत नहीं = 'no need for …': a polite way to turn down any offer.",
+                  "literal": "no, right-now ambulance of need not"
+                },
+                "fr": {
+                  "meaning": "Non, pas besoin d'ambulance pour l'instant.",
+                  "note": "« … की ज़रूरत नहीं » = « pas besoin de … » : une façon polie de décliner n'importe quelle offre. Le « ज़ » se prononce comme le z français.",
+                  "literal": "non, maintenant ambulance de besoin pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "क्या आसपास कोई मेडिकल स्टोर है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या आसपास कोई मेडिकल स्टोर है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya aaspaas koi medical store hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy nearby?",
+                  "note": "In Delhi a pharmacy is a मेडिकल स्टोर (medical store) or a केमिस्ट (chemist). आसपास = nearby, around here.",
+                  "literal": "(question) nearby any medical store is"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a une pharmacie dans le coin ?",
+                  "note": "À Delhi, la pharmacie se dit मेडिकल स्टोर (medical store) ou केमिस्ट (chemist). आसपास = dans les environs. « कोई » = un, quelque.",
+                  "literal": "est-ce-que alentour quelque medical store est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:chemist_near",
+              "key": "chemist_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "chemist_near",
+              "speaker": "character",
+              "text": "हाँ, सामने वाली गली में एक केमिस्ट है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हाँ, सामने वाली गली में एक केमिस्ट है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "haan, saamne vaali gali mein ek chemist hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's a chemist in the lane opposite.",
+                  "note": "सामने = opposite, in front. गली (gali) is a narrow lane, the heart of old Delhi's markets.",
+                  "literal": "yes, opposite (the-one) lane in one chemist is"
+                },
+                "fr": {
+                  "meaning": "Oui, il y a une pharmacie dans la ruelle d'en face.",
+                  "note": "सामने = en face. Le गली (gali) est la ruelle étroite, le cœur des marchés du vieux Delhi.",
+                  "literal": "oui, en-face (celle-de) ruelle dans une pharmacie est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "ठीक है, समझ में आ गया। शुक्रिया!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है, समझ में आ गया। शुक्रिया!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai, samajh mein aa gaya. shukriya!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I've got it. Thank you!",
+                  "note": "Literally 'it came into understanding': the same for a man or a woman. शुक्रिया is the everyday 'thanks'.",
+                  "literal": "fine is, understanding in come went. thanks"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci !",
+                  "note": "Mot à mot « c'est venu dans la compréhension » : la phrase ne change pas, que l'on soit un homme ou une femme. « शुक्रिया » est le merci de tous les jours.",
+                  "literal": "bien est, compréhension dans est-venu. merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "हमें डॉक्टर के पास जाना है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हमें डॉक्टर के पास जाना है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hamein doctor ke paas jaana hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need to go to a doctor.",
+                  "note": "के पास = 'to (a person), near': you go डॉक्टर के पास, to the doctor's. जाना है = have to go.",
+                  "literal": "to-us doctor of near to-go is"
+                },
+                "fr": {
+                  "meaning": "Il faut que nous allions chez un médecin.",
+                  "note": "« के पास » = « chez, auprès de » : on va डॉक्टर के पास, chez le médecin. « जाना है » = devoir aller.",
+                  "literal": "à-nous médecin de près aller est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "hindi_asha_host",
+          "titles": {
+            "en": "Sunday lunch at Aunty's",
+            "fr": "Déjeuner du dimanche chez Aunty"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your landlady's flat in Delhi; Asha Aunty keeps filling your plate and wants to know everything about your family.",
+            "fr": "Vous déjeunez un dimanche chez votre propriétaire, à Delhi ; Asha Aunty remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "आओ बेटा, इसे अपना ही घर समझो।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आओ बेटा, इसे अपना ही घर समझो।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aao beta, ise apna hi ghar samjho."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, dear, treat this as your own home.",
+                  "note": "An older host says तुम (आओ, समझो) and बेटा ('child') to a younger guest, man or woman: it is affectionate, not rude.",
+                  "literal": "come child, this own (very) house consider"
+                },
+                "fr": {
+                  "meaning": "Entre, mon enfant, fais comme chez toi.",
+                  "note": "Une hôtesse âgée tutoie un invité plus jeune (formes en तुम : आओ, समझो) et l'appelle « बेटा » (mon enfant), homme ou femme : c'est affectueux, pas familier.",
+                  "literal": "viens enfant, ceci propre même maison considère"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "आंटी, खाना बहुत अच्छा बना है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आंटी, खाना बहुत अच्छा बना है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aunty, khaana bahut achchha bana hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Aunty, the food has turned out really well.",
+                  "note": "The classic compliment to a home cook. Any older woman you know is आंटी (aunty); an older man is अंकल (uncle).",
+                  "literal": "aunty, food very good made is"
+                },
+                "fr": {
+                  "meaning": "Aunty, le repas est vraiment réussi.",
+                  "note": "Le compliment classique à la cuisinière. On appelle आंटी (aunty) toute dame plus âgée que l'on connaît, et अंकल (uncle) un monsieur. « अच्छा » : un « tch » redoublé, suivi d'un souffle.",
+                  "literal": "aunty, nourriture très bien faite est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "achchha: a doubled ch with a puff of air, a-ch-chha."
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:your_hindi",
+              "key": "your_hindi",
+              "intentKey": "compliment",
+              "slotId": "your_hindi",
+              "speaker": "character",
+              "text": "अरे वाह, तुम्हारी हिंदी तो बहुत अच्छी है!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "अरे वाह, तुम्हारी हिंदी तो बहुत अच्छी है!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "are waah, tumhaari hindi to bahut achchhi hai!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh wow, your Hindi is really good!",
+                  "note": "तुम्हारी = your (with तुम). अच्छी is feminine to agree with हिंदी; languages are feminine in Hindi.",
+                  "literal": "oh wow, your Hindi (indeed) very good is"
+                },
+                "fr": {
+                  "meaning": "Oh, dis donc, ton hindi est vraiment bon !",
+                  "note": "« तुम्हारी » = ton, ta (tutoiement). « अच्छी » est au féminin pour s'accorder avec हिंदी : les noms de langues sont féminins en hindi.",
+                  "literal": "oh bravo, ton hindi (vraiment) très bon est"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "शुक्रिया आंटी, अभी बहुत सीखना बाकी है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "शुक्रिया आंटी, अभी बहुत सीखना बाकी है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shukriya aunty, abhi bahut seekhna baaki hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, Aunty, I still have a lot to learn.",
+                  "note": "A modest answer is expected after a compliment. बाकी है = 'is still left'. The line is the same for a man or a woman.",
+                  "literal": "thanks aunty, still much to-learn remaining is"
+                },
+                "fr": {
+                  "meaning": "Merci, Aunty, il me reste encore beaucoup à apprendre.",
+                  "note": "On répond à un compliment avec modestie. « बाकी है » = « il reste ». La phrase est la même pour un homme et pour une femme.",
+                  "literal": "merci aunty, encore beaucoup apprendre restant est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "आपके घर में कौन-कौन है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपके घर में कौन-कौन है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapke ghar mein kaun-kaun hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Who is there in your family?",
+                  "note": "The standard question about someone's family. Doubling कौन (who) asks for the whole list: 'who all?'. घर = house, household.",
+                  "literal": "your house in who-who is"
+                },
+                "fr": {
+                  "meaning": "Qui y a-t-il dans votre famille ?",
+                  "note": "La question habituelle sur la famille. Redoubler « कौन » (qui) demande une liste : « qui et qui ? ». « घर » = la maison, le foyer. On garde « आप » (vous) avec une personne plus âgée, même si elle vous tutoie.",
+                  "literal": "votre maison dans qui-qui est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gh in ghar is a g with a puff of air; mein is nasal, with no clear n."
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:and_yours",
+              "key": "and_yours",
+              "intentKey": "ask_about_family",
+              "slotId": "and_yours",
+              "speaker": "character",
+              "text": "हम चार लोग हैं। और तुम्हारे घर में?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हम चार लोग हैं। और तुम्हारे घर में?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hum chaar log hain. aur tumhaare ghar mein?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are four of us. And in your family?",
+                  "note": "और तुम्हारे घर में? turns the question back to you without repeating it.",
+                  "literal": "we four people are. and your house in"
+                },
+                "fr": {
+                  "meaning": "Nous sommes quatre. Et dans ta famille ?",
+                  "note": "« और तुम्हारे घर में ? » retourne la question sans la répéter, comme « et chez toi ? ».",
+                  "literal": "nous quatre personnes sommes. et ta maison dans"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "मेरा एक भाई और एक बहन है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मेरा एक भाई और एक बहन है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mera ek bhai aur ek bahan hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": "For relatives Hindi says 'my one brother is': मेरा … है, with no verb 'to have'. For a sister alone: मेरी एक बहन है.",
+                  "literal": "my one brother and one sister is"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "Pour la famille, le hindi dit « mon un frère est » : मेरा … है, sans verbe « avoir ». Pour une sœur seule : मेरी एक बहन है. Le « bh » de « bhai » est un b suivi d'un souffle.",
+                  "literal": "mon un frère et une sœur est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:wedding_when",
+              "key": "wedding_when",
+              "intentKey": "ask_clarification",
+              "slotId": "wedding_when",
+              "speaker": "character",
+              "text": "अच्छा, और तुम्हारी शादी कब होगी?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "अच्छा, और तुम्हारी शादी कब होगी?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "achchha, aur tumhaari shaadi kab hogi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I see, and when will you get married?",
+                  "note": "A question any aunty may ask: it is friendly curiosity, not rudeness. अच्छा here means 'I see', 'right'.",
+                  "literal": "good, and your wedding when will-be"
+                },
+                "fr": {
+                  "meaning": "Ah bon, et ton mariage, c'est pour quand ?",
+                  "note": "Une question que toute « aunty » peut poser : curiosité bienveillante, pas indiscrétion. Ici « अच्छा » veut dire « ah bon, je vois ».",
+                  "literal": "bien, et ton mariage quand sera"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "पता नहीं आंटी, अभी सोचा नहीं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "पता नहीं आंटी, अभी सोचा नहीं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "pata nahin aunty, abhi socha nahin."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know, Aunty, I haven't thought about it yet.",
+                  "note": "पता नहीं (pata nahin) is the everyday 'I don't know', literally 'no knowledge'. The line is the same for a man or a woman.",
+                  "literal": "knowledge not aunty, yet thought not"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas, Aunty, je n'y ai pas encore réfléchi.",
+                  "note": "« पता नहीं » (pata nahin) est le « je ne sais pas » de tous les jours, mot à mot « pas de connaissance ». La phrase ne change pas selon que l'on est un homme ou une femme.",
+                  "literal": "connaissance pas aunty, encore pensé pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:two_siblings",
+              "key": "two_siblings",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "हम दो भाई-बहन हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हम दो भाई-बहन हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hum do bhai-bahan hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are two of us, brothers and sisters.",
+                  "note": "भाई-बहन (brother-sister) means siblings; the number counts you too.",
+                  "literal": "we two brother-sister are"
+                },
+                "fr": {
+                  "meaning": "Nous sommes deux frères et sœurs.",
+                  "note": "« भाई-बहन » (frère-sœur) désigne la fratrie ; le nombre vous inclut, comme dans « nous sommes deux enfants ».",
+                  "literal": "nous deux frère-sœur sommes"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_talk_about_family:what_a_treat",
+              "key": "what_a_treat",
+              "intentKey": "say_delicious",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "मज़ा आ गया, आंटी!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मज़ा आ गया, आंटी!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "maza aa gaya, aunty!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That was a real treat, Aunty!",
+                  "note": "Literally 'the fun has come': said after a great meal, film or outing.",
+                  "literal": "enjoyment come went, aunty"
+                },
+                "fr": {
+                  "meaning": "Quel régal, Aunty !",
+                  "note": "Mot à mot « le plaisir est venu » : se dit après un bon repas, un film ou une sortie réussie. La phrase est la même pour un homme et pour une femme.",
+                  "literal": "plaisir est-venu, aunty"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "hindi_kabir_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Kabir wants to go to the cricket this weekend, but the day he suggests does not suit you; you settle on Dilli Haat instead.",
+            "fr": "Votre ami Kabir veut aller voir un match de cricket ce week-end, mais le jour qu'il propose ne vous convient pas ; vous optez pour le marché de Dilli Haat."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:cricket_saturday",
+              "key": "cricket_saturday",
+              "intentKey": "invite",
+              "slotId": "cricket_saturday",
+              "speaker": "character",
+              "text": "शनिवार को क्रिकेट मैच देखने चलें?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "शनिवार को क्रिकेट मैच देखने चलें?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shanivaar ko cricket match dekhne chalein?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go and watch the cricket match on Saturday?",
+                  "note": "चलें? = 'shall we go?'. Days take को: शनिवार को = on Saturday. Many people in Delhi simply say सैटरडे (Saturday).",
+                  "literal": "Saturday on cricket match to-watch shall-we-go"
+                },
+                "fr": {
+                  "meaning": "On va voir le match de cricket samedi ?",
+                  "note": "« चलें ? » = « on y va ? ». Les jours prennent « को » : शनिवार को = samedi. À Delhi, on dit aussi très souvent सैटरडे (Saturday), à l'anglaise.",
+                  "literal": "samedi à cricket match regarder allons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "सॉरी, शनिवार को मुझे काम है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सॉरी, शनिवार को मुझे काम है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sorry, shanivaar ko mujhe kaam hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I have work on Saturday.",
+                  "note": "मुझे काम है = 'I have work / something to do', literally 'to me there is work': the everyday polite excuse.",
+                  "literal": "sorry, Saturday on to-me work is"
+                },
+                "fr": {
+                  "meaning": "Désolé, samedi j'ai du travail.",
+                  "note": "« मुझे काम है » = « j'ai à faire », mot à mot « à moi travail est » : l'excuse polie de tous les jours. « सॉरी » (sorry) est tout à fait courant en hindi parlé.",
+                  "literal": "désolé, samedi à à-moi travail est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "रविवार को मिलें क्या?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "रविवार को मिलें क्या?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ravivaar ko milein kya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet on Sunday?",
+                  "note": "मिलें? = 'shall we meet?'. A क्या at the end makes the question casual. Sunday is also संडे or इतवार (itvaar).",
+                  "literal": "Sunday on shall-we-meet (question)"
+                },
+                "fr": {
+                  "meaning": "On se voit dimanche, plutôt ?",
+                  "note": "« मिलें ? » = « on se voit ? ». Le « क्या » final donne un ton familier à la question. Dimanche se dit aussi संडे (Sunday) ou इतवार (itvaar).",
+                  "literal": "dimanche à nous-voyons-nous est-ce-que"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "हाँ, रविवार ठीक रहेगा।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हाँ, रविवार ठीक रहेगा।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "haan, ravivaar theek rahega."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday will be fine.",
+                  "note": "ठीक रहेगा = 'will be fine', literally 'will stay fine': the usual way to say a time suits you.",
+                  "literal": "yes, Sunday fine will-stay"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche, ça ira très bien.",
+                  "note": "« ठीक रहेगा » = « ça ira », mot à mot « restera bien » : la formule pour dire qu'une date vous convient.",
+                  "literal": "oui, dimanche bien restera"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "चलो, दिल्ली हाट चलते हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "चलो, दिल्ली हाट चलते हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "chalo, dilli haat chalte hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come on, let's go to Dilli Haat.",
+                  "note": "चलो, … चलते हैं is the everyday 'let's go to …'. Dilli Haat is an open-air crafts and food market with stalls from every state.",
+                  "literal": "come-on, Dilli Haat we-go"
+                },
+                "fr": {
+                  "meaning": "Allez, on va à Dilli Haat.",
+                  "note": "« चलो, … चलते हैं » est le « allez, on va à … » de tous les jours. Dilli Haat est un marché en plein air d'artisanat et de cuisines de tous les États de l'Inde.",
+                  "literal": "allez, Dilli Haat nous-allons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The t of haat is retroflex (tongue curled back); the t of chalte is soft, on the teeth."
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "शाम पाँच बजे मिलते हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "शाम पाँच बजे मिलते हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shaam paanch baje milte hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's meet at five in the evening.",
+                  "note": "The plain present मिलते हैं ('we meet') works as 'let's meet'. शाम = evening; सुबह = morning.",
+                  "literal": "evening five o'clock we-meet"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à cinq heures du soir.",
+                  "note": "Le présent « मिलते हैं » (nous nous voyons) sert à proposer : « on se retrouve ». शाम = le soir ; सुबह = le matin. « पाँच » : le « an » est nasal, comme dans « pan ».",
+                  "literal": "soir cinq heures nous-nous-voyons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:momos_on_me",
+              "key": "momos_on_me",
+              "intentKey": "invite",
+              "slotId": "momos_on_me",
+              "speaker": "character",
+              "text": "ठीक है। वहाँ मोमोज़ खाएँगे, मेरी तरफ़ से!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है। वहाँ मोमोज़ खाएँगे, मेरी तरफ़ से!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai. vahaan momos khaayenge, meri taraf se!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK. We'll have momos there, my treat!",
+                  "note": "मेरी तरफ़ से = 'from my side': it's on me. Momos, steamed dumplings, are Delhi's favourite street snack.",
+                  "literal": "fine is. there momos we-will-eat, my side from"
+                },
+                "fr": {
+                  "meaning": "D'accord. On mangera des momos là-bas, c'est moi qui invite !",
+                  "note": "« मेरी तरफ़ से » = « de ma part » : c'est moi qui régale. Les momos, raviolis vapeur venus de l'Himalaya, sont l'en-cas de rue préféré de Delhi.",
+                  "literal": "bien est. là-bas momos nous-mangerons, mon côté de"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "वाह, पक्का! मज़ा आएगा।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "वाह, पक्का! मज़ा आएगा।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "waah, pakka! maza aayega."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great, definitely! It'll be fun.",
+                  "note": "पक्का (pakka) = 'for sure', a firm yes among friends. मज़ा आएगा = it will be fun.",
+                  "literal": "wow, sure! enjoyment will-come"
+                },
+                "fr": {
+                  "meaning": "Super, ça marche ! On va bien s'amuser.",
+                  "note": "« पक्का » (pakka) = « c'est sûr », le oui ferme entre amis. « मज़ा आएगा » = ça va être sympa, mot à mot « le plaisir viendra ». Tenez un peu le double k : pak-ka.",
+                  "literal": "bravo, sûr ! plaisir viendra"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "तो रविवार, पाँच बजे, आईएनए मेट्रो पर।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "तो रविवार, पाँच बजे, आईएनए मेट्रो पर।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "to ravivaar, paanch baje, INA metro par."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, Sunday, five o'clock, at INA metro.",
+                  "note": "People in Delhi meet at a metro station, often at a numbered gate. INA station is right next to Dilli Haat. तो = so, then.",
+                  "literal": "so Sunday, five o'clock, INA metro at"
+                },
+                "fr": {
+                  "meaning": "Donc dimanche, cinq heures, au métro INA.",
+                  "note": "À Delhi, on se donne rendez-vous à une station de métro, souvent devant une sortie numérotée. La station INA est juste à côté de Dilli Haat. « तो » = donc, alors.",
+                  "literal": "donc dimanche, cinq heures, INA métro à"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:go_out_somewhere",
+              "key": "go_out_somewhere",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "कहीं घूमने चलें?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "कहीं घूमने चलें?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kaheen ghoomne chalein?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go out somewhere?",
+                  "note": "घूमना = to stroll, to go out for fun. कहीं = somewhere.",
+                  "literal": "somewhere to-stroll shall-we-go"
+                },
+                "fr": {
+                  "meaning": "On sort se balader quelque part ?",
+                  "note": "« घूमना » = se promener, sortir pour le plaisir. « कहीं » = quelque part. Le « gh » est un g suivi d'un souffle.",
+                  "literal": "quelque-part se-promener allons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch2:hindi_make_weekend_plans:not_this_time",
+              "key": "not_this_time",
+              "intentKey": "decline_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "यार, इस बार नहीं हो पाएगा।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यार, इस बार नहीं हो पाएगा।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yaar, is baar nahin ho paayega."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mate, it won't be possible this time.",
+                  "note": "यार (yaar) is 'mate, buddy' between friends only. हो पाएगा = 'will be able to happen'.",
+                  "literal": "mate, this time not happen will-manage"
+                },
+                "fr": {
+                  "meaning": "Mon vieux, cette fois ça ne va pas être possible.",
+                  "note": "« यार » (yaar) = « mon pote », entre amis seulement. « हो पाएगा » = « pourra se faire ».",
+                  "literal": "pote, cette fois pas se-faire pourra"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

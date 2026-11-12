@@ -3316,6 +3316,2949 @@
           ]
         }
       ]
+    },
+    {
+      "key": "hebrew_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "hebrew",
+      "targetVarietyId": "he",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Tel Aviv",
+        "fr": "Prendre ses marques à Tel-Aviv"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Hebrew (he); native review required before publishing.",
+        "Set in Tel Aviv, chapter 1's majority city; the train goes to Jerusalem (Yitzhak Navon) and the weekend is Israel's Friday-Saturday. Hebrew has no polite 'you', so politeness rests on bevakasha, efshar, slikha and tone; the French meanings use vous with staff, strangers and in the learner's lines to the host, tu with the friend and in the host's lines.",
+        "The learner is male, as in chapter 1. Feminine-speaker lines to record: מסתכל → מסתכלת, מחפש → מחפשת, משתדל → משתדלת, יודע → יודעת, לא יכול → לא יכולה, בן יחיד → בת יחידה. The sick friend is male (חבר שלי לא מרגיש טוב, מה כואב לו, כואב לו הראש והוא מסוחרר): record חברה שלי לא מרגישה טוב, כואב לה, היא מסוחררת. Lines to a man that need a feminine-addressee version: מה אתה ממליץ (את ממליצה), בוא נשחק / בוא נלך (בואי), and every host or friend line to the learner (שבי, תאכלי, יש לך = lakh, את מתחתנת, בא לך = lakh, מה המידה שלך = shelakh). יש לך נכדים is said to a woman; to a man it is lekha.",
+        "Transliteration copies chapter 1: kh for ח and soft כ, ts for צ, an apostrophe for א/ע between vowels (ta'im, yode'a), a hyphen after the prefixes ha-, ba-, be-, le-, ve-, me- (ha-marak, be-shishi) but none in fixed or fused forms (bevakasha, lirushalayim, bifnim), lowercase except personal names (place names stay lowercase, as chapter 1's me-anglia). The niqqud form is the standard pointed spelling, as chapter 1 does with בֹּקֶר: שֻׁלְחָן, חֻלְצָה, שָׁחֹר, הַכֹּל for שולחן, חולצה, שחור, הכול. 'And' is ve- everywhere except the careful u- of וּמָתַי.",
+        "Wordings to check first: הצילו! צריך עזרה!, להזמין אמבולנס?, מקבלים אשראי?, אני בפנים, the colloquial singular in מאה ועשרים שקל, the future-as-imperative in שב, תאכל משהו, and the pointing of loanwords (אַמְבּוּלַנְס, מַטְקוֹת, סַבָּבָה, אַחְלָה, אַשְׁרַאי). Facts to confirm: ticket counters versus Rav-Kav machines at Israel Railways, Yitzhak Navon station about 80 m underground, 101 for Magen David Adom, a 120-shekel shirt on Dizengoff."
+      ],
+      "characters": [
+        {
+          "key": "hebrew_eli_waiter",
+          "name": "Eli",
+          "role": "waiter",
+          "personality": "fast, warm, proud of the house Yemenite soup",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hebrew_shira_shop_assistant",
+          "name": "Shira",
+          "role": "shop assistant",
+          "personality": "chatty, attentive, honest about what fits",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hebrew_orly_ticket_clerk",
+          "name": "Orly",
+          "role": "ticket clerk",
+          "personality": "brisk, precise, patient with travellers",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hebrew_ron_bystander",
+          "name": "Ron",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hebrew_rina_host",
+          "name": "Rina",
+          "role": "host",
+          "personality": "warm, keeps filling your plate, curious about your family",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hebrew_omer_friend",
+          "name": "Omer",
+          "role": "friend",
+          "personality": "easy-going, lives at the beach in summer, always has a plan",
+          "homeRegion": "Tel Aviv",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "hebrew_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "hebrew_eli_waiter",
+          "titles": {
+            "en": "Dinner in the Yemenite Quarter",
+            "fr": "Dîner au quartier yéménite"
+          },
+          "sceneNotes": {
+            "en": "A small family restaurant in Tel Aviv's Yemenite Quarter on a busy evening; the waiter is proud of the house Yemenite soup.",
+            "fr": "Vous dînez dans un petit restaurant familial du quartier yéménite de Tel-Aviv, un soir d'affluence ; le serveur est fier de la soupe yéménite maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "ערב טוב! כמה אתם?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "ערב טוב! כמה אתם?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "erev tov! kama atem?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "עֶרֶב טוֹב! כַּמָּה אַתֶּם?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many of you are there?",
+                  "note": "Atem is the plural 'you': the waiter is speaking to your whole party.",
+                  "literal": "evening good! how-many you(all)"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous êtes combien ?",
+                  "note": "« Atem » est un « vous » pluriel : le serveur s'adresse à tout le groupe. L'hébreu n'a pas de vouvoiement de politesse, seulement ce pluriel.",
+                  "literal": "soir bon ! combien vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "שולחן לשניים, בבקשה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "שולחן לשניים, בבקשה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shulkhan lishnayim, bevakasha."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "שֻׁלְחָן לִשְׁנַיִם, בְּבַקָּשָׁה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Change the number as needed: lishlosha (for three), le-arba'a (for four).",
+                  "literal": "table for-two, please"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "Changez le nombre : lishlosha (pour trois), le-arba'a (pour quatre). Le « kh » de shulkhan se prononce comme la jota espagnole ; accent sur la fin : choul-KHAN.",
+                  "literal": "table pour-deux, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable: shool-KHAN; kh is the rasping sound at the end of Scottish 'loch'."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "מה אתה ממליץ?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה אתה ממליץ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma ata mamlits?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה אַתָּה מַמְלִיץ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Said to a man; to a waitress: ma at mamlitsa? Hebrew has no polite 'you': the courtesy is in your tone.",
+                  "literal": "what you recommend"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que vous recommandez ?",
+                  "note": "Dit à un homme ; à une serveuse : ma at mamlitsa ? Pas de vouvoiement en hébreu : « ata » (tu) se dit à tout le monde, sans aucune familiarité.",
+                  "literal": "quoi tu recommandes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:house_soup",
+              "key": "house_soup",
+              "intentKey": "state_opinion",
+              "slotId": "house_soup",
+              "speaker": "character",
+              "text": "המרק התימני שלנו מעולה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "המרק התימני שלנו מעולה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ha-marak ha-teimani shelanu me'ule."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הַמָּרָק הַתֵּימָנִי שֶׁלָּנוּ מְעֻלֶּה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Our Yemenite soup is excellent.",
+                  "note": "Yemenite soup: beef and potatoes simmered with hawaij, a cumin and turmeric blend. The adjective follows the noun and takes its own ha-: ha-marak ha-teimani.",
+                  "literal": "the-soup the-Yemenite of-us excellent"
+                },
+                "fr": {
+                  "meaning": "Notre soupe yéménite est excellente.",
+                  "note": "La soupe yéménite : bœuf et pommes de terre mijotés au hawaij, un mélange de cumin et de curcuma. L'adjectif suit le nom et reprend l'article : ha-marak ha-teimani.",
+                  "literal": "la-soupe la-yéménite de-nous excellente"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "אני אקח את המרק, בבקשה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אני אקח את המרק, בבקשה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ani ekakh et ha-marak, bevakasha."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֲנִי אֶקַּח אֶת הַמָּרָק, בְּבַקָּשָׁה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll have the soup, please.",
+                  "note": "Ekakh (I'll take) is the same for men and women. Et comes before a definite object and is not translated.",
+                  "literal": "I will-take [et] the-soup, please"
+                },
+                "fr": {
+                  "meaning": "Je vais prendre la soupe, s'il vous plaît.",
+                  "note": "« Ekakh » (je prendrai) est identique pour un homme et une femme. « Et » annonce un complément d'objet défini ; il ne se traduit pas.",
+                  "literal": "je prendrai [et] la-soupe, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "מה יש במרק?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה יש במרק?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma yesh ba-marak?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה יֵשׁ בַּמָּרָק?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's in the soup?",
+                  "note": "Yesh = there is. Ba- = 'in the': be- (in) swallows ha- (the).",
+                  "literal": "what there-is in-the-soup"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a dans la soupe ?",
+                  "note": "« Yesh » = il y a. « Ba- » = dans le : la préposition be- absorbe l'article ha-, comme « à + le » devient « au ».",
+                  "literal": "quoi il-y-a dans-la-soupe"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:whats_in_it",
+              "key": "whats_in_it",
+              "intentKey": "explain_meaning",
+              "slotId": "whats_in_it",
+              "speaker": "character",
+              "text": "בשר ותפוחי אדמה. הוא לא חריף.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בשר ותפוחי אדמה. הוא לא חריף."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "basar ve-tapukhei adama. hu lo kharif."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בָּשָׂר וְתַפּוּחֵי אֲדָמָה. הוּא לֹא חָרִיף."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Meat and potatoes. It isn't spicy.",
+                  "note": "Tapukhei adama, potatoes, are 'apples of the earth'. Hu (he) stands for marak, a masculine noun. The hot sauce, skhug, comes on the side.",
+                  "literal": "meat and-apples-of earth. he not spicy"
+                },
+                "fr": {
+                  "meaning": "De la viande et des pommes de terre. Elle n'est pas piquante.",
+                  "note": "« Tapukhei adama » se calque exactement sur « pommes de terre ». « Hu » (il) reprend « marak », masculin en hébreu. La sauce piquante, le skhug, est servie à part.",
+                  "literal": "viande et-pommes-de terre. il pas piquant"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "המרק ממש טעים!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "המרק ממש טעים!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ha-marak mamash ta'im!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הַמָּרָק מַמָּשׁ טָעִים!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The soup is really tasty!",
+                  "note": "No verb 'is' in the present: ha-marak ta'im = the soup [is] tasty. Mamash (really) is everywhere in spoken Hebrew.",
+                  "literal": "the-soup really tasty"
+                },
+                "fr": {
+                  "meaning": "La soupe est vraiment bonne !",
+                  "note": "Pas de verbe « être » au présent : ha-marak ta'im = la soupe [est] bonne. « Mamash » (vraiment) revient sans cesse à l'oral. L'apostrophe de ta'im marque une petite coupure : ta-IM.",
+                  "literal": "la-soupe vraiment savoureux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ta'im has two syllables with a tiny catch between them: ta-EEM."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "אפשר לקבל את החשבון?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אפשר לקבל את החשבון?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "efshar lekabel et ha-kheshbon?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֶפְשָׁר לְקַבֵּל אֶת הַחֶשְׁבּוֹן?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have the bill?",
+                  "note": "Efshar + infinitive is the all-purpose polite request. Service is usually not included: leave 10 to 15%.",
+                  "literal": "possible to-receive [et] the-bill"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir l'addition ?",
+                  "note": "« Efshar » + infinitif (« est-il possible de… ») : la demande polie passe-partout. Le service n'est en général pas compris : on laisse 10 à 15 %.",
+                  "literal": "possible recevoir [et] l'addition"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "כן, מיד.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כן, מיד."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ken, miyad."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כֵּן, מִיָּד."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, right away.",
+                  "note": null,
+                  "literal": "yes, immediately"
+                },
+                "fr": {
+                  "meaning": "Oui, tout de suite.",
+                  "note": "« Miyad » = tout de suite, immédiatement.",
+                  "literal": "oui, immédiatement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:free_table",
+              "key": "free_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "יש לכם שולחן פנוי?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש לכם שולחן פנוי?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh lakhem shulkhan panui?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ לָכֶם שֻׁלְחָן פָּנוּי?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a free table?",
+                  "note": "Lakhem is the plural 'to you': you are asking the restaurant, not just the waiter. Panui (free) is the word you used for the taxi.",
+                  "literal": "there-is to-you(all) table free"
+                },
+                "fr": {
+                  "meaning": "Vous avez une table libre ?",
+                  "note": "« Lakhem » = « à vous » au pluriel : on s'adresse au restaurant, pas seulement au serveur. « Panui » (libre) est le mot déjà vu avec le taxi.",
+                  "literal": "il-y-a à-vous table libre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_restaurant_order_meal:schnitzel",
+              "key": "schnitzel",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "בשבילי שניצל, בבקשה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בשבילי שניצל, בבקשה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bishvili shnitsel, bevakasha."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בִּשְׁבִילִי שְׁנִיצֶל, בְּבַקָּשָׁה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A schnitzel for me, please.",
+                  "note": "Bishvili (for me) + the dish is the easiest way to order. Israeli schnitzel is breaded chicken, not veal.",
+                  "literal": "for-me schnitzel, please"
+                },
+                "fr": {
+                  "meaning": "Pour moi, un schnitzel, s'il vous plaît.",
+                  "note": "« Bishvili » (pour moi) + le plat : la façon la plus simple de commander, exactement comme « pour moi, … ». En Israël, le schnitzel est une escalope de poulet panée.",
+                  "literal": "pour-moi schnitzel, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hebrew_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "hebrew_shira_shop_assistant",
+          "titles": {
+            "en": "A shirt on Dizengoff Street",
+            "fr": "Une chemise rue Dizengoff"
+          },
+          "sceneNotes": {
+            "en": "A small boutique on Dizengoff Street on a hot afternoon; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de la rue Dizengoff, par un après-midi chaud ; la vendeuse est attentive et les vêtements taillent petit."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "היי, אפשר לעזור במשהו?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "היי, אפשר לעזור במשהו?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hei, efshar la'azor be-mashehu?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הֵי, אֶפְשָׁר לַעֲזֹר בְּמַשֶּׁהוּ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi, can I help you with anything?",
+                  "note": "Efshar la'azor? ('possible to help?') is what you hear in any shop. Hei (hi) is normal even with customers.",
+                  "literal": "hi, possible to-help in-something"
+                },
+                "fr": {
+                  "meaning": "Bonjour, je peux vous aider ?",
+                  "note": "« Efshar la'azor ? » (possible d'aider ?) : la phrase d'accueil de toutes les boutiques. « Hei » (salut) est normal, même avec un client.",
+                  "literal": "salut, possible aider en-quelque-chose"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "אני רק מסתכל, תודה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אני רק מסתכל, תודה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ani rak mistakel, toda."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֲנִי רַק מִסְתַּכֵּל, תּוֹדָה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Said by a man; a woman says mistakelet. Rak = only, just.",
+                  "literal": "I only looking, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "Dit par un homme ; une femme dit « mistakelet ». « Rak » = seulement. Accent sur la dernière syllabe : mis-ta-KEL.",
+                  "literal": "je seulement regardant, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable: mis-ta-KEL."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "בעצם, אני מחפש חולצה לקיץ.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בעצם, אני מחפש חולצה לקיץ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "be-etsem, ani mekhapes khultsa la-kayits."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בְּעֶצֶם, אֲנִי מְחַפֵּשׂ חֻלְצָה לַקַּיִץ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Actually, I'm looking for a summer shirt.",
+                  "note": "Be-etsem (actually) lets you change your mind politely. A woman says mekhapeset. Khultsa covers shirts, blouses and T-shirts.",
+                  "literal": "in-essence, I looking-for shirt for-the-summer"
+                },
+                "fr": {
+                  "meaning": "En fait, je cherche une chemise pour l'été.",
+                  "note": "« Be-etsem » (en fait) permet de revenir poliment sur ce qu'on vient de dire. Une femme dit « mekhapeset ». « Khultsa » désigne aussi bien une chemise qu'un tee-shirt.",
+                  "literal": "en-fait, je cherchant chemise pour-l'été"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The kh of mekhapes and khultsa is the throaty sound of Scottish 'loch'."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:what_size",
+              "key": "what_size",
+              "intentKey": "ask_clarification",
+              "slotId": "what_size",
+              "speaker": "character",
+              "text": "מה המידה שלך?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה המידה שלך?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma ha-mida shelkha?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה הַמִּדָּה שֶׁלְּךָ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's your size?",
+                  "note": "Mida = size, for clothes and shoes alike. Shelkha (yours) is said to a man; to a woman, shelakh.",
+                  "literal": "what the-size of-you"
+                },
+                "fr": {
+                  "meaning": "Quelle est votre taille ?",
+                  "note": "« Mida » = la taille, et aussi la pointure. « Shelkha » (à toi) se dit à un homme ; à une femme : shelakh.",
+                  "literal": "quoi la-taille de-toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "יש מידה יותר גדולה?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש מידה יותר גדולה?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh mida yoter gdola?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ מִדָּה יוֹתֵר גְּדוֹלָה?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a bigger size?",
+                  "note": "Yoter (more) + adjective makes a comparative: yoter ktana, smaller. Gdola is feminine to agree with mida.",
+                  "literal": "there-is size more big"
+                },
+                "fr": {
+                  "meaning": "Il y a une taille au-dessus ?",
+                  "note": "« Yoter » (plus) + adjectif forme le comparatif : yoter ktana, plus petite. « Gdola » s'accorde avec « mida », féminin comme « taille ».",
+                  "literal": "il-y-a taille plus grande"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:here_it_is",
+              "key": "here_it_is",
+              "intentKey": "offer_options",
+              "slotId": "here_it_is",
+              "speaker": "character",
+              "text": "כן, הנה. יש גם בשחור.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כן, הנה. יש גם בשחור."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ken, hine. yesh gam be-shakhor."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כֵּן, הִנֵּה. יֵשׁ גַּם בְּשָׁחֹר."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, here you are. It also comes in black.",
+                  "note": "Hine = here it is, when handing something over. Yesh gam = there's also.",
+                  "literal": "yes, here. there-is also in-black"
+                },
+                "fr": {
+                  "meaning": "Oui, tenez. Elle existe aussi en noir.",
+                  "note": "« Hine » = voici, tenez : ce qu'on dit en tendant quelque chose. « Yesh gam » = il y a aussi.",
+                  "literal": "oui, voici. il-y-a aussi en-noir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "כמה זה עולה?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כמה זה עולה?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kama ze ole?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כַּמָּה זֶה עוֹלֶה?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it?",
+                  "note": "Ole (costs) literally means 'goes up'. With ze (this), it works for anything you point at.",
+                  "literal": "how-much this costs"
+                },
+                "fr": {
+                  "meaning": "Combien ça coûte ?",
+                  "note": "« Ole » (coûte) signifie littéralement « monte ». Avec « ze » (ça), la question vaut pour tout ce que vous montrez.",
+                  "literal": "combien ça monte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "מאה ועשרים שקל.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מאה ועשרים שקל."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "me'a ve-esrim shekel."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מֵאָה וְעֶשְׂרִים שֶׁקֶל."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A hundred and twenty shekels.",
+                  "note": "In speech, shekel often stays singular after a number. Price tags write it ₪120.",
+                  "literal": "hundred and-twenty shekel"
+                },
+                "fr": {
+                  "meaning": "Cent vingt shekels.",
+                  "note": "À l'oral, « shekel » reste souvent au singulier après un nombre. Les dizaines et les unités se relient par « ve » (et), comme dans « vingt et un ».",
+                  "literal": "cent et-vingt shekel"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "טוב, אני אקח אותה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "טוב, אני אקח אותה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "tov, ani ekakh ota."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "טוֹב, אֲנִי אֶקַּח אוֹתָהּ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take it.",
+                  "note": "Ota (it) stands for khultsa, a feminine noun; for a masculine one, such as a sveder (sweater), say oto.",
+                  "literal": "good, I will-take her"
+                },
+                "fr": {
+                  "meaning": "Bon, je la prends.",
+                  "note": "« Ota » (la) reprend « khultsa », féminin ; pour un nom masculin, comme « sveder » (pull), on dit « oto ». Comme en français, le pronom suit le genre du mot.",
+                  "literal": "bon, je prendrai elle"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "אפשר לשלם באשראי?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אפשר לשלם באשראי?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "efshar leshalem be-ashrai?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֶפְשָׁר לְשַׁלֵּם בְּאַשְׁרַאי?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Ashrai (credit) is the everyday word for any bank card. Cash = mezuman.",
+                  "literal": "possible to-pay in-credit"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« Ashrai » (crédit) désigne toute carte bancaire. Les espèces = « mezuman ». En Israël, on paie presque tout par carte.",
+                  "literal": "possible payer en-crédit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "יש בצבע אחר?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש בצבע אחר?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh be-tseva akher?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ בְּצֶבַע אַחֵר?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour?",
+                  "note": "Akher (other) comes after the noun, like every Hebrew adjective: tseva akher.",
+                  "literal": "there-is in-colour other"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« Akher » (autre) se place après le nom, comme tous les adjectifs hébreux : tseva akher. « Tseva » est masculin, contrairement à « couleur ».",
+                  "literal": "il-y-a en-couleur autre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hebrew_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "hebrew_orly_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Jerusalem",
+            "fr": "Un billet de train pour Jérusalem"
+          },
+          "sceneNotes": {
+            "en": "The ticket counter at Tel Aviv's Savidor Center station on a busy Sunday morning, the start of the working week; the fast train to Jerusalem leaves soon.",
+            "fr": "Vous êtes au guichet de la gare Savidor de Tel-Aviv, un dimanche matin, premier jour de la semaine de travail ; le train rapide pour Jérusalem part bientôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "כרטיס לירושלים, בבקשה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כרטיס לירושלים, בבקשה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kartis lirushalayim, bevakasha."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כַּרְטִיס לִירוּשָׁלַיִם, בְּבַקָּשָׁה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Jerusalem, please.",
+                  "note": "Most travellers now load fares onto a Rav-Kav card at the machines; at a counter, this sentence is all you need.",
+                  "literal": "ticket to-Jerusalem, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Jérusalem, s'il vous plaît.",
+                  "note": "Le préfixe li- (pour, vers) se soude au nom : li + Yerushalayim se prononce « lirouchalayim ». Beaucoup de voyageurs chargent leur trajet sur la carte Rav-Kav.",
+                  "literal": "billet pour-Jérusalem, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The li- prefix swallows the first syllable of Yerushalayim: lee-roo-sha-LA-yim."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "הלוך או הלוך ושוב?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "הלוך או הלוך ושוב?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "halokh o halokh va-shov?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הָלוֹךְ אוֹ הָלוֹךְ וָשׁוֹב?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": "Halokh va-shov, 'going and returning', is a fixed pair, like 'there and back'.",
+                  "literal": "going or going and-returning"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Halokh va-shov » (aller et revenir) est une expression figée, exactement comme « aller-retour ».",
+                  "literal": "aller ou aller et-retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "הלוך ושוב, בבקשה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "הלוך ושוב, בבקשה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "halokh va-shov, bevakasha."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הָלוֹךְ וָשׁוֹב, בְּבַקָּשָׁה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": null,
+                  "literal": "going and-returning, please"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": "Le « kh » final de « halokh » se prononce comme la jota espagnole.",
+                  "literal": "aller et-retour, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "מתי יוצאת הרכבת הבאה?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מתי יוצאת הרכבת הבאה?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "matai yotset ha-rakevet ha-ba'a?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָתַי יוֹצֵאת הָרַכֶּבֶת הַבָּאָה?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When does the next train leave?",
+                  "note": "Yotset (leaves) is feminine because rakevet (train) is. Ha-ba'a, 'the coming one', means 'the next'.",
+                  "literal": "when leaves the-train the-coming"
+                },
+                "fr": {
+                  "meaning": "Quand part le prochain train ?",
+                  "note": "« Yotset » (part) est au féminin, car « rakevet » (train) est féminin en hébreu. « Ha-ba'a », « celle qui vient », veut dire « la prochaine ».",
+                  "literal": "quand sort le-train la-venante"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "בעשר ועשרים, מרציף שתיים.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בעשר ועשרים, מרציף שתיים."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "be-eser ve-esrim, me-ratsif shtayim."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בְּעֶשֶׂר וְעֶשְׂרִים, מֵרָצִיף שְׁתַּיִם."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At twenty past ten, from platform two.",
+                  "note": "Be- + hour = at: be-eser, at ten. Ve-khetsi = half past, ve-reva = a quarter past. No trains run on Shabbat, from Friday afternoon to Saturday night.",
+                  "literal": "at-ten and-twenty, from-platform two"
+                },
+                "fr": {
+                  "meaning": "À dix heures vingt, quai numéro deux.",
+                  "note": "Be- + l'heure = à : be-eser, à dix heures. « Ve-khetsi » = et demie, « ve-reva » = et quart. Pas de train pendant le shabbat, du vendredi après-midi au samedi soir.",
+                  "literal": "à-dix et-vingt, de-quai deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "רגע, אנחנו שניים.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "רגע, אנחנו שניים."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "rega, anakhnu shnayim."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "רֶגַע, אֲנַחְנוּ שְׁנַיִם."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wait, there are two of us.",
+                  "note": "Shnayim (two) stands alone; before a noun it shortens to shnei: shnei kartisim, two tickets.",
+                  "literal": "moment, we two"
+                },
+                "fr": {
+                  "meaning": "Attendez, nous sommes deux.",
+                  "note": "« Shnayim » (deux) s'emploie seul ; devant un nom, il devient « shnei » : shnei kartisim, deux billets. « Rega » (un instant) sert à interrompre poliment.",
+                  "literal": "instant, nous deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "באיזו תחנה צריך לרדת?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "באיזו תחנה צריך לרדת?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "be-eizo takhana tsarikh laredet?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בְּאֵיזוֹ תַּחֲנָה צָרִיךְ לָרֶדֶת?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do we get off at?",
+                  "note": "Tsarikh + infinitive with no subject means 'one has to', so it works whoever is speaking. Laredet = to get off, to go down.",
+                  "literal": "at-which station needed to-go-down"
+                },
+                "fr": {
+                  "meaning": "À quelle gare faut-il descendre ?",
+                  "note": "« Tsarikh » sans sujet = « il faut » : la tournure convient à tout le monde, homme ou femme. « Laredet » = descendre.",
+                  "literal": "à-quelle station faut descendre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "יצחק נבון, התחנה האחרונה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יצחק נבון, התחנה האחרונה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Yitskhak Navon, ha-takhana ha-akhrona."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יִצְחָק נָבוֹן, הַתַּחֲנָה הָאַחֲרוֹנָה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yitzhak Navon, the last station.",
+                  "note": "Jerusalem's main station is named after Israel's fifth president. It lies about 80 metres underground: allow time for the escalators.",
+                  "literal": "Yitzhak Navon, the-station the-last"
+                },
+                "fr": {
+                  "meaning": "Yitzhak Navon, le terminus.",
+                  "note": "La gare principale de Jérusalem porte le nom du cinquième président d'Israël. Elle se trouve à environ 80 mètres sous terre : prévoyez le temps des escaliers mécaniques.",
+                  "literal": "Yitzhak Navon, la-station la-dernière"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "מקבלים אשראי?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מקבלים אשראי?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mekablim ashrai?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מְקַבְּלִים אַשְׁרַאי?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards?",
+                  "note": "The plural mekablim ('accepting') asks about the place, not the person, so it fits a man or a woman behind the counter.",
+                  "literal": "accepting credit"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte ?",
+                  "note": "Le pluriel « mekablim » (on accepte) vise l'établissement plutôt que la personne : la question convient face à un homme comme à une femme.",
+                  "literal": "acceptant crédit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:good_trip",
+              "key": "good_trip",
+              "intentKey": "wish_good_day",
+              "slotId": "good_trip",
+              "speaker": "character",
+              "text": "כן, בטח. נסיעה טובה!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כן, בטח. נסיעה טובה!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ken, betakh. nesi'a tova!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כֵּן, בֶּטַח. נְסִיעָה טוֹבָה!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, sure. Have a good trip!",
+                  "note": "Nesi'a tova, 'good journey', is the standard send-off for any traveller.",
+                  "literal": "yes, surely. journey good"
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr. Bon voyage !",
+                  "note": "« Betakh » = bien sûr, très courant à l'oral. « Nesi'a tova » est le « bon voyage » que l'on souhaite à tout voyageur.",
+                  "literal": "oui, sûr. voyage bon"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_buy_train_ticket:ticket_to_haifa",
+              "key": "ticket_to_haifa",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "אפשר כרטיס לחיפה, בבקשה?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אפשר כרטיס לחיפה, בבקשה?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "efshar kartis le-kheifa, bevakasha?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֶפְשָׁר כַּרְטִיס לְחֵיפָה, בְּבַקָּשָׁה?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could I have a ticket to Haifa, please?",
+                  "note": "Efshar + a noun is the gentle way to ask for anything, with no verb at all.",
+                  "literal": "possible ticket to-Haifa, please"
+                },
+                "fr": {
+                  "meaning": "Je pourrais avoir un billet pour Haïfa, s'il vous plaît ?",
+                  "note": "« Efshar » + nom : la façon douce de demander n'importe quoi, sans verbe. Le ח de Haïfa se prononce « kh », comme la jota espagnole : khéï-fa.",
+                  "literal": "possible billet pour-Haïfa, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hebrew_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "hebrew_ron_bystander",
+          "titles": {
+            "en": "A friend feels faint",
+            "fr": "Un ami fait un malaise"
+          },
+          "sceneNotes": {
+            "en": "A scorching afternoon on Rothschild Boulevard: the friend you are walking with suddenly feels dizzy, and a passer-by stops to help.",
+            "fr": "Boulevard Rothschild, par un après-midi brûlant : l'ami qui vous accompagne a soudain la tête qui tourne, et un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "הצילו! צריך עזרה!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "הצילו! צריך עזרה!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hatsilu! tsarikh ezra!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הַצִּילוּ! צָרִיךְ עֶזְרָה!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! We need help!",
+                  "note": "Hatsilu! (literally 'save!') is the word to shout in danger. For an ambulance anywhere in Israel, call 101 (Magen David Adom).",
+                  "literal": "save! needed help"
+                },
+                "fr": {
+                  "meaning": "Au secours ! Il faut de l'aide !",
+                  "note": "« Hatsilu ! » (littéralement « sauvez ! ») est le cri d'alerte. Pour une ambulance, partout en Israël, composez le 101 (Magen David Adom, l'équivalent du SAMU).",
+                  "literal": "sauvez ! il-faut aide"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable: ha-tsee-LOO."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "מה קרה?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה קרה?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma kara?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה קָרָה?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": null,
+                  "literal": "what happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Kara » (est arrivé) est au passé ; au présent, « ma kore ? » = qu'est-ce qui se passe ?",
+                  "literal": "quoi est-arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "חבר שלי לא מרגיש טוב.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "חבר שלי לא מרגיש טוב."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "khaver sheli lo margish tov."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "חָבֵר שֶׁלִּי לֹא מַרְגִּישׁ טוֹב."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend isn't feeling well.",
+                  "note": "Khaver sheli = a friend of mine; ha-khaver sheli usually means 'my boyfriend'. For a woman friend: khavera sheli lo margisha tov.",
+                  "literal": "friend of-me not feeling good"
+                },
+                "fr": {
+                  "meaning": "Mon ami ne se sent pas bien.",
+                  "note": "« Khaver sheli » = un ami à moi ; avec l'article, « ha-khaver sheli », on comprend plutôt « mon copain ». Pour une amie : khavera sheli lo margisha tov.",
+                  "literal": "ami de-moi pas sentant bien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:what_hurts",
+              "key": "what_hurts",
+              "intentKey": "ask_clarification",
+              "slotId": "what_hurts",
+              "speaker": "character",
+              "text": "מה כואב לו?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה כואב לו?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma ko'ev lo?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה כּוֹאֵב לוֹ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's hurting him?",
+                  "note": "Ko'ev lo, 'hurts to him': what hurts is the subject of the sentence. For a woman: ko'ev la.",
+                  "literal": "what hurts to-him"
+                },
+                "fr": {
+                  "meaning": "Il a mal où ?",
+                  "note": "« Ko'ev lo » = « (ça) lui fait mal » : ce qui fait mal est le sujet, comme dans « la tête lui fait mal ». Pour une femme : ko'ev la.",
+                  "literal": "quoi fait-mal à-lui"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "כואב לו הראש, והוא מסוחרר.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כואב לו הראש, והוא מסוחרר."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ko'ev lo ha-rosh, ve-hu mesukhrar."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כּוֹאֵב לוֹ הָרֹאשׁ, וְהוּא מְסֻחְרָר."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "His head hurts, and he's dizzy.",
+                  "note": "For a woman friend: ko'ev la ha-rosh, ve-hi mesukhreret. For yourself: ko'ev li ha-rosh, my head hurts.",
+                  "literal": "hurts to-him the-head, and-he dizzy"
+                },
+                "fr": {
+                  "meaning": "Il a mal à la tête et la tête lui tourne.",
+                  "note": "Pour une amie : ko'ev la ha-rosh, ve-hi mesukhreret. Pour soi-même : ko'ev li ha-rosh, j'ai mal à la tête.",
+                  "literal": "fait-mal à-lui la-tête, et-lui étourdi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "להזמין אמבולנס?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "להזמין אמבולנס?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "lehazmin ambulans?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "לְהַזְמִין אַמְבּוּלַנְס?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I call an ambulance?",
+                  "note": "An infinitive alone, with a rising tone, offers to do something. Lehazmin is also how you book a table or order a taxi.",
+                  "literal": "to-order ambulance"
+                },
+                "fr": {
+                  "meaning": "J'appelle une ambulance ?",
+                  "note": "Un infinitif seul, sur un ton montant, sert à proposer : « lehazmin ? », « (je dois) appeler ? ». Le même verbe sert à réserver une table ou commander un taxi.",
+                  "literal": "commander ambulance"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:not_yet",
+              "key": "not_yet",
+              "intentKey": "decline_offer",
+              "slotId": "not_yet",
+              "speaker": "learner",
+              "text": "עוד לא צריך, תודה.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "עוד לא צריך, תודה."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "od lo tsarikh, toda."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "עוֹד לֹא צָרִיךְ, תּוֹדָה."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not yet, thanks.",
+                  "note": "Od lo = not yet. Tsarikh is impersonal here ('it's needed'), so anyone can say it.",
+                  "literal": "still not needed, thanks"
+                },
+                "fr": {
+                  "meaning": "Pas encore, merci.",
+                  "note": "« Od lo » = pas encore. Ici, « tsarikh » est impersonnel (« il faut ») : n'importe qui peut le dire.",
+                  "literal": "encore pas nécessaire, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "יש בית מרקחת קרוב?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש בית מרקחת קרוב?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh beit mirkakhat karov?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ בֵּית מִרְקַחַת קָרוֹב?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy nearby?",
+                  "note": "Beit mirkakhat is literally 'house of mixing (medicines)'. Karov (near) is masculine to agree with beit.",
+                  "literal": "there-is house-of mixing near"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Beit mirkakhat » : littéralement « maison des préparations ». « Karov » (proche) est au masculin pour s'accorder avec « beit » (maison), masculin en hébreu.",
+                  "literal": "il-y-a maison-de préparation proche"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the middle of mirkakhat: meer-KA-khat."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "כן, בפינה של הרחוב.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כן, בפינה של הרחוב."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ken, ba-pina shel ha-rekhov."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כֵּן, בַּפִּנָּה שֶׁל הָרְחוֹב."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, on the corner of the street.",
+                  "note": null,
+                  "literal": "yes, in-the-corner of the-street"
+                },
+                "fr": {
+                  "meaning": "Oui, au coin de la rue.",
+                  "note": "« Shel » (de) marque l'appartenance : ha-pina shel ha-rekhov, le coin de la rue.",
+                  "literal": "oui, dans-le-coin de la-rue"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "הבנתי, תודה רבה!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "הבנתי, תודה רבה!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hevanti, toda raba!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הֵבַנְתִּי, תּוֹדָה רַבָּה!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Got it, thank you very much!",
+                  "note": "Hevanti (I understood) is the everyday 'got it', the same for men and women.",
+                  "literal": "I-understood, thanks much"
+                },
+                "fr": {
+                  "meaning": "Compris, merci beaucoup !",
+                  "note": "« Hevanti » (j'ai compris) est le « compris ! » de tous les jours. Au passé, la première personne ne marque pas le genre : homme ou femme, on dit pareil.",
+                  "literal": "j'ai-compris, merci beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "אנחנו צריכים רופא.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אנחנו צריכים רופא."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "anakhnu tsrikhim rofe."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֲנַחְנוּ צְרִיכִים רוֹפֵא."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need a doctor.",
+                  "note": "Tsrikhim is the plural of tsarikh (need); the masculine plural covers a mixed group.",
+                  "literal": "we needing doctor"
+                },
+                "fr": {
+                  "meaning": "Il nous faut un médecin.",
+                  "note": "« Tsrikhim » est le pluriel de « tsarikh » (avoir besoin) ; le masculin pluriel vaut pour un groupe mixte, comme « ils » en français.",
+                  "literal": "nous ayant-besoin médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hebrew_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "hebrew_rina_host",
+          "titles": {
+            "en": "Friday-night dinner at Rina's",
+            "fr": "Dîner du vendredi soir chez Rina"
+          },
+          "sceneNotes": {
+            "en": "Friday-night dinner at your friend Omer's parents' flat; his mother Rina keeps filling your plate and wants to know everything about your family.",
+            "fr": "Vous êtes invité au dîner du vendredi soir chez les parents de votre ami Omer ; sa mère, Rina, remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:sit_and_eat",
+              "key": "sit_and_eat",
+              "intentKey": "welcome_someone",
+              "slotId": "sit_and_eat",
+              "speaker": "character",
+              "text": "שבת שלום! שב, תאכל משהו!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "שבת שלום! שב, תאכל משהו!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shabat shalom! shev, tokhal mashehu!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "שַׁבָּת שָׁלוֹם! שֵׁב, תֹּאכַל מַשֶּׁהוּ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shabbat shalom! Sit down, have something to eat!",
+                  "note": "Shabbat shalom is the greeting from Friday afternoon on. Tokhal ('you will eat') is the future used as a friendly command. To a woman: shvi, tokhli.",
+                  "literal": "Sabbath peace! sit, you-will-eat something"
+                },
+                "fr": {
+                  "meaning": "Shabbat shalom ! Assieds-toi, mange quelque chose !",
+                  "note": "« Shabbat shalom » se dit dès le vendredi après-midi. « Tokhal » (tu mangeras) : à l'oral, le futur sert d'impératif aimable. À une femme : shvi, tokhli.",
+                  "literal": "shabbat paix ! assieds-toi, tu-mangeras quelque-chose"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "הכול כל כך טעים!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "הכול כל כך טעים!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ha-kol kol kakh ta'im!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "הַכֹּל כָּל כָּךְ טָעִים!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Everything is so delicious!",
+                  "note": "Kol kakh = so (much). Ha-kol, 'the all', means everything.",
+                  "literal": "the-all all thus tasty"
+                },
+                "fr": {
+                  "meaning": "Tout est tellement bon !",
+                  "note": "« Kol kakh » = tellement, si. « Ha-kol » (le tout) veut dire « tout ». Au dîner du vendredi soir, on vous resservira de toute façon.",
+                  "literal": "le-tout tout ainsi savoureux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:your_hebrew",
+              "key": "your_hebrew",
+              "intentKey": "compliment",
+              "slotId": "your_hebrew",
+              "speaker": "character",
+              "text": "איזו עברית יפה יש לך!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "איזו עברית יפה יש לך!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "eizo ivrit yafa yesh lekha!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֵיזוֹ עִבְרִית יָפָה יֵשׁ לְךָ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What lovely Hebrew you speak!",
+                  "note": "Eizo (eize before a masculine noun) + noun = 'what a…!'. Yesh lekha, 'there is to you', is how Hebrew says 'you have'.",
+                  "literal": "what Hebrew pretty there-is to-you"
+                },
+                "fr": {
+                  "meaning": "Comme tu parles bien hébreu !",
+                  "note": "« Eizo » (eize devant un masculin) + nom = « quel(le)… ! ». « Yesh lekha », « il y a à toi », est la façon hébraïque de dire « tu as ».",
+                  "literal": "quel hébreu joli il-y-a à-toi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "תודה, אני משתדל!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "תודה, אני משתדל!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "toda, ani mishtadel!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "תּוֹדָה, אֲנִי מִשְׁתַּדֵּל!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm doing my best!",
+                  "note": "A modest, very natural answer. A woman says mishtadelet.",
+                  "literal": "thanks, I trying-hard"
+                },
+                "fr": {
+                  "meaning": "Merci, je fais de mon mieux !",
+                  "note": "Une réponse modeste et très naturelle. Une femme dit « mishtadelet ».",
+                  "literal": "merci, je m'efforçant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "יש לך נכדים?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש לך נכדים?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh lakh nekhadim?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ לָךְ נְכָדִים?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have grandchildren?",
+                  "note": "Said to a woman (lakh); to a man, yesh lekha. Yeladim = children, nekhadim = grandchildren, akhim = brothers and sisters.",
+                  "literal": "there-is to-you grandchildren"
+                },
+                "fr": {
+                  "meaning": "Vous avez des petits-enfants ?",
+                  "note": "Dit à une femme (lakh) ; à un homme : yesh lekha. Pas de vouvoiement, même avec une dame âgée. Yeladim = enfants, nekhadim = petits-enfants.",
+                  "literal": "il-y-a à-toi petits-enfants"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable: ne-kha-DEEM, with the kh of 'loch'."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "כן, חמישה! ואתה, יש לך אחים?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "כן, חמישה! ואתה, יש לך אחים?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ken, khamisha! ve-ata, yesh lekha akhim?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "כֵּן, חֲמִשָּׁה! וְאַתָּה, יֵשׁ לְךָ אַחִים?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, five! And you, do you have brothers and sisters?",
+                  "note": "The masculine plural akhim covers brothers and sisters together; akhayot is sisters only.",
+                  "literal": "yes, five! and-you, there-is to-you brothers"
+                },
+                "fr": {
+                  "meaning": "Oui, cinq ! Et toi, tu as des frères et sœurs ?",
+                  "note": "Le masculin pluriel « akhim » désigne à la fois les frères et les sœurs ; « akhayot » = les sœurs seulement.",
+                  "literal": "oui, cinq ! et-toi, il-y-a à-toi frères"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "יש לי אח ואחות.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "יש לי אח ואחות."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yesh li akh ve-akhot."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "יֵשׁ לִי אָח וְאָחוֹת."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": "Yesh li, 'there is to me', = I have. Akh = brother, akhot = sister.",
+                  "literal": "there-is to-me brother and-sister"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "« Yesh li » (il y a à moi) = j'ai. Pas d'article indéfini en hébreu : « akh » = un frère.",
+                  "literal": "il-y-a à-moi frère et-sœur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:when_wedding",
+              "key": "when_wedding",
+              "intentKey": "ask_clarification",
+              "slotId": "when_wedding",
+              "speaker": "character",
+              "text": "ומתי אתה מתחתן?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "ומתי אתה מתחתן?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "u-matai ata mitkhaten?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "וּמָתַי אַתָּה מִתְחַתֵּן?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And when are you getting married?",
+                  "note": "A classic question at an Israeli family table: take it as warmth. In careful speech, ve- (and) becomes u- before m, b and p.",
+                  "literal": "and-when you marrying"
+                },
+                "fr": {
+                  "meaning": "Et tu te maries quand ?",
+                  "note": "La question classique d'une table de famille israélienne : c'est de l'affection. Dans un parler soigné, « ve » (et) devient « u » devant m, b et p.",
+                  "literal": "et-quand tu te-mariant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "אני עוד לא יודע.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אני עוד לא יודע."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ani od lo yode'a."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֲנִי עוֹד לֹא יוֹדֵעַ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Od lo = not yet. A woman says yoda'at.",
+                  "literal": "I still not knowing"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "« Od lo » = pas encore. Une femme dit « yoda'at ». Un seul « lo » suffit à la négation : pas de « ne… pas ».",
+                  "literal": "je encore pas sachant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Yode'a ends with a short 'a' glided in after the e: yo-DEH-a."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "אני בן יחיד.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אני בן יחיד."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ani ben yakhid."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אֲנִי בֵּן יָחִיד."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "Literally 'an only son'; a woman says ani bat yekhida.",
+                  "literal": "I son only"
+                },
+                "fr": {
+                  "meaning": "Je suis fils unique.",
+                  "note": "Mot à mot « fils unique » ; une femme dit « ani bat yekhida », fille unique.",
+                  "literal": "je fils unique"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hebrew_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "hebrew_omer_friend",
+          "titles": {
+            "en": "A Saturday at the beach",
+            "fr": "Un samedi à la plage"
+          },
+          "sceneNotes": {
+            "en": "Your friend Omer wants to go to Gordon Beach this weekend, which in Israel is Friday and Saturday, but the day he proposes does not suit you.",
+            "fr": "Votre ami Omer veut aller à la plage Gordon ce week-end, qui tombe en Israël le vendredi et le samedi, mais le jour qu'il propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:beach_friday",
+              "key": "beach_friday",
+              "intentKey": "invite",
+              "slotId": "beach_friday",
+              "speaker": "character",
+              "text": "בא לך לבוא לים בשישי?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בא לך לבוא לים בשישי?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ba lekha lavo la-yam be-shishi?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בָּא לְךָ לָבוֹא לַיָּם בְּשִׁשִּׁי?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you feel like coming to the beach on Friday?",
+                  "note": "Ba lekha…? ('does it come to you?') = do you feel like…? Days are numbered: shishi, 'sixth', is Friday.",
+                  "literal": "comes to-you to-come to-the-sea on-sixth"
+                },
+                "fr": {
+                  "meaning": "Ça te dit de venir à la plage vendredi ?",
+                  "note": "« Ba lekha… ? » (ça te vient ?) = ça te dit de… ? Les jours sont numérotés : « shishi », le sixième, est le vendredi.",
+                  "literal": "vient à-toi venir à-la-mer au-sixième"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "סליחה, בשישי אני לא יכול.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "סליחה, בשישי אני לא יכול."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "slikha, be-shishi ani lo yakhol."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "סְלִיחָה, בְּשִׁשִּׁי אֲנִי לֹא יָכוֹל."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I can't on Friday.",
+                  "note": "A woman says lo yekhola. Putting be-shishi first puts the day in focus.",
+                  "literal": "sorry, on-sixth I not able"
+                },
+                "fr": {
+                  "meaning": "Désolé, vendredi je ne peux pas.",
+                  "note": "Une femme dit « lo yekhola ». Placer « be-shishi » en tête met le jour en relief, comme « vendredi, je ne peux pas ».",
+                  "literal": "pardon, au-sixième je pas pouvant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "מה עם שבת בבוקר?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "מה עם שבת בבוקר?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma im shabat ba-boker?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "מָה עִם שַׁבָּת בַּבֹּקֶר?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What about Saturday morning?",
+                  "note": "Ma im…? ('what with…?') is the easy way to suggest something else. Shabbat, Saturday, is the day of rest.",
+                  "literal": "what with Sabbath in-the-morning"
+                },
+                "fr": {
+                  "meaning": "Et samedi matin ?",
+                  "note": "« Ma im… ? » (quoi avec… ?) = et si… ?, que dirais-tu de… ? Le shabbat est le jour de repos : pas de trains, mais les plages de Tel-Aviv sont pleines.",
+                  "literal": "quoi avec shabbat au-matin"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:saturday_ok",
+              "key": "saturday_ok",
+              "intentKey": "agree",
+              "slotId": "saturday_ok",
+              "speaker": "character",
+              "text": "סבבה, בשבת אני פנוי.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "סבבה, בשבת אני פנוי."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sababa, be-shabat ani panui."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "סַבָּבָה, בְּשַׁבָּת אֲנִי פָּנוּי."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Cool, I'm free on Saturday.",
+                  "note": "Sababa, borrowed from Arabic, is the Israeli 'cool, great'. Panui (free) is the same word as for a taxi or a table.",
+                  "literal": "cool, on-Sabbath I free"
+                },
+                "fr": {
+                  "meaning": "Super, samedi je suis libre.",
+                  "note": "« Sababa », venu de l'arabe, est le « super » israélien. « Panui » (libre) : le même mot que pour un taxi ou une table.",
+                  "literal": "cool, au-shabbat je libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "בוא נשחק מטקות!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בוא נשחק מטקות!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bo nesakhek matkot!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בּוֹא נְשַׂחֵק מַטְקוֹת!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's play matkot!",
+                  "note": "Bo (come) + a 'we' verb = let's…; to a woman, bo'i. Matkot, wooden beach paddles, are the sound of every Israeli beach.",
+                  "literal": "come we-will-play paddles"
+                },
+                "fr": {
+                  "meaning": "On joue aux matkot !",
+                  "note": "« Bo » (viens) + verbe au « nous » = allons… ! ; à une femme : bo'i. Les matkot, des raquettes de plage en bois, sont le bruit de fond de toutes les plages israéliennes.",
+                  "literal": "viens nous-jouerons raquettes"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable of each word: ne-sa-KHEK mat-KOT."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "ניפגש בתשע בחוף?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "ניפגש בתשע בחוף?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "nipagesh be-tesha ba-khof?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "נִפָּגֵשׁ בְּתֵשַׁע בַּחוֹף?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at nine at the beach?",
+                  "note": "Nipagesh (we'll meet) is the same for everyone. In summer people go to the beach early, before the midday heat.",
+                  "literal": "we-will-meet at-nine at-the-beach"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à neuf heures à la plage ?",
+                  "note": "« Nipagesh » (nous nous retrouverons) est identique pour tous. L'été, on va à la plage tôt le matin, avant la grosse chaleur.",
+                  "literal": "nous-nous-retrouverons à-neuf à-la-plage"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:hummus_after",
+              "key": "hummus_after",
+              "intentKey": "invite",
+              "slotId": "hummus_after",
+              "speaker": "character",
+              "text": "אחלה! ואחר כך נאכל חומוס?",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אחלה! ואחר כך נאכל חומוס?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "akhla! ve-akhar kakh nokhal khumus?"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אַחְלָה! וְאַחַר כָּךְ נֹאכַל חֻמּוּס?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! And shall we have hummus afterwards?",
+                  "note": "Akhla (from Arabic) = great. Nokhal, 'we'll eat', said as a question, is a suggestion.",
+                  "literal": "great! and-after that we-will-eat hummus"
+                },
+                "fr": {
+                  "meaning": "Génial ! Et après, on mange un houmous ?",
+                  "note": "« Akhla », venu de l'arabe, = génial. Au futur et sur un ton interrogatif, « nokhal » (nous mangerons) devient une proposition. Le houmous se mange en assiette, avec de la pita.",
+                  "literal": "génial ! et-après ça nous-mangerons houmous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "ברור, אני בפנים!",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "ברור, אני בפנים!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "barur, ani bifnim!"
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בָּרוּר, אֲנִי בִּפְנִים!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, I'm in!",
+                  "note": "Barur (clear) = of course. Ani bifnim, 'I'm inside', is the casual 'count me in', the same for men and women.",
+                  "literal": "clear, I inside"
+                },
+                "fr": {
+                  "meaning": "Évidemment, je suis partant !",
+                  "note": "« Barur » (clair) = évidemment. « Ani bifnim » (je suis dedans) = je suis de la partie, pour un homme comme pour une femme. Le p devient f après bi- : bif-NIM.",
+                  "literal": "clair, je dedans"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The p of pnim turns into an f after bi-: beef-NEEM."
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "אז סגרנו: שבת בתשע בחוף.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "אז סגרנו: שבת בתשע בחוף."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "az sagarnu: shabat be-tesha ba-khof."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "אָז סָגַרְנוּ: שַׁבָּת בְּתֵשַׁע בַּחוֹף."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So it's settled: Saturday at nine at the beach.",
+                  "note": "Sagarnu, 'we closed', is how Israelis seal a plan, like the sagur you said at the market.",
+                  "literal": "so we-closed: Sabbath at-nine at-the-beach"
+                },
+                "fr": {
+                  "meaning": "Alors c'est réglé : samedi, neuf heures, à la plage.",
+                  "note": "« Sagarnu » (nous avons fermé) scelle un accord, comme le « sagur » du marché. Dans un récapitulatif, on peut omettre be- devant le jour : shabat be-tesha, « samedi, neuf heures ».",
+                  "literal": "alors nous-avons-fermé : shabbat à-neuf à-la-plage"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hebrew_ch2:hebrew_make_weekend_plans:movie",
+              "key": "movie",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "בוא נלך לסרט.",
+              "forms": [
+                {
+                  "script": "Hebr",
+                  "scheme": null,
+                  "text": "בוא נלך לסרט."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bo nelekh le-seret."
+                },
+                {
+                  "script": "Hebr",
+                  "scheme": "niqqud",
+                  "text": "בּוֹא נֵלֵךְ לְסֶרֶט."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go to a movie.",
+                  "note": "Seret = film; the cinema is kolno'a. Same pattern as bo nesakhek: bo + a 'we' verb.",
+                  "literal": "come we-will-go to-film"
+                },
+                "fr": {
+                  "meaning": "Allons voir un film.",
+                  "note": "« Seret » = film ; le cinéma se dit « kolno'a ». Même tournure que « bo nesakhek » : bo + verbe au « nous ».",
+                  "literal": "viens nous-irons à-film"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

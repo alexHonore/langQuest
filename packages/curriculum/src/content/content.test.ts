@@ -26,15 +26,18 @@ describe('draft chapters are honestly labelled', () => {
     ]);
   });
 
-  it('every track has a chapter 1 for learners from English and from French (the French course from English, the English course from French)', () => {
-    expect(DRAFT_CHAPTERS).toHaveLength(30);
+  it('every track has chapters 1 and 2 for learners from English and from French (the French course from English, the English course from French)', () => {
+    expect(DRAFT_CHAPTERS).toHaveLength(60);
     for (const track of COURSE_TRACKS) {
       const chapters = DRAFT_CHAPTERS.filter((c) => c.courseTrackId === track.id);
-      expect(chapters, track.id).toHaveLength(1);
-      const sources = chapters[0]!.sourceLanguages;
-      if (track.id === 'english') expect(sources).toContain('fr');
-      else if (track.id === 'french') expect(sources).toEqual(['en']);
-      else expect([...sources].sort(), track.id).toEqual(expect.arrayContaining(['en', 'fr']));
+      expect(chapters.map((c) => c.chapterIndex), track.id).toEqual([1, 2]);
+      expect(new Set(chapters.flatMap((c) => c.missions.map((m) => m.key))).size, `${track.id}: mission keys are unique across chapters`).toBe(chapters.reduce((n, c) => n + c.missions.length, 0));
+      for (const chapter of chapters) {
+        const sources = chapter.sourceLanguages;
+        if (track.id === 'english') expect(sources).toContain('fr');
+        else if (track.id === 'french') expect(sources).toEqual(['en']);
+        else expect([...sources].sort(), chapter.key).toEqual(expect.arrayContaining(['en', 'fr']));
+      }
     }
     for (const c of GENERATED_CHAPTERS) {
       expect(c.missions.map((m) => m.blueprintKey), c.key).toEqual(CHAPTER_1_BLUEPRINT_KEYS);
@@ -226,13 +229,19 @@ describe('coverage summary', () => {
     expect(summary.totals.partial).toBe(8 + 24 * 2 + 1 + 2);
     expect(summary.totals.planned).toBe(summary.rows.length - summary.totals.partial);
     const row = (track: string, source: SourceLanguageCode) => summary.rows.find((r) => r.courseTrackId === track && r.sourceLanguageCode === source)!;
-    expect(row('arabic-moroccan', 'fr')).toMatchObject({ status: 'partial', nativeReviewed: false, draftedMissionCount: 7, nativeReviewedExpressionCount: 0 });
+    // Chapter 1 (7 missions) and chapter 2 (6) of the story arc, both drafted.
+    expect(row('arabic-moroccan', 'fr')).toMatchObject({ status: 'partial', nativeReviewed: false, draftedMissionCount: 13, nativeReviewedExpressionCount: 0 });
+    expect(row('arabic-moroccan', 'fr').reason).toMatch(/^13\/13 missions of chapters 1–2 drafted/);
     expect(row('arabic-moroccan', 'fr').metrics.mission_instructions_pct).toBe(100);
     expect(row('arabic-moroccan', 'ru').status).toBe('planned');
+    // English from Russian has chapter 1 only (4 of its 7 missions); from French, chapter 2 as well (10 of 13).
     expect(row('english', 'ru')).toMatchObject({ status: 'partial', draftedMissionCount: 4 });
     expect(row('english', 'ru').metrics.mission_instructions_pct).toBeCloseTo(57.1, 1);
-    expect(row('lingala', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 7, nativeReviewedExpressionCount: 0 });
-    expect(row('russian', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 7 });
+    expect(row('english', 'ru').reason).toMatch(/^4\/7 chapter-1 missions drafted/);
+    expect(row('english', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 10 });
+    expect(row('english', 'fr').metrics.mission_instructions_pct).toBeCloseTo(76.9, 1);
+    expect(row('lingala', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 13, nativeReviewedExpressionCount: 0 });
+    expect(row('russian', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 13 });
     expect(row('lingala', 'ru')).toMatchObject({ status: 'planned', expressionsWithTargetText: 0 });
     expect(row('lingala', 'ru').reason).toMatch(/no target text/);
     expect(row('chinese-simplified', 'ru').plannedChapterKeys).toEqual(['chinese_simplified_ch1_planned']);

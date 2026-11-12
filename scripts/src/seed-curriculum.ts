@@ -39,9 +39,9 @@
 import { resolve } from 'node:path';
 import { COURSE_TRACKS, deriveScriptOptions, getCourseTrack, type CourseTrackId, type CoverageMetrics, type SourceLanguageCode } from '@langquest/contracts';
 import {
-  CHAPTER_1_BLUEPRINT_KEYS,
   DEFAULT_STORY_ARC,
   DRAFT_CHAPTERS,
+  arcMissionsThrough,
   buildAllPlannedSkeletons,
   castChapter,
   expandTemplate,
@@ -347,17 +347,25 @@ function scenarioRow(chapter: SeedChapter, mission: SeedMission, bp: MissionBlue
   };
 }
 
-function coverageRows(chapter: SeedChapter, expectedMissions: number, uiPct: Record<string, number>): PlannedCoverageRow[] {
-  const expressions = chapter.missions.flatMap((m) => m.expressions);
-  const withText = expressions.filter((e) => e.targetText !== null).length;
-  return chapter.sourceLanguages.map((source) => {
-    const missionsWithOverlay = chapter.missions.filter((m) => m.titles[source] && m.expressions.some((e) => e.targetText !== null)).length;
+/**
+ * One coverage row per instruction language of a course, measured over every draft chapter taught from it (a course
+ * has one row per language, however many chapters): against the missions the story arc plans in those chapters.
+ */
+function coverageRows(chapters: readonly SeedChapter[], uiPct: Record<string, number>): PlannedCoverageRow[] {
+  const sources = [...new Set(chapters.flatMap((c) => c.sourceLanguages))];
+  return sources.map((source) => {
+    const own = chapters.filter((c) => c.sourceLanguages.includes(source));
+    const missions = own.flatMap((c) => c.missions);
+    const expressions = missions.flatMap((m) => m.expressions);
+    const withText = expressions.filter((e) => e.targetText !== null).length;
+    const missionsWithOverlay = missions.filter((m) => m.titles[source] && m.expressions.some((e) => e.targetText !== null)).length;
     const withMeaning = expressions.filter((e) => e.targetText !== null && e.meanings[source]).length;
+    const expectedMissions = arcMissionsThrough(Math.max(...own.map((c) => c.chapterIndex)));
     return {
-      course_track_id: chapter.courseTrackId,
+      course_track_id: own[0]!.courseTrackId,
       source_language_code: source,
       metrics: {
-        mission_instructions_pct: pct(missionsWithOverlay, Math.max(expectedMissions, chapter.missions.length)),
+        mission_instructions_pct: pct(missionsWithOverlay, Math.max(expectedMissions, missions.length)),
         explanations_pct: withText > 0 ? pct(withMeaning, withText) : 0,
         ui_pct: clampPct(uiPct[source]),
         subtitles_pct: 0,
@@ -381,7 +389,6 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
     else chapters.push(sk);
   }
   const uiPct = uiCoveragePctByLanguage();
-  const expectedMissions = CHAPTER_1_BLUEPRINT_KEYS.length;
   const roster = options.roster ?? CAST_ROSTER;
   const plan: CurriculumSeedPlan = {
     chapters: [],
@@ -515,8 +522,11 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
       plan.rows.expressionTranslations.push(...translations);
       summary.expressions += expressions.length;
     });
-    if (draft) plan.rows.coverage.push(...coverageRows(chapter, expectedMissions, uiPct));
     plan.chapters.push(summary);
+  }
+  // Coverage: one row per (course, instruction language), over all of the course's draft chapters.
+  for (const trackId of new Set(chapters.filter(isDraft).map((c) => c.courseTrackId))) {
+    plan.rows.coverage.push(...coverageRows(chapters.filter((c) => isDraft(c) && c.courseTrackId === trackId), uiPct));
   }
   // Skills last: the plan must cover every key the curriculum and the mission rows above reference.
   plan.skills = buildSkillSeedPlan({ missions: plan.rows.missions });

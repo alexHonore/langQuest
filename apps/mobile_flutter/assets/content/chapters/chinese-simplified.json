@@ -2962,6 +2962,2658 @@
           ]
         }
       ]
+    },
+    {
+      "key": "chinese_simplified_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "chinese-simplified",
+      "targetVarietyId": "cmn",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Beijing",
+        "fr": "Prendre ses marques à Pékin"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Chinese (Simplified) (cmn); native review required before publishing.",
+        "Mainland usage set in Beijing: 您 with staff, strangers and the host, 你 with the friend; the Beijing 儿 only in the characters' lines (点儿, 一点儿). A native reviewer should first check that 您有什么推荐的菜吗, 服务员，麻烦结账, 没有没有，还差得远呢 and 好啊，那我不客气了 sound natural rather than textbook.",
+        "Pinyin follows chapter 1: the tone changes of 一 and 不 are written (yí jiàn, bú tài), third-tone sandhi is not, neutral tones are unmarked (xièxie, péngyou); sentences start with a capital, as in chapter 1's first missions. Word division to confirm: xiàchē, shuākǎ, zhōngdiǎnzhàn, Tiānjīn Zhàn, èrděngzuò.",
+        "Facts to verify: the Beijing South–Tianjin second-class fare (109 yuan for two tickets), the 48-yuan dish and the 320-yuan jacket. The friend in the emergency scene is written 她 (she); the masculine 他 sounds the same and needs no separate recording."
+      ],
+      "characters": [
+        {
+          "key": "chinese_simplified_zhao_lei_waiter",
+          "name": "赵磊",
+          "role": "waiter",
+          "personality": "brisk, proud of the house dishes, shouts every order to the kitchen",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_simplified_chen_jing_shop_assistant",
+          "name": "陈静",
+          "role": "shop assistant",
+          "personality": "attentive, honest about what fits, quick to mention the discount",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_simplified_sun_li_ticket_clerk",
+          "name": "孙丽",
+          "role": "ticket clerk",
+          "personality": "efficient, brisk, patient with travellers",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_simplified_zhou_qiang_bystander",
+          "name": "周强",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_simplified_zhang_ayi_host",
+          "name": "张阿姨",
+          "role": "host",
+          "personality": "warm, keeps filling your bowl, curious about your family",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_simplified_haoran_friend",
+          "name": "浩然",
+          "role": "friend",
+          "personality": "easy-going, loves a day out, generous",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "chinese_simplified_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "chinese_simplified_zhao_lei_waiter",
+          "titles": {
+            "en": "Dinner at a family restaurant",
+            "fr": "Dîner dans un petit restaurant"
+          },
+          "sceneNotes": {
+            "en": "A small family-run restaurant in a hutong near Beijing's Drum Tower on a busy evening; the waiter recommends the house speciality.",
+            "fr": "Vous dînez dans un petit restaurant familial d'un hutong, près de la tour du Tambour à Pékin ; le serveur vous recommande la spécialité de la maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "欢迎光临！请问几位？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "欢迎光临！请问几位？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Huānyíng guānglín! Qǐngwèn jǐ wèi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! How many people, please?",
+                  "note": "欢迎光临 is what staff call out when you walk into any shop or restaurant. 位 (wèi) is the polite measure word for people.",
+                  "literal": "welcome honoured-arrival! may-I-ask how-many [polite measure]"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Vous êtes combien ?",
+                  "note": "« 欢迎光临 » : la formule d'accueil que l'on entend en entrant dans n'importe quel commerce. 位 (wèi) est le classificateur de politesse pour compter les personnes.",
+                  "literal": "bienvenue honorable-venue ! puis-je-demander combien [classificateur poli]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "我们两个人，有位子吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我们两个人，有位子吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒmen liǎng ge rén, yǒu wèizi ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are two of us. Do you have a table?",
+                  "note": "The polite 位 is for other people: about your own group, say 两个人. Change the number: 三个人 (sān), 四个人 (sì).",
+                  "literal": "we two [measure] person, have seat [question]"
+                },
+                "fr": {
+                  "meaning": "Nous sommes deux, vous avez une table ?",
+                  "note": "Le classificateur poli 位 se dit des autres : pour votre propre groupe, dites 两个人. Changez le nombre : 三个人 (sān), 四个人 (sì). 吗 (ma) en fin de phrase fait de l'affirmation une question, comme « est-ce que ».",
+                  "literal": "nous deux [classificateur] personne, avoir place [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "liǎng is one syllable, 'lyahng', with a dipping tone; the zi of wèizi is short and light, like 'dz'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "您有什么推荐的菜吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您有什么推荐的菜吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nín yǒu shénme tuījiàn de cài ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a dish you would recommend?",
+                  "note": "With 吗, 什么 no longer means 'what' but 'any'. 的 links the description (推荐, recommend) to the noun (菜, dish).",
+                  "literal": "you(polite) have what recommend [de] dish [question]"
+                },
+                "fr": {
+                  "meaning": "Vous avez un plat à nous recommander ?",
+                  "note": "Avec 吗, 什么 ne veut plus dire « quoi » mais « quelque ». 的 relie ce qui décrit (推荐, recommander) au nom (菜, plat) : l'ordre est l'inverse du français. Le c de cài se prononce « ts ».",
+                  "literal": "vous(poli) avoir quoi recommander [de] plat [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "tuījiàn: 'tway-jyen'; cài starts with ts, as in 'cats', and falls sharply."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:house_dish",
+              "key": "house_dish",
+              "intentKey": "offer_options",
+              "slotId": "house_dish",
+              "speaker": "character",
+              "text": "宫保鸡丁是我们的招牌菜。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "宫保鸡丁是我们的招牌菜。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Gōngbǎo jīdīng shì wǒmen de zhāopáicài."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Kung pao chicken is our signature dish.",
+                  "note": "宫保鸡丁: diced chicken stir-fried with peanuts and dried chillies. 招牌菜, the 'signboard dish', is the house speciality.",
+                  "literal": "kung-pao chicken-cubes is we [de] signboard-dish"
+                },
+                "fr": {
+                  "meaning": "Le poulet kung pao est notre spécialité.",
+                  "note": "宫保鸡丁 : des dés de poulet sautés avec des cacahuètes et des piments séchés. 招牌菜, mot à mot « plat-enseigne », c'est la spécialité de la maison.",
+                  "literal": "gongbao poulet-dés être nous [de] enseigne-plat"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "请问，里面有辣椒吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，里面有辣椒吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, lǐmiàn yǒu làjiāo ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, are there chillies in it?",
+                  "note": "Swap in 花生 (huāshēng, peanuts), 肉 (ròu, meat) or 香菜 (xiāngcài, coriander). 有 means both 'to have' and 'there is'.",
+                  "literal": "may-I-ask, inside have chilli [question]"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, il y a du piment dedans ?",
+                  "note": "Remplacez 辣椒 par 花生 (huāshēng, cacahuètes), 肉 (ròu, viande) ou 香菜 (xiāngcài, coriandre). 有 signifie à la fois « avoir » et « il y a ».",
+                  "literal": "puis-je-demander, dedans avoir piment [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:not_too_spicy",
+              "key": "not_too_spicy",
+              "intentKey": "state_opinion",
+              "slotId": "not_too_spicy",
+              "speaker": "character",
+              "text": "有一点儿，不太辣。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "有一点儿，不太辣。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yǒu yìdiǎnr, bú tài là."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A little, it's not too spicy.",
+                  "note": "There is no word for 'yes': you answer by repeating the verb, here 有. 不太 = 'not very'.",
+                  "literal": "have a-little, not too spicy"
+                },
+                "fr": {
+                  "meaning": "Un peu, ce n'est pas très piquant.",
+                  "note": "Pas de mot pour « oui » : on répond en reprenant le verbe de la question, ici 有. 不太 = « pas très ». 不 se prononce bú devant un 4e ton (tài).",
+                  "literal": "avoir un-peu, pas trop piquant"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "我们要一份宫保鸡丁，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我们要一份宫保鸡丁，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒmen yào yí fèn gōngbǎo jīdīng, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We'll have one kung pao chicken, thank you.",
+                  "note": "要 (want) is the normal verb for ordering. 份 (fèn) is the measure word for a portion; dishes are shared in the middle of the table.",
+                  "literal": "we want one [measure: portion] kung-pao chicken-cubes, thanks"
+                },
+                "fr": {
+                  "meaning": "Nous prendrons un poulet kung pao, merci.",
+                  "note": "要 (vouloir) est le verbe normal pour commander, sans rien d'impoli. 份 (fèn) est le classificateur des portions ; 一 se lit yí devant un 4e ton. Les plats se partagent au centre de la table.",
+                  "literal": "nous vouloir un [classificateur : portion] gongbao poulet-dés, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "一 is read yí before a fourth tone: yí fèn. fèn rhymes with 'fun'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "这个菜太好吃了！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "这个菜太好吃了！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhège cài tài hǎochī le!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This dish is so good!",
+                  "note": "太 + adjective + 了 = 'so…!'. 好吃 (good-to-eat) is for food; for a drink say 好喝 (hǎohē).",
+                  "literal": "this dish too good-eat [le]"
+                },
+                "fr": {
+                  "meaning": "Ce plat est vraiment délicieux !",
+                  "note": "太 + adjectif + 了 : « tellement… ! ». 好吃 (« bon à manger ») se dit d'un plat ; pour une boisson, on dit 好喝 (hǎohē, « bon à boire »). Le « ch » de chī se prononce « tch », langue recourbée vers l'arrière.",
+                  "literal": "ce plat trop bon-manger [le]"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "chī: curl the tongue back for ch and hold a buzzing vowel; it is not 'chee'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "服务员，麻烦结账，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "服务员，麻烦结账，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Fúwùyuán, máfan jiézhàng, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, could we have the bill, please? Thank you.",
+                  "note": "Call the waiter or waitress with 服务员. 麻烦 ('to trouble') makes any request polite. 结账 = settle the bill; you also know 买单. No tipping in China.",
+                  "literal": "waiter, trouble settle-bill, thanks"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, l'addition, merci.",
+                  "note": "On appelle le serveur ou la serveuse par 服务员. 麻烦 (« déranger ») rend toute demande polie. 结账 = régler l'addition ; vous connaissez aussi 买单. On ne laisse pas de pourboire en Chine.",
+                  "literal": "serveur, déranger régler-addition, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "好的，一共四十八块。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好的，一共四十八块。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo de, yígòng sìshíbā kuài."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Certainly, that's forty-eight yuan altogether.",
+                  "note": "Numbers are regular: 四十八 = four-ten-eight. 块 (kuài) is the spoken word for yuan.",
+                  "literal": "good [de], altogether four-ten-eight yuan"
+                },
+                "fr": {
+                  "meaning": "Très bien, ça fait quarante-huit yuans en tout.",
+                  "note": "Les nombres sont réguliers : 四十八 = quatre-dix-huit. 块 (kuài) est le mot courant pour « yuan » à l'oral.",
+                  "literal": "bien [de], en-tout quatre-dix-huit yuans"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_restaurant_order_meal:more_rice",
+              "key": "more_rice",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "再来两碗米饭。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "再来两碗米饭。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zài lái liǎng wǎn mǐfàn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And two bowls of rice.",
+                  "note": "来 ('come') + quantity is the everyday way to order; 再 adds 'and also'. Rice is ordered separately, by the bowl (碗).",
+                  "literal": "again come two [measure: bowl] cooked-rice"
+                },
+                "fr": {
+                  "meaning": "Et deux bols de riz.",
+                  "note": "来 (« venir ») + quantité : la façon la plus courante de commander ; 再 ajoute « en plus ». Le riz se commande à part, au bol (碗).",
+                  "literal": "encore venir deux [classificateur : bol] riz-cuit"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_simplified_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "chinese_simplified_chen_jing_shop_assistant",
+          "titles": {
+            "en": "Buying a jacket",
+            "fr": "Acheter une veste"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop on Nanluoguxiang, a lively hutong lane in Beijing; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de Nanluoguxiang, une ruelle animée de Pékin ; la vendeuse est attentive et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "您好！想看点儿什么？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您好！想看点儿什么？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nín hǎo! Xiǎng kàn diǎnr shénme?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! What would you like to look at?",
+                  "note": "The usual shop greeting. 点儿 ('a bit') softens the question; the -r ending is typical of Beijing.",
+                  "literal": "you(polite) good! want look a-bit what"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous cherchez quelque chose ?",
+                  "note": "La question habituelle des vendeurs. 点儿 (« un peu ») adoucit la phrase ; ce « r » final est typique de Pékin.",
+                  "literal": "vous(poli) bien ! vouloir regarder un-peu quoi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "我随便看看，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我随便看看，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ suíbiàn kànkan, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just having a look, thanks.",
+                  "note": "Doubling a verb (看看) makes it light: 'have a little look'. 随便 = as one pleases.",
+                  "literal": "I as-I-please look-look, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde juste, merci.",
+                  "note": "Redoubler le verbe (看看) l'allège : « jeter un coup d'œil ». 随便 = à sa guise. Le second 看 se dit sans ton, très bref.",
+                  "literal": "je à-ma-guise regarder-regarder, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "suíbiàn: 'sway-byen'. The second 看 is light and toneless."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "我想买一件外套。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我想买一件外套。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ xiǎng mǎi yí jiàn wàitào."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to buy a jacket.",
+                  "note": "想 + verb = 'would like to'. 件 (jiàn) is the measure word for tops and coats: 一件毛衣 (a sweater), 一件衬衫 (a shirt).",
+                  "literal": "I would-like buy one [measure] jacket"
+                },
+                "fr": {
+                  "meaning": "Je voudrais acheter une veste.",
+                  "note": "想 + verbe = « je voudrais ». 件 (jiàn) est le classificateur des hauts et des manteaux : 一件毛衣 (un pull), 一件衬衫 (une chemise). Attention aux tons : 买 mǎi (3e) = acheter, 卖 mài (4e) = vendre.",
+                  "literal": "je vouloir acheter un [classificateur] veste"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mind the tones: 买 mǎi (dipping) is 'buy', 卖 mài (falling) is 'sell'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:try_this",
+              "key": "try_this",
+              "intentKey": "offer_options",
+              "slotId": "try_this",
+              "speaker": "character",
+              "text": "这件怎么样？您试试吧。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "这件怎么样？您试试吧。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhè jiàn zěnmeyàng? Nín shìshi ba."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about this one? Do try it on.",
+                  "note": "怎么样？ = 'how about…?'. 吧 turns 试试 (have a try) into a friendly suggestion.",
+                  "literal": "this [measure] how? you(polite) try-try [suggestion]"
+                },
+                "fr": {
+                  "meaning": "Et celle-ci ? Essayez-la donc.",
+                  "note": "怎么样？ = « qu'en dites-vous ? ». 吧 fait de 试试 (essayer un peu) une suggestion aimable.",
+                  "literal": "ce [classificateur] comment ? vous(poli) essayer-essayer [suggestion]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "有大一号的吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "有大一号的吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yǒu dà yí hào de ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it one size bigger?",
+                  "note": "大一号 = bigger by one size; 小一号 = one size smaller. 的 stands for the garment: 'a bigger one'. Chinese sizes run small.",
+                  "literal": "have big one size [de] [question]"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez une taille au-dessus ?",
+                  "note": "大一号 = plus grand d'une taille ; 小一号 = une taille en dessous. 的 remplace ici le vêtement : « une plus grande ». Les tailles chinoises sont petites : essayez toujours.",
+                  "literal": "avoir grand un taille [de] [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "一 becomes yí before the fourth-tone 号 (hào)."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:here_is_large",
+              "key": "here_is_large",
+              "intentKey": "offer_options",
+              "slotId": "here_is_large",
+              "speaker": "character",
+              "text": "有，给您，这是大号的。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "有，给您，这是大号的。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yǒu, gěi nín, zhè shì dà hào de."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, here you are, this is the large.",
+                  "note": "给您 ('give you') is what people say when handing you something. Sizes: 小号 (S), 中号 (M), 大号 (L).",
+                  "literal": "have, give you(polite), this is big size [de]"
+                },
+                "fr": {
+                  "meaning": "Oui, tenez, voici la grande taille.",
+                  "note": "给您 (« donner à vous ») : ce que l'on dit en vous tendant quelque chose. Tailles : 小号 (S), 中号 (M), 大号 (L).",
+                  "literal": "avoir, donner vous(poli), ceci être grand taille [de]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "这件多少钱？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "这件多少钱？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhè jiàn duōshao qián?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this one?",
+                  "note": "With 件 you point at one garment: 这件 (this one), 那件 (nà jiàn, that one).",
+                  "literal": "this [measure] how-much money"
+                },
+                "fr": {
+                  "meaning": "Elle coûte combien, celle-ci ?",
+                  "note": "Avec 件, on désigne un vêtement précis : 这件 (celui-ci), 那件 (nà jiàn, celui-là). Pas de verbe « coûter » : mot à mot « celui-ci combien argent ».",
+                  "literal": "ce [classificateur] combien argent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "qián: q is like the ch of 'cheese' with a puff of air: 'chyen', rising."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "三百二十块，现在打八折。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "三百二十块，现在打八折。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Sānbǎi èrshí kuài, xiànzài dǎ bā zhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Three hundred and twenty yuan, and it's 20% off at the moment.",
+                  "note": "Careful: 打八折 means you pay 80% of the price, so 20% off. 打五折 is half price.",
+                  "literal": "three-hundred two-ten yuan, now hit eight tenths"
+                },
+                "fr": {
+                  "meaning": "Trois cent vingt yuans, avec 20 % de réduction en ce moment.",
+                  "note": "Piège : 打八折 veut dire que l'on paie 80 % du prix, donc 20 % de réduction (et non 80 %). 打五折 = moitié prix.",
+                  "literal": "trois-cent deux-dix yuans, maintenant frapper huit dixièmes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "好，我就要这件。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好，我就要这件。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo, wǒ jiù yào zhè jiàn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take this one.",
+                  "note": "就 stresses the choice: 'this is the one I want'.",
+                  "literal": "good, I just want this [measure]"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends celle-ci.",
+                  "note": "就 insiste sur le choix : « c'est bien celle-ci que je veux ». 要 (vouloir) suffit pour dire « je prends ».",
+                  "literal": "bien, je justement vouloir ce [classificateur]"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "可以刷卡吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "可以刷卡吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Kěyǐ shuākǎ ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "刷卡 = 'swipe card'. Most people in China pay by phone, with 微信 (Wēixìn, WeChat) or 支付宝 (Zhīfùbǎo, Alipay); small shops may not take foreign cards.",
+                  "literal": "can swipe-card [question]"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "刷卡 = « passer la carte ». En Chine, presque tout le monde paie avec son téléphone, par 微信 (Wēixìn, WeChat) ou 支付宝 (Zhīfùbǎo, Alipay) ; les petites boutiques refusent parfois les cartes étrangères.",
+                  "literal": "pouvoir passer-carte [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "有别的颜色吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "有别的颜色吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yǒu bié de yánsè ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have other colours?",
+                  "note": "别的 = other. Colours: 黑色 (hēisè, black), 白色 (báisè, white), 红色 (hóngsè, red), 蓝色 (lánsè, blue).",
+                  "literal": "have other [de] colour [question]"
+                },
+                "fr": {
+                  "meaning": "Vous avez d'autres couleurs ?",
+                  "note": "别的 = autre(s). Couleurs : 黑色 (hēisè, noir), 白色 (báisè, blanc), 红色 (hóngsè, rouge), 蓝色 (lánsè, bleu).",
+                  "literal": "avoir autre [de] couleur [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_simplified_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "chinese_simplified_sun_li_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Tianjin",
+            "fr": "Un billet de train pour Tianjin"
+          },
+          "sceneNotes": {
+            "en": "The ticket window at Beijing South station on a busy morning; you want the next high-speed train to Tianjin, half an hour away.",
+            "fr": "Vous êtes au guichet de la gare de Pékin-Sud, un matin d'affluence ; vous voulez prendre le prochain train rapide pour Tianjin, à une demi-heure de là."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "我想买一张去天津的票。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我想买一张去天津的票。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ xiǎng mǎi yì zhāng qù Tiānjīn de piào."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to buy a ticket to Tianjin.",
+                  "note": "Whatever describes the ticket comes before it, linked by 的: 去天津的票, a 'go-to-Tianjin ticket'. 张 (zhāng) is the measure word for flat things.",
+                  "literal": "I would-like buy one [measure] go Tianjin [de] ticket"
+                },
+                "fr": {
+                  "meaning": "Je voudrais acheter un billet pour Tianjin.",
+                  "note": "Tout ce qui précise le billet se place avant lui, relié par 的 : 去天津的票, « aller-à-Tianjin billet ». 张 (zhāng) est le classificateur des objets plats ; 一 se lit yì devant un 1er ton.",
+                  "literal": "je vouloir acheter un [classificateur] aller Tianjin [de] billet"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zh is like the j of 'jump' with the tongue curled back; 一 is read yì before a first tone."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:which_class",
+              "key": "which_class",
+              "intentKey": "offer_options",
+              "slotId": "which_class",
+              "speaker": "character",
+              "text": "要二等座还是一等座？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "要二等座还是一等座？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yào èrděngzuò háishi yīděngzuò?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Second class or first class?",
+                  "note": "二等座 is the standard seat on high-speed trains. In 一等 (first class), 一 keeps its original tone, yī: it is a rank, not a quantity.",
+                  "literal": "want second-class-seat or first-class-seat"
+                },
+                "fr": {
+                  "meaning": "Deuxième ou première classe ?",
+                  "note": "二等座 est la place ordinaire des trains à grande vitesse. Dans 一等 (première classe), 一 garde son ton d'origine, yī : c'est un rang, pas une quantité.",
+                  "literal": "vouloir deuxième-classe-siège ou première-classe-siège"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:second_class",
+              "key": "second_class",
+              "intentKey": "choose_option",
+              "slotId": "second_class",
+              "speaker": "learner",
+              "text": "二等座，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "二等座，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Èrděngzuò, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Second class, thank you.",
+                  "note": "二 (èr) is for ranks and numbers, 两 (liǎng) for quantities: 二等座, but 两张票.",
+                  "literal": "second-class-seat, thanks"
+                },
+                "fr": {
+                  "meaning": "Deuxième classe, merci.",
+                  "note": "二 (èr) sert pour les rangs et les numéros, 两 (liǎng) pour les quantités : 二等座, mais 两张票. Pour èr, dites « a » en recourbant la langue vers l'arrière.",
+                  "literal": "deuxième-classe-siège, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "请问，下一趟车几点开？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，下一趟车几点开？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, xià yí tàng chē jǐ diǎn kāi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, what time does the next train leave?",
+                  "note": "趟 (tàng) counts trips and train services. 几点 = what time (lit. 'how many o'clock'). 开 means 'to open' and also 'to depart'.",
+                  "literal": "may-I-ask, next one [measure: trip] train how-many o'clock depart"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, à quelle heure part le prochain train ?",
+                  "note": "趟 (tàng) est le classificateur des trajets et des trains. 几点 = « quelle heure » (mot à mot « combien de points »). 开, « ouvrir », veut aussi dire « démarrer, partir ».",
+                  "literal": "puis-je-demander, prochain un [classificateur : trajet] train combien heure partir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "下一趟十点一刻开。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "下一趟十点一刻开。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Xià yí tàng shí diǎn yí kè kāi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The next one leaves at a quarter past ten.",
+                  "note": "Hour + 点: 十点 = ten o'clock. 一刻 = a quarter; 半 (bàn) = half past: 十点半.",
+                  "literal": "next one [measure: trip] ten o'clock one quarter depart"
+                },
+                "fr": {
+                  "meaning": "Le prochain part à dix heures et quart.",
+                  "note": "Heure + 点 : 十点 = dix heures. 一刻 = un quart ; 半 (bàn) = et demie : 十点半.",
+                  "literal": "prochain un [classificateur : trajet] dix heure un quart partir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "好，我要两张票。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好，我要两张票。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo, wǒ yào liǎng zhāng piào."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'd like two tickets.",
+                  "note": "Number + 张 + 票: 一张票, 两张票, 三张票. Train tickets are sold under your name: have a passport (护照, hùzhào) ready for each traveller.",
+                  "literal": "good, I want two [measure] ticket"
+                },
+                "fr": {
+                  "meaning": "D'accord, je voudrais deux billets.",
+                  "note": "Nombre + 张 + 票 : 一张票, 两张票, 三张票. Les billets de train sont nominatifs en Chine : préparez un passeport (护照, hùzhào) par voyageur.",
+                  "literal": "bien, je vouloir deux [classificateur] billet"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "请问，我在哪一站下车？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，我在哪一站下车？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, wǒ zài nǎ yí zhàn xiàchē?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, which station do I get off at?",
+                  "note": "下车 = get off (lit. 'descend vehicle'); 上车 (shàngchē) = get on. 在 + place comes before the verb.",
+                  "literal": "may-I-ask, I at which one station descend-vehicle"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, à quelle gare dois-je descendre ?",
+                  "note": "下车 = descendre (mot à mot « descendre véhicule ») ; 上车 (shàngchē) = monter. Le lieu, introduit par 在, se place avant le verbe, à l'inverse du français.",
+                  "literal": "puis-je-demander, je à quel un gare descendre-véhicule"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zhàn: 'jahn' with the tongue curled back, falling tone."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "在天津站下车，是终点站。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "在天津站下车，是终点站。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zài Tiānjīn Zhàn xiàchē, shì zhōngdiǎnzhàn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at Tianjin Station, it's the last stop.",
+                  "note": "Intercity trains from Beijing South reach Tianjin Station, in the city centre, in about thirty minutes.",
+                  "literal": "at Tianjin station descend-vehicle, is end-point-station"
+                },
+                "fr": {
+                  "meaning": "Descendez à la gare de Tianjin, c'est le terminus.",
+                  "note": "Les trains interurbains partis de Pékin-Sud arrivent en une demi-heure environ à la gare de Tianjin, en plein centre-ville.",
+                  "literal": "à Tianjin gare descendre-véhicule, être fin-point-gare"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "可以用微信支付吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "可以用微信支付吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Kěyǐ yòng Wēixìn zhīfù ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay with WeChat?",
+                  "note": "用 = to use, 'with'. Swap in 支付宝 (Zhīfùbǎo, Alipay), 银行卡 (yínhángkǎ, bank card) or 现金 (xiànjīn, cash).",
+                  "literal": "can use WeChat pay [question]"
+                },
+                "fr": {
+                  "meaning": "Je peux payer avec WeChat ?",
+                  "note": "用 = utiliser, « avec ». Remplacez 微信 par 支付宝 (Zhīfùbǎo, Alipay), 银行卡 (yínhángkǎ, carte bancaire) ou 现金 (xiànjīn, espèces). Le x de xìn : un « s » chuinté, la langue à plat.",
+                  "literal": "pouvoir utiliser WeChat payer [question]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "可以。一共一百零九块。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "可以。一共一百零九块。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Kěyǐ. Yígòng yìbǎi líng jiǔ kuài."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, you can. That's one hundred and nine yuan altogether.",
+                  "note": "零 (líng, zero) marks the empty tens place: 一百零九 = 109. Without it, 一百九 would be understood as 190.",
+                  "literal": "can. altogether one-hundred zero nine yuan"
+                },
+                "fr": {
+                  "meaning": "Oui, c'est possible. Ça fait cent neuf yuans en tout.",
+                  "note": "零 (líng, zéro) marque la dizaine vide : 一百零九 = 109. Sans lui, 一百九 se comprendrait 190.",
+                  "literal": "pouvoir. en-tout un-cent zéro neuf yuans"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_buy_train_ticket:high_speed_ticket",
+              "key": "high_speed_ticket",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "一张去天津的高铁票，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "一张去天津的高铁票，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yì zhāng qù Tiānjīn de gāotiě piào, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One high-speed ticket to Tianjin, thanks.",
+                  "note": "Shorter, with no verb: fine at a busy window. 高铁 (gāotiě) is the high-speed train.",
+                  "literal": "one [measure] go Tianjin [de] high-speed-rail ticket, thanks"
+                },
+                "fr": {
+                  "meaning": "Un billet de train rapide pour Tianjin, merci.",
+                  "note": "Plus court, sans verbe : parfait devant un guichet bondé. 高铁 (gāotiě), c'est le train à grande vitesse, l'équivalent chinois du TGV.",
+                  "literal": "un [classificateur] aller Tianjin [de] grande-vitesse-rail billet, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_simplified_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "chinese_simplified_zhou_qiang_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "On a hot afternoon by Houhai lake in Beijing, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Par un après-midi très chaud au bord du lac Houhai, à Pékin, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "请帮帮我们！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请帮帮我们！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐng bāngbang wǒmen!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please help us!",
+                  "note": "In China, call 120 for an ambulance and 110 for the police. If a life is in danger, shout 救命！ (jiùmìng).",
+                  "literal": "please help-help us"
+                },
+                "fr": {
+                  "meaning": "Aidez-nous, s'il vous plaît !",
+                  "note": "En Chine, composez le 120 pour une ambulance et le 110 pour la police. Si une vie est en danger, criez 救命！ (jiùmìng). Le q de qǐng se prononce « tch », avec un souffle.",
+                  "literal": "s'il-vous-plaît aider-aider nous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "bāngbang: the second syllable is light and toneless."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "怎么了？出什么事了？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "怎么了？出什么事了？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zěnme le? Chū shénme shì le?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's wrong? What happened?",
+                  "note": "怎么了？ on its own is the everyday 'what's the matter?'. 出事 = for something bad to happen.",
+                  "literal": "how [le]? come-out what matter [le]"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a ? Qu'est-ce qui s'est passé ?",
+                  "note": "怎么了？ tout seul, c'est le « qu'est-ce qu'il y a ? » de tous les jours. 出事 = « il arrive quelque chose de fâcheux ».",
+                  "literal": "comment [le] ? sortir quoi affaire [le]"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "我朋友头晕，不舒服。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我朋友头晕，不舒服。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ péngyou tóuyūn, bù shūfu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is dizzy and doesn't feel well.",
+                  "note": "头晕 = dizzy (lit. 'head spins'). 不舒服 is the general word for 'unwell'. 朋友 can be a man or a woman.",
+                  "literal": "I friend head-dizzy, not comfortable"
+                },
+                "fr": {
+                  "meaning": "Mon amie a la tête qui tourne, elle ne se sent pas bien.",
+                  "note": "头晕 = avoir la tête qui tourne. 不舒服 : « pas bien », en général. 朋友 se dit d'un ami comme d'une amie. yūn se prononce avec le « u » français : « yune ».",
+                  "literal": "je ami tête-étourdie, pas à-l'aise"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "yūn has the ü vowel: say 'ee' with rounded lips. In shūfu the second syllable is light."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "她头很疼。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "她头很疼。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Tā tóu hěn téng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Her head hurts a lot.",
+                  "note": "Body part + 疼: 肚子疼 (dùzi téng, stomach ache), 牙疼 (yá téng, toothache). 他 (he) and 她 (she) sound exactly the same: tā.",
+                  "literal": "she head very hurt"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "Partie du corps + 疼 : 肚子疼 (dùzi téng, mal au ventre), 牙疼 (yá téng, mal aux dents). 他 (il) et 她 (elle) se prononcent exactement pareil : tā. Pour vous-même : 我头很疼.",
+                  "literal": "elle tête très faire-mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:calm",
+              "key": "calm",
+              "intentKey": "react_with_empathy",
+              "slotId": "calm",
+              "speaker": "character",
+              "text": "别着急，先让她坐下。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "别着急，先让她坐下。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Bié zháojí, xiān ràng tā zuòxià."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't worry, let her sit down first.",
+                  "note": "别 + verb = 'don't…'. 先 = first; 让 = to let.",
+                  "literal": "don't worry, first let her sit-down"
+                },
+                "fr": {
+                  "meaning": "Ne vous inquiétez pas, faites-la d'abord asseoir.",
+                  "note": "别 + verbe = « ne… pas » (interdiction ou conseil). 先 = d'abord ; 让 = laisser, faire.",
+                  "literal": "ne-pas s'inquiéter, d'abord laisser elle s'asseoir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "请问，最近的药店在哪里？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，最近的药店在哪里？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, zuì jìn de yàodiàn zài nǎlǐ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where is the nearest pharmacy?",
+                  "note": "最 + adjective = 'the most': 最近 = nearest. Swap in 医院 (yīyuàn, hospital). Pharmacies show a green cross or the character 药.",
+                  "literal": "may-I-ask, most near [de] pharmacy at where"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, où est la pharmacie la plus proche ?",
+                  "note": "最 + adjectif = « le plus » : 最近 = le plus proche. Remplacez 药店 par 医院 (yīyuàn, hôpital). Les pharmacies se repèrent à leur croix verte ou au caractère 药.",
+                  "literal": "puis-je-demander, plus proche [de] pharmacie se-trouver où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "yàodiàn: two falling tones, 'yow-dyen'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "前面路口就有一家，很近。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "前面路口就有一家，很近。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qiánmiàn lùkǒu jiù yǒu yì jiā, hěn jìn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There's one right at the next junction, very close.",
+                  "note": "家 (jiā) is the measure word for shops and businesses. 就 here = 'right there'.",
+                  "literal": "ahead junction right have one [measure: business], very near"
+                },
+                "fr": {
+                  "meaning": "Il y en a une juste au prochain carrefour, c'est tout près.",
+                  "note": "家 (jiā) est le classificateur des commerces et des entreprises. 就 = « juste là ».",
+                  "literal": "devant carrefour justement avoir un [classificateur : commerce], très proche"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "好的，我知道了，麻烦您了！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好的，我知道了，麻烦您了！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo de, wǒ zhīdào le, máfan nín le!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I've got it. Thank you for your trouble!",
+                  "note": "我知道了 = 'now I know': 了 marks the change. 麻烦您了 thanks someone for the trouble they have taken.",
+                  "literal": "good [de], I know [le], trouble you(polite) [le]"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci de votre peine !",
+                  "note": "我知道了 = « maintenant je sais » : 了 marque le changement. 麻烦您了 (« je vous ai dérangé ») remercie quelqu'un du mal qu'il s'est donné.",
+                  "literal": "bien [de], je savoir [le], déranger vous(poli) [le]"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:call_ambulance",
+              "key": "call_ambulance",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "请帮我叫救护车！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请帮我叫救护车！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐng bāng wǒ jiào jiùhùchē!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please call an ambulance for me!",
+                  "note": "帮我 + verb = 'do it for me'. 叫 = to call; the ambulance number is 120.",
+                  "literal": "please help me call rescue-protect-vehicle"
+                },
+                "fr": {
+                  "meaning": "Appelez-moi une ambulance, s'il vous plaît !",
+                  "note": "帮我 + verbe = « faites-le pour moi ». 叫 = appeler ; le numéro des ambulances est le 120.",
+                  "literal": "s'il-vous-plaît aider moi appeler secours-véhicule"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_emergency_ask_help:see_doctor",
+              "key": "see_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "她需要看医生。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "她需要看医生。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Tā xūyào kàn yīshēng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She needs to see a doctor.",
+                  "note": "看医生, lit. 'look at a doctor', is how you say 'see a doctor'. In China you normally go to a hospital (医院) for that.",
+                  "literal": "she need look doctor"
+                },
+                "fr": {
+                  "meaning": "Elle a besoin de voir un médecin.",
+                  "note": "看医生, mot à mot « regarder médecin » : consulter. En Chine, on va en général à l'hôpital (医院, yīyuàn) pour voir un médecin.",
+                  "literal": "elle avoir-besoin regarder médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_simplified_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "chinese_simplified_zhang_ayi_host",
+          "titles": {
+            "en": "Dumplings with the family",
+            "fr": "Des raviolis en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour's parents' flat in Beijing; Auntie Zhang has made dumplings, keeps filling your bowl and wants to know all about your family.",
+            "fr": "Vous déjeunez un dimanche chez les parents de votre voisine, à Pékin ; Mme Zhang a préparé des raviolis, remplit sans cesse votre bol et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:eat_more",
+              "key": "eat_more",
+              "intentKey": "welcome_someone",
+              "slotId": "eat_more",
+              "speaker": "character",
+              "text": "来，多吃点儿，别客气！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "来，多吃点儿，别客气！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Lái, duō chī diǎnr, bié kèqi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come on, eat some more, make yourself at home!",
+                  "note": "What every Chinese host says. 别客气 = 'don't stand on ceremony'. An older host says 你 to a younger guest; you answer with 您.",
+                  "literal": "come, more eat a-bit, don't be-polite"
+                },
+                "fr": {
+                  "meaning": "Allez, mange encore un peu, ne fais pas de manières !",
+                  "note": "La phrase de tous les hôtes chinois. 别客气 = « pas de cérémonie ». Une hôtesse âgée dit 你 (tu) à un invité plus jeune ; vous lui répondez avec 您.",
+                  "literal": "venir, plus manger un-peu, ne-pas faire-des-politesses"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "阿姨做的饺子特别好吃！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "阿姨做的饺子特别好吃！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Āyí zuò de jiǎozi tèbié hǎochī!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Your dumplings are really delicious, Auntie!",
+                  "note": "You call an older woman 阿姨 ('auntie') and use the title in place of 'you'. 特别 = especially. 饺子 are the boiled dumplings of the north.",
+                  "literal": "auntie make [de] dumpling especially good-eat"
+                },
+                "fr": {
+                  "meaning": "Vos raviolis sont vraiment délicieux, madame !",
+                  "note": "On appelle une dame plus âgée 阿姨 (« tante ») et l'on emploie ce titre à la place de « vous ». 特别 = particulièrement. Les 饺子 (jiǎozi), raviolis du Nord, se préparent en famille.",
+                  "literal": "tante faire [de] raviolis particulièrement bon-manger"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "jiǎozi: 'jyow-dz', a dipping tone then a short, light zi."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "你汉语说得真好！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你汉语说得真好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ Hànyǔ shuō de zhēn hǎo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Chinese really well!",
+                  "note": "Verb + 得 + adjective describes how something is done: 说得好 = speak well.",
+                  "literal": "you Chinese speak [de] really good"
+                },
+                "fr": {
+                  "meaning": "Tu parles vraiment bien chinois !",
+                  "note": "Verbe + 得 + adjectif dit comment l'action est faite : 说得好 = bien parler. Ce 得 se prononce de, comme 的.",
+                  "literal": "tu chinois parler [de] vraiment bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "没有没有，还差得远呢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "没有没有，还差得远呢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Méiyǒu méiyǒu, hái chà de yuǎn ne."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not at all, I still have a long way to go.",
+                  "note": "A compliment is modestly turned down rather than accepted with 'thank you'. The textbook classic is 哪里哪里 ('where, where?').",
+                  "literal": "not-have not-have, still lacking [de] far [particle]"
+                },
+                "fr": {
+                  "meaning": "Mais non, j'en suis encore loin.",
+                  "note": "Par modestie, on écarte le compliment au lieu de dire merci. La formule classique des manuels est 哪里哪里 (« où ça, où ça ? »). 呢 en fin de phrase souligne que c'est encore vrai.",
+                  "literal": "ne-pas-avoir ne-pas-avoir, encore manquer [de] loin [particule]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "阿姨，您有几个孩子？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "阿姨，您有几个孩子？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Āyí, nín yǒu jǐ ge háizi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Auntie, how many children do you have?",
+                  "note": "几 asks 'how many' for small numbers and needs a measure word: 几个. 您 is the respectful 'you' for an elder.",
+                  "literal": "auntie, you(polite) have how-many [measure] child"
+                },
+                "fr": {
+                  "meaning": "Madame, vous avez combien d'enfants ?",
+                  "note": "几 (« combien ») s'emploie pour un petit nombre et demande un classificateur : 几个. 您 est le « vous » de respect dû à une personne âgée. Pas de 吗 quand la phrase contient déjà un mot interrogatif.",
+                  "literal": "tante, vous(poli) avoir combien [classificateur] enfant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "háizi: 'high-dz', a rising tone then a light syllable."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "两个。你呢，有兄弟姐妹吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "两个。你呢，有兄弟姐妹吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Liǎng ge. Nǐ ne, yǒu xiōngdì jiěmèi ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two. And you, do you have brothers and sisters?",
+                  "note": "你呢？ = 'and you?'. 兄弟姐妹 lists them all: older and younger brothers, older and younger sisters.",
+                  "literal": "two [measure]. you [particle], have brothers sisters [question]"
+                },
+                "fr": {
+                  "meaning": "Deux. Et toi, tu as des frères et sœurs ?",
+                  "note": "你呢？ = « et toi ? ». 兄弟姐妹 les énumère tous : grand frère, petit frère, grande sœur, petite sœur.",
+                  "literal": "deux [classificateur]. toi [particule], avoir frères sœurs [question]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "我有一个哥哥和一个妹妹。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我有一个哥哥和一个妹妹。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ yǒu yí ge gēge hé yí ge mèimei."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have an older brother and a younger sister.",
+                  "note": "Chinese always says whether a sibling is older or younger: 哥哥 / 弟弟 (dìdi) for brothers, 姐姐 (jiějie) / 妹妹 for sisters.",
+                  "literal": "I have one [measure] older-brother and one [measure] younger-sister"
+                },
+                "fr": {
+                  "meaning": "J'ai un grand frère et une petite sœur.",
+                  "note": "Le chinois précise toujours l'aîné et le cadet : 哥哥 (grand frère), 弟弟 (dìdi, petit frère), 姐姐 (jiějie, grande sœur), 妹妹 (petite sœur). 和 (hé, « et ») relie deux noms, jamais deux phrases.",
+                  "literal": "je avoir un [classificateur] grand-frère et un [classificateur] petite-sœur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "你打算在北京住多久？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你打算在北京住多久？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ dǎsuàn zài Běijīng zhù duō jiǔ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How long are you planning to live in Beijing?",
+                  "note": "Elders readily ask personal questions (your age, your job, 你结婚了吗？ 'are you married?'): it shows interest, not rudeness.",
+                  "literal": "you plan at Beijing live how long"
+                },
+                "fr": {
+                  "meaning": "Tu comptes rester combien de temps à Pékin ?",
+                  "note": "Les aînés posent volontiers des questions personnelles (votre âge, votre travail, 你结婚了吗？ « tu es marié(e) ? ») : c'est une marque d'intérêt, pas une indiscrétion.",
+                  "literal": "tu prévoir à Pékin habiter combien longtemps"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "我还不知道呢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我还不知道呢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ hái bù zhīdào ne."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "还不 / 还没 = 'not yet'. 呢 makes the answer softer and leaves the question open.",
+                  "literal": "I still not know [particle]"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "还不 / 还没 = « pas encore ». 呢 adoucit la réponse et laisse la question ouverte. 不 reste bù ici, devant un 1er ton.",
+                  "literal": "je encore pas savoir [particule]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zhīdào: zh with the tongue curled back. 不 stays bù before a first tone."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:four_of_us",
+              "key": "four_of_us",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我家有四口人。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我家有四口人。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ jiā yǒu sì kǒu rén."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are four people in my family.",
+                  "note": "口 ('mouth') is the measure word used to count the members of a family.",
+                  "literal": "I home have four [measure: mouth] person"
+                },
+                "fr": {
+                  "meaning": "Nous sommes quatre dans ma famille.",
+                  "note": "口 (« bouche ») est le classificateur réservé aux membres d'une famille : on compte les bouches à nourrir.",
+                  "literal": "je maison avoir quatre [classificateur : bouche] personne"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_talk_about_family:not_sure",
+              "key": "not_sure",
+              "intentKey": "say_dont_know",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我还不太清楚。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我还不太清楚。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ hái bú tài qīngchu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm not quite sure yet.",
+                  "note": "不太清楚 ('not very clear') is a softer, more polite way to say that you don't know.",
+                  "literal": "I still not too clear"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore très bien.",
+                  "note": "不太清楚 (« pas très clair ») : une façon plus douce et plus polie de dire que l'on ne sait pas. 不 devient bú devant tài (4e ton).",
+                  "literal": "je encore pas trop clair"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_simplified_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "chinese_simplified_haoran_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Haoran wants to go and climb the Great Wall this weekend, but the day he suggests does not suit you.",
+            "fr": "Votre ami Haoran veut aller marcher sur la Grande Muraille ce week-end, mais le jour qu'il propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:great_wall_saturday",
+              "key": "great_wall_saturday",
+              "intentKey": "invite",
+              "slotId": "great_wall_saturday",
+              "speaker": "character",
+              "text": "周六我们去爬长城，怎么样？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "周六我们去爬长城，怎么样？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhōuliù wǒmen qù pá Chángchéng, zěnmeyàng?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about we go and climb the Great Wall on Saturday?",
+                  "note": "Time words come before the verb. 周六 = Saturday (also 星期六); you 'climb' (爬) the Great Wall.",
+                  "literal": "Saturday we go climb Great-Wall, how-about"
+                },
+                "fr": {
+                  "meaning": "Samedi, on va marcher sur la Grande Muraille, ça te dit ?",
+                  "note": "Le moment se place avant le verbe. 周六 = samedi (on dit aussi 星期六) ; la Grande Muraille, on la « grimpe » (爬). …，怎么样？ = « ça te dit ? ».",
+                  "literal": "samedi nous aller grimper Grande-Muraille, comment"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "不好意思，周六我有事。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不好意思，周六我有事。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Bù hǎoyìsi, zhōuliù wǒ yǒu shì."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I have something to do on Saturday.",
+                  "note": "有事 ('have a matter') is the standard polite excuse: nobody will ask what it is.",
+                  "literal": "embarrassed, Saturday I have matter"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), samedi j'ai un empêchement.",
+                  "note": "有事 (« avoir une affaire ») est l'excuse polie par excellence : personne ne vous demandera de quoi il s'agit.",
+                  "literal": "gêné, samedi je avoir affaire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "周日可以吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "周日可以吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhōurì kěyǐ ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is Sunday OK?",
+                  "note": "Days of the week are numbered: 周一 (Monday) to 周六 (Saturday); Sunday is 周日 or 星期天.",
+                  "literal": "Sunday can [question]"
+                },
+                "fr": {
+                  "meaning": "Dimanche, ça irait ?",
+                  "note": "Les jours sont numérotés : 周一 (lundi) … 周六 (samedi) ; dimanche se dit 周日 ou 星期天. Le r de rì : un « j » français prononcé la langue recourbée.",
+                  "literal": "dimanche possible [question]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "rì: curl the tongue back and let it buzz; it is nothing like 'ree'."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "行啊，周日我有空。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "行啊，周日我有空。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Xíng a, zhōurì wǒ yǒu kòng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, I'm free on Sunday.",
+                  "note": "行 = 'that works'. 有空 = to have free time; 没空 (méi kòng) = to be busy.",
+                  "literal": "works [particle], Sunday I have free-time"
+                },
+                "fr": {
+                  "meaning": "Ça marche, dimanche je suis libre.",
+                  "note": "行 = « ça marche ». 有空 = avoir du temps libre ; 没空 (méi kòng) = ne pas être disponible.",
+                  "literal": "aller [particule], dimanche je avoir temps-libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "我们早上八点出发吧？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我们早上八点出发吧？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒmen zǎoshang bā diǎn chūfā ba?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we set off at eight in the morning?",
+                  "note": "From big to small: day, part of the day, hour: 周日早上八点. 吧 turns the sentence into a suggestion.",
+                  "literal": "we morning eight o'clock set-off [suggestion]"
+                },
+                "fr": {
+                  "meaning": "On part à huit heures du matin ?",
+                  "note": "Du plus grand au plus petit : jour, moment de la journée, heure : 周日早上八点. 吧 transforme la phrase en proposition.",
+                  "literal": "nous matin huit heure partir [suggestion]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "chūfā: both syllables are high and level."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "晚上一起去吃烤鸭吧！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "晚上一起去吃烤鸭吧！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǎnshang yìqǐ qù chī kǎoyā ba!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go and eat roast duck together in the evening!",
+                  "note": "一起 = together; verb + 吧 = 'let's…'. 北京烤鸭, Peking duck, is the city's most famous dish.",
+                  "literal": "evening together go eat roast-duck [suggestion]"
+                },
+                "fr": {
+                  "meaning": "Le soir, allons manger du canard laqué ensemble !",
+                  "note": "一起 = ensemble ; verbe + 吧 = « allons… ». Le 北京烤鸭, canard laqué de Pékin, est le plat le plus célèbre de la ville. 一 se lit yì devant un 3e ton.",
+                  "literal": "soir ensemble aller manger canard-rôti [suggestion]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:my_treat",
+              "key": "my_treat",
+              "intentKey": "invite",
+              "slotId": "my_treat",
+              "speaker": "character",
+              "text": "好主意！我请你。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好主意！我请你。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo zhǔyi! Wǒ qǐng nǐ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good idea! It's my treat.",
+                  "note": "请 = to invite, so 我请你 means 'I'm paying'. Friends rarely split the bill: one treats, the other pays next time.",
+                  "literal": "good idea! I invite you"
+                },
+                "fr": {
+                  "meaning": "Bonne idée ! C'est moi qui t'invite.",
+                  "note": "请 = inviter, donc 我请你 = « c'est moi qui paie ». Entre amis, on partage rarement l'addition : l'un invite, l'autre paiera la prochaine fois.",
+                  "literal": "bonne idée ! je inviter toi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "好啊，那我不客气了！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好啊，那我不客气了！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo a, nà wǒ bú kèqi le!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great, then I won't say no!",
+                  "note": "Lit. 'then I won't be polite': the cheerful way to accept a treat. A plain 好啊！ also works.",
+                  "literal": "good [particle], then I not be-polite [le]"
+                },
+                "fr": {
+                  "meaning": "Super, alors j'accepte sans façon !",
+                  "note": "Mot à mot « alors je ne fais plus de politesses » : la façon enjouée d'accepter une invitation. Un simple 好啊！ suffit aussi.",
+                  "literal": "bien [particule], alors je pas faire-des-politesses [le]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "不 becomes bú before the fourth-tone 客 (kè)."
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "那周日早上八点见！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "那周日早上八点见！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nà zhōurì zǎoshang bā diǎn jiàn!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, see you on Sunday at eight in the morning!",
+                  "note": "Time + 见 = 'see you…': 明天见 (míngtiān jiàn, see you tomorrow). 那 at the start = 'so, then'.",
+                  "literal": "then Sunday morning eight o'clock see"
+                },
+                "fr": {
+                  "meaning": "Alors à dimanche, huit heures du matin !",
+                  "note": "Moment + 见 = « à… » : 明天见 (míngtiān jiàn, à demain). 那 en début de phrase = « alors ».",
+                  "literal": "alors dimanche matin huit heure voir"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:be_there",
+              "key": "be_there",
+              "intentKey": "confirm_plan",
+              "slotId": "be_there",
+              "speaker": "character",
+              "text": "好，不见不散！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好，不见不散！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hǎo, bú jiàn bú sàn!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, be there or be square!",
+                  "note": "A set phrase that seals a meeting: 'if we haven't met, we don't leave', in other words 'I'll wait until you come'.",
+                  "literal": "good, not see not disperse"
+                },
+                "fr": {
+                  "meaning": "D'accord, on s'attend quoi qu'il arrive !",
+                  "note": "Formule consacrée pour sceller un rendez-vous : « pas vus, pas partis », autrement dit « je t'attendrai jusqu'à ce que tu arrives ».",
+                  "literal": "bien, pas voir pas se-disperser"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:see_a_film",
+              "key": "see_a_film",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我们去看电影，好不好？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我们去看电影，好不好？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒmen qù kàn diànyǐng, hǎo bu hǎo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go and see a film?",
+                  "note": "Verb-不-verb makes a yes/no question: 好不好？ = 'OK or not?'. It does the same job as 好吗？",
+                  "literal": "we go watch film, good not good"
+                },
+                "fr": {
+                  "meaning": "On va voir un film, d'accord ?",
+                  "note": "Verbe-不-verbe forme une question fermée : 好不好？ = « d'accord ou pas ? ». Même rôle que 好吗？ ; le 不 du milieu se dit sans ton.",
+                  "literal": "nous aller regarder film, bien pas bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_simplified_ch2:chinese_simplified_make_weekend_plans:overtime",
+              "key": "overtime",
+              "intentKey": "decline_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "周六不行，我要加班。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "周六不行，我要加班。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zhōuliù bù xíng, wǒ yào jiābān."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Saturday's no good, I have to work overtime.",
+                  "note": "不行 = 'that won't work'. 加班 (overtime) is an excuse everyone understands; 要 here means 'have to'.",
+                  "literal": "Saturday not work, I must add-shift"
+                },
+                "fr": {
+                  "meaning": "Samedi, impossible : je dois faire des heures sup.",
+                  "note": "不行 = « ça ne va pas ». 加班 (heures supplémentaires) est une excuse que tout le monde comprend ; 要 signifie ici « devoir ».",
+                  "literal": "samedi pas aller, je devoir ajouter-service"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

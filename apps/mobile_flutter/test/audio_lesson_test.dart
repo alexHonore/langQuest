@@ -358,7 +358,8 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Mixes'), findsOneWidget);
     expect(find.text('Every conversation'), findsOneWidget);
-    expect(find.text('6 conversations back to back, just to listen'), findsOneWidget);
+    // Both chapters: the device has a voice for the course, so every conversation can be heard.
+    expect(find.text('12 conversations back to back, just to listen'), findsOneWidget);
     expect(find.text('Recall workout'), findsNothing, reason: 'nothing learned yet (visible means usable)');
 
     notifier.completeStop('es_greet_and_introduce', PathStop.learn);

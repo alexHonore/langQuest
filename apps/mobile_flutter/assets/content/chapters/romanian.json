@@ -2816,6 +2816,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "romanian_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "romanian",
+      "targetVarietyId": "ro",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Cluj",
+        "fr": "Prendre ses marques à Cluj"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Romanian (ro); native review required before publishing.",
+        "Register as in chapter 1: the learner uses the polite plural (vă rog, aveți, sunteți) with staff, strangers and the older hostess, who says tu back; tu between friends. Please confirm the waiter's 'Vi-o aduc imediat' and 'Sigur, o clipă', and the casual 'Ne vedem la nouă?', 'Sigur, sună bine!' and 'Ce zici de duminică?'.",
+        "'Are nuci sau alune?' is the plainest safe wording I could find for a nut allergy (Romanian has no single everyday word for nuts); a reviewer may prefer another.",
+        "Local facts to verify: varză à la Cluj as a house speciality, 250 lei for a jacket, 500 lei as a round figure for two return tickets Cluj-Napoca to București Nord, a 10% tip, Cheile Turzii as a day trip.",
+        "The learner's own lines avoid gendered forms; 'Prietena mea se simte rău' and 'O doare tare capul' need their masculine counterparts recorded (Prietenul meu…, Îl doare…), and 'amabilă' is said to a woman."
+      ],
+      "characters": [
+        {
+          "key": "romanian_radu_waiter",
+          "name": "Radu",
+          "role": "waiter",
+          "personality": "quick, proud of the house specialities, likes a joke with the regulars",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "romanian_ioana_shop_assistant",
+          "name": "Ioana",
+          "role": "shop assistant",
+          "personality": "attentive, honest about what fits",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "romanian_doina_ticket_clerk",
+          "name": "Doina",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "romanian_vlad_bystander",
+          "name": "Vlad",
+          "role": "helpful bystander",
+          "personality": "calm, quick to help",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "romanian_viorica_host",
+          "name": "Viorica",
+          "role": "host",
+          "personality": "warm, keeps filling your plate, curious about your family",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "romanian_tudor_friend",
+          "name": "Tudor",
+          "role": "friend",
+          "personality": "easy-going, loves hiking, always has a plan for the weekend",
+          "homeRegion": "Cluj-Napoca",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "romanian_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "romanian_radu_waiter",
+          "titles": {
+            "en": "Dinner at the restaurant",
+            "fr": "Dîner au restaurant"
+          },
+          "sceneNotes": {
+            "en": "A small traditional restaurant in the centre of Cluj on a busy evening; the waiter knows the menu by heart and recommends the house speciality.",
+            "fr": "Vous dînez dans un petit restaurant traditionnel du centre de Cluj, un soir d'affluence ; le serveur connaît la carte par cœur et recommande la spécialité de la maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Bună seara! Aveți rezervare?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bună seara! Aveți rezervare?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! Do you have a reservation?",
+                  "note": "Aveți is the polite (and plural) 'you have': the form to expect from staff.",
+                  "literal": "good evening! you-have reservation"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous avez une réservation ?",
+                  "note": "« Aveți » = vous avez, au vouvoiement comme au pluriel. Le ț se prononce « ts » et le -i final s'entend à peine : a-VÈTS.",
+                  "literal": "bon soir ! avez-vous réservation"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "O masă pentru două persoane, vă rog.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O masă pentru două persoane, vă rog."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Two is doi with masculine nouns and două with feminine ones: două persoane.",
+                  "literal": "a table for two persons, you I-ask"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Deux » s'accorde : doi au masculin, două au féminin (două persoane). Dans « masă », le s reste [s], jamais [z], et le ă se prononce comme le « e » de « le ».",
+                  "literal": "une table pour deux personnes, je vous prie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The s in masă stays a crisp s, and ă is the 'a' of 'about': MAH-suh."
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Ce ne recomandați?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce ne recomandați?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Ne = to us. Recomandați is the polite form; to a friend you would say ce ne recomanzi?",
+                  "literal": "what to-us you-recommend"
+                },
+                "fr": {
+                  "meaning": "Que nous recommandez-vous ?",
+                  "note": "Piège : « ne » veut dire « nous » (à nous), ce n'est pas une négation ; « ne… pas » se dit « nu ». À un ami : ce ne recomanzi?",
+                  "literal": "quoi nous recommandez-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:house_speciality",
+              "key": "house_speciality",
+              "intentKey": "state_opinion",
+              "slotId": "house_speciality",
+              "speaker": "character",
+              "text": "Varza à la Cluj e specialitatea casei.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Varza à la Cluj e specialitatea casei."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Cluj-style cabbage is the house speciality.",
+                  "note": "Varză à la Cluj: layers of cabbage, minced meat and rice baked in the oven and served with sour cream, the city's own dish.",
+                  "literal": "the-cabbage à la Cluj is the-speciality of-the-house"
+                },
+                "fr": {
+                  "meaning": "Le chou à la Cluj est la spécialité de la maison.",
+                  "note": "Varză à la Cluj : des couches de chou, de viande hachée et de riz cuites au four, servies avec de la crème aigre. L'article défini se colle à la fin du nom : varză → varza (le chou).",
+                  "literal": "le-chou à la Cluj est la-spécialité de-la-maison"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Pentru mine, varză à la Cluj, vă rog.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pentru mine, varză à la Cluj, vă rog."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For me, the Cluj-style cabbage, please.",
+                  "note": "Pentru mine plus the dish is the easiest way to order: no verb needed.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pour moi, le chou à la Cluj, s'il vous plaît.",
+                  "note": "« Pentru mine » + le plat : la façon la plus simple de commander, sans verbe, exactement comme « pour moi ». « Cluj » se prononce « clouj », avec le j de « jour ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cluj is one syllable, KLOOZH: j is the s of 'measure'."
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Are nuci sau alune?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Are nuci sau alune?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Does it have nuts in it?",
+                  "note": "There is no single everyday word for nuts: nuci are walnuts, alune hazelnuts or peanuts. Swap in gluten, lapte (milk), carne (meat).",
+                  "literal": "it-has walnuts or hazelnuts"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a des fruits à coque ?",
+                  "note": "Pas de mot courant pour « fruits à coque » : nuci = noix (prononcé « noutch »), alune = noisettes ou cacahuètes. À remplacer par gluten, lapte (lait), carne (viande).",
+                  "literal": "a noix ou noisettes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "nuci is NOOCH: ci is 'ch' and the final i is barely heard."
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:no_nuts",
+              "key": "no_nuts",
+              "intentKey": "confirm_order",
+              "slotId": "no_nuts",
+              "speaker": "character",
+              "text": "Nu, nu are. Vi-o aduc imediat.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nu, nu are. Vi-o aduc imediat."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it doesn't. I'll bring it to you right away.",
+                  "note": "Vi-o = vă (to you) + o (it, feminine): vă becomes vi before another pronoun.",
+                  "literal": "no, not it-has. to-you-it I-bring immediately"
+                },
+                "fr": {
+                  "meaning": "Non, il n'y en a pas. Je vous l'apporte tout de suite.",
+                  "note": "« Vi-o » = vă (vous) + o (la) : devant un autre pronom, « vă » devient « vi ». Même ordre qu'en français : je vous l'apporte.",
+                  "literal": "non, n'a pas. vous-la j'apporte immédiatement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "E delicios!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E delicios!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's delicious!",
+                  "note": "For a feminine dish such as ciorba (the sour soup) say e delicioasă. When the plates are cleared: a fost delicios, it was delicious.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est délicieux !",
+                  "note": "« ci » se prononce « tchi » : dé-li-tchi-OSS. Pour un plat féminin (ciorba, la soupe aigre) : e delicioasă. En fin de repas : a fost delicios, c'était délicieux.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ci is 'chee': deh-lee-chee-OSS."
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Ne aduceți nota, vă rog?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ne aduceți nota, vă rog?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring us the bill, please?",
+                  "note": "The bill does not come on its own: you ask for it. A tip (bacșiș) of about 10% is customary.",
+                  "literal": "to-us you-bring the-bill, you I-ask"
+                },
+                "fr": {
+                  "meaning": "Vous nous apportez l'addition, s'il vous plaît ?",
+                  "note": "L'addition ne vient pas d'elle-même : il faut la demander. « Nota » = l'addition, comme « la note ». Un pourboire (bacșiș) d'environ 10 % est d'usage.",
+                  "literal": "nous apportez-vous la-note, je vous prie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "Sigur, o clipă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sigur, o clipă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, one moment.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bien sûr, un instant.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:free_table",
+              "key": "free_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Aveți o masă liberă?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aveți o masă liberă?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a free table?",
+                  "note": "A little more direct; fine when you walk in without a reservation.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous avez une table libre ?",
+                  "note": "Un peu plus direct ; parfait quand on arrive sans réservation. L'adjectif suit le nom et s'accorde : o masă liberă.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_restaurant_order_meal:take_sarmale",
+              "key": "take_sarmale",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Eu iau sarmale cu mămăligă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Eu iau sarmale cu mămăligă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll have the cabbage rolls with polenta.",
+                  "note": "Iau (I take) is the everyday verb for ordering. Sarmale with mămăligă (polenta) is the national dish.",
+                  "literal": "I take cabbage-rolls with polenta"
+                },
+                "fr": {
+                  "meaning": "Moi, je prends des sarmale avec de la mămăligă.",
+                  "note": "« Iau » (je prends) se prononce « yaou », en une seule syllabe. Les sarmale (feuilles de chou farcies) à la mămăligă (polenta) : le plat national.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "iau is one syllable, YOW; mămăligă is muh-muh-LEE-guh."
+            }
+          ]
+        },
+        {
+          "key": "romanian_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "romanian_ioana_shop_assistant",
+          "titles": {
+            "en": "Buying a jacket",
+            "fr": "Acheter une veste"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop near Piața Unirii, in the centre of Cluj; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements près de la Piața Unirii, au centre de Cluj ; la vendeuse est attentive et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Bună ziua! Vă pot ajuta cu ceva?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bună ziua! Vă pot ajuta cu ceva?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Can I help you with anything?",
+                  "note": null,
+                  "literal": "good day! you can-I help with something"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Je peux vous aider ?",
+                  "note": "« Vă » est le « vous » de politesse ; il se place avant le verbe, comme en français. « Ceva » (tché-VA) = quelque chose.",
+                  "literal": "bon jour ! vous puis-je aider avec quelque-chose"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Doar mă uit, mulțumesc.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Doar mă uit, mulțumesc."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "A se uita (to look) is reflexive: mă uit = I look, I'm looking. Doar = only.",
+                  "literal": "only myself I-look, thank-you"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« A se uita » (regarder) est pronominal en roumain : mă uit = je regarde. « Doar » (seulement) se prononce « dwar ».",
+                  "literal": "seulement je-me regarde, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "uit is one syllable, 'oo' gliding into 'eet': ooyt."
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Caut o geacă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Caut o geacă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a jacket.",
+                  "note": "Caut needs no 'for'. A geacă is a casual jacket; a suit jacket is a sacou, a coat a palton.",
+                  "literal": "I-seek a jacket"
+                },
+                "fr": {
+                  "meaning": "Je cherche une veste.",
+                  "note": "« Geacă » (blouson, veste) se prononce « DJA-ke » : ge = « dj », et le e ne s'entend pas. « Caut » se construit sans préposition, comme « chercher ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ge is the j of 'jam' and its e is silent here: JAH-kuh."
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:what_size",
+              "key": "what_size",
+              "intentKey": "ask_clarification",
+              "slotId": "what_size",
+              "speaker": "character",
+              "text": "Ce mărime purtați?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce mărime purtați?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What size do you wear?",
+                  "note": "Mărime is the size of clothes; for shoes you will also hear număr (number).",
+                  "literal": "what size you-wear"
+                },
+                "fr": {
+                  "meaning": "Quelle taille faites-vous ?",
+                  "note": "« Mărime » pour les vêtements ; pour les chaussures, on dit aussi « număr » (la pointure). « A purta » = porter.",
+                  "literal": "quelle taille portez-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Aveți o mărime mai mare?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aveți o mărime mai mare?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a bigger size?",
+                  "note": "Mai + adjective makes the comparative: mai mare = bigger, mai mică = smaller.",
+                  "literal": "you-have a size more big"
+                },
+                "fr": {
+                  "meaning": "Vous avez une taille au-dessus ?",
+                  "note": "Le comparatif se forme avec « mai » (plus) : mai mare = plus grande, mai mică = plus petite.",
+                  "literal": "avez-vous une taille plus grande"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:here_is_large",
+              "key": "here_is_large",
+              "intentKey": "offer_options",
+              "slotId": "here_is_large",
+              "speaker": "character",
+              "text": "Da, poftiți mărimea L.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Da, poftiți mărimea L."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, here is the L.",
+                  "note": "Poftiți is what you hear when someone hands you something or shows you in.",
+                  "literal": "yes, here-you-are the-size L"
+                },
+                "fr": {
+                  "meaning": "Oui, voici le L.",
+                  "note": "« Poftiți » : la formule que l'on entend quand on vous tend quelque chose ou qu'on vous invite à entrer.",
+                  "literal": "oui, voici la-taille L"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Cât costă geaca aceasta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cât costă geaca aceasta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this jacket?",
+                  "note": "'The' is added to the end of the noun: geacă (a jacket), geaca (the jacket). In speech aceasta shortens to asta.",
+                  "literal": "how-much costs the-jacket this"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette veste ?",
+                  "note": "L'article défini se colle à la fin du nom : geacă → geaca (la veste). Le démonstratif suit le nom ; à l'oral, « aceasta » devient « asta ».",
+                  "literal": "combien coûte la-veste celle-ci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Două sute cincizeci de lei.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Două sute cincizeci de lei."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two hundred and fifty lei.",
+                  "note": "From 20 upwards, de goes between the number and the noun: cincizeci de lei, but zece lei.",
+                  "literal": "two hundreds fifty of lei"
+                },
+                "fr": {
+                  "meaning": "Deux cent cinquante lei.",
+                  "note": "À partir de 20, on intercale « de » entre le nombre et le nom : cincizeci de lei, mais zece lei. « ci » se prononce « tchi ».",
+                  "literal": "deux cents cinquante de lei"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Bine, o iau.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bine, o iau."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take it.",
+                  "note": "O stands for a feminine noun (geaca); for a masculine one (puloverul, the jumper) say îl iau.",
+                  "literal": "well, it I-take"
+                },
+                "fr": {
+                  "meaning": "D'accord, je la prends.",
+                  "note": "« O » reprend un nom féminin (geaca) ; pour un masculin (puloverul, le pull) : îl iau. « Iau » se prononce « yaou », en une seule syllabe.",
+                  "literal": "bien, la je-prends"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "iau is one syllable: YOW."
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Pot plăti cu cardul?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pot plăti cu cardul?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Cards are accepted almost everywhere in town. Cash is numerar, or simply cash.",
+                  "literal": "can-I pay with the-card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "Après « pot » (je peux), l'infinitif perd son « a » : pot plăti. En espèces : numerar, ou simplement cash.",
+                  "literal": "puis-je payer avec la-carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "O aveți și în altă culoare?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O aveți și în altă culoare?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour too?",
+                  "note": "Și means 'and' but also 'too'. No article with alt, altă (another).",
+                  "literal": "it you-have also in other colour"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez aussi dans une autre couleur ?",
+                  "note": "« Și » (prononcé « chi ») veut dire « et », mais aussi « aussi ». Pas d'article devant « alt, altă » : în altă culoare.",
+                  "literal": "l'avez-vous aussi en autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "romanian_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "romanian_doina_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Bucharest",
+            "fr": "Un billet de train pour Bucarest"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Cluj-Napoca station on a busy morning; the next train to Bucharest leaves soon.",
+            "fr": "Vous êtes au guichet de la gare de Cluj-Napoca, un matin chargé ; le prochain train pour Bucarest part bientôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Un bilet până la București, vă rog.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un bilet până la București, vă rog."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Bucharest, please.",
+                  "note": "Până la means 'as far as': the usual way to name your destination at the ticket office.",
+                  "literal": "a ticket until at Bucharest, you I-ask"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Bucarest, s'il vous plaît.",
+                  "note": "« Până la » = jusqu'à : la façon habituelle d'indiquer sa destination au guichet. « București » se prononce bou-cou-RECHT, le i final à peine audible.",
+                  "literal": "un billet jusqu'à Bucarest, je vous prie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "București is boo-koo-RESHT: the final i is barely heard."
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Dus sau dus-întors?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dus sau dus-întors?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": null,
+                  "literal": "gone or gone-returned"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Dus » = l'aller (mot à mot « allé »), « întors » = le retour (« revenu »). Le î n'existe pas en français : un « i » prononcé du fond de la bouche, lèvres étirées.",
+                  "literal": "allé ou allé-revenu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "Dus-întors, vă rog.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dus-întors, vă rog."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": null,
+                  "literal": "gone-returned, you I-ask"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": null,
+                  "literal": "allé-revenu, je vous prie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "La ce oră pleacă următorul tren?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La ce oră pleacă următorul tren?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "A pleca = to leave; a sosi or a ajunge = to arrive.",
+                  "literal": "at what hour leaves the-next train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "« A pleca » = partir ; arriver = a sosi ou a ajunge. Dans « următorul », l'article -ul s'accroche à l'adjectif placé devant le nom.",
+                  "literal": "à quelle heure part le-prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Pleacă la zece și un sfert.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pleacă la zece și un sfert."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at a quarter past ten.",
+                  "note": "Și jumătate = half past; fără un sfert = a quarter to. Timetables use the 24-hour clock.",
+                  "literal": "it-leaves at ten and a quarter"
+                },
+                "fr": {
+                  "meaning": "Il part à dix heures et quart.",
+                  "note": "Pas de mot « heures » : la zece = à dix heures. « Și jumătate » = et demie ; « fără un sfert » = moins le quart.",
+                  "literal": "il-part à dix et un quart"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Două bilete, vă rog.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Două bilete, vă rog."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "Bilet is neuter: masculine in the singular (un bilet), feminine in the plural (două bilete).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "« Bilet » est neutre : masculin au singulier (un bilet), féminin au pluriel (două bilete). D'où « două », et non « doi ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "La ce stație trebuie să cobor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La ce stație trebuie să cobor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I have to get off at?",
+                  "note": "Trebuie să + verb = to have to. A coborî = to get off, a urca = to get on.",
+                  "literal": "at what station it-must that I-get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Trebuie să » + verbe conjugué = devoir, mot à mot « il faut que je… ». « A coborî » = descendre, « a urca » = monter. « Stație » se prononce STA-tsi-é.",
+                  "literal": "à quelle station il-faut que je-descende"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "La București Nord, e ultima stație.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La București Nord, e ultima stație."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At București Nord, it's the last stop.",
+                  "note": "București Nord, which everyone calls Gara de Nord, is the capital's main station.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À București Nord, c'est le dernier arrêt.",
+                  "note": "București Nord, que tout le monde appelle Gara de Nord, est la gare principale de la capitale.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Se poate plăti cu cardul?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Se poate plăti cu cardul?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it possible to pay by card?",
+                  "note": "Se poate = 'one can': the impersonal way to ask whether something is possible or allowed.",
+                  "literal": "itself can pay with the-card"
+                },
+                "fr": {
+                  "meaning": "On peut payer par carte ?",
+                  "note": "« Se poate » = « on peut » : la tournure impersonnelle, très utile pour demander ce qui est possible ou permis. « Poate » se prononce « pwa-té ».",
+                  "literal": "se peut payer avec la-carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Sigur. Cinci sute de lei.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sigur. Cinci sute de lei."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course. That's five hundred lei.",
+                  "note": "One leu, two lei. Hundreds also take de: cinci sute de lei.",
+                  "literal": "sure. five hundreds of lei"
+                },
+                "fr": {
+                  "meaning": "Bien sûr. Cinq cents lei.",
+                  "note": "Un leu, des lei : le mot veut dire « lion ». Les centaines demandent aussi « de » : cinci sute de lei. « Cinci » se prononce « tchintch ».",
+                  "literal": "sûr. cinq cents de lei"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_buy_train_ticket:would_like_ticket",
+              "key": "would_like_ticket",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Aș dori un bilet până la București.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aș dori un bilet până la București."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like a ticket to Bucharest.",
+                  "note": "Aș dori (I would wish) is a touch more formal than aș vrea (I would want).",
+                  "literal": "I-would wish a ticket until at Bucharest"
+                },
+                "fr": {
+                  "meaning": "Je souhaiterais un billet pour Bucarest.",
+                  "note": "« Aș dori » (je souhaiterais) est un peu plus soutenu que « aș vrea » (je voudrais). « Aș » se prononce « ach ».",
+                  "literal": null
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "romanian_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "romanian_vlad_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "On Piața Unirii on a hot afternoon, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Sur la Piața Unirii, par un après-midi très chaud, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Ajutor, vă rog!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ajutor, vă rog!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help, please!",
+                  "note": "For a real emergency anywhere in Romania, call 112.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À l'aide, s'il vous plaît !",
+                  "note": "En cas d'urgence, partout en Roumanie, composez le 112. Le j se prononce comme en français : a-jou-TOR.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "j is the s of 'measure': ah-zhoo-TOR."
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Ce s-a întâmplat?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce s-a întâmplat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": "S-a întâmplat = it has happened: the everyday past tense, built with 'to have' and a participle.",
+                  "literal": "what itself-has happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "Le passé composé roumain se forme toujours avec « avoir », même pour les verbes pronominaux : s-a întâmplat, mot à mot « s'a passé ».",
+                  "literal": "quoi s'a passé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Prietena mea se simte rău.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Prietena mea se simte rău."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend feels ill.",
+                  "note": "For a man: prietenul meu se simte rău. Prietena mea can also mean 'my girlfriend'; the context decides.",
+                  "literal": "the-friend my herself feels badly"
+                },
+                "fr": {
+                  "meaning": "Mon amie se sent mal.",
+                  "note": "Pour un homme : prietenul meu se simte rău. Le possessif suit le nom, qui porte l'article : prietena mea = « l'amie ma ». Selon le contexte, c'est aussi « ma petite amie ».",
+                  "literal": "l'amie ma se sent mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "O doare tare capul.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "O doare tare capul."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Her head hurts a lot.",
+                  "note": "A durea takes the person as its object: mă doare (me), îl doare (him), o doare (her), then the body part.",
+                  "literal": "her hurts strongly the-head"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "« A durea » se construit comme « faire mal », mais avec un complément direct : mă doare capul = la tête me fait mal ; îl doare (lui), o doare (elle). « Doare » se prononce « dwa-ré ».",
+                  "literal": "la fait-mal fort la-tête"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "oa is a glide, 'wa': DWAH-reh."
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:dont_worry",
+              "key": "dont_worry",
+              "intentKey": "react_with_empathy",
+              "slotId": "dont_worry",
+              "speaker": "character",
+              "text": "Nu vă faceți griji, o ajut imediat.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nu vă faceți griji, o ajut imediat."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't worry, I'll help her right away.",
+                  "note": "Nu vă faceți griji is the polite 'don't worry'; to a friend: nu-ți face griji.",
+                  "literal": "not to-yourself make worries, her I-help immediately"
+                },
+                "fr": {
+                  "meaning": "Ne vous inquiétez pas, je l'aide tout de suite.",
+                  "note": "« Nu vă faceți griji » = « ne vous faites pas de soucis ». Au tutoiement : nu-ți face griji. « Griji » se prononce « grij », avec le j de « jour ».",
+                  "literal": "ne vous faites soucis, la j'aide immédiatement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Este o farmacie în apropiere?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Este o farmacie în apropiere?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy nearby?",
+                  "note": "Este (or the short form e) also means 'there is'. Pharmacies show a green cross.",
+                  "literal": "is a pharmacy in nearness"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Este » (ou « e ») suffit pour dire « il y a ». « Farmacie » se prononce far-ma-TCHI-é. Les pharmacies se repèrent à leur croix verte, comme en France.",
+                  "literal": "est une pharmacie en proximité"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Da, e una chiar după colț.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Da, e una chiar după colț."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's one just round the corner.",
+                  "note": null,
+                  "literal": "yes, is one right after corner"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une juste au coin de la rue.",
+                  "note": "« Chiar » (prononcé « kiar ») = juste, vraiment. « După colț » : mot à mot « après le coin ».",
+                  "literal": "oui, est une juste après coin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Bine, am înțeles. Vă mulțumesc!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bine, am înțeles. Vă mulțumesc!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I've got it. Thank you!",
+                  "note": "Am înțeles = I have understood. Nu am înțeles = I didn't understand.",
+                  "literal": "well, I-have understood. you I-thank"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Je vous remercie !",
+                  "note": "« Am înțeles » = j'ai compris ; « nu am înțeles » = je n'ai pas compris. Avec « vă », le merci est plus appuyé, comme « je vous remercie ».",
+                  "literal": "bien, ai compris. vous je-remercie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Am nevoie de un doctor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Am nevoie de un doctor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": "You can also say un medic.",
+                  "literal": "I-have need of a doctor"
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Am nevoie de » = « j'ai besoin de » : la même construction qu'en français. On dit aussi « un medic ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_emergency_ask_help:call_ambulance",
+              "key": "call_ambulance",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chemați o ambulanță, vă rog!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chemați o ambulanță, vă rog!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Call an ambulance, please!",
+                  "note": "Chemați is the polite imperative of a chema (to call). The number to dial is 112.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Appelez une ambulance, s'il vous plaît !",
+                  "note": "« Chemați » (prononcé ké-MATS) : impératif de politesse de « a chema », appeler. Le numéro à composer est le 112.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "che is 'keh': keh-MATS."
+            }
+          ]
+        },
+        {
+          "key": "romanian_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "romanian_viorica_host",
+          "titles": {
+            "en": "Sunday lunch with the family",
+            "fr": "Déjeuner du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour Elena's mother's flat; Viorica keeps filling your plate and wants to know everything about your family.",
+            "fr": "Vous êtes invité au déjeuner du dimanche chez la mère de votre voisine Elena ; Viorica remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Hai, intră! Simte-te ca acasă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hai, intră! Simte-te ca acasă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come on in! Make yourself at home.",
+                  "note": "Older hosts often say tu to a younger guest straight away. Hai = come on.",
+                  "literal": "come-on, enter! feel-yourself like at-home"
+                },
+                "fr": {
+                  "meaning": "Allez, entre ! Fais comme chez toi.",
+                  "note": "Une hôtesse âgée tutoie volontiers un invité plus jeune dès le premier instant. « Hai » = allez, viens ; le h se prononce, comme un souffle.",
+                  "literal": "allez, entre ! sens-toi comme à-la-maison"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Ce bune sunt sarmalele!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce bune sunt sarmalele!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The sarmale are so good!",
+                  "note": "Ce + adjective = 'how …!'. Sarmale are cabbage rolls stuffed with meat and rice, on every festive table.",
+                  "literal": "how good are the-sarmale"
+                },
+                "fr": {
+                  "meaning": "Qu'elles sont bonnes, les sarmale !",
+                  "note": "« Ce » + adjectif = « que… ! », « comme… ! ». Les sarmale, feuilles de chou farcies de viande et de riz, sont de tous les repas de fête.",
+                  "literal": "que bonnes sont les-sarmale"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Și ce bine vorbești românește!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Și ce bine vorbești românește!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how well you speak Romanian!",
+                  "note": "Românește is an adverb: literally 'in the Romanian way'.",
+                  "literal": "and how well you-speak Romanian-ly"
+                },
+                "fr": {
+                  "meaning": "Et comme tu parles bien roumain !",
+                  "note": "« Românește » est un adverbe : on parle « à la roumaine ». Le ș se prononce « ch » : « vorbești » se dit vor-BECHT.",
+                  "literal": "et que bien tu-parles roumain"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Mulțumesc, sunteți foarte amabilă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mulțumesc, sunteți foarte amabilă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, you're very kind.",
+                  "note": "Keep the polite sunteți with an older person even when she says tu to you. To a man: amabil.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci, vous êtes très aimable.",
+                  "note": "On garde le vouvoiement (sunteți) avec une personne âgée, même si elle vous tutoie. À un homme : amabil. « Foarte » (très) se prononce « fwar-té ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Aveți nepoți?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aveți nepoți?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have grandchildren?",
+                  "note": "Nepoți means both grandchildren and nephews. Copii = children.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous avez des petits-enfants ?",
+                  "note": "« Nepoți » (né-POTS) désigne à la fois les petits-enfants et les neveux. Pas d'article partitif en roumain : aveți nepoți. Copii = enfants.",
+                  "literal": "avez-vous petits-enfants"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "neh-POTS: ț is 'ts' and the final i is barely heard."
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Da, doi. Și tu, ai frați sau surori?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Da, doi. Și tu, ai frați sau surori?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, two. And you, do you have brothers or sisters?",
+                  "note": "Frate, frați = brother, brothers; soră, surori = sister, sisters.",
+                  "literal": "yes, two. and you, you-have brothers or sisters"
+                },
+                "fr": {
+                  "meaning": "Oui, deux. Et toi, tu as des frères et sœurs ?",
+                  "note": "Frate, frați = frère, frères ; soră, surori = sœur, sœurs. « Ai » = tu as : le verbe se passe du pronom sujet.",
+                  "literal": "oui, deux. et toi, as frères ou sœurs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Am un frate și o soră.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Am un frate și o soră."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "« Am » = j'ai. Le ă final de « soră » se prononce comme le « e » de « le ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "Și cât mai stai în România?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Și cât mai stai în România?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how much longer are you staying in Romania?",
+                  "note": "A sta = to stay. Mai adds the idea of 'still, more'.",
+                  "literal": "and how-much more you-stay in Romania"
+                },
+                "fr": {
+                  "meaning": "Et tu restes encore combien de temps en Roumanie ?",
+                  "note": "« A sta » = rester. « Mai » ajoute l'idée de « encore » : cât mai stai = combien de temps restes-tu encore.",
+                  "literal": "et combien encore tu-restes en Roumanie"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Încă nu știu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Încă nu știu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": null,
+                  "literal": "still not I-know"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "« Încă nu » = pas encore. « Știu » se prononce « chtiou », en une seule syllabe.",
+                  "literal": "encore ne sais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "știu is one syllable: SHTEEW."
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:five_of_us",
+              "key": "five_of_us",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Suntem cinci în familie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Suntem cinci în familie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are five of us in the family.",
+                  "note": null,
+                  "literal": "we-are five in family"
+                },
+                "fr": {
+                  "meaning": "Nous sommes cinq dans la famille.",
+                  "note": "« Cinci » se prononce « tchintch ». Après la préposition « în », le nom se passe d'article : în familie.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "cinci is one syllable: CHINCH."
+            },
+            {
+              "id": "romanian_ch2:romanian_talk_about_family:all_tasty",
+              "key": "all_tasty",
+              "intentKey": "say_delicious",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Totul e foarte gustos!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Totul e foarte gustos!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Everything is very tasty!",
+                  "note": "A safe compliment for any dish. Gust = taste, gustos = tasty.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Tout est très bon !",
+                  "note": "Un compliment passe-partout. « Gust » = goût, « gustos » = savoureux.",
+                  "literal": "tout est très savoureux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "romanian_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "romanian_tudor_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Tudor wants to do something this weekend, but the day he proposes does not suit you.",
+            "fr": "Votre ami Tudor veut faire quelque chose ce week-end, mais le jour qu'il propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:out_on_saturday",
+              "key": "out_on_saturday",
+              "intentKey": "invite",
+              "slotId": "out_on_saturday",
+              "speaker": "character",
+              "text": "Ieșim undeva sâmbătă?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ieșim undeva sâmbătă?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go out somewhere on Saturday?",
+                  "note": "A plain present with a question mark is how you propose something. Days need no 'on': sâmbătă = on Saturday.",
+                  "literal": "we-go-out somewhere Saturday"
+                },
+                "fr": {
+                  "meaning": "On sort quelque part samedi ?",
+                  "note": "Le présent, sur le ton de la question, sert à proposer, comme « on sort ? ». « Ieșim » se prononce « yé-CHIM » ; « sâmbătă » = samedi, sans article.",
+                  "literal": "sortons-nous quelque-part samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Îmi pare rău, sâmbătă nu pot.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Îmi pare rău, sâmbătă nu pot."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm sorry, I can't on Saturday.",
+                  "note": null,
+                  "literal": "to-me it-seems bad, Saturday not I-can"
+                },
+                "fr": {
+                  "meaning": "Désolé, samedi je ne peux pas.",
+                  "note": "« Îmi pare rău » = je suis désolé, mot à mot « il me paraît mal » ; son contraire, « îmi pare bine », veut dire « enchanté ».",
+                  "literal": "il-me paraît mal, samedi ne peux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Ce zici de duminică?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce zici de duminică?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday?",
+                  "note": "Ce zici de…? (what do you say about…?) works for any suggestion.",
+                  "literal": "what you-say about Sunday"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, qu'est-ce que tu en dis ?",
+                  "note": "« Ce zici de… ? » = « que dis-tu de… ? » : valable pour toute proposition. « Zici » se prononce « zitch ».",
+                  "literal": "que dis-tu de dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Da, duminică e perfect.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Da, duminică e perfect."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday is perfect.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche c'est parfait.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Hai să mergem la Cheile Turzii!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hai să mergem la Cheile Turzii!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go to the Turda Gorge!",
+                  "note": "Hai să + verb = let's. Cheile Turzii is a limestone gorge under an hour from Cluj, a classic day hike.",
+                  "literal": "come-on that we-go to the-gorges of-Turda"
+                },
+                "fr": {
+                  "meaning": "Allons aux gorges de Turda !",
+                  "note": "« Hai să » + verbe = allons…, et si on… Les Cheile Turzii (prononcé « KÉ-i-lé »), gorges calcaires à moins d'une heure de Cluj : la randonnée classique.",
+                  "literal": "allez que nous-allions aux gorges de-Turda"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "che is 'keh': KEH-ee-leh TOOR-zee."
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Ne vedem la nouă?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ne vedem la nouă?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at nine?",
+                  "note": "Ne vedem = we see each other: the everyday way to fix a meeting, and also a goodbye (ne vedem! = see you!).",
+                  "literal": "each-other we-see at nine"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à neuf heures ?",
+                  "note": "« Ne vedem » = « on se voit » : la façon courante de fixer un rendez-vous, et aussi de dire « à bientôt ». « Nouă » veut dire à la fois « neuf » (9) et « nouvelle ».",
+                  "literal": "nous voyons-nous à neuf"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:beer_after",
+              "key": "beer_after",
+              "intentKey": "invite",
+              "slotId": "beer_after",
+              "speaker": "character",
+              "text": "Perfect. Și după aceea bem o bere?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perfect. Și după aceea bem o bere?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Perfect. And shall we have a beer afterwards?",
+                  "note": "După aceea = after that. A bea = to drink: beau, bei, bea, bem.",
+                  "literal": "perfect. and after that we-drink a beer"
+                },
+                "fr": {
+                  "meaning": "Parfait. Et après, on boit une bière ?",
+                  "note": null,
+                  "literal": "parfait. et après cela buvons-nous une bière"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Sigur, sună bine!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sigur, sună bine!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, sounds good!",
+                  "note": "Sigur = sure, of course. For a stronger yes: sigur că da!",
+                  "literal": "sure, it-sounds well"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, ça me va !",
+                  "note": "Mot à mot « ça sonne bien ». « Sigur » = bien sûr ; pour insister : sigur că da!",
+                  "literal": "sûr, ça-sonne bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Deci, duminică la nouă.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Deci, duminică la nouă."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, Sunday at nine.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Donc, dimanche à neuf heures.",
+                  "note": "« Deci » (prononcé « détch ») = donc.",
+                  "literal": "donc, dimanche à neuf"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:go_to_match",
+              "key": "go_to_match",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ce-ar fi să mergem la un meci?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce-ar fi să mergem la un meci?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about going to a match?",
+                  "note": "Ce-ar fi să…? = how about…? Cluj has two rival football clubs, CFR and Universitatea, known as 'U'.",
+                  "literal": "what-would be that we-go to a match"
+                },
+                "fr": {
+                  "meaning": "Et si on allait voir un match ?",
+                  "note": "« Ce-ar fi să… ? » = « et si… ? », mot à mot « que serait-ce que… ». Cluj a deux clubs de football rivaux : le CFR et l'Universitatea, dite « U ».",
+                  "literal": "que-serait que nous-allions à un match"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "romanian_ch2:romanian_make_weekend_plans:working_saturday",
+              "key": "working_saturday",
+              "intentKey": "decline_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Din păcate, sâmbătă lucrez.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Din păcate, sâmbătă lucrez."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Unfortunately, I'm working on Saturday.",
+                  "note": "Din păcate = unfortunately, literally 'out of sins'.",
+                  "literal": "from sins, Saturday I-work"
+                },
+                "fr": {
+                  "meaning": "Malheureusement, samedi je travaille.",
+                  "note": "« Din păcate » = malheureusement, mot à mot « par péchés ». « A lucra » = travailler.",
+                  "literal": "de péchés, samedi je-travaille"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

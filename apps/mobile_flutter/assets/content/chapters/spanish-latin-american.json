@@ -2726,6 +2726,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "spanish_latin_american_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "spanish-latin-american",
+      "targetVarietyId": "es-419",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Bogotá",
+        "fr": "Prendre ses marques à Bogota"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Spanish (Latin American) (es-419); native review required before publishing.",
+        "Set in Bogotá like chapter 1: usted with the waiter, the shop assistant, the clerk, the passer-by and the host (who also says usted to her guest, as is usual in Bogotá), tú with the friend. Colombian wordings to confirm first: a la orden, siga (come in), con mucho gusto, me regala la cuenta, se nos acabó, listo, qué pena, toca madrugar, por ahí.",
+        "Regional word choices to confirm: tiquete (pasaje as a variant), suéter rather than Bogotá's saco, farmacia in the learner's line and droguería in the passer-by's answer, ida y regreso, ¿reciben tarjeta?. No Castilian forms are used.",
+        "The train is the Tren Turístico de la Sabana (Bogotá to Zipaquirá), one of Colombia's few passenger trains: the 8:15 departure and the fare of 160,000 pesos for two must be checked against the current timetable and prices, as must the rough peso conversions in two notes.",
+        "The learner's own lines avoid gendered adjectives; \"Mi amiga está muy mareada\" needs its masculine counterpart recorded (mi amigo está muy mareado)."
+      ],
+      "characters": [
+        {
+          "key": "spanish_latin_american_andres_waiter",
+          "name": "Andrés",
+          "role": "waiter",
+          "personality": "attentive, quick, proud of the house ajiaco",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "spanish_latin_american_paola_shop_assistant",
+          "name": "Paola",
+          "role": "shop assistant",
+          "personality": "friendly, patient, honest when a colour is sold out",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_gloria_ticket_clerk",
+          "name": "Gloria",
+          "role": "ticket clerk",
+          "personality": "efficient, kind with visitors",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_julian_bystander",
+          "name": "Julián",
+          "role": "helpful bystander",
+          "personality": "calm, reassuring, quick to help",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "spanish_latin_american_beatriz_host",
+          "name": "Beatriz",
+          "role": "host",
+          "personality": "warm, generous with second helpings, curious about your family",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_santiago_friend",
+          "name": "Santiago",
+          "role": "friend",
+          "personality": "cheerful, sporty, always has a plan for the weekend",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "spanish_latin_american_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "spanish_latin_american_andres_waiter",
+          "titles": {
+            "en": "Lunch at the restaurant",
+            "fr": "Déjeuner au restaurant"
+          },
+          "sceneNotes": {
+            "en": "A small family restaurant in La Candelaria, Bogotá's old town, at lunchtime; the waiter recommends the house speciality, ajiaco.",
+            "fr": "Vous déjeunez dans un petit restaurant familial de La Candelaria, le vieux quartier de Bogota ; le serveur recommande la spécialité de la maison, l'ajiaco."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Buenas tardes, bienvenidos.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas tardes, bienvenidos."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon, welcome.",
+                  "note": "Bienvenidos is plural: he is greeting your whole table. To one man it is bienvenido, to one woman bienvenida.",
+                  "literal": "good afternoons, welcome (plural)"
+                },
+                "fr": {
+                  "meaning": "Bonjour, bienvenue.",
+                  "note": "« Bienvenidos » s'accorde : ici au masculin pluriel, pour toute la table (bienvenido à un homme, bienvenida à une femme). « Buenas tardes » se dit de midi jusqu'à la tombée de la nuit.",
+                  "literal": "bonnes après-midi, bienvenus"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "¿Tiene una mesa para dos, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Tiene una mesa para dos, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two, please?",
+                  "note": "Tiene is the polite usted form. Change the number as needed: para tres, para cuatro.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux, s'il vous plaît ?",
+                  "note": "« Tiene » est la forme de politesse (usted), l'équivalent du « vous ». Changez le nombre : para tres, para cuatro. Le s de « mesa » se prononce [s], jamais [z] : MÉ-ssa.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tiene has two syllables, TYEH-neh, and the s of mesa is never a z sound: MEH-sah."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "¿Qué nos recomienda hoy?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Qué nos recomienda hoy?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend today?",
+                  "note": "Nos = (to) us. Eating alone? Say ¿qué me recomienda? Recomienda is the usted form.",
+                  "literal": "what to-us you-recommend today"
+                },
+                "fr": {
+                  "meaning": "Que nous recommandez-vous aujourd'hui ?",
+                  "note": "Le pronom se place avant le verbe : nos recomienda. Seul à table, dites « ¿qué me recomienda? ». Le e de « recomendar » devient « ie » sous l'accent : recomienda.",
+                  "literal": "quoi nous recommandez-vous aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:house_dish",
+              "key": "house_dish",
+              "intentKey": "state_opinion",
+              "slotId": "house_dish",
+              "speaker": "character",
+              "text": "El ajiaco. Es la especialidad de la casa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "El ajiaco. Es la especialidad de la casa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The ajiaco. It's the house speciality.",
+                  "note": "Ajiaco is Bogotá's signature soup: chicken, three kinds of potato and corn on the cob, served with capers, cream and avocado.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "L'ajiaco. C'est la spécialité de la maison.",
+                  "note": "L'ajiaco est la soupe emblématique de Bogota : poulet, trois variétés de pommes de terre et épi de maïs, servie avec câpres, crème et avocat. Le j est un h soufflé, très doux en Colombie : a-HIA-co.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The j is a soft, breathy h: ah-HYAH-koh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "¿Qué lleva el ajiaco?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Qué lleva el ajiaco?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's in the ajiaco?",
+                  "note": "Llevar (to carry) is the everyday verb for what a dish contains. For an allergy: ¿lleva maní? (does it have peanuts?)",
+                  "literal": "what carries the ajiaco"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a dans l'ajiaco ?",
+                  "note": "« Llevar » (porter) dit ce que contient un plat. Pour une allergie : « ¿lleva maní? » (il y a des cacahuètes ?). Le double l se prononce comme le « y » de « yaourt » : YÉ-ba.",
+                  "literal": "que porte l'ajiaco"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ll sounds like the y in 'yes': YEH-bah."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:what_it_has",
+              "key": "what_it_has",
+              "intentKey": "explain_meaning",
+              "slotId": "what_it_has",
+              "speaker": "character",
+              "text": "Lleva pollo, papa, mazorca y alcaparras.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Lleva pollo, papa, mazorca y alcaparras."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It has chicken, potato, corn on the cob and capers.",
+                  "note": "Latin America says papa for potato (Spain: patata). Mazorca is corn on the cob, alcaparras are capers.",
+                  "literal": "it-carries chicken, potato, corn-cob and capers"
+                },
+                "fr": {
+                  "meaning": "Il y a du poulet, des pommes de terre, du maïs et des câpres.",
+                  "note": "En Amérique latine, la pomme de terre se dit « papa » (« patata » en Espagne). « Mazorca » = épi de maïs. Pas d'article partitif en espagnol : lleva pollo = il y a du poulet. « Pollo » se prononce PO-yo.",
+                  "literal": "ça-porte poulet, pomme de terre, épi de maïs et câpres"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Quiero probar el ajiaco, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quiero probar el ajiaco, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to try the ajiaco, please.",
+                  "note": "Quiero (I want) is perfectly polite when ordering, especially with por favor. Probar = to try, to taste.",
+                  "literal": "I-want to-try the ajiaco, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais goûter l'ajiaco, s'il vous plaît.",
+                  "note": "« Quiero » (je veux) n'a rien d'impoli pour commander, surtout avec « por favor ». « Probar » = goûter un plat, essayer un vêtement : rien à voir ici avec « prouver ».",
+                  "literal": "je-veux goûter l'ajiaco, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:to_drink",
+              "key": "to_drink",
+              "intentKey": "confirm_order",
+              "slotId": "to_drink",
+              "speaker": "character",
+              "text": "Con mucho gusto. ¿Y para tomar?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con mucho gusto. ¿Y para tomar?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With pleasure. And to drink?",
+                  "note": "Tomar is the usual Latin American verb for 'to drink'. Con (mucho) gusto is how Colombians say both 'certainly' and 'you're welcome'.",
+                  "literal": "with much pleasure. and for to-drink"
+                },
+                "fr": {
+                  "meaning": "Avec plaisir. Et comme boisson ?",
+                  "note": "En Amérique latine, « tomar » (prendre) est le verbe courant pour « boire ». « Con (mucho) gusto » sert à accepter une demande et à répondre à un merci : c'est le « de rien » colombien.",
+                  "literal": "avec beaucoup plaisir. et pour boire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:drink",
+              "key": "drink",
+              "intentKey": "request_drink",
+              "slotId": "drink",
+              "speaker": "learner",
+              "text": "Un jugo de lulo en agua, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un jugo de lulo en agua, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A lulo juice made with water, please.",
+                  "note": "Lulo is a tangy Andean fruit, a Colombian favourite. Juices are made en agua (with water) or en leche (with milk).",
+                  "literal": "a juice of lulo in water, please"
+                },
+                "fr": {
+                  "meaning": "Un jus de lulo à l'eau, s'il vous plaît.",
+                  "note": "Le lulo est un fruit andin acidulé, très aimé en Colombie ; les jus se préparent « en agua » (à l'eau) ou « en leche » (au lait). « Jugo » (« zumo » en Espagne) : le j est un h soufflé, HOU-go.",
+                  "literal": "un jus de lulo en eau, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The j of jugo is a breathy h: HOO-goh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "El ajiaco está delicioso.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "El ajiaco está delicioso."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The ajiaco is delicious.",
+                  "note": "Está (not es) for food you are tasting right now. Delicioso agrees with the dish: la sopa está deliciosa.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "L'ajiaco est délicieux.",
+                  "note": "On dit « está » (et non « es ») pour un plat que l'on est en train de goûter. Accord : la sopa está deliciosa. En Amérique latine, c devant e ou i se prononce toujours [s] : dé-li-SIO-so.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In Latin America c before i is an s: deh-lee-SYOH-soh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "¿Nos puede traer la cuenta, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Nos puede traer la cuenta, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring us the bill, please?",
+                  "note": "The waiter will often ask ¿desea incluir el servicio?: in Colombia the 10% tip is suggested on the bill but optional.",
+                  "literal": "to-us can-you bring the bill, please"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous nous apporter l'addition, s'il vous plaît ?",
+                  "note": "« La cuenta » (le compte) = l'addition. On vous demandera souvent « ¿desea incluir el servicio? » : en Colombie, le pourboire de 10 % est proposé sur l'addition mais reste facultatif.",
+                  "literal": "nous pouvez-vous apporter le compte, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_restaurant_order_meal:bill_regala",
+              "key": "bill_regala",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Me regala la cuenta, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Me regala la cuenta, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could I have the bill, please?",
+                  "note": "Very Colombian: regalar (to give as a gift) is the everyday polite way to ask for anything. You still pay! Elsewhere in Latin America, say ¿me trae la cuenta?",
+                  "literal": "to-me you-gift the bill, please"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir l'addition, s'il vous plaît ?",
+                  "note": "Typiquement colombien : « regalar » (offrir en cadeau) sert à demander poliment n'importe quoi, et ce n'est pas gratuit pour autant ! Ailleurs en Amérique latine, dites « ¿me trae la cuenta? ».",
+                  "literal": "m'offrez-vous le compte, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "spanish_latin_american_paola_shop_assistant",
+          "titles": {
+            "en": "Buying a sweater",
+            "fr": "Acheter un pull"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop in Chapinero on a cold, rainy Bogotá afternoon; the assistant is friendly, but the colour you want is sold out.",
+            "fr": "Vous entrez dans une petite boutique de Chapinero par un après-midi froid et pluvieux à Bogota ; la vendeuse est aimable, mais la couleur voulue est épuisée."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Buenas tardes, a la orden. ¿Busca algo en especial?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas tardes, a la orden. ¿Busca algo en especial?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon, at your service. Looking for anything in particular?",
+                  "note": "A la orden is what Colombian shopkeepers say all day long: 'at your service', and also 'you're welcome'.",
+                  "literal": "good afternoons, at the order. do-you-seek something in special"
+                },
+                "fr": {
+                  "meaning": "Bonjour, à votre service. Vous cherchez quelque chose en particulier ?",
+                  "note": "« A la orden » (à vos ordres) : la formule des commerçants colombiens, pour accueillir comme pour répondre à un merci. « Busca » est la forme de politesse (usted) ; « algo » = quelque chose.",
+                  "literal": "bonnes après-midi, à l'ordre. cherchez-vous quelque chose en spécial"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Gracias, por ahora solo estoy mirando.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias, por ahora solo estoy mirando."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, I'm just looking for now.",
+                  "note": null,
+                  "literal": "thanks, for now only I-am looking"
+                },
+                "fr": {
+                  "meaning": "Merci, pour l'instant je regarde seulement.",
+                  "note": "« Estoy mirando » = je suis en train de regarder (estar + gérondif en -ando), tournure bien plus fréquente que notre « être en train de ». « Por ahora » = pour l'instant ; le h est muet : a-O-ra.",
+                  "literal": "merci, pour maintenant seulement je-suis regardant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Estoy buscando un suéter de lana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Estoy buscando un suéter de lana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a wool sweater.",
+                  "note": "Buscar needs no 'for'. In Bogotá a sweater is also called a saco, and the local wool poncho is a ruana.",
+                  "literal": "I-am seeking a sweater of wool"
+                },
+                "fr": {
+                  "meaning": "Je cherche un pull en laine.",
+                  "note": "« Suéter » vient de l'anglais et se prononce SOUÉ-tèr ; à Bogota on dit aussi « saco ». La matière s'indique avec « de » : de lana, de algodón (en coton). Le poncho de laine local s'appelle une « ruana ».",
+                  "literal": "je-suis cherchant un pull de laine"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Suéter is English 'sweater' in Spanish spelling: SWEH-tehr."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:show_grey",
+              "key": "show_grey",
+              "intentKey": "offer_options",
+              "slotId": "show_grey",
+              "speaker": "character",
+              "text": "Mire, este gris es de pura lana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mire, este gris es de pura lana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Look, this grey one is pure wool.",
+                  "note": "Mire (look) is the polite usted form, used to show you something. Este gris = this grey one: Spanish needs no word for 'one'.",
+                  "literal": "look, this grey is of pure wool"
+                },
+                "fr": {
+                  "meaning": "Regardez, ce gris-là est en pure laine.",
+                  "note": "« Mire » (regardez) : impératif de politesse (usted), très courant pour montrer quelque chose. « Este gris » = celui-ci, le gris : l'adjectif de couleur s'emploie seul.",
+                  "literal": "regardez, ce gris est de pure laine"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "¿Lo tiene también en azul?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Lo tiene también en azul?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you also have it in blue?",
+                  "note": "Lo stands for el suéter. More colours: negro, blanco, rojo, verde, gris.",
+                  "literal": "it do-you-have also in blue"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez aussi en bleu ?",
+                  "note": "« Lo » reprend « el suéter » (masculin). En Amérique latine, le z se prononce toujours [s] : a-SOUL. Autres couleurs : negro, blanco, rojo, verde, gris.",
+                  "literal": "l'avez-vous aussi en bleu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In Latin America z is a plain s: ah-SOOL."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:sold_out",
+              "key": "sold_out",
+              "intentKey": "say_unavailable",
+              "slotId": "sold_out",
+              "speaker": "character",
+              "text": "En azul se nos acabó, pero lo tengo en verde.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "En azul se nos acabó, pero lo tengo en verde."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We've run out of blue, but I have it in green.",
+                  "note": "Se nos acabó = 'it ran out on us': the usual way to say something is sold out. ¡Se acabó! on its own = it's over.",
+                  "literal": "in blue itself to-us it-finished, but it I-have in green"
+                },
+                "fr": {
+                  "meaning": "En bleu, nous n'en avons plus, mais je l'ai en vert.",
+                  "note": "« Se nos acabó » (mot à mot « il s'est fini à nous ») : la tournure habituelle pour dire qu'un article est épuisé. Notez le passé simple, temps du quotidien en Amérique latine.",
+                  "literal": "en bleu il s'est fini à nous, mais je l'ai en vert"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "¿Qué precio tiene el verde?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Qué precio tiene el verde?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the price of the green one?",
+                  "note": "Literally 'what price does it have?', a common alternative to ¿cuánto cuesta? El verde = the green one.",
+                  "literal": "what price has the green"
+                },
+                "fr": {
+                  "meaning": "Quel est le prix du vert ?",
+                  "note": "Variante courante de « ¿cuánto cuesta? » : l'espagnol dit « quel prix a… ? ». « El verde » = le vert, celui qui est vert. Le c de « precio » se prononce [s] : PRÉ-sio.",
+                  "literal": "quel prix a le vert"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Cuesta noventa mil pesos.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cuesta noventa mil pesos."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It costs ninety thousand pesos.",
+                  "note": "Colombian prices run to thousands of pesos: 90,000 is roughly 20 US dollars. Mil never takes a plural.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Il coûte quatre-vingt-dix mille pesos.",
+                  "note": "« Noventa » = quatre-vingt-dix (pensez au « nonante » belge et suisse) ; « mil » est invariable. En Colombie, tout se compte en milliers de pesos : 90 000 pesos font une vingtaine d'euros.",
+                  "literal": "il-coûte nonante mille pesos"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Está bien, me lo llevo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Está bien, me lo llevo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All right, I'll take it.",
+                  "note": "Me lo llevo for a masculine noun (el suéter); me la llevo for a feminine one (la chaqueta, the jacket).",
+                  "literal": "it-is well, myself it I-carry"
+                },
+                "fr": {
+                  "meaning": "D'accord, je le prends.",
+                  "note": "« Llevarse » = emporter : me lo llevo pour un masculin (el suéter), me la llevo pour un féminin (la chaqueta, la veste). Les deux pronoms se placent avant le verbe, « me » en premier.",
+                  "literal": "c'est bien, je me l'emporte"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "¿Reciben tarjeta de crédito?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Reciben tarjeta de crédito?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take credit cards?",
+                  "note": "Reciben (you all receive) addresses the shop, not just the assistant. ¿Aceptan tarjeta? is just as common. En efectivo = in cash.",
+                  "literal": "do-you(all)-receive card of credit"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte de crédit ?",
+                  "note": "« Reciben » (ustedes) s'adresse au magasin tout entier ; on dit aussi « ¿aceptan tarjeta? ». Pas d'article devant « tarjeta ». « En efectivo » = en espèces. Le j est un h soufflé : tar-HÉ-ta.",
+                  "literal": "recevez-vous carte de crédit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_shop_for_clothes:smaller_size",
+              "key": "smaller_size",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Tiene una talla más pequeña?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Tiene una talla más pequeña?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a smaller size?",
+                  "note": "Talla is for clothes; más grande = bigger. Letter sizes are read out in Spanish: S 'ese', M 'eme', L 'ele'.",
+                  "literal": "do-you-have a size more small"
+                },
+                "fr": {
+                  "meaning": "Vous avez une taille plus petite ?",
+                  "note": "« Talla » pour les vêtements ; más grande = plus grande. Les lettres se lisent à l'espagnole : S « éssé », M « émé », L « élé ». Le double l de « talla » se prononce « y » : TA-ya.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "spanish_latin_american_gloria_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Zipaquirá",
+            "fr": "Un billet de train pour Zipaquirá"
+          },
+          "sceneNotes": {
+            "en": "The ticket window at Bogotá's Sabana station on a Saturday morning; the tourist train to Zipaquirá and its Salt Cathedral leaves soon.",
+            "fr": "Vous êtes au guichet de la gare de la Sabana, à Bogota, un samedi matin ; le train touristique pour Zipaquirá et sa cathédrale de sel part bientôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Buenos días, ¿tiene tiquetes para Zipaquirá?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenos días, ¿tiene tiquetes para Zipaquirá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning, do you have tickets to Zipaquirá?",
+                  "note": "Colombia says tiquete for a travel ticket; most of Latin America says boleto or pasaje.",
+                  "literal": "good days, do-you-have tickets for Zipaquirá"
+                },
+                "fr": {
+                  "meaning": "Bonjour, vous avez des billets pour Zipaquirá ?",
+                  "note": "En Colombie, le billet de transport se dit « tiquete » ; ailleurs en Amérique latine, « boleto » ou « pasaje ». Zipaquirá : z = [s], accent sur la dernière syllabe : si-pa-ki-RA.",
+                  "literal": "bons jours, avez-vous billets pour Zipaquirá"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Zipaquirá: the z is an s and the stress falls on the last syllable: see-pah-kee-RAH."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:how_many",
+              "key": "how_many",
+              "intentKey": "ask_clarification",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Sí, todavía hay. ¿Cuántos necesita?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sí, todavía hay. ¿Cuántos necesita?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there are still some. How many do you need?",
+                  "note": "Todavía = still. This weekend train often sells out, so it is worth asking first.",
+                  "literal": "yes, still there-are. how-many do-you-need"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a encore. Il vous en faut combien ?",
+                  "note": "L'espagnol n'a pas d'équivalent de « en » : todavía hay = il y en a encore. « Cuántos » s'accorde avec « tiquetes ». Ce train du week-end est souvent complet : mieux vaut demander.",
+                  "literal": "oui, encore il y a. combien nécessitez-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Necesito dos tiquetes, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Necesito dos tiquetes, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need two tickets, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Il me faut deux billets, s'il vous plaît.",
+                  "note": "« Necesitar » se construit sans préposition, à la différence de « avoir besoin de » : necesito dos tiquetes. Le c devant e se prononce [s] : né-sé-SI-to.",
+                  "literal": "je-nécessite deux billets, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "c before e is an s in Latin America: neh-seh-SEE-toh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "¿A qué hora sale el tren?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿A qué hora sale el tren?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the train leave?",
+                  "note": "Salir = to leave; llegar = to arrive; regresar = to come back.",
+                  "literal": "at what hour leaves the train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le train ?",
+                  "note": "Faux ami : « salir » signifie partir ou sortir, jamais « salir ». Arriver = llegar ; revenir = regresar, très courant en Amérique latine. Le h de « hora » est muet : O-ra.",
+                  "literal": "à quelle heure sort le train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Sale a las ocho y quince de la mañana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sale a las ocho y quince de la mañana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at eight fifteen in the morning.",
+                  "note": "Latin America often says y quince and y treinta where Spain prefers y cuarto and y media. Hours take las: a las ocho.",
+                  "literal": "it-leaves at the eight and fifteen of the morning"
+                },
+                "fr": {
+                  "meaning": "Il part à huit heures quinze du matin.",
+                  "note": "L'heure se dit avec « las » : a las ocho. En Amérique latine, on dit volontiers « y quince », « y treinta » plutôt que « y cuarto », « y media ». Le ñ de « mañana » se prononce « gn » : ma-GNA-na.",
+                  "literal": "il sort à les huit et quinze de la matinée"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "¿Dónde me bajo para la Catedral de Sal?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Dónde me bajo para la Catedral de Sal?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do I get off for the Salt Cathedral?",
+                  "note": "Bajarse = to get off a train or bus. The Salt Cathedral is an underground church carved inside Zipaquirá's salt mine.",
+                  "literal": "where myself I-go-down for the Cathedral of Salt"
+                },
+                "fr": {
+                  "meaning": "Où dois-je descendre pour la cathédrale de sel ?",
+                  "note": "« Bajarse » (pronominal) = descendre d'un train, d'un bus ; le présent suffit là où le français dit « dois-je ». La cathédrale de sel est une église creusée dans la mine de Zipaquirá. Le j est un h soufflé : BA-ho.",
+                  "literal": "où je me descends pour la cathédrale de sel"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "En Zipaquirá, la última estación.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "En Zipaquirá, la última estación."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At Zipaquirá, the last station.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À Zipaquirá, la dernière gare.",
+                  "note": "« En » indique le lieu où l'on est ou descend (en Zipaquirá = à Zipaquirá) ; « a » est réservé au mouvement. « Última » porte l'accent sur la première syllabe : OUL-ti-ma.",
+                  "literal": "en Zipaquirá, la dernière station"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "¿Puedo pagar con tarjeta o solo en efectivo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Puedo pagar con tarjeta o solo en efectivo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card, or cash only?",
+                  "note": "En efectivo = in cash. Many small places in Colombia are cash only: look for the sign solo efectivo.",
+                  "literal": "can-I pay with card or only in cash"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ou seulement en espèces ?",
+                  "note": "On paie « con tarjeta » (avec) mais « en efectivo » : ne calquez pas « par carte ». Faux ami : « efectivo » = argent liquide. Beaucoup de petits commerces colombiens affichent « solo efectivo ».",
+                  "literal": "puis-je payer avec carte ou seulement en effectif"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Con tarjeta, claro. Son ciento sesenta mil pesos.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con tarjeta, claro. Son ciento sesenta mil pesos."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "By card, of course. That's one hundred and sixty thousand pesos.",
+                  "note": "Prices take son (they are). Ciento before another number (ciento sesenta); exactly 100 is cien. The fare covers the round trip, ida y regreso.",
+                  "literal": "with card, clear. they-are hundred sixty thousand pesos"
+                },
+                "fr": {
+                  "meaning": "Par carte, bien sûr. Ça fait cent soixante mille pesos.",
+                  "note": "Un prix s'annonce avec « son » (ce sont). « Ciento » devant un autre nombre (ciento sesenta), « cien » pour 100 tout rond. Le billet comprend l'aller-retour : « ida y regreso » en Colombie.",
+                  "literal": "avec carte, clair. ce sont cent soixante mille pesos"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:pay",
+              "key": "pay",
+              "intentKey": "pay",
+              "slotId": "pay",
+              "speaker": "learner",
+              "text": "Listo, aquí tiene mi tarjeta.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Listo, aquí tiene mi tarjeta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, here is my card.",
+                  "note": "Listo (ready) is Colombia's all-purpose 'OK'. Aquí tiene (here you have) is what you say when you hand something over.",
+                  "literal": "ready, here you-have my card"
+                },
+                "fr": {
+                  "meaning": "D'accord, voici ma carte.",
+                  "note": "« Listo » (prêt) : le « d'accord » passe-partout des Colombiens. « Aquí tiene » (ici vous avez) = voici, quand on tend quelque chose à une personne que l'on vouvoie.",
+                  "literal": "prêt, ici vous-avez ma carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_buy_train_ticket:one_pasaje",
+              "key": "one_pasaje",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Un pasaje para Zipaquirá, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un pasaje para Zipaquirá, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Zipaquirá, please.",
+                  "note": "Pasaje (fare, ticket) is understood all over Latin America for trains, buses and planes; in Mexico you will mostly hear boleto.",
+                  "literal": "a fare for Zipaquirá, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Zipaquirá, s'il vous plaît.",
+                  "note": "« Pasaje » se comprend dans toute l'Amérique latine pour le train, le bus ou l'avion (au Mexique, plutôt « boleto »). Rien à voir ici avec un « passage » : c'est le titre de transport. Le j est un h soufflé : pa-SA-hé.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The j is a breathy h: pah-SAH-heh."
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "spanish_latin_american_julian_bystander",
+          "titles": {
+            "en": "Asking for help in the street",
+            "fr": "Demander de l'aide dans la rue"
+          },
+          "sceneNotes": {
+            "en": "On the steep streets of La Candelaria, 2,600 metres up, the friend who has just flown in to visit you suddenly feels dizzy; a passer-by stops to help.",
+            "fr": "Dans les rues en pente de La Candelaria, à 2 600 m d'altitude, l'amie venue vous rendre visite est prise de vertiges ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "¡Ayúdeme, por favor!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Ayúdeme, por favor!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help me, please!",
+                  "note": "Ayúdeme = the polite usted command of ayudar, with me attached. In real danger shout ¡auxilio! Colombia's emergency number is 123.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "Impératif de politesse (usted) avec « me » soudé : ayúdeme. En cas de vrai danger, criez « ¡auxilio! » (au secours !). Numéro d'urgence en Colombie : le 123. Le y se prononce comme dans « yaourt ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the ú, and y is like the y in 'yes': ah-YOO-deh-meh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Claro. ¿Qué pasó?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Claro. ¿Qué pasó?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course. What happened?",
+                  "note": "Latin America uses the simple past (pasó) even for something that has just happened; Spain would say ¿qué ha pasado?",
+                  "literal": "clear. what happened"
+                },
+                "fr": {
+                  "meaning": "Bien sûr. Que s'est-il passé ?",
+                  "note": "L'Amérique latine emploie le passé simple (pasó) même pour ce qui vient d'arriver, là où l'Espagne dit « ¿qué ha pasado? ». Rien de littéraire : c'est le passé de tous les jours.",
+                  "literal": "clair. que passa-t-il"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Mi amiga está muy mareada.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi amiga está muy mareada."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is very dizzy.",
+                  "note": "For a man: mi amigo está muy mareado. Newcomers often feel dizzy in Bogotá: the city sits at 2,600 metres.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Mon amie a la tête qui tourne.",
+                  "note": "Pour un homme : mi amigo está muy mareado. « Mareado » vient de « mar » (la mer) : c'est d'abord le mal de mer, puis tout vertige. À 2 600 m d'altitude, Bogota en donne souvent aux nouveaux venus.",
+                  "literal": "mon amie est très étourdie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Tiene mucho dolor de cabeza.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tiene mucho dolor de cabeza."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a bad headache.",
+                  "note": "Tener dolor de + body part works for any pain: dolor de estómago, dolor de espalda. You will also hear le duele la cabeza.",
+                  "literal": "she-has much pain of head"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "« Tener dolor de » + partie du corps : dolor de estómago (ventre), de espalda (dos). « Dolor » est masculin, d'où « mucho ». Autre tournure : le duele la cabeza (la tête lui fait mal). Le z de « cabeza » se prononce [s].",
+                  "literal": "elle-a beaucoup douleur de tête"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:altitude",
+              "key": "altitude",
+              "intentKey": "offer_help",
+              "slotId": "altitude",
+              "speaker": "character",
+              "text": "Debe ser la altura. ¿Llamo una ambulancia?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Debe ser la altura. ¿Llamo una ambulancia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It must be the altitude. Shall I call an ambulance?",
+                  "note": "Debe ser = it must be. A plain present-tense question, ¿llamo…?, is how you offer to do something: shall I call…?",
+                  "literal": "it-must be the height. do-I-call an ambulance"
+                },
+                "fr": {
+                  "meaning": "Ça doit être l'altitude. J'appelle une ambulance ?",
+                  "note": "« Debe ser » = ça doit être. Comme en français, le présent interrogatif sert à proposer son aide : ¿llamo…? = j'appelle… ? Le double l se prononce « y » : YA-mo.",
+                  "literal": "ça-doit être la hauteur. j'appelle une ambulance"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:no_ambulance",
+              "key": "no_ambulance",
+              "intentKey": "decline_offer",
+              "slotId": "no_ambulance",
+              "speaker": "learner",
+              "text": "No, gracias, creo que no hace falta.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, gracias, creo que no hace falta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, I don't think that's necessary.",
+                  "note": "No hace falta = there's no need. Creo que (I think that) softens what you say.",
+                  "literal": "no, thanks, I-believe that not it-makes lack"
+                },
+                "fr": {
+                  "meaning": "Non merci, je crois que ce n'est pas la peine.",
+                  "note": "« Hacer falta » = être nécessaire : no hace falta = ce n'est pas la peine. « Creo que » se construit comme « je crois que ». Le h est muet et le c de « hace » se prononce [s] : A-sé.",
+                  "literal": "non, merci, je-crois que ne fait manque"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "¿Sabe dónde hay una farmacia?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Sabe dónde hay una farmacia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you know where there's a pharmacy?",
+                  "note": "Sabe is the usted form of saber (to know a fact). Hay = there is / there are; it never changes.",
+                  "literal": "do-you-know where there-is a pharmacy"
+                },
+                "fr": {
+                  "meaning": "Savez-vous où il y a une pharmacie ?",
+                  "note": "« Sabe » : forme de politesse de « saber ». « Hay » = il y a, invariable, et se prononce « aï ». L'accent tonique de « farmacia » tombe sur « ma » et le c se prononce [s] : far-MA-sia.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h of hay is silent, so it sounds like English 'eye'."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Sí, hay una droguería a una cuadra.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sí, hay una droguería a una cuadra."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's a pharmacy one block away.",
+                  "note": "In Colombia a pharmacy is usually called a droguería. Una cuadra is one city block: Latin Americans give distances in cuadras.",
+                  "literal": "yes, there-is a drugstore at one block"
+                },
+                "fr": {
+                  "meaning": "Oui, il y a une pharmacie à une rue d'ici.",
+                  "note": "Faux ami : en Colombie, « droguería » désigne la pharmacie, pas une droguerie. « Una cuadra » = un pâté de maisons : en Amérique latine, les distances se comptent en cuadras (a dos cuadras = à deux rues).",
+                  "literal": "oui, il y a une pharmacie à un pâté de maisons"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Ya entendí: a una cuadra. ¡Gracias!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ya entendí: a una cuadra. ¡Gracias!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Got it: one block away. Thank you!",
+                  "note": "Ya entendí = 'now I've understood' (the simple past again). Repeating the key detail is the surest way to check you got it right.",
+                  "literal": "already I-understood: at one block. thanks"
+                },
+                "fr": {
+                  "meaning": "J'ai compris : à une rue d'ici. Merci !",
+                  "note": "« Ya entendí » (mot à mot « déjà je compris ») : encore le passé simple du quotidien. Répéter l'information essentielle est le meilleur moyen de vérifier qu'on a bien compris.",
+                  "literal": "déjà je-compris : à un pâté de maisons. merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_emergency_ask_help:nearest_hospital",
+              "key": "nearest_hospital",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Dónde está el hospital más cercano?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Dónde está el hospital más cercano?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the nearest hospital?",
+                  "note": null,
+                  "literal": "where is the hospital more near"
+                },
+                "fr": {
+                  "meaning": "Où est l'hôpital le plus proche ?",
+                  "note": "Au superlatif, l'article ne se répète pas : el hospital más cercano (et non « el hospital el más cercano »). « Está » situe un lieu précis ; « hay » signale une existence. Le h est muet : os-pi-TAL.",
+                  "literal": "où est l'hôpital plus proche"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h of hospital is silent and the stress is on the last syllable: os-pee-TAHL."
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "spanish_latin_american_beatriz_host",
+          "titles": {
+            "en": "Sunday sancocho with the family",
+            "fr": "Un sancocho du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour's mother's house; doña Beatriz has made sancocho, keeps refilling your plate and wants to know all about your family.",
+            "fr": "Vous déjeunez un dimanche chez la mère de votre voisine ; doña Beatriz a préparé un sancocho, vous ressert sans cesse et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "¡Siga, siga! Está en su casa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Siga, siga! Está en su casa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, come in! Make yourself at home.",
+                  "note": "In Colombia siga means 'come in'. Doña Beatriz says usted even to a guest she likes: in Bogotá usted is warm, not distant.",
+                  "literal": "continue, continue! you-are in your house"
+                },
+                "fr": {
+                  "meaning": "Entrez, entrez ! Faites comme chez vous.",
+                  "note": "En Colombie, « siga » (continuez) veut dire « entrez ». Doña Beatriz vouvoie même un invité qu'elle apprécie : à Bogota, « usted » est chaleureux et s'emploie jusque dans les familles.",
+                  "literal": "continuez, continuez ! vous êtes dans votre maison"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:thanks_invite",
+              "key": "thanks_invite",
+              "intentKey": "thank",
+              "slotId": "thanks_invite",
+              "speaker": "learner",
+              "text": "Gracias por la invitación, doña Beatriz.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias por la invitación, doña Beatriz."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you for the invitation, doña Beatriz.",
+                  "note": "Doña + first name is the respectful, affectionate way to address an older woman (don for a man).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci pour l'invitation, doña Beatriz.",
+                  "note": "« Doña » + prénom : façon respectueuse et affectueuse de s'adresser à une dame plus âgée (« don » pour un homme). Le ñ se prononce « gn » comme dans « agneau » ; le z final de Beatriz, [s].",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ñ is like the ny in 'canyon': DOH-nyah."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "¡Qué delicia este sancocho!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Qué delicia este sancocho!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This sancocho is such a treat!",
+                  "note": "¡Qué + noun! = 'what a …!'. Sancocho is the big Sunday stew: chicken or beef, plantain, cassava and corn.",
+                  "literal": "what delight this sancocho"
+                },
+                "fr": {
+                  "meaning": "Quel délice, ce sancocho !",
+                  "note": "« ¡Qué + nom! » = « quel… ! », sans article. Le sancocho est le grand pot-au-feu du dimanche : poule ou bœuf, banane plantain, manioc, maïs. Le ch se prononce « tch » : san-CO-tcho.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:compliment",
+              "key": "compliment",
+              "intentKey": "compliment",
+              "slotId": "compliment",
+              "speaker": "character",
+              "text": "Gracias. ¡Y usted habla muy bien español!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias. ¡Y usted habla muy bien español!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you. And you speak Spanish very well!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci. Et vous, vous parlez très bien espagnol !",
+                  "note": "Le h de « habla » est muet : A-bla. « Usted » se conjugue à la 3e personne (habla), comme si l'on disait « Madame (ou Monsieur) parle très bien ».",
+                  "literal": "merci. et vous parle très bien espagnol"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h of habla is silent: AH-blah."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Muy amable, todavía estoy aprendiendo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muy amable, todavía estoy aprendiendo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's very kind, I'm still learning.",
+                  "note": "Muy amable (very kind) is a gracious, very Colombian reply to a compliment. Todavía = still.",
+                  "literal": "very kind, still I-am learning"
+                },
+                "fr": {
+                  "meaning": "C'est très gentil, j'apprends encore.",
+                  "note": "« Muy amable » (très aimable) : réponse élégante et très colombienne à un compliment. « Todavía » = encore, toujours ; « estoy aprendiendo » = je suis en train d'apprendre (gérondif en -iendo).",
+                  "literal": "très aimable, encore je-suis apprenant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "¿Toda su familia vive en Bogotá?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Toda su familia vive en Bogotá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Does all your family live in Bogotá?",
+                  "note": "Su is the polite 'your' that goes with usted. Familia is singular, so the verb is vive. Hijos = children, nietos = grandchildren.",
+                  "literal": "all your family lives in Bogotá"
+                },
+                "fr": {
+                  "meaning": "Toute votre famille vit à Bogota ?",
+                  "note": "« Su » = votre (avec usted), mais aussi son, sa, leur : le contexte tranche. On vit « en » une ville : vive en Bogotá. Le v se prononce comme un b doux : BI-bé.",
+                  "literal": "toute votre famille vit en Bogotá"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "v sounds like a soft b: BEE-beh."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Casi toda. ¿Y usted tiene hermanos?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Casi toda. ¿Y usted tiene hermanos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Almost all of it. And do you have brothers and sisters?",
+                  "note": "The masculine plural hermanos covers brothers and sisters together. Casi = almost.",
+                  "literal": "almost all. and you have brothers"
+                },
+                "fr": {
+                  "meaning": "Presque toute. Et vous, vous avez des frères et sœurs ?",
+                  "note": "Le masculin pluriel « hermanos » englobe frères et sœurs ; pas d'article après « tener » ici. « Casi » = presque. Le h est muet : èr-MA-nos.",
+                  "literal": "presque toute. et vous avez frères"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Sí, tengo dos hermanas mayores.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sí, tengo dos hermanas mayores."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I have two older sisters.",
+                  "note": "Mayor = older, menor = younger: mi hermano menor. Both take -es in the plural: hermanas mayores.",
+                  "literal": "yes, I-have two sisters older"
+                },
+                "fr": {
+                  "meaning": "Oui, j'ai deux grandes sœurs.",
+                  "note": "« Mayor » = aîné, plus âgé ; « menor » = cadet, plus jeune : mi hermano menor. Ces adjectifs ont la même forme au masculin et au féminin, et se placent après le nom.",
+                  "literal": "oui, j'ai deux sœurs plus-âgées"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "¿Y hasta cuándo va a estar en Colombia?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Y hasta cuándo va a estar en Colombia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how long are you going to be in Colombia?",
+                  "note": "Ir a + infinitive is the everyday future: va a estar = you are going to be. Hasta cuándo = until when.",
+                  "literal": "and until when you-go to be in Colombia"
+                },
+                "fr": {
+                  "meaning": "Et jusqu'à quand allez-vous rester en Colombie ?",
+                  "note": "« Ir a » + infinitif : le futur proche, comme en français, mais avec un « a » en plus (va a estar = vous allez être). « Hasta cuándo » = jusqu'à quand ; le h est muet : AS-ta.",
+                  "literal": "et jusqu'à quand allez-vous à être en Colombie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "La verdad, todavía no sé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La verdad, todavía no sé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To be honest, I don't know yet.",
+                  "note": "La verdad (the truth) opens a frank answer, like 'honestly'. Todavía no = not yet.",
+                  "literal": "the truth, still not I-know"
+                },
+                "fr": {
+                  "meaning": "À vrai dire, je ne sais pas encore.",
+                  "note": "« La verdad » (la vérité) introduit une réponse franche, comme « à vrai dire ». « Todavía no » = pas encore : un simple « no » avant le verbe suffit pour la négation.",
+                  "literal": "la vérité, encore ne sais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_talk_about_family:my_parents",
+              "key": "my_parents",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mis papás viven en Canadá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mis papás viven en Canadá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My parents live in Canada.",
+                  "note": "Latin Americans say mis papás for 'my parents', and mi mamá, mi papá even as adults; mis padres sounds formal.",
+                  "literal": "my dads live in Canada"
+                },
+                "fr": {
+                  "meaning": "Mes parents vivent au Canada.",
+                  "note": "En Amérique latine, on dit « mis papás » pour « mes parents » (et mi mamá, mi papá), même entre adultes ; « mis padres » fait plus formel. Faux ami : « parientes » désigne toute la parenté, pas les parents.",
+                  "literal": "mes papas vivent en Canada"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "spanish_latin_american_santiago_friend",
+          "titles": {
+            "en": "Making weekend plans",
+            "fr": "Organiser son week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Santiago wants to go dancing on Saturday, but you are busy; on Sundays Bogotá closes its main avenues to cars for the Ciclovía.",
+            "fr": "Votre ami Santiago propose d'aller danser samedi, mais vous n'êtes pas libre ; le dimanche, Bogota ferme ses grandes avenues aux voitures pour la ciclovía."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:salsa_saturday",
+              "key": "salsa_saturday",
+              "intentKey": "invite",
+              "slotId": "salsa_saturday",
+              "speaker": "character",
+              "text": "¿Quieres ir a bailar salsa el sábado?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Quieres ir a bailar salsa el sábado?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want to go salsa dancing on Saturday?",
+                  "note": "Friends say tú: quieres. Days take el: el sábado = on Saturday. Colombia, and Cali above all, lives for salsa.",
+                  "literal": "do-you-want to-go to dance salsa the Saturday"
+                },
+                "fr": {
+                  "meaning": "Tu veux aller danser la salsa samedi ?",
+                  "note": "Entre amis, on se tutoie : quieres. Les jours prennent l'article : el sábado = samedi. Après « ir », l'infinitif est introduit par « a » : ir a bailar (aller danser).",
+                  "literal": "veux-tu aller à danser salsa le samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Qué pena, el sábado no puedo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Qué pena, el sábado no puedo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm so sorry, I can't on Saturday.",
+                  "note": "In Colombia qué pena is the everyday 'sorry' (elsewhere it means 'what a pity'). Lo siento is understood everywhere.",
+                  "literal": "what shame, the Saturday not I-can"
+                },
+                "fr": {
+                  "meaning": "Excuse-moi, samedi je ne peux pas.",
+                  "note": "En Colombie, « qué pena » sert à s'excuser à tout propos (ailleurs, c'est « quel dommage ») ; « lo siento » se comprend partout. « Pena » = chagrin ou gêne, non « peine » au sens d'effort.",
+                  "literal": "quelle peine, le samedi ne peux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "¿Qué tal el domingo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Qué tal el domingo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday?",
+                  "note": "¿Qué tal + noun? = how about…? It is the same qué tal as in 'how are things?'.",
+                  "literal": "how such the Sunday"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, ça t'irait ?",
+                  "note": "« ¿Qué tal + nom? » sert à proposer : « que dirais-tu de… ? ». C'est le même « qué tal » que pour demander « ça va ? ».",
+                  "literal": "que tel le dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "El domingo sí puedo. ¿Qué hacemos?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "El domingo sí puedo. ¿Qué hacemos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sunday I can. What shall we do?",
+                  "note": "Sí before a verb adds emphasis: sí puedo = I can (that day). The present hacemos asks 'what shall we do?'.",
+                  "literal": "the Sunday yes I-can. what do-we-do"
+                },
+                "fr": {
+                  "meaning": "Dimanche, oui, je peux. Qu'est-ce qu'on fait ?",
+                  "note": "« Sí » devant le verbe insiste : sí puedo = là, oui, je peux. « Hacemos » (nous faisons) correspond à notre « on fait quoi ? ». Le h est muet et le c se prononce [s] : a-SÉ-mos.",
+                  "literal": "le dimanche oui je-peux. que faisons-nous"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "¿Y si vamos a la ciclovía?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Y si vamos a la ciclovía?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What if we go to the Ciclovía?",
+                  "note": "¿Y si…? = what if…? Every Sunday Bogotá closes over 100 km of streets to cars for cyclists, runners and skaters: the Ciclovía.",
+                  "literal": "and if we-go to the cycle-way"
+                },
+                "fr": {
+                  "meaning": "Et si on allait à la ciclovía ?",
+                  "note": "« ¿Y si…? » + présent, là où le français met l'imparfait (et si on allait). Chaque dimanche, Bogota ferme plus de 100 km de rues aux voitures pour les vélos et les coureurs : c'est la ciclovía (si-clo-BI-a).",
+                  "literal": "et si nous-allons à la voie cyclable"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "c before i is an s, and the stress is on the í: see-kloh-BEE-ah."
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:early",
+              "key": "early",
+              "intentKey": "state_opinion",
+              "slotId": "early",
+              "speaker": "character",
+              "text": "¡Buena idea! Pero toca madrugar.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Buena idea! Pero toca madrugar."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good idea! But we'll have to get up early.",
+                  "note": "Toca + infinitive is the Colombian way to say 'we have to'. Madrugar = to get up very early: the Ciclovía runs from 7 a.m. to 2 p.m.",
+                  "literal": "good idea! but it-falls-to-us to-rise-early"
+                },
+                "fr": {
+                  "meaning": "Bonne idée ! Mais il va falloir se lever tôt.",
+                  "note": "« Toca » + infinitif : le « il faut » colombien, très courant. « Madrugar » = se lever de très bonne heure, en un seul verbe : la ciclovía n'a lieu que de 7 h à 14 h.",
+                  "literal": "bonne idée ! mais il touche se-lever-tôt"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "¿Nos encontramos a las ocho?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Nos encontramos a las ocho?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at eight?",
+                  "note": "Encontrarse = to meet up. You can also say ¿nos vemos a las ocho? Hours take las: a las ocho.",
+                  "literal": "ourselves we-find at the eight"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à huit heures ?",
+                  "note": "« Encontrarse » = se retrouver, comme en français ; on dit aussi « ¿nos vemos a las ocho? ». L'heure prend l'article féminin pluriel : a las ocho. Le ch se prononce « tch » : O-tcho.",
+                  "literal": "nous nous trouvons à les huit"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:lunch_after",
+              "key": "lunch_after",
+              "intentKey": "invite",
+              "slotId": "lunch_after",
+              "speaker": "character",
+              "text": "Listo. ¿Y después almorzamos por ahí?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Listo. ¿Y después almorzamos por ahí?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK. And shall we have lunch somewhere afterwards?",
+                  "note": "Almorzar = to have lunch, the main meal in Colombia. Por ahí = somewhere around here.",
+                  "literal": "ready. and afterwards we-lunch around there"
+                },
+                "fr": {
+                  "meaning": "D'accord. Et après, on déjeune quelque part ?",
+                  "note": "« Almorzar » = déjeuner : le repas de midi est le principal en Colombie. « Por ahí » = dans le coin. « Listo » = d'accord. Le z se prononce [s] : al-mor-SA-mos.",
+                  "literal": "prêt. et après nous-déjeunons par là"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "¡Claro, me encanta la idea!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Claro, me encanta la idea!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, I love the idea!",
+                  "note": "Encantar works like gustar: me encanta = 'it delights me'. Among friends Colombians also answer ¡de una! (count me in).",
+                  "literal": "clear, to-me delights the idea"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, j'adore l'idée !",
+                  "note": "« Encantar » se construit comme « plaire » : me encanta la idea = l'idée m'enchante. Entre amis, les Colombiens répondent aussi « ¡de una! » (carrément, tout de suite).",
+                  "literal": "clair, m'enchante l'idée"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Nos vemos el domingo a las ocho.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nos vemos el domingo a las ocho."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you on Sunday at eight.",
+                  "note": "Nos vemos (we see each other) both fixes a meeting and says goodbye: nos vemos mañana = see you tomorrow.",
+                  "literal": "ourselves we-see the Sunday at the eight"
+                },
+                "fr": {
+                  "meaning": "On se voit dimanche à huit heures.",
+                  "note": "« Nos vemos » (nous nous voyons) fixe un rendez-vous et sert aussi d'au revoir : nos vemos mañana = à demain. Le jour puis l'heure, chacun avec son article : el domingo a las ocho.",
+                  "literal": "nous nous voyons le dimanche à les huit"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch2:spanish_latin_american_make_weekend_plans:suggest_monserrate",
+              "key": "suggest_monserrate",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Por qué no subimos a Monserrate?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Por qué no subimos a Monserrate?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Why don't we go up Monserrate?",
+                  "note": "¿Por qué no…? suggests an idea, as in English. Monserrate is the hill with a white church above Bogotá, at 3,150 m: walk up or take the cable car.",
+                  "literal": "why not we-go-up to Monserrate"
+                },
+                "fr": {
+                  "meaning": "Pourquoi on ne monterait pas à Monserrate ?",
+                  "note": "« ¿Por qué no…? » propose une idée, comme « pourquoi ne pas… ? ». Monserrate est la colline au sanctuaire blanc qui domine Bogota, à 3 150 m : on y monte à pied, en funiculaire ou en téléphérique.",
+                  "literal": "pourquoi ne montons-nous à Monserrate"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

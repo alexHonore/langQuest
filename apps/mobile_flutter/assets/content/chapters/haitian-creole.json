@@ -2786,6 +2786,2333 @@
           ]
         }
       ]
+    },
+    {
+      "key": "haitian_creole_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "haitian-creole",
+      "targetVarietyId": "ht",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Port-au-Prince",
+        "fr": "Prendre ses marques à Port-au-Prince"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Haitian Creole (ht); native review required before publishing.",
+        "Official orthography as in chapter 1: short pronouns m, w, l, n written with a space and no apostrophe (m ap, ede w, n a wè), tanpri for please, èske for yes/no questions, madanm/mesye as address terms. Kreyòl has one 'ou' for tu and vous; the French meanings use vous with strangers and the host, tu with the friend.",
+        "The French notes give many etymologies for French speakers (tanpri < je t'en prie, gen < gagner, jwenn < joindre, bòdwo < bordereau, gade < garder, zanmi < les amis, lakay < la case, poko < pa ankò, rele < héler, anmwe < à moi, pare < paré): please strike any a Creolist would dispute, and check the false-friend warnings (bannann/fig, pwa, pitit/timoun, toujou, mayo, tikè/biyè).",
+        "restaurant_order_meal, least sure: 'bill' (bòdwo; adisyon, chèk or fich may be what a Port-au-Prince waiter hears most), 'recommend' (Kisa ki bon jodi a? is the plain everyday question rather than a literal 'recommend'), 'total' (Sa fè de mil goud, and the note on Haitian dollars: reality check on prices). Also worth a glance: 'order' (M ap pran), 'ingredients' (ladan l), 'on_the_side' (sou kote), 'delicious' (gou anpil).",
+        "shop_for_clothes: 'variant' asks for other colours (Èske ou gen lòt koulè?) and the extra line 'bigger_one' (Èske ou gen youn ki pi gwo?) asks for a size; check both, and 'take_it' (m ap pran ble a), 'price' (Konbyen chemiz sa a koute?), 'card' (peye ak kat).",
+        "buy_train_ticket: Haiti has no passenger trains, so the scene is a coach company counter (otobis, estasyon) for Okap. Least sure: the variant 'return_ticket' (tikè ale-retou), 'which_stop' (Nan ki estasyon pou m desann?), 'last_stop' (dènye estasyon an), 'time' (a sizè nan maten vs sizè dimaten). Also worth a glance: 'when' (Ki lè otobis la ap pati?), 'card' (kat kredi), 'cash_only' (lajan kach sèlman), 'no_problem' (Men lajan an).",
+        "emergency_ask_help: the note on 'help' gives 114 (police) and 116 (ambulance) from general knowledge: please confirm. Least sure: 'pain' (Tèt li ap fè l mal anpil), 'pharmacy' (pre isit la vs toupre a). Also worth a glance: 'type' (pa santi l byen), 'dont_worry' (Pa enkyete w), 'on_the_corner' (nan kwen an), 'call_ambulance'.",
+        "talk_about_family: the learner calls the host madanm, as in chapter 1; a reviewer may prefer Madan Yolande or another address. Least sure: 'come_in' (Vin chita, manje a pare), 'compliment_reply' (M ap aprann toujou), 'four_of_us' (Nou se kat nan fanmi an). Also worth a glance: 'delicious' (Diri djondjon an bon anpil), 'when_back' (tounen lakay ou), 'dont_know' (poko), 'how_is_family'.",
+        "make_weekend_plans: 'when' (Ann rankontre a nevè) is the line I am least sure a native speaker would say that way (N ap rankontre? Ann kontre?); then 'suggest' (Ann al nan plaj vs al plaj / laplaj), 'confirm' (n a wè dimanch a nevè), 'this_weekend' (wikenn sa a). Also worth a glance: 'fish_after' (ann manje pwason fri), 'not_free' (Mwen pa lib samdi)."
+      ],
+      "characters": [
+        {
+          "key": "haitian_creole_wilner_waiter",
+          "name": "Wilner",
+          "role": "waiter",
+          "personality": "brisk, friendly, proud of the house griyo",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "haitian_creole_nadege_shop_assistant",
+          "name": "Nadège",
+          "role": "shop assistant",
+          "personality": "attentive, cheerful, honest about what suits you",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "haitian_creole_fritz_ticket_clerk",
+          "name": "Fritz",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "haitian_creole_guerline_bystander",
+          "name": "Guerline",
+          "role": "helpful bystander",
+          "personality": "calm, quick to help, knows the neighbourhood",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "haitian_creole_madan_yolande_host",
+          "name": "Madan Yolande",
+          "role": "host",
+          "personality": "warm, insists you eat more, curious about your family",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "haitian_creole_stanley_friend",
+          "name": "Stanley",
+          "role": "friend",
+          "personality": "easy-going, loves the beach, always has a plan for the weekend",
+          "homeRegion": "Port-au-Prince",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "haitian_creole_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "haitian_creole_wilner_waiter",
+          "titles": {
+            "en": "Dinner at the restaurant",
+            "fr": "Dîner au restaurant"
+          },
+          "sceneNotes": {
+            "en": "A small family restaurant in Pétion-Ville on a busy evening; the waiter recommends the griyo and warns you about the pikliz.",
+            "fr": "Vous dînez dans un petit restaurant familial de Pétion-Ville, un soir d'affluence ; le serveur recommande le griyo et vous met en garde contre le pikliz."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Bonswa! Konbyen moun nou ye?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonswa! Konbyen moun nou ye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many of you are there?",
+                  "note": "Nou means both 'we' and 'you all'; here the waiter means your group.",
+                  "literal": "good-evening! how-many people you(all) are"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous êtes combien ?",
+                  "note": "« Nou » veut dire à la fois « nous » et « vous » (pluriel) ; ici, le serveur parle de votre groupe. « Moun » (personne, gens) vient de « monde ».",
+                  "literal": "bonsoir ! combien monde vous être"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Yon tab pou de moun, tanpri.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yon tab pou de moun, tanpri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Change the number as needed: twa moun (three), kat moun (four).",
+                  "literal": "a table for two people, please"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Tab », « pou », « de » : table, pour, deux, écrits comme on les entend. Changez le nombre : twa moun, kat moun. « Tanpri » vient de « je t'en prie ».",
+                  "literal": "une table pour deux personnes, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "moun sounds like 'moon'; tanpri is tahn-PREE, with a nasal 'an'."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Kisa ki bon jodi a?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kisa ki bon jodi a?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's good today?",
+                  "note": "The everyday way to ask for a recommendation. Ki marks the subject: what (is it) that is good.",
+                  "literal": "what that good today"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui est bon aujourd'hui ?",
+                  "note": "Pas de verbe « être » devant un adjectif : kisa ki bon, « quoi qui bon ». « Jodi a » vient d'« aujourd'hui ».",
+                  "literal": "quoi qui bon aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:griyo_good",
+              "key": "griyo_good",
+              "intentKey": "state_opinion",
+              "slotId": "griyo_good",
+              "speaker": "character",
+              "text": "Griyo a bon anpil jodi a.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Griyo a bon anpil jodi a."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The griyo is very good today.",
+                  "note": "Griyo is marinated pork, fried until crisp: Haiti's best-loved dish. The article a comes after the noun.",
+                  "literal": "griyo the good a-lot today"
+                },
+                "fr": {
+                  "meaning": "Le griyo est très bon aujourd'hui.",
+                  "note": "Le griyo : du porc mariné puis frit, le plat préféré des Haïtiens. L'article (a) se place après le nom : griyo a = le griyo. « Anpil » = beaucoup, très.",
+                  "literal": "griyo le bon beaucoup aujourd'hui"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "M ap pran griyo ak bannann peze, tanpri.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "M ap pran griyo ak bannann peze, tanpri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll have griyo with fried plantains, please.",
+                  "note": "M ap pran (I'm taking) is the natural way to order. Bannann peze are plantain slices pressed flat and fried twice.",
+                  "literal": "I [progressive] take griyo with plantain pressed, please"
+                },
+                "fr": {
+                  "meaning": "Je vais prendre du griyo avec des bananes pesées, s'il vous plaît.",
+                  "note": "« M ap pran » = je prends, je vais prendre (ap marque l'action en cours ou toute proche). Faux ami : « bannann » est la banane plantain ; la banane fruit se dit « fig ».",
+                  "literal": "je [progressif] prendre griyo avec banane pesée, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Èske gen piman ladan l?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske gen piman ladan l?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there hot pepper in it?",
+                  "note": "Èske turns a statement into a yes/no question. Gen = there is; ladan l = in it.",
+                  "literal": "Q there-is hot-pepper inside it"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a du piment dedans ?",
+                  "note": "« Èske » = est-ce que. « Gen » (de « gagner ») veut dire « avoir » et « il y a ». « Ladan l » = là-dedans ; le l final est le pronom « li » abrégé.",
+                  "literal": "est-ce-que avoir piment là-dedans lui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:on_the_side",
+              "key": "on_the_side",
+              "intentKey": "confirm_order",
+              "slotId": "on_the_side",
+              "speaker": "character",
+              "text": "Non, pikliz la sou kote. Li pike!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non, pikliz la sou kote. Li pike!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, the pikliz comes on the side. It's hot!",
+                  "note": "Pikliz is the fiery pickled cabbage and chilli relish served with fried food. Pike = spicy.",
+                  "literal": "no, pikliz the on side. it spicy"
+                },
+                "fr": {
+                  "meaning": "Non, le pikliz est servi à part. Il pique !",
+                  "note": "Le pikliz : un condiment de chou et de carottes au vinaigre, très pimenté, qui accompagne les fritures. « Sou kote » = sur le côté ; « pike » = piquant.",
+                  "literal": "non, pikliz le sur côté. il piquer"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Griyo a gou anpil!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Griyo a gou anpil!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The griyo is really tasty!",
+                  "note": "Gou means tasty; as a noun it is 'taste' or 'flavour'. No verb 'to be' is needed.",
+                  "literal": "griyo the tasty a-lot"
+                },
+                "fr": {
+                  "meaning": "Le griyo est vraiment délicieux !",
+                  "note": "« Gou » vient de « goût », mais sert aussi d'adjectif : savoureux. Pas de verbe « être » : griyo a gou, « le griyo savoureux ».",
+                  "literal": "griyo le goûteux beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gou sounds like 'goo'; anpil is ahn-PEEL, with a nasal 'an'."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Èske m ka jwenn bòdwo a, tanpri?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske m ka jwenn bòdwo a, tanpri?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have the bill, please?",
+                  "note": "Ka = can; jwenn = to get, to find. Bòdwo is the bill.",
+                  "literal": "Q I can get bill the, please"
+                },
+                "fr": {
+                  "meaning": "Est-ce que je peux avoir l'addition, s'il vous plaît ?",
+                  "note": "« Bòdwo » (l'addition) vient de « bordereau ». « Ka » = pouvoir ; « jwenn » (de « joindre ») = trouver, obtenir. Le ò est ouvert, comme dans « bol ».",
+                  "literal": "est-ce-que je pouvoir trouver bordereau le, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ò is the open 'o' of 'law': baw-DWOH."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Men li. Sa fè de mil goud.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Men li. Sa fè de mil goud."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here it is. That comes to two thousand gourdes.",
+                  "note": "Men li = here it is. People also count in 'Haitian dollars' (one dola = five gourdes), so check which is meant.",
+                  "literal": "here it. that makes two thousand gourdes"
+                },
+                "fr": {
+                  "meaning": "La voici. Ça fait deux mille gourdes.",
+                  "note": "« Men li » = le voici, la voici. Attention : on compte aussi en « dola ayisyen » (1 dola = 5 gourdes) ; faites préciser l'unité. « De » = deux, et non la préposition « de ».",
+                  "literal": "voici elle. ça faire deux mille gourdes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:room_for_two",
+              "key": "room_for_two",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Èske gen plas pou de moun?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske gen plas pou de moun?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there room for two?",
+                  "note": "Handy when the place looks full.",
+                  "literal": "Q there-is room for two people"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a de la place pour deux ?",
+                  "note": "Pratique quand la salle semble pleine. « Plas » = place ; « gen » = il y a.",
+                  "literal": "est-ce-que avoir place pour deux personnes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_restaurant_order_meal:rice_and_beans",
+              "key": "rice_and_beans",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mwen ta renmen diri ak pwa, tanpri.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen ta renmen diri ak pwa, tanpri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like rice and beans, please.",
+                  "note": "Mwen ta renmen = I would like. Diri ak pwa, rice with beans, comes with almost every meal.",
+                  "literal": "I would like rice with beans, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais du riz aux haricots, s'il vous plaît.",
+                  "note": "« Diri » vient de « du riz », article soudé au nom. Faux ami : « pwa » désigne les haricots, pas les petits pois. « Ta » marque le conditionnel.",
+                  "literal": "je [conditionnel] aimer riz avec haricots, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "haitian_creole_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "haitian_creole_nadege_shop_assistant",
+          "titles": {
+            "en": "Buying a shirt",
+            "fr": "Acheter une chemise"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop in Pétion-Ville; the assistant is attentive and the shirt you like comes in several colours.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de Pétion-Ville ; la vendeuse est attentive et la chemise qui vous plaît existe en plusieurs couleurs."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Bonjou! Èske m ka ede w?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjou! Èske m ka ede w?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Can I help you?",
+                  "note": "W is the short form of ou (you) after a vowel: ede w.",
+                  "literal": "good-day! Q I can help you"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Est-ce que je peux vous aider ?",
+                  "note": "« W » est la forme courte de « ou » après une voyelle : ede w. Le créole n'a qu'un seul « ou » pour « tu » et « vous ».",
+                  "literal": "bonjour ! est-ce-que je pouvoir aider toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "M ap gade sèlman, mèsi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "M ap gade sèlman, mèsi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Ap marks an action in progress: m ap gade, I am looking.",
+                  "literal": "I [progressive] look only, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Ap » marque l'action en cours : m ap gade = je suis en train de regarder. « Gade » vient de « garder », mais veut dire « regarder ».",
+                  "literal": "je [progressif] regarder seulement, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "M ap chèche yon chemiz.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "M ap chèche yon chemiz."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a shirt.",
+                  "note": "Swap in yon wòb (a dress), yon pantalon (trousers), yon mayo (a T-shirt).",
+                  "literal": "I [progressive] look-for a shirt"
+                },
+                "fr": {
+                  "meaning": "Je cherche une chemise.",
+                  "note": "Un seul article indéfini, « yon », pour « un » et « une ». Remplacez par yon wòb (une robe), yon pantalon, yon mayo (un tee-shirt ; le mot vient de « maillot »).",
+                  "literal": "je [progressif] chercher une chemise"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ch is always 'sh': SHEH-sheh, sheh-MEEZ."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:look_at_this",
+              "key": "look_at_this",
+              "intentKey": "offer_options",
+              "slotId": "look_at_this",
+              "speaker": "character",
+              "text": "Gade sa a. Li bèl anpil!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gade sa a. Li bèl anpil!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Look at this one. It's very pretty!",
+                  "note": "Sa a = this one. Li is he, she and it.",
+                  "literal": "look this. it pretty a-lot"
+                },
+                "fr": {
+                  "meaning": "Regardez celle-ci. Elle est très belle !",
+                  "note": "« Sa a » = celui-ci, celle-ci. « Li » vaut pour il, elle, lui : le créole ne marque pas le genre, et « bèl » sert au masculin comme au féminin.",
+                  "literal": "regarder ça. elle belle beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Èske ou gen lòt koulè?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske ou gen lòt koulè?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have other colours?",
+                  "note": "Lòt = other. Koulè: ble (blue), wouj (red), vèt (green), nwa (black), blan (white).",
+                  "literal": "Q you have other colour"
+                },
+                "fr": {
+                  "meaning": "Est-ce que vous avez d'autres couleurs ?",
+                  "note": "« Lòt » vient de « l'autre », article soudé. Les couleurs se reconnaissent : ble, wouj, vèt, nwa, blan. Pas de marque du pluriel ici.",
+                  "literal": "est-ce-que tu avoir autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:colours",
+              "key": "colours",
+              "intentKey": "offer_options",
+              "slotId": "colours",
+              "speaker": "character",
+              "text": "Wi, nou gen ble ak blan.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wi, nou gen ble ak blan."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, we have blue and white.",
+                  "note": "Here nou is 'we'. Ak = and, with.",
+                  "literal": "yes, we have blue and white"
+                },
+                "fr": {
+                  "meaning": "Oui, nous avons du bleu et du blanc.",
+                  "note": "Ici « nou » = nous. « Ak » (de « avec ») veut dire « et » comme « avec ».",
+                  "literal": "oui, nous avoir bleu avec blanc"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Konbyen chemiz sa a koute?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Konbyen chemiz sa a koute?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much does this shirt cost?",
+                  "note": "Sa a after the noun = this: chemiz sa a, this shirt.",
+                  "literal": "how-much shirt this cost"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette chemise ?",
+                  "note": "« Sa a » après le nom = ce, cette : chemiz sa a. Attention, « koute » veut dire à la fois « coûter » et « écouter ».",
+                  "literal": "combien chemise cette coûter"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Li koute mil de san goud.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Li koute mil de san goud."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It costs one thousand two hundred gourdes.",
+                  "note": "Numbers are close to French: mil (1,000), de san (200). The gourde (goud) is Haiti's currency.",
+                  "literal": "it cost thousand two hundred gourdes"
+                },
+                "fr": {
+                  "meaning": "Elle coûte mille deux cents gourdes.",
+                  "note": "Les nombres se lisent comme en français : mil, de san. La gourde (goud) est la monnaie d'Haïti ; le « ou » se prononce comme en français.",
+                  "literal": "elle coûter mille deux cent gourde"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Dakò, m ap pran ble a.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dakò, m ap pran ble a."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take the blue one.",
+                  "note": "Ble a = the blue one: the article a after a colour turns it into a noun.",
+                  "literal": "okay, I [progressive] take blue the"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends la bleue.",
+                  "note": "« Ble a » = le bleu, la bleue : l'article placé après la couleur suffit. « Dakò » = d'accord.",
+                  "literal": "d'accord, je [progressif] prendre bleu le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Èske m ka peye ak kat?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske m ka peye ak kat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Kat = card (and also 'four'). Many small shops take cash only: lajan kach.",
+                  "literal": "Q I can pay with card"
+                },
+                "fr": {
+                  "meaning": "Est-ce que je peux payer par carte ?",
+                  "note": "« Kat » = carte, et aussi « quatre » : le r français tombe. Beaucoup de petites boutiques ne prennent que les espèces (lajan kach).",
+                  "literal": "est-ce-que je pouvoir payer avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_shop_for_clothes:bigger_one",
+              "key": "bigger_one",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Èske ou gen youn ki pi gwo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske ou gen youn ki pi gwo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a bigger one?",
+                  "note": "Pi + adjective = more: pi gwo (bigger), pi piti (smaller). Youn = one, on its own.",
+                  "literal": "Q you have one that more big"
+                },
+                "fr": {
+                  "meaning": "Est-ce que vous en avez une plus grande ?",
+                  "note": "« Pi » + adjectif = plus : pi gwo (plus grand), pi piti (plus petit). « Youn » = un, une, employé seul ; devant un nom on dit « yon ».",
+                  "literal": "est-ce-que tu avoir un qui plus gros"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "haitian_creole_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "haitian_creole_fritz_ticket_clerk",
+          "titles": {
+            "en": "A coach ticket to Cap-Haïtien",
+            "fr": "Un billet d'autocar pour le Cap"
+          },
+          "sceneNotes": {
+            "en": "A coach company counter in Port-au-Prince (Haiti has no trains); you want two seats on the early coach to Cap-Haïtien.",
+            "fr": "Vous êtes au guichet d'une compagnie d'autocars à Port-au-Prince (il n'y a pas de train en Haïti) ; vous voulez deux places dans le car du matin pour le Cap-Haïtien."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Yon tikè pou Okap, tanpri.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yon tikè pou Okap, tanpri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Cap-Haïtien, please.",
+                  "note": "Okap is the everyday name of Cap-Haïtien, the big city of the north. There are no trains in Haiti: you travel by coach.",
+                  "literal": "a ticket for Cap-Haïtien, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour le Cap-Haïtien, s'il vous plaît.",
+                  "note": "« Okap » (de « au Cap ») est le nom courant du Cap-Haïtien. On dit « tikè » (ticket) ; « biyè » désigne surtout le billet de banque. Pas de train en Haïti : on voyage en autocar.",
+                  "literal": "un ticket pour Au-Cap, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:how_many",
+              "key": "how_many",
+              "intentKey": "ask_clarification",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Konbyen tikè ou vle?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Konbyen tikè ou vle?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many tickets do you want?",
+                  "note": "Nouns do not change in the plural: yon tikè, de tikè.",
+                  "literal": "how-many ticket you want"
+                },
+                "fr": {
+                  "meaning": "Vous voulez combien de billets ?",
+                  "note": "Le nom ne change pas au pluriel : yon tikè, de tikè. « Vle » = vouloir.",
+                  "literal": "combien ticket tu vouloir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "De tikè, tanpri.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "De tikè, tanpri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "Yon 1, de 2, twa 3, kat 4, senk 5.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "Yon 1, de 2, twa 3, kat 4, senk 5 : les nombres français, écrits comme on les prononce.",
+                  "literal": "deux ticket, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Ki lè otobis la ap pati?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ki lè otobis la ap pati?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the coach leave?",
+                  "note": "Ki lè = what time, when. The article is la after a consonant: otobis la.",
+                  "literal": "what hour bus the [progressive] leave"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part l'autocar ?",
+                  "note": "« Ki lè » = quelle heure, quand. « Otobis » vient d'« autobus ». L'article suit le nom : « la » après une consonne (otobis la), « a » après une voyelle.",
+                  "literal": "quelle heure autobus le [progressif] partir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "L ap pati a sizè nan maten.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "L ap pati a sizè nan maten."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at six in the morning.",
+                  "note": "Hours are one word: inè (1), dezè (2), sizè (6), uitè (8). Nan maten = in the morning.",
+                  "literal": "it [progressive] leave at six-o'clock in morning"
+                },
+                "fr": {
+                  "meaning": "Il part à six heures du matin.",
+                  "note": "L'heure s'écrit en un seul mot, liaison comprise : inè, dezè, sizè, uitè. « Nan maten » = du matin. « L » est « li » abrégé devant « ap ».",
+                  "literal": "il [progressif] partir à six-heures dans matin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Nan ki estasyon pou m desann?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nan ki estasyon pou m desann?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station should I get off at?",
+                  "note": "Pou m + verb = (for me) to, 'should I'. Desann = to get off.",
+                  "literal": "in which station for I get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle station est-ce que je dois descendre ?",
+                  "note": "« Pou m desann » = pour que je descende : « pou » exprime ici l'obligation. « Estasyon » désigne la gare routière ; le e initial s'entend.",
+                  "literal": "dans quelle station pour je descendre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "Desann nan dènye estasyon an, Okap.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Desann nan dènye estasyon an, Okap."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at the last station, Cap-Haïtien.",
+                  "note": "After a nasal sound the article becomes an: estasyon an.",
+                  "literal": "get-off in last station the, Cap-Haïtien"
+                },
+                "fr": {
+                  "meaning": "Descendez à la dernière station, au Cap.",
+                  "note": "Après un son nasal, l'article devient « an » : estasyon an. « Dènye » = dernier, dernière.",
+                  "literal": "descendre dans dernière station la, Au-Cap"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Èske ou pran kat kredi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske ou pran kat kredi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take credit cards?",
+                  "note": "Pran = to take, used just as in English. Kat kredi = credit card.",
+                  "literal": "Q you take card credit"
+                },
+                "fr": {
+                  "meaning": "Est-ce que vous prenez la carte de crédit ?",
+                  "note": "« Pran » = prendre ; « kat kredi » = carte de crédit, sans « de » : en créole, deux noms se suivent directement.",
+                  "literal": "est-ce-que tu prendre carte crédit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:cash_only",
+              "key": "cash_only",
+              "intentKey": "refuse_permission",
+              "slotId": "cash_only",
+              "speaker": "character",
+              "text": "Non, lajan kach sèlman.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non, lajan kach sèlman."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, cash only.",
+                  "note": "Lajan = money; kach comes from English 'cash'.",
+                  "literal": "no, money cash only"
+                },
+                "fr": {
+                  "meaning": "Non, en espèces seulement.",
+                  "note": "« Lajan » vient de « l'argent », article soudé au nom ; « kach » vient de l'anglais « cash ».",
+                  "literal": "non, argent cash seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:no_problem",
+              "key": "no_problem",
+              "intentKey": "pay",
+              "slotId": "no_problem",
+              "speaker": "learner",
+              "text": "Pa gen pwoblèm. Men lajan an.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pa gen pwoblèm. Men lajan an."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No problem. Here is the money.",
+                  "note": "Men + thing = here is. Pa before the verb makes it negative.",
+                  "literal": "not there-is problem. here money the"
+                },
+                "fr": {
+                  "meaning": "Pas de problème. Voici l'argent.",
+                  "note": "« Pa gen » = il n'y a pas : « pa » se place avant le verbe. « Men » = voici ; le même mot veut aussi dire « mais » et « main ».",
+                  "literal": "pas avoir problème. voici argent le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_buy_train_ticket:return_ticket",
+              "key": "return_ticket",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mwen ta renmen yon tikè ale-retou.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen ta renmen yon tikè ale-retou."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a return ticket.",
+                  "note": "Ale senp = one way; ale-retou = return.",
+                  "literal": "I would like a ticket go-return"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un billet aller-retour.",
+                  "note": "« Ale senp » = aller simple ; « ale-retou » = aller-retour. « Mwen ta renmen » = je voudrais (renmen = aimer).",
+                  "literal": "je [conditionnel] aimer un ticket aller-retour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "haitian_creole_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "haitian_creole_guerline_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "In the street on a hot afternoon, the friend you are walking with suddenly feels unwell; a passer-by stops to help.",
+            "fr": "Dans la rue, par un après-midi très chaud, l'amie qui vous accompagne se sent mal tout à coup ; une passante s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Anmwe! Ede m, tanpri!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anmwe! Ede m, tanpri!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Help me, please!",
+                  "note": "Anmwe! is the Haitian cry of alarm. Emergency numbers: 114 police, 116 ambulance.",
+                  "literal": "help! help me, please"
+                },
+                "fr": {
+                  "meaning": "Au secours ! Aidez-moi, s'il vous plaît !",
+                  "note": "« Anmwe ! » (de « à moi ! ») est le cri d'alarme haïtien. « Ede » = aider. Numéros d'urgence : 114 (police), 116 (ambulance).",
+                  "literal": "à-moi ! aider moi, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ahn-MWEH, with a nasal 'an'; ede is eh-DEH."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Sa k genyen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sa k genyen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's wrong?",
+                  "note": "Sa k is short for sa ki (what is it that). Genyen is the long form of gen (to have, there is).",
+                  "literal": "what that there-is"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qu'il y a ?",
+                  "note": "« Sa k » = sa ki (ce qui). « Genyen » est la forme longue de « gen » (avoir, il y a), employée en fin de phrase.",
+                  "literal": "ça qui avoir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Zanmi m pa santi l byen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Zanmi m pa santi l byen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend isn't feeling well.",
+                  "note": "Zanmi m = my friend: the owner comes after the noun. Santi l = feels himself or herself.",
+                  "literal": "friend my not feel him/herself well"
+                },
+                "fr": {
+                  "meaning": "Mon amie ne se sent pas bien.",
+                  "note": "« Zanmi » vient de « les amis » : le z de la liaison est resté collé au mot. Le possesseur suit le nom : zanmi m. Le mot vaut pour un ami comme pour une amie.",
+                  "literal": "ami moi pas sentir lui bien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Tèt li ap fè l mal anpil.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tèt li ap fè l mal anpil."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Her head hurts a lot.",
+                  "note": "The body part comes first: tèt li (her or his head) ap fè l mal (is hurting her or him). For yourself: tèt mwen ap fè m mal.",
+                  "literal": "head her [progressive] make her hurt a-lot"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "On part de la partie du corps : tèt li ap fè l mal, « sa tête lui fait mal ». Pour soi : tèt mwen ap fè m mal. « Li » vaut pour « il » comme pour « elle ».",
+                  "literal": "tête elle [progressif] faire elle mal beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:dont_worry",
+              "key": "dont_worry",
+              "intentKey": "react_with_empathy",
+              "slotId": "dont_worry",
+              "speaker": "character",
+              "text": "Pa enkyete w, m ap ede nou.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pa enkyete w, m ap ede nou."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't worry, I'll help you both.",
+                  "note": "Pa + verb is a negative command. Nou here is 'you' (plural).",
+                  "literal": "not worry yourself, I [progressive] help you(all)"
+                },
+                "fr": {
+                  "meaning": "Ne vous inquiétez pas, je vais vous aider.",
+                  "note": "« Pa enkyete w » = ne t'inquiète pas (w = toi). Ici « nou » veut dire « vous deux » : le même mot sert pour « nous » et « vous » pluriel.",
+                  "literal": "pas inquiéter toi, je [progressif] aider vous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Èske gen yon famasi pre isit la?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Èske gen yon famasi pre isit la?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Pre = near; isit la = here. Swap in yon lopital (a hospital), yon klinik (a clinic).",
+                  "literal": "Q there-is a pharmacy near here"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a une pharmacie près d'ici ?",
+                  "note": "« Famasi » : le r de « pharmacie » disparaît, comme souvent en créole devant une consonne. « Pre isit la » = près d'ici, sans « de ».",
+                  "literal": "est-ce-que avoir une pharmacie près ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:on_the_corner",
+              "key": "on_the_corner",
+              "intentKey": "say_it_is_near",
+              "slotId": "on_the_corner",
+              "speaker": "character",
+              "text": "Wi, gen youn nan kwen an.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wi, gen youn nan kwen an."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's one on the corner.",
+                  "note": "Youn = one, standing alone. Nan = in, at, on.",
+                  "literal": "yes, there-is one in corner the"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une au coin de la rue.",
+                  "note": "« Kwen » = coin. « Nan » (de « dans ») sert pour dans, à, sur. « Youn » = une, employé seul.",
+                  "literal": "oui, avoir une dans coin le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Dakò, mwen konprann. Mèsi anpil!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dakò, mwen konprann. Mèsi anpil!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I understand. Thank you very much!",
+                  "note": "Konprann = to understand. M pa konprann = I don't understand.",
+                  "literal": "okay, I understand. thanks a-lot"
+                },
+                "fr": {
+                  "meaning": "D'accord, je comprends. Merci beaucoup !",
+                  "note": "« Konprann » = comprendre. Pour dire le contraire : m pa konprann. Le verbe ne se conjugue pas.",
+                  "literal": "d'accord, je comprendre. merci beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mwen bezwen yon doktè.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen bezwen yon doktè."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": "Bezwen = to need, with nothing after it: mwen bezwen yon doktè.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Bezwen » est un verbe à lui seul : mwen bezwen = j'ai besoin de, sans « avoir » ni « de ».",
+                  "literal": "je besoin un docteur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_emergency_ask_help:call_ambulance",
+              "key": "call_ambulance",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tanpri, rele yon anbilans!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tanpri, rele yon anbilans!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please, call an ambulance!",
+                  "note": "Rele = to call (and 'to be called', as in mwen rele Sam).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, appelez une ambulance !",
+                  "note": "« Rele » = appeler, le verbe de « mwen rele » (je m'appelle). Il vient du vieux mot « héler ».",
+                  "literal": "s'il vous plaît, appeler une ambulance"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "haitian_creole_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "haitian_creole_madan_yolande_host",
+          "titles": {
+            "en": "Sunday lunch with the family",
+            "fr": "Déjeuner du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour Marie's mother's house; Madan Yolande keeps filling your plate and wants to know all about your family.",
+            "fr": "Vous déjeunez, un dimanche, chez la mère de votre voisine Marie ; Madan Yolande remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Antre, antre! Vin chita, manje a pare.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Antre, antre! Vin chita, manje a pare."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, come in! Come and sit down, the food is ready.",
+                  "note": "Vin + verb = come and. Pare = ready.",
+                  "literal": "enter, enter! come sit, food the ready"
+                },
+                "fr": {
+                  "meaning": "Entre, entre ! Viens t'asseoir, le repas est prêt.",
+                  "note": "Faux ami : « pare » (de « paré ») veut dire « prêt ». « Manje » est à la fois le verbe « manger » et le nom « nourriture, repas ».",
+                  "literal": "entrer, entrer ! venir asseoir, manger le prêt"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Diri djondjon an bon anpil!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Diri djondjon an bon anpil!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The djondjon rice is very good!",
+                  "note": "Diri djondjon, rice cooked black with dried mushrooms, is a dish for Sundays and celebrations.",
+                  "literal": "rice black-mushroom the good a-lot"
+                },
+                "fr": {
+                  "meaning": "Le riz djondjon est très bon !",
+                  "note": "Le diri djondjon : un riz noir, cuit avec des champignons séchés, plat des dimanches et des fêtes. « dj » se prononce comme dans « djinn » ; les deux « on » sont nasaux.",
+                  "literal": "riz djondjon le bon beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "dj is the 'j' of 'jungle': jon-JON, both vowels nasal."
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Ou pale kreyòl byen, wi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ou pale kreyòl byen, wi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Creole well, you know!",
+                  "note": "Wi (yes) at the end of a sentence adds warmth and emphasis.",
+                  "literal": "you speak Creole well, yes"
+                },
+                "fr": {
+                  "meaning": "Tu parles bien créole, dis donc !",
+                  "note": "« Wi » en fin de phrase n'est pas un « oui » : il renforce, un peu comme « vraiment » ou « dis donc ».",
+                  "literal": "tu parler créole bien, oui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Mèsi, madanm. M ap aprann toujou.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mèsi, madanm. M ap aprann toujou."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, ma'am. I'm still learning.",
+                  "note": "Toujou after the verb means 'still'.",
+                  "literal": "thanks, madam. I [progressive] learn still"
+                },
+                "fr": {
+                  "meaning": "Merci, madame. J'apprends encore.",
+                  "note": "Faux ami : après le verbe, « toujou » veut dire « encore » (je continue d'apprendre) plutôt que « toujours ».",
+                  "literal": "merci, madame. je [progressif] apprendre toujours"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Konbyen pitit ou genyen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Konbyen pitit ou genyen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many children do you have?",
+                  "note": "Pitit = one's own child (son or daughter); timoun = a child in general.",
+                  "literal": "how-many child you have"
+                },
+                "fr": {
+                  "meaning": "Vous avez combien d'enfants ?",
+                  "note": "Faux ami : « pitit » (de « petit ») veut dire « enfant de quelqu'un », fils ou fille ; un enfant en général se dit « timoun ». « Genyen » : forme longue de « gen » en fin de phrase.",
+                  "literal": "combien enfant tu avoir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Twa pitit. E ou menm, ou gen frè ak sè?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Twa pitit. E ou menm, ou gen frè ak sè?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Three children. And you, do you have brothers and sisters?",
+                  "note": "E ou menm? = and you (yourself)? Frè = brother, sè = sister.",
+                  "literal": "three child. and you yourself, you have brother and sister"
+                },
+                "fr": {
+                  "meaning": "Trois enfants. Et toi, tu as des frères et sœurs ?",
+                  "note": "« E ou menm ? » = et toi-même ? « Frè », « sè » : frère et sœur, sans le r final.",
+                  "literal": "trois enfant. et toi même, tu avoir frère avec sœur"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Mwen gen yon frè ak de sè.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen gen yon frè ak de sè."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have one brother and two sisters.",
+                  "note": null,
+                  "literal": "I have a brother and two sister"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et deux sœurs.",
+                  "note": "Rien ne marque le pluriel : de sè. « Gen » = avoir, sans conjugaison.",
+                  "literal": "je avoir un frère avec deux sœur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:when_back",
+              "key": "when_back",
+              "intentKey": "ask_clarification",
+              "slotId": "when_back",
+              "speaker": "character",
+              "text": "Ki lè w ap tounen lakay ou?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ki lè w ap tounen lakay ou?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When are you going back home?",
+                  "note": "Tounen = to go back. Lakay ou = your home, your place.",
+                  "literal": "what hour you [progressive] return home your"
+                },
+                "fr": {
+                  "meaning": "Quand est-ce que tu rentres chez toi ?",
+                  "note": "« Lakay » vient de « la case » : la maison, le chez-soi, et par extension le pays. « Tounen » = retourner, rentrer.",
+                  "literal": "quelle heure tu [progressif] retourner la-case toi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Mwen poko konnen, madanm.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen poko konnen, madanm."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet, ma'am.",
+                  "note": "Poko = not yet. M pa konnen = I don't know.",
+                  "literal": "I not-yet know, madam"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore, madame.",
+                  "note": "« Poko » est la contraction de « pa ankò » : pas encore. « M pa konnen » = je ne sais pas.",
+                  "literal": "je pas-encore connaître, madame"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:four_of_us",
+              "key": "four_of_us",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nou se kat nan fanmi an.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nou se kat nan fanmi an."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are four of us in the family.",
+                  "note": "Se links a subject to a noun or a number: nou se kat.",
+                  "literal": "we are four in family the"
+                },
+                "fr": {
+                  "meaning": "Nous sommes quatre dans la famille.",
+                  "note": "« Se » (de « c'est ») sert de verbe « être » devant un nom ou un nombre : nou se kat. Devant un adjectif, on ne met rien.",
+                  "literal": "nous c'est quatre dans famille la"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_talk_about_family:how_is_family",
+              "key": "how_is_family",
+              "intentKey": "ask_about_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Kijan fanmi ou ye?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kijan fanmi ou ye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How is your family?",
+                  "note": "Asking after the family is part of a proper greeting. Ye is 'to be' at the end of a question.",
+                  "literal": "how family your is"
+                },
+                "fr": {
+                  "meaning": "Comment va votre famille ?",
+                  "note": "Demander des nouvelles de la famille fait partie de toute bonne salutation. « Ye » est le verbe « être » en fin de question.",
+                  "literal": "comment famille toi être"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "haitian_creole_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "haitian_creole_stanley_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Stanley asks about your weekend; you suggest the beach, but the day he proposes does not suit you.",
+            "fr": "Votre ami Stanley vous demande ce que vous faites ce week-end ; vous proposez la plage, mais le jour qu'il suggère ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:this_weekend",
+              "key": "this_weekend",
+              "intentKey": "invite",
+              "slotId": "this_weekend",
+              "speaker": "character",
+              "text": "Kisa w ap fè wikenn sa a?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kisa w ap fè wikenn sa a?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What are you doing this weekend?",
+                  "note": "W ap = ou ap: you are (doing). Wikenn sa a = this weekend.",
+                  "literal": "what you [progressive] do weekend this"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que tu fais ce week-end ?",
+                  "note": "« W ap » = ou ap. « Kisa » (de « qui ça ») = quoi, qu'est-ce que. « Wikenn sa a » = ce week-end.",
+                  "literal": "quoi tu [progressif] faire week-end ce"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Ann al nan plaj!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ann al nan plaj!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go to the beach!",
+                  "note": "Ann + verb = let's. Al is the short form of ale (to go). The beaches of the Côte des Arcadins are the classic day out from the capital.",
+                  "literal": "let's go in beach"
+                },
+                "fr": {
+                  "meaning": "Allons à la plage !",
+                  "note": "« Ann » (de « allons ») + verbe = faisons : ann al, allons-y. Les plages de la Côte des Arcadins, au nord de la capitale, sont la sortie classique.",
+                  "literal": "allons aller dans plage"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:good_idea",
+              "key": "good_idea",
+              "intentKey": "agree",
+              "slotId": "good_idea",
+              "speaker": "character",
+              "text": "Bon lide! Samdi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bon lide! Samdi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good idea! Saturday?",
+                  "note": "Lide = idea. Days: samdi, dimanch.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonne idée ! Samedi ?",
+                  "note": "« Lide » vient de « l'idée », article soudé ; « bon » ne s'accorde pas. Les jours se reconnaissent : samdi, dimanch.",
+                  "literal": "bon idée ! samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Dezole, mwen pa kapab samdi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dezole, mwen pa kapab samdi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I can't on Saturday.",
+                  "note": "Kapab (or ka) = can. Pa goes before it: mwen pa kapab.",
+                  "literal": "sorry, I not can Saturday"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), je ne peux pas samedi.",
+                  "note": "« Kapab » (de « capable ») = pouvoir ; sa forme courte est « ka ». « Dezole » ne s'accorde pas.",
+                  "literal": "désolé, je pas capable samedi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "E dimanch, ou lib?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E dimanch, ou lib?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And Sunday, are you free?",
+                  "note": "Lib = free, available.",
+                  "literal": "and Sunday, you free"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, tu es libre ?",
+                  "note": "« Lib » = libre. Pas de verbe « être » devant l'adjectif : ou lib.",
+                  "literal": "et dimanche, tu libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Wi, dimanch bon pou mwen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wi, dimanch bon pou mwen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday is good for me.",
+                  "note": null,
+                  "literal": "yes, Sunday good for me"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche ça me va.",
+                  "note": "Mot à mot « dimanche bon pour moi » : toujours pas de verbe « être ».",
+                  "literal": "oui, dimanche bon pour moi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Ann rankontre a nevè.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ann rankontre a nevè."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's meet at nine.",
+                  "note": "Nevè = nine o'clock; a nevè = at nine. Add nan maten for 'in the morning'.",
+                  "literal": "let's meet at nine-o'clock"
+                },
+                "fr": {
+                  "meaning": "Retrouvons-nous à neuf heures.",
+                  "note": "« Nevè » = neuf heures, en un mot (le f devient v, comme dans la liaison française). « Rankontre » = se retrouver.",
+                  "literal": "allons rencontrer à neuf-heures"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:fish_after",
+              "key": "fish_after",
+              "intentKey": "invite",
+              "slotId": "fish_after",
+              "speaker": "character",
+              "text": "Dakò. Apre sa, ann manje pwason fri!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dakò. Apre sa, ann manje pwason fri!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK. After that, let's eat fried fish!",
+                  "note": "Apre sa = after that. Fried fish with plantains is the classic beach meal.",
+                  "literal": "okay. after that, let's eat fish fried"
+                },
+                "fr": {
+                  "meaning": "D'accord. Après ça, on mange du poisson frit !",
+                  "note": "« Apre sa » = après ça. Le poisson frit, servi avec des bananes pesées, est le repas de plage par excellence.",
+                  "literal": "d'accord. après ça, allons manger poisson frit"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Wi, ak plezi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wi, ak plezi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, with pleasure!",
+                  "note": "A warm, all-purpose way to say yes to an invitation.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oui, avec plaisir !",
+                  "note": "« Ak plezi » = avec plaisir : une façon chaleureuse d'accepter.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Dakò, n a wè dimanch a nevè.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dakò, n a wè dimanch a nevè."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, see you Sunday at nine.",
+                  "note": "N a wè = we'll see each other: the usual 'see you'. A before the verb marks the future.",
+                  "literal": "okay, we will see Sunday at nine-o'clock"
+                },
+                "fr": {
+                  "meaning": "D'accord, on se voit dimanche à neuf heures.",
+                  "note": "« N a wè » = nous nous verrons : c'est le « à bientôt » créole. Le premier « a » marque le futur, le second est la préposition « à ».",
+                  "literal": "d'accord, nous [futur] voir dimanche à neuf-heures"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "haitian_creole_ch2:haitian_creole_make_weekend_plans:not_free",
+              "key": "not_free",
+              "intentKey": "decline_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mwen pa lib samdi, m ap travay.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwen pa lib samdi, m ap travay."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm not free on Saturday, I'm working.",
+                  "note": "Giving a reason softens the no.",
+                  "literal": "I not free Saturday, I [progressive] work"
+                },
+                "fr": {
+                  "meaning": "Je ne suis pas libre samedi, je travaille.",
+                  "note": "Donner une raison adoucit le refus. « M ap travay » = je travaille, je serai en train de travailler.",
+                  "literal": "je pas libre samedi, je [progressif] travailler"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

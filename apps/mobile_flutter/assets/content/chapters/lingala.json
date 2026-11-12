@@ -2726,6 +2726,2303 @@
           ]
         }
       ]
+    },
+    {
+      "key": "lingala_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "lingala",
+      "targetVarietyId": "ln",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Kinshasa",
+        "fr": "Prendre ses marques à Kinshasa"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Lingala (ln); native review required before publishing.",
+        "Spelling follows chapter 1: plain e/o (no ɛ/ɔ), no tone marks, French loans in French spelling (billet, addition, couleur, samedi, s'il vous plaît). As in chapter 1 the learner says o- (singular) to strangers, with mama/papa and s'il vous plaît for politeness, and bo- only to a group or to 'the house'.",
+        "French is used on purpose for prices (quinze mille francs, vingt dollars), clock times (huit heures ya tongo, onze heures), samedi, couleur, bleu, carte, cash, libre, match, stade. Please confirm each is what a Kinois would really say, and whether mixing samedi with eyenga in make_weekend_plans (match_saturday, decline, other_time, sunday_free, confirm) sounds natural or should be samedi/dimanche throughout.",
+        "restaurant_order_meal, least sure: 'recommend' (Bozali na nini ya malamu lelo? is my plainest way to ask for a recommendation), 'bill' (Pesa biso addition; facture or Yela biso may be more usual), 'a_little' (Ee, kasi moke kaka), 'will_eat_chicken' (Ngai, nakolia soso na loso). Also worth a glance: 'welcome' (Bozali bato boni?), 'table' and 'have_table' (mesa ya bato mibale/minei), 'delicious' (ezali elengi mingi).",
+        "shop_for_clothes, least sure: 'just_looking' (Nalingi kotala naino, merci avoids repeating chapter 1's Nazali kotala kaka; is naino natural here?), 'card' (asks about paying in francs after a price in dollars instead of asking about a bank card, because cards are not used at a market stall; its note mentions M-Pesa and Airtel Money), 'its_price' (Ntalo na yango boni?). Also worth a glance: 'variant' (couleur mosusu), 'blue_one' (oyo ya bleu), 'take_it' (Malamu, nakozwa oyo).",
+        "buy_train_ticket: the Kinshasa-Matadi train runs irregularly; a reviewer may prefer a coach agency. Least sure: 'cash_only' (Te, pardon. Awa kaka cash), 'when' (ngonga nini vs heure nini), 'which_stop' (Nakokita na gare nini?), 'last_stop' (gare ya suka). Also worth a glance: 'how_many' (Olingi billet boni?), 'time' (huit heures ya tongo), 'which_day' (mokolo nini).",
+        "emergency_ask_help: the note on 'help' says Kinshasa has no dependable emergency number instead of giving one; please confirm or supply the number people really use. Least sure: 'pain' (Azali koyoka mpasi na libumu) and the body parts in its note (mokongo, lino, lokolo), 'dont_be_afraid' (Kobanga te, nakosalisa bino), 'see_doctor' (monganga vs docteur). Also worth a glance: 'help' (Bosalisa ngai), 'type' (azali kobela), 'not_far'.",
+        "talk_about_family, least sure: 'my_family' (yaya/leki, older/younger sibling, rather than brother/sister), 'and_you' (Bongo yo), 'when_back' (Okozonga na mboka na yo tango nini?), 'three_children' (Biso tozali bana misato). Also worth a glance: 'come_in' (Fanda awa, tolia), 'compliment_reply' and 'dont_know' (the two uses of naino), 'children_well'.",
+        "make_weekend_plans, least sure: 'other_time' (Bongo na eyenga, okoki?), 'when' (Tokutana na onze heures?), 'accept' (Ee, nandimi!). Also worth a glance: 'match_saturday' and 'dance_after' (tokende as a proposal), 'suggest' (Kinkole as the Sunday fish outing, like the Stade des Martyrs, is from general knowledge)."
+      ],
+      "characters": [
+        {
+          "key": "lingala_papy_waiter",
+          "name": "Papy",
+          "role": "waiter",
+          "personality": "quick, cheerful, proud of the fish liboke",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_mama_chantal_shop_assistant",
+          "name": "Mama Chantal",
+          "role": "shop assistant",
+          "personality": "lively, persuasive, knows every cloth on her stall",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "lingala_nadine_ticket_clerk",
+          "name": "Nadine",
+          "role": "ticket clerk",
+          "personality": "calm, precise, patient with travellers",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "lingala_fiston_bystander",
+          "name": "Fiston",
+          "role": "helpful bystander",
+          "personality": "calm, quick to help, knows the neighbourhood",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_mama_regine_host",
+          "name": "Mama Régine",
+          "role": "host",
+          "personality": "warm, keeps filling your plate, curious about your family",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "lingala_tresor_friend",
+          "name": "Trésor",
+          "role": "friend",
+          "personality": "easy-going, football fan, always ready to go out",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "lingala_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "lingala_papy_waiter",
+          "titles": {
+            "en": "A meal at the nganda",
+            "fr": "Un repas au nganda"
+          },
+          "sceneNotes": {
+            "en": "A lively nganda (open-air restaurant) in Bandal on a warm evening; the waiter is proud of his fish steamed in leaves.",
+            "fr": "Vous dînez dans un nganda (restaurant en plein air) animé de Bandal, par une soirée chaude ; le serveur est fier de son poisson cuit dans les feuilles."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Mbote na bino! Bozali bato boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote na bino! Bozali bato boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, everyone! How many of you are there?",
+                  "note": "Bino is 'you' for several people: the waiter is greeting your whole group. Boni means both 'how' and 'how many'.",
+                  "literal": "hello to you(all)! you(all)-are people how-many"
+                },
+                "fr": {
+                  "meaning": "Bonjour à vous ! Vous êtes combien ?",
+                  "note": "« Bino » est le « vous » de plusieurs personnes : le serveur salue tout votre groupe. « Boni » veut dire à la fois « comment » et « combien ».",
+                  "literal": "bonjour à vous(tous) ! vous-êtes personnes combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Tolingi mesa ya bato mibale.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tolingi mesa ya bato mibale."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We'd like a table for two.",
+                  "note": "To- is 'we'. Numbers follow the noun: bato mibale (two people), bato misato (three), bato minei (four).",
+                  "literal": "we-want table of people two"
+                },
+                "fr": {
+                  "meaning": "Nous voudrions une table pour deux.",
+                  "note": "« To- » = nous. Le nombre suit le nom : bato mibale (deux personnes), bato misato (trois), bato minei (quatre). « Mesa » vient du portugais : le s se prononce toujours [s], le e « é ».",
+                  "literal": "nous-voulons table de personnes deux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Every vowel is sounded and the s is always a crisp s: MEH-sah, BAH-toh mee-BAH-leh."
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Bozali na nini ya malamu lelo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bozali na nini ya malamu lelo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you have that's good today?",
+                  "note": "Lingala says 'to be with' (kozala na) for 'to have'. Bo- is plural 'you': you are asking the house, not just the waiter.",
+                  "literal": "you(all)-are with what of good today"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que vous avez de bon aujourd'hui ?",
+                  "note": "Pas de verbe « avoir » en lingala : on dit « être avec » (kozala na). « Bo- » est le « vous » pluriel : on s'adresse à la maison, pas au seul serveur.",
+                  "literal": "vous-êtes avec quoi de bon aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "offer_options",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Lelo tozali na liboke ya mbisi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Lelo tozali na liboke ya mbisi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Today we have fish liboke.",
+                  "note": "Liboke is fish (or meat) steamed in a parcel of leaves, a Kinshasa favourite. Mbisi = fish.",
+                  "literal": "today we-are with parcel of fish"
+                },
+                "fr": {
+                  "meaning": "Aujourd'hui, nous avons du liboke de poisson.",
+                  "note": "Le liboke : du poisson (ou de la viande) cuit à l'étouffée dans un paquet de feuilles, grand classique de Kinshasa. Mbisi = poisson.",
+                  "literal": "aujourd'hui nous-sommes avec paquet de poisson"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Nalingi liboke ya mbisi na kwanga.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi liboke ya mbisi na kwanga."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like the fish liboke with kwanga.",
+                  "note": "Kwanga is the firm cassava loaf served with almost every dish. Na means 'with' and also 'and'.",
+                  "literal": "I-want parcel of fish with cassava-loaf"
+                },
+                "fr": {
+                  "meaning": "Je voudrais le liboke de poisson avec de la chikwangue.",
+                  "note": "« Kwanga » : la chikwangue du français d'Afrique centrale (pain de manioc). « Na » = avec, et aussi « et ». « Nalingi » (je veux) n'a rien d'impoli pour commander.",
+                  "literal": "je-veux paquet de poisson avec chikwangue"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Ezali na pili-pili?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali na pili-pili?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there chilli in it?",
+                  "note": "Pili-pili is hot chilli. Swap in nyama (meat), mbisi (fish) or nguba (peanuts).",
+                  "literal": "it-is with chilli"
+                },
+                "fr": {
+                  "meaning": "Est-ce qu'il y a du piment dedans ?",
+                  "note": "Le « pili-pili » du français d'Afrique, c'est ce mot : le piment fort. Remplacez-le par nyama (viande), mbisi (poisson) ou nguba (arachides).",
+                  "literal": "c'est avec piment"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:a_little",
+              "key": "a_little",
+              "intentKey": "confirm_order",
+              "slotId": "a_little",
+              "speaker": "character",
+              "text": "Ee, kasi moke kaka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ee, kasi moke kaka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, but only a little.",
+                  "note": "Ee = yes, kasi = but, moke = a little, kaka = only.",
+                  "literal": "yes, but little only"
+                },
+                "fr": {
+                  "meaning": "Oui, mais juste un peu.",
+                  "note": "Ee (un « é » long) = oui ; kasi = mais ; moke = un peu ; kaka = seulement.",
+                  "literal": "oui, mais peu seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Liboke oyo ezali elengi mingi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Liboke oyo ezali elengi mingi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This liboke is really delicious!",
+                  "note": "Oyo (this) comes after the noun. Elengi is said of anything tasty or pleasant.",
+                  "literal": "parcel this it-is tasty very"
+                },
+                "fr": {
+                  "meaning": "Ce liboke est vraiment délicieux !",
+                  "note": "« Oyo » (ce, cette) se place après le nom. « Elengi » se dit de tout ce qui est bon ou agréable ; « mingi » = beaucoup, très. Le g est toujours dur : é-lé-ngui.",
+                  "literal": "paquet ce il-est délicieux beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Pesa biso addition, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pesa biso addition, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Give us the bill, please.",
+                  "note": "Addition is the French word, used as is (facture is heard too). With s'il vous plaît, the command pesa (give) is perfectly polite.",
+                  "literal": "give us bill, please"
+                },
+                "fr": {
+                  "meaning": "Donnez-nous l'addition, s'il vous plaît.",
+                  "note": "« Addition » se dit en français, tel quel (on entend aussi « facture »). L'impératif « pesa » (donne) n'a rien de brusque, surtout avec « s'il vous plaît ».",
+                  "literal": "donne nous addition, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Ezali quinze mille francs.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali quinze mille francs."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's fifteen thousand francs.",
+                  "note": "In Kinshasa prices are nearly always said with French numbers. These are Congolese francs.",
+                  "literal": "it-is fifteen thousand francs"
+                },
+                "fr": {
+                  "meaning": "Ça fait quinze mille francs.",
+                  "note": "À Kinshasa, les prix se disent presque toujours avec les nombres français. Il s'agit de francs congolais.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Bozali na mesa ya bato minei?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bozali na mesa ya bato minei?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for four?",
+                  "note": "A question is just the statement said with a rising voice.",
+                  "literal": "you(all)-are with table of people four"
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour quatre ?",
+                  "note": "La question se marque par la seule intonation, comme en français parlé.",
+                  "literal": "vous-êtes avec table de personnes quatre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_restaurant_order_meal:will_eat_chicken",
+              "key": "will_eat_chicken",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ngai, nakolia soso na loso.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ngai, nakolia soso na loso."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Me, I'll have chicken with rice.",
+                  "note": "Ngai (me) at the start sets you apart from the others at the table. Soso = chicken, loso = rice.",
+                  "literal": "me, I-will-eat chicken with rice"
+                },
+                "fr": {
+                  "meaning": "Moi, je vais manger du poulet avec du riz.",
+                  "note": "« Ngai » en tête = « moi, je… », comme en français. Soso = poulet, loso = riz : une seule lettre les sépare. « -ko- » marque le futur.",
+                  "literal": "moi, je-mangerai poulet avec riz"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "lingala_mama_chantal_shop_assistant",
+          "titles": {
+            "en": "Buying a pagne",
+            "fr": "Acheter un pagne"
+          },
+          "sceneNotes": {
+            "en": "A cloth stall near the Grand Marché; Mama Chantal has wax prints in every colour and quotes her prices in dollars.",
+            "fr": "Vous êtes devant un étal de pagnes près du Grand Marché ; Mama Chantal a des wax de toutes les couleurs et annonce ses prix en dollars."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Mbote! Ozali koluka nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote! Ozali koluka nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! What are you looking for?",
+                  "note": "Ozali ko- + verb is the ongoing present. In fast Kinshasa speech it shrinks to ozoluka.",
+                  "literal": "hello! you-are to-look-for what"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous cherchez quoi ?",
+                  "note": "« Ozali ko- » + verbe = être en train de. Dans le parler rapide de Kinshasa, cela se contracte en « ozoluka nini ? ».",
+                  "literal": "bonjour ! tu-es chercher quoi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Nalingi kotala naino, merci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi kotala naino, merci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to look first, thanks.",
+                  "note": "Naino means 'first, for now': it tells the seller you are not buying yet.",
+                  "literal": "I-want to-look first, thanks"
+                },
+                "fr": {
+                  "meaning": "Je voudrais d'abord regarder, merci.",
+                  "note": "« Naino » = d'abord, pour l'instant : la vendeuse comprend que vous n'achetez pas encore. « Merci » se dit tel quel, à côté du lingala « matondi ».",
+                  "literal": "je-veux regarder d'abord, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Nazali koluka liputa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali koluka liputa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a pagne (wax cloth).",
+                  "note": "A liputa is the printed cloth worn as a wrap or taken to a tailor. Plural: maputa.",
+                  "literal": "I-am to-look-for cloth"
+                },
+                "fr": {
+                  "meaning": "Je cherche un pagne.",
+                  "note": "« Liputa » : le pagne, que l'on porte noué ou que l'on confie au tailleur. Pluriel : maputa (le préfixe li- devient ma-). Le u se prononce « ou » : li-pou-ta.",
+                  "literal": "je-suis chercher pagne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "lee-POO-tah: u is always 'oo'."
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:look_at_this",
+              "key": "look_at_this",
+              "intentKey": "offer_options",
+              "slotId": "look_at_this",
+              "speaker": "character",
+              "text": "Tala oyo: ezali kitoko mingi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tala oyo: ezali kitoko mingi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Look at this one: it's very beautiful!",
+                  "note": "Kitoko (beautiful, lovely) is one of the words you hear most in Kinshasa.",
+                  "literal": "look this: it-is beautiful very"
+                },
+                "fr": {
+                  "meaning": "Regardez celui-ci : il est très beau !",
+                  "note": "« Kitoko » (beau, joli) est l'un des mots que l'on entend le plus à Kinshasa.",
+                  "literal": "regarde celui-ci : il-est beau beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Ozali na couleur mosusu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali na couleur mosusu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have another colour?",
+                  "note": "Couleur is French; the Lingala word langi is rarer in Kinshasa. Mosusu (other) follows the noun.",
+                  "literal": "you-are with colour other"
+                },
+                "fr": {
+                  "meaning": "Vous avez une autre couleur ?",
+                  "note": "À Kinshasa on dit « couleur », en français ; le mot lingala « langi » est plus rare. « Mosusu » (autre) suit le nom.",
+                  "literal": "tu-es avec couleur autre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:blue_one",
+              "key": "blue_one",
+              "intentKey": "offer_options",
+              "slotId": "blue_one",
+              "speaker": "character",
+              "text": "Ee, tala oyo ya bleu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ee, tala oyo ya bleu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, look at this blue one.",
+                  "note": "Colours are mostly said in French: bleu, rouge, vert, jaune.",
+                  "literal": "yes, look this of blue"
+                },
+                "fr": {
+                  "meaning": "Oui, regardez celui-ci, le bleu.",
+                  "note": "Les couleurs se disent le plus souvent en français : bleu, rouge, vert, jaune. « Oyo ya bleu » = celui de bleu, le bleu.",
+                  "literal": "oui, regarde celui-ci de bleu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Liputa oyo ezali boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Liputa oyo ezali boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this pagne?",
+                  "note": "Name the thing, add oyo (this), then ezali boni? There is no verb 'to cost'.",
+                  "literal": "cloth this it-is how-much"
+                },
+                "fr": {
+                  "meaning": "Ce pagne coûte combien ?",
+                  "note": "Nommez l'objet, ajoutez « oyo » (ce), puis « ezali boni ? » : pas besoin de verbe « coûter ».",
+                  "literal": "pagne ce il-est combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Ezali vingt dollars.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali vingt dollars."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's twenty dollars.",
+                  "note": "Kinshasa uses two currencies side by side: Congolese francs and US dollars, both counted in French.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est vingt dollars.",
+                  "note": "Kinshasa vit avec deux monnaies : le franc congolais et le dollar américain. Dans les deux cas, on compte en français.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Malamu, nakozwa oyo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Malamu, nakozwa oyo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good, I'll take this one.",
+                  "note": "-ko- inside the verb marks the future: na-ko-zwa, I will take.",
+                  "literal": "good, I-will-take this"
+                },
+                "fr": {
+                  "meaning": "D'accord, je vais prendre celui-ci.",
+                  "note": "Le « -ko- » glissé dans le verbe marque le futur : na-ko-zwa, je prendrai. « Malamu » (bien) sert aussi de « d'accord ».",
+                  "literal": "bien, je-prendrai celui-ci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Nakoki kofuta na francs?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakoki kofuta na francs?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay in francs?",
+                  "note": "Cards are little use at a market stall. Besides cash, mobile money (M-Pesa, Airtel Money) is common.",
+                  "literal": "I-can to-pay with francs"
+                },
+                "fr": {
+                  "meaning": "Je peux payer en francs ?",
+                  "note": "La carte bancaire ne sert guère au marché ; en dehors des espèces, on paie souvent par mobile money (M-Pesa, Airtel Money). « Nakoki » + infinitif = je peux.",
+                  "literal": "je-peux payer avec francs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_shop_for_clothes:its_price",
+              "key": "its_price",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ntalo na yango boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ntalo na yango boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the price of it?",
+                  "note": "Ntalo = price; yango = it, for things.",
+                  "literal": "price of it how-much"
+                },
+                "fr": {
+                  "meaning": "Quel est son prix ?",
+                  "note": "« Ntalo » = le prix ; « yango » = lui, elle, pour une chose. Le n de « ntalo » s'entend à peine, juste avant le t.",
+                  "literal": "prix de lui combien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "lingala_nadine_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Matadi",
+            "fr": "Un billet de train pour Matadi"
+          },
+          "sceneNotes": {
+            "en": "The ticket window at Kinshasa's Gare Centrale; you want two seats on the train to Matadi, which does not run every day.",
+            "fr": "Vous êtes au guichet de la Gare Centrale de Kinshasa ; vous voulez deux places dans le train de Matadi, qui ne circule pas tous les jours."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Nalingi billet ya Matadi, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi billet ya Matadi, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a ticket to Matadi, please.",
+                  "note": "Billet is French, used as is. Ya (of) links the ticket to the destination.",
+                  "literal": "I-want ticket of Matadi, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un billet pour Matadi, s'il vous plaît.",
+                  "note": "« Billet », « train », « gare » : le vocabulaire du voyage est français. « Ya » (de) relie le billet à la destination, là où le français dit « pour ».",
+                  "literal": "je-veux billet de Matadi, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:how_many",
+              "key": "how_many",
+              "intentKey": "ask_clarification",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Olingi billet boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Olingi billet boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many tickets do you want?",
+                  "note": "Boni (how many) follows the noun. A borrowed word like billet does not change in the plural.",
+                  "literal": "you-want ticket how-many"
+                },
+                "fr": {
+                  "meaning": "Vous voulez combien de billets ?",
+                  "note": "« Boni » (combien) suit le nom : billet boni ? Le mot emprunté ne change pas au pluriel.",
+                  "literal": "tu-veux billet combien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Billet mibale, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Billet mibale, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "Numbers follow the noun: moko 1, mibale 2, misato 3, minei 4, mitano 5.",
+                  "literal": "ticket two, please"
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "Le nombre suit le nom : moko 1, mibale 2, misato 3, minei 4, mitano 5. Les petites quantités se comptent volontiers en lingala, les prix en français.",
+                  "literal": "billet deux, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Train ekokende na ngonga nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Train ekokende na ngonga nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the train leave?",
+                  "note": "Ngonga = hour, o'clock (first of all 'bell'). You will also hear na heure nini?",
+                  "literal": "train it-will-go at hour what"
+                },
+                "fr": {
+                  "meaning": "Le train part à quelle heure ?",
+                  "note": "« Ngonga » = l'heure (au départ, « la cloche ») ; on entend aussi « na heure nini ? ». « E- » reprend une chose, « -ko- » marque le futur. « Ng » se dit d'un seul souffle, n puis g dur : ngo-nga.",
+                  "literal": "train il-ira à heure quelle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ng in ngonga is the ng of 'finger': NGOHN-gah."
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Ekokende na huit heures ya tongo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ekokende na huit heures ya tongo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at eight in the morning.",
+                  "note": "Clock times are normally said in French. Ya tongo = in the morning; ya mpokwa = in the evening.",
+                  "literal": "it-will-go at eight hours of morning"
+                },
+                "fr": {
+                  "meaning": "Il part à huit heures du matin.",
+                  "note": "L'heure se dit normalement en français. « Ya tongo » = du matin ; « ya mpokwa » = du soir.",
+                  "literal": "il-ira à huit heures de matin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Nakokita na gare nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakokita na gare nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I get off at?",
+                  "note": "Kokita = to go down, to get off; komata = to get on.",
+                  "literal": "I-will-get-off at station which"
+                },
+                "fr": {
+                  "meaning": "Je descends à quelle gare ?",
+                  "note": "« Kokita » = descendre ; « komata » = monter. Notez l'ordre : gare nini, « gare quelle ».",
+                  "literal": "je-descendrai à gare quelle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "Okokita na Matadi, gare ya suka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okokita na Matadi, gare ya suka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You get off at Matadi, the last station.",
+                  "note": "Matadi, the country's main seaport, is the end of the line from Kinshasa. Ya suka = last.",
+                  "literal": "you-will-get-off at Matadi, station of end"
+                },
+                "fr": {
+                  "meaning": "Vous descendrez à Matadi, la dernière gare.",
+                  "note": "Matadi, le grand port du pays, est le terminus de la ligne venue de Kinshasa. « Ya suka » (de la fin) = dernier.",
+                  "literal": "tu-descendras à Matadi, gare de fin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Nakoki kofuta na carte?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakoki kofuta na carte?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Nakoki + ko-verb = I can, may I. Do not count on a yes: keep cash on you.",
+                  "literal": "I-can to-pay with card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« Nakoki » + infinitif = je peux. Ne comptez pas trop sur un oui : gardez toujours des espèces sur vous.",
+                  "literal": "je-peux payer avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:cash_only",
+              "key": "cash_only",
+              "intentKey": "refuse_permission",
+              "slotId": "cash_only",
+              "speaker": "character",
+              "text": "Te, pardon. Awa kaka cash.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Te, pardon. Awa kaka cash."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, sorry. Cash only here.",
+                  "note": "Kaka = only; awa = here. Cash is the usual Kinshasa word for paying in notes.",
+                  "literal": "no, sorry. here only cash"
+                },
+                "fr": {
+                  "meaning": "Non, désolée. Ici, seulement en espèces.",
+                  "note": "« Kaka » = seulement ; « awa » = ici. À Kinshasa, on dit « cash » pour les espèces. « Pardon » sert à s'excuser comme à interpeller.",
+                  "literal": "non, pardon. ici seulement cash"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:no_problem",
+              "key": "no_problem",
+              "intentKey": "pay",
+              "slotId": "no_problem",
+              "speaker": "learner",
+              "text": "Likambo te, nazali na mbongo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Likambo te, nazali na mbongo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No problem, I have the money.",
+                  "note": "Likambo te (no problem) is heard all day long in Kinshasa.",
+                  "literal": "problem not, I-am with money"
+                },
+                "fr": {
+                  "meaning": "Pas de problème, j'ai de l'argent.",
+                  "note": "« Likambo te » (pas de problème) s'entend du matin au soir à Kinshasa. « Mbongo » = l'argent ; « nazali na » = j'ai.",
+                  "literal": "problème pas, je-suis avec argent"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_buy_train_ticket:which_day",
+              "key": "which_day",
+              "intentKey": "ask_departure_time",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Train ya Matadi ekokende mokolo nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Train ya Matadi ekokende mokolo nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which day does the Matadi train leave?",
+                  "note": "The Matadi train does not run every day, so ask the day (mokolo nini) before the time.",
+                  "literal": "train of Matadi it-will-go day which"
+                },
+                "fr": {
+                  "meaning": "Le train de Matadi part quel jour ?",
+                  "note": "Le train de Matadi ne circule pas tous les jours : demandez d'abord le jour (mokolo nini), puis l'heure.",
+                  "literal": "train de Matadi il-ira jour quel"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "lingala_fiston_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "In a busy street in Kinshasa, the friend you are walking with suddenly feels ill; a passer-by stops to help.",
+            "fr": "Dans une rue animée de Kinshasa, l'amie qui vous accompagne se sent mal tout à coup ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Bosalisa ngai, s'il vous plaît!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bosalisa ngai, s'il vous plaît!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help me, please!",
+                  "note": "Bo- speaks to everyone around; to one person say Salisa ngai! Kinshasa has no dependable emergency number: passers-by are the first help.",
+                  "literal": "you(all)-help me, please"
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "« Bo- » s'adresse à tous ceux qui vous entourent ; à une seule personne : « Salisa ngai ! » (ngai se dit « ngaï »). Kinshasa n'a pas de numéro d'urgence vraiment fiable : ce sont d'abord les passants qui aident.",
+                  "literal": "vous-aidez moi, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "boh-sah-LEE-sah NGAH-ee; ngai rhymes with 'guy'."
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Likambo nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Likambo nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the matter?",
+                  "note": "Likambo = a matter, a problem; it is the same word as in likambo te (no problem).",
+                  "literal": "matter what"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui se passe ?",
+                  "note": "« Likambo » = affaire, problème : c'est le mot de « likambo te » (pas de problème).",
+                  "literal": "affaire quoi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Moninga na ngai azali kobela.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Moninga na ngai azali kobela."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is ill.",
+                  "note": "A- means he or she alike, and moninga is a friend of either sex.",
+                  "literal": "friend of me he/she-is to-be-ill"
+                },
+                "fr": {
+                  "meaning": "Mon amie est malade.",
+                  "note": "« Moninga » vaut pour un ami comme pour une amie, et « a- » pour « il » comme pour « elle » : le lingala ne marque pas le genre.",
+                  "literal": "ami de moi il/elle-est être-malade"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Azali koyoka mpasi na libumu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Azali koyoka mpasi na libumu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a pain in her stomach.",
+                  "note": "Koyoka mpasi = to feel pain. Swap the body part: na mokongo (back), na lino (tooth), na lokolo (leg).",
+                  "literal": "he/she-is to-feel pain in belly"
+                },
+                "fr": {
+                  "meaning": "Elle a mal au ventre.",
+                  "note": "« Koyoka mpasi » = sentir une douleur, avoir mal. Changez la partie du corps : na mokongo (au dos), na lino (à une dent), na lokolo (à la jambe).",
+                  "literal": "il/elle-est sentir douleur à ventre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:dont_be_afraid",
+              "key": "dont_be_afraid",
+              "intentKey": "react_with_empathy",
+              "slotId": "dont_be_afraid",
+              "speaker": "character",
+              "text": "Kobanga te, nakosalisa bino.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kobanga te, nakosalisa bino."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't be afraid, I'll help you both.",
+                  "note": "A negative command is simply the infinitive plus te: kobanga te (don't be afraid), kolela te (don't cry).",
+                  "literal": "to-fear not, I-will-help you(all)"
+                },
+                "fr": {
+                  "meaning": "N'ayez pas peur, je vais vous aider.",
+                  "note": "La défense se forme avec l'infinitif + « te » : kobanga te (n'aie pas peur), kolela te (ne pleure pas). « Bino » = vous deux.",
+                  "literal": "craindre pas, j'aiderai vous(tous)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Pharmacie ezali wapi, s'il vous plaît?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pharmacie ezali wapi, s'il vous plaît?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is there a pharmacy, please?",
+                  "note": "Pharmacie is French. The question word wapi (where) comes after the verb.",
+                  "literal": "pharmacy it-is where, please"
+                },
+                "fr": {
+                  "meaning": "Où y a-t-il une pharmacie, s'il vous plaît ?",
+                  "note": "« Pharmacie » se dit en français. « Wapi » (où) vient après le verbe, à l'inverse du français.",
+                  "literal": "pharmacie elle-est où, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:not_far",
+              "key": "not_far",
+              "intentKey": "say_it_is_near",
+              "slotId": "not_far",
+              "speaker": "character",
+              "text": "Ezali mosika te. Tala kuna!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali mosika te. Tala kuna!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not far. Look, over there!",
+                  "note": "Te at the end makes the whole statement negative. Kuna = over there; awa = here.",
+                  "literal": "it-is far not. look there"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas loin. Regardez, là-bas !",
+                  "note": "« Te » en fin de phrase nie le tout : ezali mosika te. « Kuna » = là-bas ; « awa » = ici.",
+                  "literal": "c'est loin pas. regarde là-bas"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Malamu, nayoki. Matondi mingi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Malamu, nayoki. Matondi mingi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I've got it. Thank you very much!",
+                  "note": "Koyoka covers hearing, feeling and understanding: nayoki = I've heard, I understand.",
+                  "literal": "good, I-have-heard. thanks many"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci beaucoup !",
+                  "note": "« Koyoka », c'est entendre, sentir et comprendre à la fois (comme « entendre » autrefois en français). Nayoki = j'ai compris.",
+                  "literal": "bien, j'ai-entendu. mercis beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:help_me_one",
+              "key": "help_me_one",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Pardon, salisa ngai!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, salisa ngai!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, help me!",
+                  "note": "Said to one person. Add papa or mama to be respectful: Papa, salisa ngai!",
+                  "literal": "sorry, help me"
+                },
+                "fr": {
+                  "meaning": "Pardon, aidez-moi !",
+                  "note": "À une seule personne. Ajoutez « papa » ou « mama » par respect : Papa, salisa ngai !",
+                  "literal": "pardon, aide moi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_emergency_ask_help:see_doctor",
+              "key": "see_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nalingi komona monganga.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi komona monganga."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to see a doctor.",
+                  "note": "Monganga is the Lingala word; docteur is just as common. Lopitalo = hospital.",
+                  "literal": "I-want to-see doctor"
+                },
+                "fr": {
+                  "meaning": "Je veux voir un médecin.",
+                  "note": "« Monganga » est le mot lingala ; on dit tout autant « docteur ». « Lopitalo » = l'hôpital : le mot français, article compris, passé en lingala.",
+                  "literal": "je-veux voir médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "lingala_mama_regine_host",
+          "titles": {
+            "en": "Sunday lunch with the family",
+            "fr": "Déjeuner du dimanche en famille"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at your neighbour Joseph's mother's home; Mama Régine keeps filling your plate and wants to know all about your family.",
+            "fr": "Vous déjeunez, un dimanche, chez la mère de votre voisin Joseph ; Mama Régine remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Kota, kota! Fanda awa, tolia.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kota, kota! Fanda awa, tolia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, come in! Sit here, let's eat.",
+                  "note": "The bare verb is a command: kota (come in), fanda (sit). To- + verb means 'let's': tolia, let's eat.",
+                  "literal": "enter, enter! sit here, let-us-eat"
+                },
+                "fr": {
+                  "meaning": "Entre, entre ! Assieds-toi ici, mangeons.",
+                  "note": "Le verbe nu sert d'impératif : kota (entre), fanda (assieds-toi). « To- » + verbe = « faisons » : tolia, mangeons.",
+                  "literal": "entre, entre ! assieds ici, nous-mangeons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Mama, pondu na yo ezali elengi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mama, pondu na yo ezali elengi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mama, your pondu is delicious!",
+                  "note": "Pondu, pounded cassava leaves, is on every family table. Mama is how you address any woman you respect.",
+                  "literal": "mama, cassava-leaves of you it-is tasty"
+                },
+                "fr": {
+                  "meaning": "Mama, votre pondu est délicieux !",
+                  "note": "Le pondu : des feuilles de manioc pilées, de toutes les tables familiales. On appelle « mama » toute femme que l'on respecte. « Na yo » (de toi) = ton, votre. Dites « ponn-dou », sans voyelle nasale.",
+                  "literal": "maman, pondu de toi il-est délicieux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Oyebi koloba Lingala malamu!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oyebi koloba Lingala malamu!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Lingala well!",
+                  "note": "Koyeba (to know) + ko-verb = to know how to.",
+                  "literal": "you-know to-speak Lingala well"
+                },
+                "fr": {
+                  "meaning": "Tu parles bien lingala !",
+                  "note": "« Koyeba » (savoir) + infinitif = savoir faire, comme en français : tu sais bien parler.",
+                  "literal": "tu-sais parler lingala bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Matondi, mama. Nazali naino koyekola.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Matondi, mama. Nazali naino koyekola."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, mama. I'm still learning.",
+                  "note": "A modest answer is always appreciated. Koyekola = to learn; naino = still.",
+                  "literal": "thanks, mama. I-am still to-learn"
+                },
+                "fr": {
+                  "meaning": "Merci, mama. J'apprends encore.",
+                  "note": "Une réponse modeste est toujours appréciée. « Koyekola » = apprendre ; « naino » = encore, pour l'instant.",
+                  "literal": "merci, maman. je-suis encore apprendre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Mama, ozali na bana boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mama, ozali na bana boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mama, how many children do you have?",
+                  "note": "Mwana = child, bana = children: the plural shows at the front of the word.",
+                  "literal": "mama, you-are with children how-many"
+                },
+                "fr": {
+                  "meaning": "Mama, vous avez combien d'enfants ?",
+                  "note": "Mwana = enfant, bana = enfants : le pluriel se marque au début du mot. Demander des nouvelles de la famille est une politesse attendue.",
+                  "literal": "maman, tu-es avec enfants combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Bana minei. Bongo yo, ozali na bandeko?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bana minei. Bongo yo, ozali na bandeko?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Four children. And you, do you have brothers and sisters?",
+                  "note": "Ndeko (plural bandeko) is a brother or a sister, and more loosely any relative. Bongo yo? = and you?",
+                  "literal": "children four. so you, you-are with siblings"
+                },
+                "fr": {
+                  "meaning": "Quatre enfants. Et toi, tu as des frères et sœurs ?",
+                  "note": "« Ndeko » (pluriel bandeko) désigne un frère ou une sœur, et plus largement tout parent. « Bongo yo ? » = et toi ?",
+                  "literal": "enfants quatre. alors toi, tu-es avec frères-et-sœurs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Nazali na yaya moko na leki moko.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali na yaya moko na leki moko."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have one older and one younger sibling.",
+                  "note": "Lingala sorts siblings by age, not sex: yaya is older, leki younger. Add ya mobali (male) or ya mwasi (female) if needed.",
+                  "literal": "I-am with elder one and younger one"
+                },
+                "fr": {
+                  "meaning": "J'ai un aîné et un cadet.",
+                  "note": "Le lingala classe frères et sœurs par l'âge, non par le sexe : yaya = aîné(e), leki = cadet(te). Précisez au besoin : yaya ya mwasi (grande sœur), leki ya mobali (petit frère).",
+                  "literal": "je-suis avec aîné un et cadet un"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:when_back",
+              "key": "when_back",
+              "intentKey": "ask_clarification",
+              "slotId": "when_back",
+              "speaker": "character",
+              "text": "Okozonga na mboka na yo tango nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okozonga na mboka na yo tango nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When are you going back to your country?",
+                  "note": "Tango nini = when. Mboka is a country, and also a home town or village.",
+                  "literal": "you-will-return to country of you time what"
+                },
+                "fr": {
+                  "meaning": "Tu rentres quand dans ton pays ?",
+                  "note": "« Tango nini » (quel temps) = quand. « Mboka » désigne le pays, mais aussi la ville ou le village d'origine.",
+                  "literal": "tu-retourneras à pays de toi temps quel"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Nayebi naino te, mama.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nayebi naino te, mama."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet, mama.",
+                  "note": "Naino with te = not yet. Nayebi te on its own = I don't know.",
+                  "literal": "I-know yet not, mama"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore, mama.",
+                  "note": "« Naino » suivi de « te » = pas encore. « Nayebi te » tout seul = je ne sais pas. Le y se prononce comme dans « yaourt » : na-yé-bi.",
+                  "literal": "je-sais encore pas, maman"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:three_children",
+              "key": "three_children",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Biso tozali bana misato.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Biso tozali bana misato."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are three of us children.",
+                  "note": "You count yourself in: you and two brothers or sisters. Biso (us) adds emphasis.",
+                  "literal": "us we-are children three"
+                },
+                "fr": {
+                  "meaning": "Nous, nous sommes trois enfants.",
+                  "note": "Vous vous comptez dedans : vous et deux frères ou sœurs. « Biso » (nous) insiste, comme « nous, on… ».",
+                  "literal": "nous nous-sommes enfants trois"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_talk_about_family:children_well",
+              "key": "children_well",
+              "intentKey": "ask_about_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Bana na yo bazali malamu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bana na yo bazali malamu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are your children well?",
+                  "note": "Ba- is 'they' for people. In Kinshasa a greeting often goes on to ask after the family.",
+                  "literal": "children of you they-are well"
+                },
+                "fr": {
+                  "meaning": "Vos enfants vont bien ?",
+                  "note": "« Ba- » = ils, elles, pour des personnes. À Kinshasa, une salutation se prolonge volontiers par des nouvelles de la famille.",
+                  "literal": "enfants de toi ils-sont bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "lingala_tresor_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Trésor wants to go to the stadium on Saturday, but that day does not suit you; you settle on a Sunday by the river instead.",
+            "fr": "Votre ami Trésor veut aller au stade samedi, mais ce jour-là ne vous convient pas ; vous vous mettez d'accord pour un dimanche au bord du fleuve."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:match_saturday",
+              "key": "match_saturday",
+              "intentKey": "invite",
+              "slotId": "match_saturday",
+              "speaker": "character",
+              "text": "Samedi, tokende kotala match na stade?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samedi, tokende kotala match na stade?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "On Saturday, shall we go and watch the match at the stadium?",
+                  "note": "Tokende? (let's go?) is how you propose an outing. Days are mostly said in French. The big stadium is the Stade des Martyrs.",
+                  "literal": "Saturday, let-us-go to-watch match at stadium"
+                },
+                "fr": {
+                  "meaning": "Samedi, on va voir le match au stade ?",
+                  "note": "« Tokende ? » (allons ?) sert à proposer une sortie. Les jours se disent surtout en français. Le grand stade de Kinshasa est le stade des Martyrs.",
+                  "literal": "samedi, allons regarder match à stade"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Pardon, samedi nakoki te.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, samedi nakoki te."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I can't on Saturday.",
+                  "note": "Nakoki = I can; nakoki te = I can't. Pardon softens the no.",
+                  "literal": "sorry, Saturday I-can not"
+                },
+                "fr": {
+                  "meaning": "Pardon, samedi je ne peux pas.",
+                  "note": "« Nakoki » = je peux ; « nakoki te » = je ne peux pas. « Pardon » adoucit le refus.",
+                  "literal": "pardon, samedi je-peux pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Bongo na eyenga, okoki?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bongo na eyenga, okoki?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday, can you?",
+                  "note": "Eyenga (Sunday, also 'feast') is one day name people do say in Lingala; you will hear dimanche too.",
+                  "literal": "so on Sunday, you-can"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, tu peux ?",
+                  "note": "« Eyenga » (dimanche, mais aussi « fête ») est l'un des rares jours que l'on dit volontiers en lingala ; on entend aussi « dimanche ». « Bongo » = alors, et.",
+                  "literal": "alors à dimanche, tu-peux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:sunday_free",
+              "key": "sunday_free",
+              "intentKey": "agree",
+              "slotId": "sunday_free",
+              "speaker": "character",
+              "text": "Ee, na eyenga nazali libre.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ee, na eyenga nazali libre."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, on Sunday I'm free.",
+                  "note": "Libre is French, borrowed as is.",
+                  "literal": "yes, on Sunday I-am free"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche je suis libre.",
+                  "note": "« Libre » : encore un mot français passé tel quel dans le lingala de Kinshasa.",
+                  "literal": "oui, à dimanche je-suis libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Tokende kolia mbisi na Kinkole?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tokende kolia mbisi na Kinkole?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go and eat fish at Kinkole?",
+                  "note": "Kinkole, a fishing village on the river east of town, is the classic Sunday outing for fresh fish.",
+                  "literal": "let-us-go to-eat fish at Kinkole"
+                },
+                "fr": {
+                  "meaning": "On va manger du poisson à Kinkole ?",
+                  "note": "Kinkole, village de pêcheurs au bord du fleuve, à l'est de la ville : la sortie classique du dimanche pour manger du poisson frais.",
+                  "literal": "allons manger poisson à Kinkole"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Tokutana na onze heures?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tokutana na onze heures?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at eleven?",
+                  "note": "Kokutana = to meet up. The hour is said in French, after na (at).",
+                  "literal": "let-us-meet at eleven hours"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à onze heures ?",
+                  "note": "« Kokutana » = se retrouver. L'heure se dit en français, après « na » (à).",
+                  "literal": "rencontrons-nous à onze heures"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:dance_after",
+              "key": "dance_after",
+              "intentKey": "invite",
+              "slotId": "dance_after",
+              "speaker": "character",
+              "text": "Malamu. Na nsima, tokende kobina?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Malamu. Na nsima, tokende kobina?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good. And afterwards, shall we go dancing?",
+                  "note": "Kobina = to dance. In Kinshasa, home of Congolese rumba, an outing often ends with music.",
+                  "literal": "good. at after, let-us-go to-dance"
+                },
+                "fr": {
+                  "meaning": "D'accord. Et après, on va danser ?",
+                  "note": "« Kobina » = danser. À Kinshasa, capitale de la rumba congolaise, une sortie finit souvent en musique. « Na nsima » = après, ensuite.",
+                  "literal": "bien. à après, allons danser"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Ee, nandimi! Nalingi kobina.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ee, nandimi! Nalingi kobina."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I'm in! I love dancing.",
+                  "note": "Nandimi (from kondima, to agree) says yes to a proposal. Nalingi is 'I like' as well as 'I want'.",
+                  "literal": "yes, I-agree! I-like to-dance"
+                },
+                "fr": {
+                  "meaning": "Oui, d'accord ! J'aime danser.",
+                  "note": "« Nandimi » (de kondima, accepter) : je suis d'accord. « Nalingi » veut dire « je veux » mais aussi « j'aime » : un seul verbe pour les deux.",
+                  "literal": "oui, j'accepte ! j'aime danser"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Malamu, tokomonana na eyenga.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Malamu, tokomonana na eyenga."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great, see you on Sunday.",
+                  "note": "-an- makes a verb mutual: komona = to see, komonana = to see each other.",
+                  "literal": "good, we-will-see-each-other on Sunday"
+                },
+                "fr": {
+                  "meaning": "Très bien, on se voit dimanche.",
+                  "note": "« -an- » rend le verbe réciproque : komona = voir, komonana = se voir. To-ko-mon-an-a : nous nous verrons.",
+                  "literal": "bien, nous-nous-verrons à dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch2:lingala_make_weekend_plans:have_work",
+              "key": "have_work",
+              "intentKey": "decline_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nakoki te, nazali na mosala.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakoki te, nazali na mosala."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I can't, I have work.",
+                  "note": "Giving a reason softens the no. Mosala = work.",
+                  "literal": "I-can not, I-am with work"
+                },
+                "fr": {
+                  "meaning": "Je ne peux pas, j'ai du travail.",
+                  "note": "Donner une raison adoucit le refus. « Mosala » = le travail ; « nazali na » = j'ai.",
+                  "literal": "je-peux pas, je-suis avec travail"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

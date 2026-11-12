@@ -3031,6 +3031,2659 @@
           ]
         }
       ]
+    },
+    {
+      "key": "russian_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "russian",
+      "targetVarietyId": "ru",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Moscow",
+        "fr": "Prendre ses marques à Moscou"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Russian (ru); native review required before publishing.",
+        "Transliteration: chapter 1 is not consistent (ь is an apostrophe in three missions and unmarked in five; е after a vowel is ye or e). This chapter follows its majority: ь unmarked, е = ye at the start of a word, after a vowel and after ь, ё = yo, ый = yy, г always g (drugogo, tretyego).",
+        "Formality as in chapter 1: вы with the waiter, the shop assistant, the clerk, the passer-by and the host (addressed as Нина Петровна, first name + patronymic); ты only with the friend Миша. To confirm that an older host would keep вы with a young guest.",
+        "Gender: no learner line marks the learner's own gender (no past tense, no short adjective about the speaker), so chapter 1's masculine default never shows. «Моей подруге стало плохо» and «У неё…» need their masculine counterparts recorded (Моему другу, у него); «я свободен» is said by Миша.",
+        "Wordings to check first: «Я буду борщ», «Можно нас рассчитать?», «Можно примерить на размер больше?», «А есть другого цвета?», «Конечно, я только за!»; also the prices (7,000 rubles for a jacket, 9,000 for two Sapsan tickets) and the passport remark in the ticket note."
+      ],
+      "characters": [
+        {
+          "key": "russian_artyom_waiter",
+          "name": "Артём",
+          "role": "waiter",
+          "personality": "quick, friendly, proud of the homemade pelmeni",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "russian_alina_shop_assistant",
+          "name": "Алина",
+          "role": "shop assistant",
+          "personality": "attentive, honest about what fits",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "russian_tatyana_ticket_clerk",
+          "name": "Татьяна",
+          "role": "ticket clerk",
+          "personality": "brisk, precise, patient with travellers",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "russian_igor_bystander",
+          "name": "Игорь",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "russian_nina_host",
+          "name": "Нина Петровна",
+          "role": "host",
+          "personality": "warm, keeps offering more food, curious about your family",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "russian_misha_friend",
+          "name": "Миша",
+          "role": "friend",
+          "personality": "easy-going, sporty, always has a plan for the weekend",
+          "homeRegion": "Moscow",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "russian_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "russian_artyom_waiter",
+          "titles": {
+            "en": "Dinner at a Moscow restaurant",
+            "fr": "Dîner dans un restaurant de Moscou"
+          },
+          "sceneNotes": {
+            "en": "A small family-run restaurant near Chistye Prudy on a busy evening; the waiter recommends the house speciality, homemade pelmeni.",
+            "fr": "Vous dînez dans un petit restaurant familial près de Tchistye Proudy, un soir d'affluence ; le serveur recommande la spécialité de la maison, les pelmenis."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Добрый вечер! Сколько вас будет?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Добрый вечер! Сколько вас будет?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dobryy vecher! Skolko vas budet?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many of you will there be?",
+                  "note": "The usual question at the door. Вас is the genitive of вы, needed after сколько (how many).",
+                  "literal": "good evening! how-many of-you will-be"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous serez combien ?",
+                  "note": "La question rituelle à l'entrée. « Вас » est le génitif de « вы », obligatoire après « сколько » (combien). Le о non accentué se prononce « a » : « SKOL-ka ».",
+                  "literal": "bon soir ! combien de-vous sera"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Столик на двоих, пожалуйста.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Столик на двоих, пожалуйста."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Stolik na dvoikh, pozhaluysta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Столик is the 'little table' you ask for in a restaurant. Other numbers: на одного, на троих, на четверых.",
+                  "literal": "little-table for two, please"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Столик » (petite table) est le mot d'usage au restaurant. Autres nombres : на одного, на троих, на четверых. Le х final est un « kh » raclé, comme la jota espagnole : « dva-IKH ».",
+                  "literal": "petite-table pour deux, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "двоих is dva-EEKH; х is a breathy kh, like the ch in Scottish 'loch'."
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Что вы посоветуете?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Что вы посоветуете?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Chto vy posovetuyete?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Посоветуете is the polite вы form ('will you advise'). To a friend: Что посоветуешь?",
+                  "literal": "what you will-advise"
+                },
+                "fr": {
+                  "meaning": "Que conseillez-vous ?",
+                  "note": "« Посоветуете » est la forme du vouvoiement (вы), au futur : « que conseillerez-vous ». À un ami : Что посоветуешь? « Что » se prononce « chto ».",
+                  "literal": "quoi vous conseillerez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Что is pronounced SHTO. Stress посовЕтуете on the third syllable."
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:try_pelmeni",
+              "key": "try_pelmeni",
+              "intentKey": "state_opinion",
+              "slotId": "try_pelmeni",
+              "speaker": "character",
+              "text": "Попробуйте пельмени, они у нас домашние.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Попробуйте пельмени, они у нас домашние."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Poprobuyte pelmeni, oni u nas domashniye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try the pelmeni, ours are homemade.",
+                  "note": "Pelmeni are small meat dumplings, usually eaten with sour cream (сметана). У нас, 'at ours', is how a restaurant says 'here'.",
+                  "literal": "try pelmeni, they at us homemade"
+                },
+                "fr": {
+                  "meaning": "Goûtez les pelmenis, ils sont faits maison.",
+                  "note": "Les pelmenis sont de petits raviolis à la viande, servis avec de la crème aigre (сметана). « У нас » (chez nous) : c'est ainsi qu'un restaurant dit « ici ».",
+                  "literal": "goûtez pelmenis, ils chez nous de-maison"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "А с чем они?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А с чем они?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A s chem oni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what's in them?",
+                  "note": "С чем? ('with what?') asks about the filling of dumplings, pies or pancakes. For one ingredient: Там есть орехи? (Are there nuts in it?)",
+                  "literal": "and with what they"
+                },
+                "fr": {
+                  "meaning": "Et ils sont à quoi ?",
+                  "note": "« С чем? » (avec quoi ?) sert à demander la garniture des pelmenis, des pirojkis, des blinis. Pour un ingrédient précis : Там есть орехи? (Il y a des fruits à coque ?)",
+                  "literal": "et avec quoi eux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:fillings",
+              "key": "fillings",
+              "intentKey": "offer_options",
+              "slotId": "fillings",
+              "speaker": "character",
+              "text": "Есть с мясом, есть с грибами.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Есть с мясом, есть с грибами."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Yest s myasom, yest s gribami."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are meat ones and mushroom ones.",
+                  "note": "С (with) takes the instrumental case: мясо → с мясом, грибы → с грибами.",
+                  "literal": "there-is with meat, there-is with mushrooms"
+                },
+                "fr": {
+                  "meaning": "Il y en a à la viande et aux champignons.",
+                  "note": "« С » (avec) demande l'instrumental : мясо → с мясом, грибы → с грибами. « Есть » = « il y a », invariable.",
+                  "literal": "il-y-a avec viande, il-y-a avec champignons"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Мне пельмени с мясом, пожалуйста.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мне пельмени с мясом, пожалуйста."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mne pelmeni s myasom, pozhaluysta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The meat pelmeni for me, please.",
+                  "note": "Мне ('for me', dative) plus the dish is the simplest way to order: no verb needed.",
+                  "literal": "to-me pelmeni with meat, please"
+                },
+                "fr": {
+                  "meaning": "Pour moi, des pelmenis à la viande, s'il vous plaît.",
+                  "note": "« Мне » (à moi, datif) + le plat : la façon la plus simple de commander, sans verbe, comme « pour moi ». Dans « пожалуйста », le й et le у s'entendent à peine : « pa-JAL-sta ».",
+                  "literal": "à-moi pelmenis avec viande, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Очень вкусно, спасибо!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Очень вкусно, спасибо!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ochen vkusno, spasibo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's very tasty, thank you!",
+                  "note": "Вкусно never changes, whatever you are eating.",
+                  "literal": "very tastily, thanks"
+                },
+                "fr": {
+                  "meaning": "C'est très bon, merci !",
+                  "note": "« Вкусно » est invariable, quel que soit le plat. Devant к, le в s'assourdit en « f » : « FKOUS-na ».",
+                  "literal": "très savoureusement, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "вкусно sounds like FKOOS-na: в becomes f before к."
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Принесите, пожалуйста, счёт.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Принесите, пожалуйста, счёт."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Prinesite, pozhaluysta, schyot."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring the bill, please?",
+                  "note": "The polite вы imperative (-ите) with пожалуйста is a perfectly courteous request. The bill does not come until you ask for it.",
+                  "literal": "bring, please, bill"
+                },
+                "fr": {
+                  "meaning": "Apportez l'addition, s'il vous plaît.",
+                  "note": "L'impératif de politesse en -ите, adouci par « пожалуйста », est tout à fait courtois. Dans « счёт », сч se prononce comme un « ch » long et mouillé. L'addition ne vient que si on la demande.",
+                  "literal": "apportez, s'il-vous-plaît, addition"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:one_moment",
+              "key": "one_moment",
+              "intentKey": "confirm_understood",
+              "slotId": "one_moment",
+              "speaker": "character",
+              "text": "Да, конечно, одну минуту.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Да, конечно, одну минуту."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Da, konechno, odnu minutu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course, just a minute.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr, une minute.",
+                  "note": "Dans « конечно », чн se prononce « chn » : « ka-NIÉCH-na ». « Одну минуту » est à l'accusatif (одна минута).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Конечно is pronounced ka-NYESH-na: the ч sounds like sh here."
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:ill_have_borscht",
+              "key": "ill_have_borscht",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "А я буду борщ.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А я буду борщ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A ya budu borshch."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And I'll have the borscht.",
+                  "note": "Я буду plus the dish is how Russians order with friends and with waiters alike; the verb 'eat' is simply left out.",
+                  "literal": "and I will-be borscht"
+                },
+                "fr": {
+                  "meaning": "Et moi, je vais prendre le bortsch.",
+                  "note": "« Я буду » + le plat (mot à mot « je serai ») : tournure très courante pour commander, le verbe « manger » restant sous-entendu. Le щ final est un « ch » long et mouillé.",
+                  "literal": "et moi je-serai bortsch"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_restaurant_order_meal:settle_up",
+              "key": "settle_up",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Можно нас рассчитать?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Можно нас рассчитать?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhno nas rasschitat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could we settle up?",
+                  "note": "What you really hear in Moscow restaurants. Можно + infinitive = 'is it possible to'.",
+                  "literal": "possible us to-settle-up"
+                },
+                "fr": {
+                  "meaning": "On peut régler ?",
+                  "note": "La formule que l'on entend vraiment dans les restaurants de Moscou. « Можно » + infinitif = « est-il possible de ». Le ж se prononce comme le « j » de « jour ».",
+                  "literal": "possible nous faire-le-compte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "russian_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "russian_alina_shop_assistant",
+          "titles": {
+            "en": "Buying a warm jacket",
+            "fr": "Acheter une veste chaude"
+          },
+          "sceneNotes": {
+            "en": "A clothes shop on Tverskaya Street; the first frosts have arrived and you need a warm jacket, but the one on the rail looks a little small.",
+            "fr": "Vous entrez dans une boutique de vêtements de la rue Tverskaïa ; les premières gelées sont là, il vous faut une veste bien chaude, mais celle du portant semble un peu petite."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Здравствуйте! Вам что-нибудь подсказать?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Здравствуйте! Вам что-нибудь подсказать?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zdravstvuyte! Vam chto-nibud podskazat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Can I help you with anything?",
+                  "note": "The classic shop-assistant opener. Подсказать means 'to give a tip'; вам is 'to you' (dative).",
+                  "literal": "hello! to-you anything to-suggest"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Je peux vous renseigner ?",
+                  "note": "La phrase rituelle des vendeurs. « Подсказать » = souffler un conseil ; « вам » = à vous (datif) ; « что-нибудь » = quelque chose.",
+                  "literal": "bonjour ! à-vous quelque-chose souffler"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Спасибо, я пока просто смотрю.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Спасибо, я пока просто смотрю."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Spasibo, ya poka prosto smotryu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, I'm just looking for now.",
+                  "note": "Пока = 'for now'. On its own, Пока! is also the casual 'bye'.",
+                  "literal": "thanks, I for-now simply look"
+                },
+                "fr": {
+                  "meaning": "Merci, pour l'instant je regarde seulement.",
+                  "note": "« Пока » = pour l'instant. Seul, « Пока! » veut aussi dire « salut ! » quand on se quitte. Le russe n'a qu'un présent : « смотрю » = je regarde, je suis en train de regarder.",
+                  "literal": "merci, je pour-l'instant simplement regarde"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Я ищу тёплую куртку.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я ищу тёплую куртку."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya ishchu tyopluyu kurtku."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a warm jacket.",
+                  "note": "Тёплая куртка becomes тёплую куртку as the object of the verb (feminine accusative: -ую, -у).",
+                  "literal": "I seek warm jacket"
+                },
+                "fr": {
+                  "meaning": "Je cherche une veste chaude.",
+                  "note": "Complément d'objet : « тёплая куртка » devient « тёплую куртку » (accusatif féminin en -ую, -у). Pas d'article en russe. Dans « ищу », le щ est un « ch » long et mouillé ; accent final.",
+                  "literal": "je cherche chaude veste"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ищу is ee-SHCHOO, with a long soft sh. Ё is always stressed: TYOP-loo-yoo."
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:look_at_this",
+              "key": "look_at_this",
+              "intentKey": "offer_options",
+              "slotId": "look_at_this",
+              "speaker": "character",
+              "text": "Посмотрите вот эту, она очень тёплая.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Посмотрите вот эту, она очень тёплая."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Posmotrite vot etu, ona ochen tyoplaya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Have a look at this one, it's very warm.",
+                  "note": "Она (she) because куртка is feminine. Russian has no word for 'is' in the present.",
+                  "literal": "look here this-one, she very warm"
+                },
+                "fr": {
+                  "meaning": "Regardez celle-ci, elle est très chaude.",
+                  "note": "« Она » (elle) car « куртка » est féminin. Le verbe « être » ne s'exprime pas au présent : « она тёплая » = elle (est) chaude.",
+                  "literal": "regardez voici celle-ci, elle très chaude"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Можно примерить на размер больше?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Можно примерить на размер больше?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhno primerit na razmer bolshe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I try one a size bigger?",
+                  "note": "Можно примерить? alone means 'Can I try it on?'. На размер меньше = one size smaller.",
+                  "literal": "possible to-try-on by size bigger"
+                },
+                "fr": {
+                  "meaning": "Je peux essayer la taille au-dessus ?",
+                  "note": "« Можно примерить? » seul = « je peux essayer ? ». « На размер меньше » = une taille en dessous. Le ж de « можно » se prononce comme le « j » de « jour ».",
+                  "literal": "possible essayer d'une taille plus-grand"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:will_bring",
+              "key": "will_bring",
+              "intentKey": "grant_permission",
+              "slotId": "will_bring",
+              "speaker": "character",
+              "text": "Конечно, сейчас принесу.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Конечно, сейчас принесу."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Konechno, seychas prinesu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, I'll bring it right away.",
+                  "note": "Сейчас = 'now, right away'; in fast speech it shrinks to something like 'shchas'.",
+                  "literal": "of-course, now I-will-bring"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, je vous l'apporte tout de suite.",
+                  "note": "« Сейчас » = tout de suite ; en débit rapide, on entend à peu près « chtchass ». « Принесу » est un futur : le russe ne répète ici ni « vous » ni « la ».",
+                  "literal": "bien-sûr, maintenant j'apporterai"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Сколько она стоит?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Сколько она стоит?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Skolko ona stoit?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it?",
+                  "note": "Она for a feminine noun (куртка), он for a masculine one (свитер), оно for a neuter one (пальто).",
+                  "literal": "how-much she costs"
+                },
+                "fr": {
+                  "meaning": "Combien coûte-t-elle ?",
+                  "note": "« Она » pour un nom féminin (куртка), « он » pour un masculin (свитер), « оно » pour un neutre (пальто). Accent sur le о de « стоит » : « STO-it ».",
+                  "literal": "combien elle coûte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Семь тысяч рублей.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Семь тысяч рублей."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Sem tysyach rubley."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Seven thousand rubles.",
+                  "note": "'Thousand' changes with the number: одна тысяча, две тысячи, пять тысяч.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Sept mille roubles.",
+                  "note": "« Mille » se décline selon le nombre : одна тысяча, две тысячи, пять тысяч. Le ы de « тысяч » est un « i » prononcé du fond de la bouche.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Я её возьму.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я её возьму."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya yeyo vozmu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll take it.",
+                  "note": "Её ('her') stands for куртка. For a masculine noun: Я его возьму, where его is pronounced ye-VO.",
+                  "literal": "I her will-take"
+                },
+                "fr": {
+                  "meaning": "Je la prends.",
+                  "note": "« Её » (la) reprend « куртка ». Pour un nom masculin : Я его возьму (« его » se prononce « yi-VO »). « Возьму » est le futur de « взять » (prendre).",
+                  "literal": "je la prendrai"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "её is ye-YO; возьму is vaz-MOO, with a soft z."
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Можно оплатить картой?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Можно оплатить картой?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhno oplatit kartoy?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Картой is the instrumental of карта: 'by means of a card'. In cash = наличными.",
+                  "literal": "possible to-pay by-card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« Картой » est l'instrumental de « карта » : le moyen s'exprime sans préposition. En espèces = наличными.",
+                  "literal": "possible payer par-carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "А есть другого цвета?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А есть другого цвета?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A yest drugogo tsveta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour?",
+                  "note": "Другого цвета is a genitive: 'of another colour'.",
+                  "literal": "and there-is of-other colour"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« Другого цвета » est un génitif : « d'une autre couleur ». Dans « другого », le second г se prononce « v » : « drou-GO-va ». Le ц se prononce « ts ».",
+                  "literal": "et il-y-a d'autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The second г in другого is pronounced v: droo-GO-va."
+            }
+          ]
+        },
+        {
+          "key": "russian_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "russian_tatyana_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to St Petersburg",
+            "fr": "Un billet de train pour Saint-Pétersbourg"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Leningradsky station in Moscow on a busy morning; the next Sapsan express to St Petersburg leaves soon.",
+            "fr": "Vous êtes aux guichets de la gare de Leningrad, à Moscou, un matin chargé ; le prochain Sapsan, le train rapide pour Saint-Pétersbourg, part bientôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Билет до Санкт-Петербурга, пожалуйста.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Билет до Санкт-Петербурга, пожалуйста."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Bilet do Sankt-Peterburga, pozhaluysta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to St Petersburg, please.",
+                  "note": "До ('as far as') takes the genitive: Санкт-Петербург → до Санкт-Петербурга. Have your passport ready: it is asked for with every long-distance ticket.",
+                  "literal": "ticket up-to Saint-Petersburg, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Saint-Pétersbourg, s'il vous plaît.",
+                  "note": "« До » (jusqu'à) demande le génitif : Санкт-Петербург → до Санкт-Петербурга. Préparez votre passeport : on vous le demande pour tout billet de grande ligne.",
+                  "literal": "billet jusqu'à Saint-Pétersbourg, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "В одну сторону или туда и обратно?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "В одну сторону или туда и обратно?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "V odnu storonu ili tuda i obratno?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": "Туда и обратно, 'there and back', describes any round trip.",
+                  "literal": "in one direction or there and back"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Туда и обратно » (là-bas et retour) se dit de n'importe quel aller-retour.",
+                  "literal": "dans une direction ou là-bas et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:one_way",
+              "key": "one_way",
+              "intentKey": "choose_option",
+              "slotId": "one_way",
+              "speaker": "learner",
+              "text": "В одну сторону, пожалуйста.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "В одну сторону, пожалуйста."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "V odnu storonu, pozhaluysta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way, please.",
+                  "note": null,
+                  "literal": "in one direction, please"
+                },
+                "fr": {
+                  "meaning": "Aller simple, s'il vous plaît.",
+                  "note": "Le в se soude au mot suivant : « vad-NOU STO-ra-nou ».",
+                  "literal": "dans une direction, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The в runs into the next word: vad-NOO STO-ra-noo."
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Во сколько отправляется следующий поезд?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Во сколько отправляется следующий поезд?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vo skolko otpravlyayetsya sleduyushchiy poyezd?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "Во сколько? = 'at what time?'. Отправляется is the timetable word for 'departs'; прибывает = 'arrives'.",
+                  "literal": "at how-much departs next train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "« Во сколько? » = à quelle heure ? (mot à mot « à combien »). « Отправляется » = part, dans la langue des gares ; « прибывает » = arrive. Dans « поезд », le д final s'assourdit : « PO-yist ».",
+                  "literal": "à combien part prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "В девять сорок, с третьего пути.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "В девять сорок, с третьего пути."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "V devyat sorok, s tretyego puti."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At nine forty, from track three.",
+                  "note": "Train times are read like a digital clock: the hour, then the minutes. Путь is the track; a platform is платформа.",
+                  "literal": "at nine forty, from third track"
+                },
+                "fr": {
+                  "meaning": "À neuf heures quarante, voie trois.",
+                  "note": "Les horaires se lisent comme sur un écran : l'heure puis les minutes, sans le mot « heures ». « Путь » = la voie ; dans « третьего », le г se prononce « v ».",
+                  "literal": "à neuf quarante, depuis troisième voie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Два билета, пожалуйста.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Два билета, пожалуйста."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dva bileta, pozhaluysta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "After 2, 3 and 4 the noun takes the genitive singular: два билета. From 5 up: пять билетов.",
+                  "literal": "two of-ticket, please"
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "Après 2, 3 et 4, le nom se met au génitif singulier : два билета. À partir de 5, génitif pluriel : пять билетов.",
+                  "literal": "deux de-billet, s'il-vous-plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "На какой станции мне выходить?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "На какой станции мне выходить?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Na kakoy stantsii mne vykhodit?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I get off at?",
+                  "note": "Мне + infinitive = 'should I?'. The same question works in the metro; for a bus stop say на какой остановке.",
+                  "literal": "on which station to-me to-get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Мне » + infinitif = « dois-je… ? ». La question sert aussi dans le métro ; pour un arrêt de bus : на какой остановке. « Выходить » = sortir, descendre ; accent sur « ди ».",
+                  "literal": "sur quelle station à-moi sortir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "На конечной, это Московский вокзал.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "На конечной, это Московский вокзал."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Na konechnoy, eto Moskovskiy vokzal."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the last stop, that's Moskovsky station.",
+                  "note": "Big stations are named after where the trains go: you leave Moscow from Leningradsky and arrive in St Petersburg at Moskovsky.",
+                  "literal": "on final, this Moscow station"
+                },
+                "fr": {
+                  "meaning": "Au terminus, c'est la gare de Moscou.",
+                  "note": "Les grandes gares portent le nom de leur destination : on part de la gare de Leningrad, à Moscou, pour arriver à la gare de Moscou, à Saint-Pétersbourg. « Конечная » = le terminus.",
+                  "literal": "sur terminus, c'est de-Moscou gare"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Вы принимаете карты?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Вы принимаете карты?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vy prinimayete karty?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards?",
+                  "note": "A question is simply the statement with rising intonation: the voice goes up on принимаете.",
+                  "literal": "you accept cards"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte ?",
+                  "note": "Pas de « est-ce que » en russe : seule l'intonation, qui monte sur « принимаете », fait la question. Le ы de « вы » et de « карты » est un « i » prononcé du fond de la bouche.",
+                  "literal": "vous acceptez cartes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Да, конечно. С вас девять тысяч рублей.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Да, конечно. С вас девять тысяч рублей."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Da, konechno. S vas devyat tysyach rubley."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course. That's nine thousand rubles.",
+                  "note": "С вас ('from you') is how every cashier announces the total.",
+                  "literal": "yes, of-course. from you nine thousand rubles"
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr. Ça vous fait neuf mille roubles.",
+                  "note": "« С вас » (mot à mot « de vous ») : c'est ainsi que tout caissier annonce le total à payer.",
+                  "literal": "oui, bien-sûr. de vous neuf mille roubles"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_buy_train_ticket:ticket_tomorrow",
+              "key": "ticket_tomorrow",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Мне один билет до Петербурга на завтра.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мне один билет до Петербурга на завтра."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mne odin bilet do Peterburga na zavtra."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One ticket to Petersburg for tomorrow.",
+                  "note": "People usually drop Санкт-; among friends the city is simply Питер. На завтра = for tomorrow, на сегодня = for today.",
+                  "literal": "to-me one ticket up-to Petersburg for tomorrow"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Pétersbourg pour demain.",
+                  "note": "On laisse souvent tomber « Санкт- » ; entre amis, la ville s'appelle « Питер ». « На завтра » = pour demain, « на сегодня » = pour aujourd'hui (г prononcé « v » : « si-VOD-nia »).",
+                  "literal": "à-moi un billet jusqu'à Pétersbourg pour demain"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "russian_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "russian_igor_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "Outside Kurskaya metro station, the friend you are travelling with suddenly feels faint after the stuffy carriage; a passer-by stops to help.",
+            "fr": "À la sortie du métro Kourskaïa, l'amie qui vous accompagne a soudain un malaise après la chaleur étouffante de la rame ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Помогите, пожалуйста!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Помогите, пожалуйста!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pomogite, pozhaluysta!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help, please!",
+                  "note": "In an emergency dial 112 from any phone in Russia; 103 reaches the ambulance service directly.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "En cas d'urgence, composez le 112 partout en Russie ; le 103 joint directement les ambulances. Accent sur « ги », et les о non accentués se prononcent « a » : « pa-ma-GUI-tié ».",
+                  "literal": "aidez, s'il-vous-plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the third syllable: pa-ma-GEE-tye."
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Что случилось?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Что случилось?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Chto sluchilos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Что » se prononce « chto ». « Случилось » est un passé au neutre : « (quoi) est arrivé ».",
+                  "literal": "quoi est-arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Что is pronounced SHTO; stress случИлось: sloo-CHEE-las."
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Моей подруге стало плохо.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Моей подруге стало плохо."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Moyey podruge stalo plokho."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend has been taken ill.",
+                  "note": "The person goes in the dative: 'to my friend it became bad'. About a man: Моему другу стало плохо. About yourself: Мне плохо.",
+                  "literal": "to-my friend(f) became badly"
+                },
+                "fr": {
+                  "meaning": "Mon amie a un malaise.",
+                  "note": "La personne se met au datif : « à mon amie c'est devenu mal ». Pour un homme : Моему другу стало плохо. Pour soi : Мне плохо. Le х est un « kh » raclé : « PLO-kha ».",
+                  "literal": "à-mon amie est-devenu mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:anything_hurt",
+              "key": "anything_hurt",
+              "intentKey": "ask_clarification",
+              "slotId": "anything_hurt",
+              "speaker": "character",
+              "text": "У неё что-нибудь болит?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У неё что-нибудь болит?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U neyo chto-nibud bolit?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is she in pain anywhere?",
+                  "note": "У неё = 'at her': in Russian something hurts 'at' a person. For a man: у него.",
+                  "literal": "at her anything hurts"
+                },
+                "fr": {
+                  "meaning": "Elle a mal quelque part ?",
+                  "note": "« У неё » = chez elle : en russe, quelque chose fait mal « chez » la personne. Pour un homme : у него (le г se prononce « v »).",
+                  "literal": "chez elle quelque-chose fait-mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "У неё очень болит голова.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У неё очень болит голова."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U neyo ochen bolit golova."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a bad headache.",
+                  "note": "For yourself: У меня болит голова. Swap in живот (stomach), горло (throat), нога (leg).",
+                  "literal": "at her very hurts head"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "Pour soi : У меня болит голова. Remplacez par живот (ventre), горло (gorge), нога (jambe). Accent final : « ga-la-VA », les deux premiers о se prononcent « a ».",
+                  "literal": "chez elle très fait-mal tête"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:call_ambulance",
+              "key": "call_ambulance",
+              "intentKey": "offer_help",
+              "slotId": "call_ambulance",
+              "speaker": "character",
+              "text": "Не волнуйтесь. Вызвать скорую?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Не волнуйтесь. Вызвать скорую?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ne volnuytes. Vyzvat skoruyu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't worry. Shall I call an ambulance?",
+                  "note": "Скорая (short for скорая помощь, 'rapid help') is the ambulance. A bare infinitive with rising intonation offers to do something.",
+                  "literal": "not worry. to-call ambulance"
+                },
+                "fr": {
+                  "meaning": "Ne vous inquiétez pas. J'appelle une ambulance ?",
+                  "note": "« Скорая » (abréviation de « скорая помощь », le secours rapide) = l'ambulance. Un infinitif seul, dit avec l'intonation montante, sert à proposer : « (faut-il) appeler ? ».",
+                  "literal": "ne vous-inquiétez. appeler ambulance"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:not_yet",
+              "key": "not_yet",
+              "intentKey": "decline_offer",
+              "slotId": "not_yet",
+              "speaker": "learner",
+              "text": "Спасибо, пока не надо.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Спасибо, пока не надо."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Spasibo, poka ne nado."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, there's no need for now.",
+                  "note": "Не надо = 'no need': a gentle way to turn something down.",
+                  "literal": "thanks, for-now not needed"
+                },
+                "fr": {
+                  "meaning": "Merci, pas pour l'instant.",
+                  "note": "« Не надо » = ce n'est pas la peine : une façon douce de refuser.",
+                  "literal": "merci, pour-l'instant pas nécessaire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Здесь рядом есть аптека?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Здесь рядом есть аптека?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zdes ryadom yest apteka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Рядом = 'nearby'. Look for the green cross and the word АПТЕКА.",
+                  "literal": "here nearby there-is pharmacy"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Рядом » = tout près. Cherchez la croix verte et le mot АПТЕКА. « Есть » = « il y a », invariable.",
+                  "literal": "ici à-côté il-y-a pharmacie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Да, аптека вон там, за углом.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Да, аптека вон там, за углом."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Da, apteka von tam, za uglom."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, the pharmacy is over there, round the corner.",
+                  "note": "Вон там points at something you can see in the distance; за углом = 'behind the corner'.",
+                  "literal": "yes, pharmacy over there, behind corner"
+                },
+                "fr": {
+                  "meaning": "Oui, la pharmacie est là-bas, au coin de la rue.",
+                  "note": "« Вон там » désigne ce que l'on montre au loin ; « за углом » = derrière le coin, juste après l'angle de la rue.",
+                  "literal": "oui, pharmacie là-bas, derrière coin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Понятно. Спасибо вам огромное!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Понятно. Спасибо вам огромное!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ponyatno. Spasibo vam ogromnoye!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I see. Thank you so much!",
+                  "note": "Понятно ('it is clear') avoids the gendered я понял (man) / я поняла (woman). Огромное спасибо = 'huge thanks'.",
+                  "literal": "understood. thanks to-you huge"
+                },
+                "fr": {
+                  "meaning": "C'est compris. Merci infiniment !",
+                  "note": "« Понятно » (c'est clair) évite de choisir entre « я понял » (homme) et « я поняла » (femme). « Огромное спасибо » = un immense merci.",
+                  "literal": "compris. merci à-vous énorme"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:call_ambulance_please",
+              "key": "call_ambulance_please",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Вызовите скорую, пожалуйста!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Вызовите скорую, пожалуйста!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vyzovite skoruyu, pozhaluysta!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Call an ambulance, please!",
+                  "note": "The phrase to remember if things look serious.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Appelez une ambulance, s'il vous plaît !",
+                  "note": "La phrase à retenir si la situation est grave. Accent sur la première syllabe : « VY-za-vi-tié ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the first syllable: VY-za-vee-tye."
+            },
+            {
+              "id": "russian_ch2:russian_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Мне нужен врач.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мне нужен врач."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mne nuzhen vrach."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": "Нужен agrees with what is needed, not with the speaker: нужен врач, нужна аптека.",
+                  "literal": "to-me needed doctor"
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Нужен » s'accorde avec ce dont on a besoin, non avec la personne qui parle : нужен врач, нужна аптека. Mot à mot : « un médecin m'est nécessaire ».",
+                  "literal": "à-moi nécessaire médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "russian_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "russian_nina_host",
+          "titles": {
+            "en": "Tea and pirozhki at Nina Petrovna's",
+            "fr": "Thé et pirojkis chez Nina Petrovna"
+          },
+          "sceneNotes": {
+            "en": "Your neighbour Olga takes you to her mother's flat for Sunday tea; Nina Petrovna keeps filling your plate and wants to know all about your family.",
+            "fr": "Votre voisine Olga vous emmène prendre le thé du dimanche chez sa mère ; Nina Petrovna remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_talk_about_family:help_yourself",
+              "key": "help_yourself",
+              "intentKey": "welcome_someone",
+              "slotId": "help_yourself",
+              "speaker": "character",
+              "text": "Садитесь, угощайтесь! Пирожки ещё тёплые.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Садитесь, угощайтесь! Пирожки ещё тёплые."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Sadites, ugoshchaytes! Pirozhki yeshchyo tyoplyye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sit down, help yourself! The pirozhki are still warm.",
+                  "note": "Пирожки are small baked or fried buns with a filling (cabbage, potato, meat, apple). Угощайтесь is what every host says.",
+                  "literal": "sit-down, treat-yourself! little-pies still warm"
+                },
+                "fr": {
+                  "meaning": "Asseyez-vous, servez-vous ! Les pirojkis sont encore chauds.",
+                  "note": "Les « пирожки » sont de petits chaussons farcis (chou, pomme de terre, viande, pomme). « Угощайтесь » est la formule de toute maîtresse de maison.",
+                  "literal": "asseyez-vous, régalez-vous ! petits-pâtés encore chauds"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Какие вкусные пирожки!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Какие вкусные пирожки!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Kakiye vkusnyye pirozhki!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What delicious pirozhki!",
+                  "note": "Какой / какая / какие + adjective + noun makes an exclamation: Какой вкусный чай!",
+                  "literal": "what tasty little-pies"
+                },
+                "fr": {
+                  "meaning": "Quels délicieux pirojkis !",
+                  "note": "« Какой / какая / какие » + adjectif + nom = exclamation, comme « quel… ! » : Какой вкусный чай! Accent final sur « пирожки » : « pi-rach-KI ».",
+                  "literal": "quels savoureux petits-pâtés"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the end of пирожки: pee-rash-KEE."
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Вы так хорошо говорите по-русски!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Вы так хорошо говорите по-русски!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vy tak khorosho govorite po-russki!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Russian so well!",
+                  "note": "Так + adverb = 'so'. По-русски literally means 'in the Russian way'.",
+                  "literal": "you so well speak in-Russian"
+                },
+                "fr": {
+                  "meaning": "Vous parlez si bien russe !",
+                  "note": "« Так » + adverbe = « si ». « По-русски » : mot à mot « à la russe », c'est ainsi que l'on dit parler une langue. « Хорошо » : « kha-ra-CHO ».",
+                  "literal": "vous si bien parlez à-la-russe"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Спасибо, я стараюсь.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Спасибо, я стараюсь."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Spasibo, ya starayus."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm doing my best.",
+                  "note": "A modest, very common reply when someone praises your Russian. More generally: Спасибо, мне очень приятно.",
+                  "literal": "thanks, I try"
+                },
+                "fr": {
+                  "meaning": "Merci, je fais de mon mieux.",
+                  "note": "Réponse modeste et très courante quand on vous complimente sur votre russe. Plus général : Спасибо, мне очень приятно (ça me fait très plaisir).",
+                  "literal": "merci, je m'efforce"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Нина Петровна, у вас есть внуки?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Нина Петровна, у вас есть внуки?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Nina Petrovna, u vas yest vnuki?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nina Petrovna, do you have grandchildren?",
+                  "note": "First name plus patronymic (Петровна, 'daughter of Pyotr') is the respectful way to address an older person, always with вы.",
+                  "literal": "Nina Petrovna, at you there-is grandchildren"
+                },
+                "fr": {
+                  "meaning": "Nina Petrovna, vous avez des petits-enfants ?",
+                  "note": "Prénom + patronyme (Петровна, « fille de Piotr ») : c'est ainsi que l'on s'adresse avec respect à une personne plus âgée, toujours avec « вы ». « У вас есть » = chez vous il y a.",
+                  "literal": "Nina Petrovna, chez vous il-y-a petits-enfants"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Да, трое. А у вас есть братья или сёстры?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Да, трое. А у вас есть братья или сёстры?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Da, troye. A u vas yest bratya ili syostry?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, three. And do you have brothers or sisters?",
+                  "note": "Трое is the collective 'three' used for children and grandchildren (двое, трое, четверо).",
+                  "literal": "yes, three. and at you there-is brothers or sisters"
+                },
+                "fr": {
+                  "meaning": "Oui, trois. Et vous, vous avez des frères et sœurs ?",
+                  "note": "« Трое » est le numéral collectif employé pour les enfants et petits-enfants (двое, трое, четверо). Pluriels irréguliers : брат → братья, сестра → сёстры.",
+                  "literal": "oui, trois. et chez vous il-y-a frères ou sœurs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "У меня есть брат и две сестры.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У меня есть брат и две сестры."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U menya yest brat i dve sestry."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and two sisters.",
+                  "note": "Две is the feminine 'two' (два for masculine nouns); after it the noun is in the genitive singular: две сестры.",
+                  "literal": "at me there-is brother and two of-sister"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et deux sœurs.",
+                  "note": "Pas de verbe « avoir » ici : « у меня есть » = chez moi il y a. « Две » est le féminin de « два » ; après 2, 3 et 4, génitif singulier : две сестры.",
+                  "literal": "chez moi il-y-a frère et deux de-sœur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "А вы в Москве надолго?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А вы в Москве надолго?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A vy v Moskve nadolgo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And are you in Moscow for long?",
+                  "note": "Надолго = 'for a long time'. В Москве is the locative of Москва.",
+                  "literal": "and you in Moscow for-long"
+                },
+                "fr": {
+                  "meaning": "Et vous êtes à Moscou pour longtemps ?",
+                  "note": "« Надолго » = pour longtemps. « В Москве » est le locatif de « Москва » ; le в se prononce collé au mot : « vmask-VIÉ ».",
+                  "literal": "et vous à Moscou pour-longtemps"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Я пока не знаю.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я пока не знаю."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya poka ne znayu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Пока не = 'not yet'.",
+                  "literal": "I for-now not know"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "« Пока не » = pas encore. Une seule négation en russe : « не », placé devant le verbe.",
+                  "literal": "je pour-l'instant ne sais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Я единственный ребёнок в семье.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я единственный ребёнок в семье."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya yedinstvennyy rebyonok v semye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "Said by men and women alike: единственный agrees with the masculine noun ребёнок (child), not with the speaker.",
+                  "literal": "I only child in family"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "Identique pour un homme et une femme : « единственный » s'accorde avec le nom masculin « ребёнок » (enfant), non avec la personne qui parle. Pas de verbe « être » au présent.",
+                  "literal": "je unique enfant dans famille"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "russian_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "russian_misha_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Misha wants to go to the football on Saturday, but you are busy that day; you suggest skating in Gorky Park on Sunday instead.",
+            "fr": "Votre ami Micha veut aller voir un match de foot samedi, mais vous n'êtes pas libre ce jour-là ; vous proposez plutôt la patinoire du parc Gorki, dimanche."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:football_saturday",
+              "key": "football_saturday",
+              "intentKey": "invite",
+              "slotId": "football_saturday",
+              "speaker": "character",
+              "text": "Хочешь в субботу пойти на футбол?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Хочешь в субботу пойти на футбол?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Khochesh v subbotu poyti na futbol?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want to go to the football on Saturday?",
+                  "note": "Friends say ты: хочешь. Days take в + accusative: в субботу. Events take на: на футбол, на концерт.",
+                  "literal": "you-want on Saturday to-go to football"
+                },
+                "fr": {
+                  "meaning": "Tu veux aller au foot samedi ?",
+                  "note": "Entre amis, on se tutoie : « хочешь ». Les jours : в + accusatif (в субботу). Pour un événement, on dit « на » : на футбол, на концерт.",
+                  "literal": "tu-veux en samedi aller sur football"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Извини, в субботу я не могу.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Извини, в субботу я не могу."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Izvini, v subbotu ya ne mogu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I can't on Saturday.",
+                  "note": "Извини is the ты form; to a stranger you say извините.",
+                  "literal": "excuse, on Saturday I not can"
+                },
+                "fr": {
+                  "meaning": "Excuse-moi, samedi je ne peux pas.",
+                  "note": "« Извини » est la forme du tutoiement ; à un inconnu : извините. « Суббота » devient « в субботу » (accusatif).",
+                  "literal": "excuse, en samedi je ne peux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Давай лучше в воскресенье?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Давай лучше в воскресенье?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Davay luchshe v voskresenye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday instead?",
+                  "note": "Давай ('let's') is how friends propose anything; лучше = 'better, rather'.",
+                  "literal": "let's better on Sunday"
+                },
+                "fr": {
+                  "meaning": "On fait plutôt ça dimanche ?",
+                  "note": "« Давай » (mot à mot « donne ») lance toute proposition entre amis ; « лучше » = plutôt, mieux. « Воскресенье » se prononce « vas-kri-SIÉ-nié ».",
+                  "literal": "allons plutôt en dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "воскресенье is vas-kree-SYE-nye."
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Хорошо, в воскресенье я свободен.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Хорошо, в воскресенье я свободен."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Khorosho, v voskresenye ya svoboden."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'm free on Sunday.",
+                  "note": "Миша is a man: свободен. A woman says свободна.",
+                  "literal": "good, on Sunday I free"
+                },
+                "fr": {
+                  "meaning": "D'accord, dimanche je suis libre.",
+                  "note": "Micha est un homme : « свободен ». Une femme dit « свободна ».",
+                  "literal": "bien, en dimanche je libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Давай сходим на каток в парк Горького.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Давай сходим на каток в парк Горького."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Davay skhodim na katok v park Gorkogo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go skating in Gorky Park.",
+                  "note": "Сходим = 'go there and come back'. The ice rink in Gorky Park is a Moscow winter classic.",
+                  "literal": "let's we-will-go to rink in park of-Gorky"
+                },
+                "fr": {
+                  "meaning": "Allons à la patinoire du parc Gorki.",
+                  "note": "« Сходим » = faire un aller-retour quelque part. La patinoire du parc Gorki est un classique de l'hiver moscovite. Dans « Горького », le dernier г se prononce « v ».",
+                  "literal": "allons nous-irons sur patinoire dans parc de-Gorki"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Встретимся в три у метро?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Встретимся в три у метро?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vstretimsya v tri u metro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at three by the metro?",
+                  "note": "Muscovites meet у метро, at the station exit, or в центре зала, in the middle of the platform hall.",
+                  "literal": "we-will-meet at three by metro"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à trois heures devant le métro ?",
+                  "note": "Les Moscovites se donnent rendez-vous « у метро » (à la sortie de la station) ou « в центре зала » (au centre de la station, entre les deux quais). « Метро » est invariable.",
+                  "literal": "nous-nous-retrouverons à trois près-de métro"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:cafe_after",
+              "key": "cafe_after",
+              "intentKey": "invite",
+              "slotId": "cafe_after",
+              "speaker": "character",
+              "text": "Отлично! А потом пойдём в кафе?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Отлично! А потом пойдём в кафе?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Otlichno! A potom poydyom v kafe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! And shall we go to a café afterwards?",
+                  "note": "Пойдём? ('shall we go?') is the everyday way to invite someone along.",
+                  "literal": "excellent! and then we-will-go to café"
+                },
+                "fr": {
+                  "meaning": "Super ! Et après, on va au café ?",
+                  "note": "« Пойдём? » (nous irons ?) est la façon courante d'inviter, comme « on y va ? ». « Кафе » est invariable et se prononce « ka-FÈ ».",
+                  "literal": "excellent ! et ensuite nous-irons dans café"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Конечно, я только за!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Конечно, я только за!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Konechno, ya tolko za!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, I'm all for it!",
+                  "note": "Я за = 'I'm for (it)'; только adds 'only': nothing but yes.",
+                  "literal": "of-course, I only for"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, je suis tout à fait pour !",
+                  "note": "« Я за » = je suis pour ; « только » (seulement) renforce : « je ne demande que ça ». Identique pour un homme et une femme. « Конечно » : « ka-NIÉCH-na ».",
+                  "literal": "bien-sûr, je seulement pour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Договорились! В воскресенье в три.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Договорились! В воскресенье в три."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dogovorilis! V voskresenye v tri."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's a deal! Sunday at three.",
+                  "note": "Договорились ('we have agreed') seals any arrangement.",
+                  "literal": "we-agreed! on Sunday at three"
+                },
+                "fr": {
+                  "meaning": "Ça marche ! Dimanche à trois heures.",
+                  "note": "« Договорились » (nous nous sommes mis d'accord) scelle tout rendez-vous. Accent sur « ри » : « da-ga-va-RI-liss ».",
+                  "literal": "nous-sommes-convenus ! en dimanche à trois"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress договорИлись: da-ga-va-REE-lees."
+            },
+            {
+              "id": "russian_ch2:russian_make_weekend_plans:cinema",
+              "key": "cinema",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Может, сходим в кино?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Может, сходим в кино?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhet, skhodim v kino?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Maybe we could go to the cinema?",
+                  "note": "Может (быть) = 'maybe': a softer way to suggest something. Кино never changes its ending.",
+                  "literal": "maybe, we-will-go to cinema"
+                },
+                "fr": {
+                  "meaning": "Et si on allait au cinéma ?",
+                  "note": "« Может (быть) » = peut-être : une façon plus douce de proposer. « Кино » est invariable ; le ж de « может » se prononce comme le « j » de « jour ».",
+                  "literal": "peut-être, nous-irons dans cinéma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

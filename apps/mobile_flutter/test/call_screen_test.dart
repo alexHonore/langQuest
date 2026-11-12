@@ -26,6 +26,9 @@ import 'package:langquest_mobile/navigation/app_router.dart';
 
 import 'call_fakes.dart';
 import 'recording_fakes.dart';
+
+import 'package:langquest_mobile/core/backend/curriculum_ids.dart';
+
 import 'support.dart';
 
 const missionKey = 'es_greet_and_introduce';
@@ -57,6 +60,7 @@ void main() {
     ServerCourse? call = course,
     String route = '/call/$missionKey',
     List<CourseCharacter> characters = const [],
+    Map<String, Object?>? manifest,
   }) async {
     t.view.physicalSize = const Size(390 * 3, 844 * 3);
     t.view.devicePixelRatio = 3;
@@ -71,6 +75,7 @@ void main() {
           takeRecorderFactoryProvider.overrideWithValue(canRecord ? () => FakeRecorder(take: FakeTake()) : null),
           clipPlayerFactoryProvider.overrideWithValue(player == null ? null : () => player),
           courseCharactersProvider.overrideWith((ref) async => characters),
+          if (manifest != null) courseManifestProvider.overrideWith((ref) async => manifest),
         ],
         child: const LangQuestApp(),
       ),
@@ -455,6 +460,30 @@ void main() {
       expect(find.text('Settings'), findsOneWidget, reason: 'the account screen, where signing up is');
       semantics.dispose();
     });
+  });
+
+  testWidgets('a mission the server does not have yet (a newer chapter) offers no call', (t) async {
+    // The server's manifest lists chapter 1 only.
+    final chapter1 = testBundle.course('spanish-spain', 'en')!.chapters.first;
+    final manifest = {
+      'chapters': [
+        {
+          'id': 'c1',
+          'missions': [
+            for (final m in chapter1.missions) {'id': missionServerId(m.chapterKey, m.key)},
+          ],
+        },
+      ],
+      'characters': const <Object>[],
+    };
+    await pump(t, player: FakeClipPlayer(), route: '/path/$missionKey', manifest: manifest);
+    expect(find.text('Talk'), findsOneWidget, reason: 'chapter 1 is on the server');
+    await t.pumpWidget(const SizedBox());
+
+    final container = await pump(t, player: FakeClipPlayer(), route: '/path/es_restaurant_order_meal', manifest: manifest);
+    expect(container.read(appStateProvider).activeCourse!.chapters.last.missions.first.key, 'es_restaurant_order_meal');
+    expect(find.text('Talk'), findsNothing, reason: 'chapter 2 is not published on the server yet');
+    expect(find.text('Mission'), findsOneWidget, reason: 'everything else of the mission is there');
   });
 
   testWidgets('the path offers the Talk stop only when a live call backs it', (t) async {

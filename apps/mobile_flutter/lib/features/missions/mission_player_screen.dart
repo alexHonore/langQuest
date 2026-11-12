@@ -684,7 +684,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   onPressed: () => context.pushReplacement('/path/${next.key}'),
                 ),
               ),
-            if (ref.watch(liveCallCourseProvider) != null)
+            if (ref.watch(liveCallCourseProvider) != null && ref.watch(missionOnServerProvider(widget.missionKey)))
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: OutlinedButton.icon(

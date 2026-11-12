@@ -76,7 +76,7 @@ void main() {
 
     await tapText(t, 'Spanish (Spain-Castilian)');
     expect(find.text('What this course includes'), findsOneWidget);
-    expect(find.text('Mission pathway (6 missions)'), findsOneWidget);
+    expect(find.text('Mission pathway (12 missions)'), findsOneWidget);
     await t.scrollUntilVisible(find.text('Live conversation with AI characters'), 200, scrollable: find.byType(Scrollable).first);
     expect(find.textContaining('Native-speaker review'), findsOneWidget);
 
@@ -276,7 +276,8 @@ void main() {
     containerOf(t).read(appStateProvider.notifier).enroll('japanese', 'en');
     await settle(t);
     await tapText(t, 'Missions');
-    expect(find.textContaining('AI-drafted chapter'), findsOneWidget);
+    // Each chapter says it is a draft.
+    expect(find.textContaining('AI-drafted chapter'), findsWidgets);
     // The pathway: how far the chapter is, and the next mission with the stop to take.
     expect(find.text('0 of 4 missions done'), findsOneWidget);
     expect(find.text('Start: Learn'), findsOneWidget);
@@ -284,8 +285,9 @@ void main() {
     expect(find.text('Finish “Greet and introduce yourself” first'), findsOneWidget);
     expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/missions', reason: 'the locked node did not open');
     // The next mission opens its page: its number in the course, and its steps.
+    await t.scrollUntilVisible(find.text('Greet and introduce yourself'), -200, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Greet and introduce yourself');
-    expect(find.text('Mission 1 of 4'), findsOneWidget);
+    expect(find.text('Mission 1 of 10'), findsOneWidget, reason: 'chapter 1 (4 missions) and chapter 2 (6)');
     expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/path/ja_greet_and_introduce');
   });
 

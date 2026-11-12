@@ -3276,6 +3276,2660 @@
           ]
         }
       ]
+    },
+    {
+      "key": "ukrainian_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "ukrainian",
+      "targetVarietyId": "uk",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Lviv",
+        "fr": "Prendre ses marques à Lviv"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Ukrainian (uk); native review required before publishing.",
+        "Ukrainian only, to be confirmed by a reviewer from Ukraine: ходімо and може rather than давай-constructions, потяг (поїзд given in a note), стало зле (погано given in a note), залюбки, розрахуватися карткою, Розрахуйте нас, Вам щось підказати?, я тільки за.",
+        "Transliteration as in chapter 1 (official 2010 scheme): г = h, и = y, і = i; я, ю, є, ї = ya, yu, ye, yi at the start of a word and ia, iu, ie, i elsewhere; й = y at the start, i elsewhere; ь and the apostrophe are not marked (chapter 1's stray Uvimkniť is not imitated).",
+        "Formality as in chapter 1: ви with the waiter, the shop assistant, the clerk, the passer-by and the host (addressed as пані Маріє, пані + first name in the vocative); ти only with the friend Остап.",
+        "Gender: no learner line marks the learner's own gender (no past tense, no adjective about the speaker), so chapter 1's masculine default with feminine variants never comes up. «Моїй подрузі стало зле» and «У неї…» need their masculine counterparts recorded (Моєму другові, у нього); «я вільний» is said by Остап.",
+        "Facts to check: prices (3,000 hryvnias for a vyshyvanka, 1,200 for two Intercity tickets to Kyiv), 112 and 103 as emergency numbers, the Opera House as a meeting point."
+      ],
+      "characters": [
+        {
+          "key": "ukrainian_taras_waiter",
+          "name": "Тарас",
+          "role": "waiter",
+          "personality": "cheerful, quick, proud of the homemade varenyky",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ukrainian_solomiia_shop_assistant",
+          "name": "Соломія",
+          "role": "shop assistant",
+          "personality": "attentive, knows every embroidery pattern, honest about what fits",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ukrainian_iryna_ticket_clerk",
+          "name": "Ірина",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ukrainian_bohdan_bystander",
+          "name": "Богдан",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ukrainian_mariia_host",
+          "name": "Марія",
+          "role": "host",
+          "personality": "warm, keeps offering more food, curious about your family",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ukrainian_ostap_friend",
+          "name": "Остап",
+          "role": "friend",
+          "personality": "easy-going, proud of his city, always has a plan for the weekend",
+          "homeRegion": "Lviv",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "ukrainian_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "ukrainian_taras_waiter",
+          "titles": {
+            "en": "Dinner at a Lviv restaurant",
+            "fr": "Dîner dans un restaurant de Lviv"
+          },
+          "sceneNotes": {
+            "en": "A small family-run restaurant just off Rynok Square on a busy evening; the waiter recommends the house speciality, homemade varenyky.",
+            "fr": "Vous dînez dans un petit restaurant familial à deux pas de la place Rynok, un soir d'affluence ; le serveur recommande la spécialité de la maison, les varenyky."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Добрий вечір! Скільки вас буде?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Добрий вечір! Скільки вас буде?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dobryi vechir! Skilky vas bude?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many of you will there be?",
+                  "note": "The usual question at the door. Вас is the genitive of ви, needed after скільки (how many).",
+                  "literal": "good evening! how-many of-you will-be"
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Vous serez combien ?",
+                  "note": "La question habituelle à l'entrée. « Вас » est le génitif de « ви », obligatoire après « скільки » (combien). Le и ukrainien est un « i » bref et relâché, à mi-chemin entre « i » et « é ».",
+                  "literal": "bon soir ! combien de-vous sera"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Столик на двох, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Столик на двох, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Stolyk na dvokh, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Other numbers: на одного, на трьох, на чотирьох. Будь ласка is both 'please' and 'you're welcome'.",
+                  "literal": "little-table for two, please"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "Autres nombres : на одного, на трьох, на чотирьох. « Будь ласка » sert à la fois de « s'il vous plaît » et de « je vous en prie ». Le х est un « kh » raclé, comme la jota espagnole.",
+                  "literal": "petite-table pour deux, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "х is a breathy kh, like the ch in Scottish 'loch': dvokh."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Що ви порадите?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Що ви порадите?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Shcho vy poradyte?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What do you recommend?",
+                  "note": "Порадите is the polite ви form ('will you advise'). To a friend: Що порадиш?",
+                  "literal": "what you will-advise"
+                },
+                "fr": {
+                  "meaning": "Que conseillez-vous ?",
+                  "note": "« Порадите » est la forme du vouvoiement (ви), au futur : « que conseillerez-vous ». À un ami : Що порадиш? Le щ se prononce « chtch » : « chtcho ».",
+                  "literal": "quoi vous conseillerez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "щ is sh + ch said together: shcho."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:try_varenyky",
+              "key": "try_varenyky",
+              "intentKey": "state_opinion",
+              "slotId": "try_varenyky",
+              "speaker": "character",
+              "text": "Скуштуйте вареники, вони в нас домашні.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Скуштуйте вареники, вони в нас домашні."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Skushtuite varenyky, vony v nas domashni."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try the varenyky, ours are homemade.",
+                  "note": "Varenyky are half-moon dumplings with savoury or sweet fillings, served with sour cream (сметана). Скуштувати = to taste.",
+                  "literal": "taste varenyky, they at us homemade"
+                },
+                "fr": {
+                  "meaning": "Goûtez les varenyky, ils sont faits maison.",
+                  "note": "Les varenyky sont des raviolis en demi-lune, salés ou sucrés, servis avec de la crème aigre (сметана). « Скуштувати » = goûter ; « в нас » (chez nous) : c'est ainsi qu'un restaurant dit « ici ».",
+                  "literal": "goûtez varenyky, ils chez nous de-maison"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "А з чим вони?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А з чим вони?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A z chym vony?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what's in them?",
+                  "note": "З чим? ('with what?') asks about a filling. For one ingredient: Там є горіхи? (Are there nuts in it?)",
+                  "literal": "and with what they"
+                },
+                "fr": {
+                  "meaning": "Et ils sont à quoi ?",
+                  "note": "« З чим? » (avec quoi ?) sert à demander la garniture. Pour un ingrédient précis : Там є горіхи? (Il y a des fruits à coque ?)",
+                  "literal": "et avec quoi eux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:fillings",
+              "key": "fillings",
+              "intentKey": "offer_options",
+              "slotId": "fillings",
+              "speaker": "character",
+              "text": "Є з картоплею, є з вишнями.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Є з картоплею, є з вишнями."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ye z kartopleiu, ye z vyshniamy."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are potato ones and cherry ones.",
+                  "note": "З (with) takes the instrumental: картопля → з картоплею, вишні → з вишнями. Sweet varenyky with sour cherries are a summer favourite.",
+                  "literal": "there-is with potato, there-is with cherries"
+                },
+                "fr": {
+                  "meaning": "Il y en a aux pommes de terre et aux cerises.",
+                  "note": "« З » (avec) demande l'instrumental : картопля → з картоплею, вишні → з вишнями. « Є » (« yé ») = il y a, invariable. Les varenyky aux griottes sont un régal d'été.",
+                  "literal": "il-y-a avec pomme-de-terre, il-y-a avec cerises"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Мені вареники з картоплею, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мені вареники з картоплею, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Meni varenyky z kartopleiu, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The potato varenyky for me, please.",
+                  "note": "Мені ('for me', dative) plus the dish is the simplest way to order: no verb needed.",
+                  "literal": "to-me varenyky with potato, please"
+                },
+                "fr": {
+                  "meaning": "Pour moi, des varenyky aux pommes de terre, s'il vous plaît.",
+                  "note": "« Мені » (à moi, datif) + le plat : la façon la plus simple de commander, sans verbe, comme « pour moi ».",
+                  "literal": "à-moi varenyky avec pomme-de-terre, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Дуже смачно, дякую!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Дуже смачно, дякую!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Duzhe smachno, diakuiu!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's very tasty, thank you!",
+                  "note": "Смачно never changes, whatever you are eating. Before a meal people wish each other Смачного! (Enjoy your meal!)",
+                  "literal": "very tastily, thanks"
+                },
+                "fr": {
+                  "meaning": "C'est très bon, merci !",
+                  "note": "« Смачно » est invariable. Avant le repas, on se souhaite « Смачного! » (bon appétit). Le ж se prononce comme le « j » de « jour », le ч comme « tch ».",
+                  "literal": "très savoureusement, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Принесіть, будь ласка, рахунок.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Принесіть, будь ласка, рахунок."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Prynesit, bud laska, rakhunok."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you bring the bill, please?",
+                  "note": "The polite ви imperative (-іть) with будь ласка is a perfectly courteous request.",
+                  "literal": "bring, please, bill"
+                },
+                "fr": {
+                  "meaning": "Apportez l'addition, s'il vous plaît.",
+                  "note": "L'impératif de politesse en -іть, adouci par « будь ласка », est tout à fait courtois. Dans « рахунок », le х est un « kh » raclé et l'accent tombe sur « ху ».",
+                  "literal": "apportez, s'il-vous-plaît, addition"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress рахУнок on the second syllable: ra-KHOO-nok."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:one_moment",
+              "key": "one_moment",
+              "intentKey": "confirm_understood",
+              "slotId": "one_moment",
+              "speaker": "character",
+              "text": "Так, звичайно, одну хвилинку.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Так, звичайно, одну хвилинку."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Tak, zvychaino, odnu khvylynku."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course, just a moment.",
+                  "note": "Хвилинка is the 'little minute' of хвилина; diminutives make a request or a promise sound friendlier.",
+                  "literal": "yes, of-course, one little-minute"
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr, une petite minute.",
+                  "note": "« Хвилинка » est le diminutif de « хвилина » (minute) : les diminutifs rendent la phrase plus aimable. « Так » = oui.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:ill_take_borscht",
+              "key": "ill_take_borscht",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Я візьму борщ із пампушками.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я візьму борщ із пампушками."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya vizmu borshch iz pampushkamy."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll have the borscht with garlic buns.",
+                  "note": "Я візьму ('I'll take') is another natural way to order. Пампушки are soft garlic buns, the classic partner of borscht.",
+                  "literal": "I will-take borscht with pampushky"
+                },
+                "fr": {
+                  "meaning": "Je vais prendre le bortsch avec des pampouchky.",
+                  "note": "« Я візьму » (je prendrai) : autre façon naturelle de commander. Les « пампушки » sont des petits pains à l'ail, compagnons classiques du bortsch. « Із » est la forme de « з » entre consonnes.",
+                  "literal": "je prendrai bortsch avec pampouchky"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_restaurant_order_meal:settle_up",
+              "key": "settle_up",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Розрахуйте нас, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Розрахуйте нас, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Rozrakhuite nas, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could we settle up, please?",
+                  "note": "Very common in cafés and restaurants: literally 'work out our bill'.",
+                  "literal": "settle-up us, please"
+                },
+                "fr": {
+                  "meaning": "On peut régler, s'il vous plaît ?",
+                  "note": "Très courant au café comme au restaurant : mot à mot « faites notre compte ».",
+                  "literal": "faites-le-compte nous, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ukrainian_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "ukrainian_solomiia_shop_assistant",
+          "titles": {
+            "en": "Buying a vyshyvanka",
+            "fr": "Acheter une vychyvanka"
+          },
+          "sceneNotes": {
+            "en": "A small boutique near Rynok Square selling embroidered shirts; the assistant knows every pattern and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de chemises brodées près de la place Rynok ; la vendeuse connaît chaque motif et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Добрий день! Вам щось підказати?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Добрий день! Вам щось підказати?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dobryi den! Vam shchos pidkazaty?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon! Can I help you with anything?",
+                  "note": "A typical shop-assistant opener. Підказати means 'to give a tip'; вам is 'to you' (dative).",
+                  "literal": "good day! to-you something to-suggest"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Je peux vous renseigner ?",
+                  "note": "Formule typique des vendeurs. « Підказати » = souffler un conseil ; « вам » = à vous (datif) ; « щось » = quelque chose.",
+                  "literal": "bon jour ! à-vous quelque-chose souffler"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Дякую, я поки що просто дивлюся.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Дякую, я поки що просто дивлюся."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Diakuiu, ya poky shcho prosto dyvliusia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, I'm just looking for now.",
+                  "note": "Поки що = 'for now, so far'.",
+                  "literal": "thanks, I for-now simply look"
+                },
+                "fr": {
+                  "meaning": "Merci, pour l'instant je regarde seulement.",
+                  "note": "« Поки що » = pour l'instant. « Дивлюся » est un verbe en -ся : je regarde. L'ukrainien n'a qu'un présent, qui vaut aussi « je suis en train de regarder ».",
+                  "literal": "merci, je pour-l'instant simplement regarde"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Я шукаю вишиванку.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я шукаю вишиванку."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya shukaiu vyshyvanku."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a vyshyvanka.",
+                  "note": "The vyshyvanka is the embroidered Ukrainian shirt, worn on holidays and on Vyshyvanka Day in May. As an object: вишиванка → вишиванку.",
+                  "literal": "I seek embroidered-shirt"
+                },
+                "fr": {
+                  "meaning": "Je cherche une vychyvanka.",
+                  "note": "La vychyvanka est la chemise brodée ukrainienne, portée les jours de fête. Complément d'objet : вишиванка → вишиванку (accusatif). Chaque и est un « i » bref et relâché ; l'accent tombe sur « ван ».",
+                  "literal": "je cherche chemise-brodée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Each и is a short i as in 'bit': vy-shy-VAN-ku."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:look_at_this",
+              "key": "look_at_this",
+              "intentKey": "offer_options",
+              "slotId": "look_at_this",
+              "speaker": "character",
+              "text": "Подивіться ось цю, це ручна робота.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Подивіться ось цю, це ручна робота."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Podyvitsia os tsiu, tse ruchna robota."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Have a look at this one, it's handmade.",
+                  "note": "Ручна робота, 'hand work', is the label to look for on a real vyshyvanka.",
+                  "literal": "look here this-one, this hand work"
+                },
+                "fr": {
+                  "meaning": "Regardez celle-ci, c'est fait main.",
+                  "note": "« Ручна робота » (travail à la main) : la mention à repérer sur une vraie vychyvanka. Le ц se prononce « ts » : « tsiou », « tsé ».",
+                  "literal": "regardez voici celle-ci, c'est manuel travail"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Можна приміряти більший розмір?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Можна приміряти більший розмір?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhna prymiriaty bilshyi rozmir?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I try a bigger size?",
+                  "note": "Можна приміряти? alone means 'Can I try it on?'. Менший розмір = a smaller size.",
+                  "literal": "possible to-try-on bigger size"
+                },
+                "fr": {
+                  "meaning": "Je peux essayer une taille au-dessus ?",
+                  "note": "« Можна приміряти? » seul = « je peux essayer ? ». « Менший розмір » = une taille en dessous. « Можна » + infinitif = est-il possible de.",
+                  "literal": "possible essayer plus-grande taille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:will_bring",
+              "key": "will_bring",
+              "intentKey": "grant_permission",
+              "slotId": "will_bring",
+              "speaker": "character",
+              "text": "Звісно, зараз принесу.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Звісно, зараз принесу."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zvisno, zaraz prynesu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, I'll bring it right away.",
+                  "note": "Зараз = 'now, right away'. Звісно and звичайно both mean 'of course'.",
+                  "literal": "of-course, now I-will-bring"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, je vous l'apporte tout de suite.",
+                  "note": "« Зараз » = tout de suite. « Звісно » et « звичайно » veulent tous deux dire « bien sûr ». « Принесу » est un futur : l'ukrainien ne répète ici ni « vous » ni « la ».",
+                  "literal": "bien-sûr, maintenant j'apporterai"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Скільки коштує ця вишиванка?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Скільки коштує ця вишиванка?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Skilky koshtuie tsia vyshyvanka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this vyshyvanka?",
+                  "note": "Ця is 'this' for a feminine noun; цей for a masculine one (цей светр), це for a neuter one.",
+                  "literal": "how-much costs this embroidered-shirt"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette vychyvanka ?",
+                  "note": "« Ця » = cette (féminin) ; « цей » pour un masculin (цей светр), « це » pour un neutre.",
+                  "literal": "combien coûte cette chemise-brodée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Три тисячі гривень.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Три тисячі гривень."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Try tysiachi hryven."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Three thousand hryvnias.",
+                  "note": "'Thousand' changes with the number: одна тисяча, три тисячі, п’ять тисяч. The hryvnia (₴) is Ukraine's currency.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Trois mille hryvnias.",
+                  "note": "« Mille » se décline selon le nombre : одна тисяча, три тисячі, п’ять тисяч. La hryvnia (₴) est la monnaie ukrainienne ; son г initial est un « h » soufflé, jamais un « g ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Я її візьму.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я її візьму."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya yii vizmu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll take it.",
+                  "note": "Її ('her') stands for вишиванка. For a masculine noun: Я його візьму.",
+                  "literal": "I her will-take"
+                },
+                "fr": {
+                  "meaning": "Je la prends.",
+                  "note": "« Її » (la) reprend « вишиванка » et se prononce en deux syllabes : « yi-YI ». Pour un nom masculin : Я його візьму. « Візьму » est le futur de « взяти » (prendre).",
+                  "literal": "je la prendrai"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "її has two syllables: yee-YEE."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Можна розрахуватися карткою?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Можна розрахуватися карткою?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhna rozrakhuvatysia kartkoiu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Розрахуватися = 'to settle up'. Карткою is the instrumental of картка: 'by means of a card'. In cash = готівкою.",
+                  "literal": "possible to-settle-up by-card"
+                },
+                "fr": {
+                  "meaning": "Je peux régler par carte ?",
+                  "note": "« Розрахуватися » = régler. « Карткою » est l'instrumental de « картка » : le moyen s'exprime sans préposition. En espèces = готівкою.",
+                  "literal": "possible régler par-carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "А є іншого кольору?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А є іншого кольору?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A ye inshoho koloru?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour?",
+                  "note": "Іншого кольору is a genitive: 'of another colour'. Є = 'there is'.",
+                  "literal": "and there-is of-other colour"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« Іншого кольору » est un génitif : « d'une autre couleur ». Le г est un « h » soufflé : « IN-cho-ho ». « Колір » devient « кольору » : le і alterne avec о.",
+                  "literal": "et il-y-a d'autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Є is pronounced ye; г is a breathy h: EEN-sho-ho."
+            }
+          ]
+        },
+        {
+          "key": "ukrainian_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "ukrainian_iryna_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Kyiv",
+            "fr": "Un billet de train pour Kyiv"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Lviv's main station on a busy morning; the next Intercity train to Kyiv leaves soon.",
+            "fr": "Vous êtes aux guichets de la gare centrale de Lviv, un matin chargé ; le prochain train Intercity pour Kyiv part bientôt."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Квиток до Києва, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Квиток до Києва, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Kvytok do Kyieva, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Kyiv, please.",
+                  "note": "До ('to, as far as') takes the genitive, and the vowel shifts: Київ → до Києва, Львів → до Львова.",
+                  "literal": "ticket up-to Kyiv, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Kyiv, s'il vous plaît.",
+                  "note": "« До » (jusqu'à) demande le génitif, et la voyelle change : Київ → до Києва, Львів → до Львова. « Київ » se prononce en deux syllabes, accent sur la première.",
+                  "literal": "billet jusqu'à Kyiv, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "В один бік чи туди й назад?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "В один бік чи туди й назад?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "V odyn bik chy tudy y nazad?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": "Чи is the 'or' of questions. Туди й назад = 'there and back'.",
+                  "literal": "in one side or there and back"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Чи » est le « ou » des questions. « Туди й назад » = là-bas et retour ; « й » est la forme que prend « і » (et) entre deux voyelles.",
+                  "literal": "dans un côté ou là-bas et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:one_way",
+              "key": "one_way",
+              "intentKey": "choose_option",
+              "slotId": "one_way",
+              "speaker": "learner",
+              "text": "В один бік, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "В один бік, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "V odyn bik, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way, please.",
+                  "note": null,
+                  "literal": "in one side, please"
+                },
+                "fr": {
+                  "meaning": "Aller simple, s'il vous plaît.",
+                  "note": "« Бік » = le côté. Le і se prononce comme le « i » français, bien net, à la différence du и.",
+                  "literal": "dans un côté, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "О котрій відправляється наступний потяг?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "О котрій відправляється наступний потяг?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "O kotrii vidpravliaietsia nastupnyi potiah?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "О котрій (годині)? = 'at which (hour)?'. Потяг and поїзд both mean 'train'; station boards say поїзд.",
+                  "literal": "at which departs next train"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "« О котрій (годині)? » = à quelle heure ? « Потяг » et « поїзд » désignent tous deux le train ; les panneaux des gares affichent « поїзд ». Le г final est un « h » soufflé.",
+                  "literal": "à laquelle part prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "О дев’ятій сорок, з третьої колії.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "О дев’ятій сорок, з третьої колії."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "O deviatii sorok, z tretoi kolii."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At nine forty, from track three.",
+                  "note": "Clock times use ordinals: о дев’ятій, 'at the ninth (hour)', then the minutes. Колія is the track.",
+                  "literal": "at ninth forty, from third track"
+                },
+                "fr": {
+                  "meaning": "À neuf heures quarante, voie trois.",
+                  "note": "L'heure se dit avec un ordinal : о дев’ятій, « à la neuvième (heure) », puis les minutes. « Колія » = la voie. L'apostrophe détache le в du я : « dèv-YA-tiï ».",
+                  "literal": "à neuvième quarante, depuis troisième voie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Два квитки, будь ласка.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Два квитки, будь ласка."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dva kvytky, bud laska."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "After 2, 3 and 4 Ukrainian uses the plural: два квитки. From 5 up, the genitive plural: п’ять квитків.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "Après 2, 3 et 4, l'ukrainien emploie le pluriel : два квитки. À partir de 5, le génitif pluriel : п’ять квитків.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "На якій станції мені виходити?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "На якій станції мені виходити?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Na yakii stantsii meni vykhodyty?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I get off at?",
+                  "note": "Мені + infinitive = 'should I?'. For a bus or tram stop: на якій зупинці.",
+                  "literal": "on which station to-me to-get-off"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Мені » + infinitif = « dois-je… ? ». Pour un arrêt de bus ou de tram : на якій зупинці. « Виходити » = sortir, descendre.",
+                  "literal": "sur quelle station à-moi sortir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "На кінцевій, це Київ-Пасажирський.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "На кінцевій, це Київ-Пасажирський."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Na kintsevii, tse Kyiv-Pasazhyrskyi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the last stop, that's Kyiv-Pasazhyrskyi.",
+                  "note": "Київ-Пасажирський ('Kyiv Passenger') is the capital's main station. Кінцева = the terminus.",
+                  "literal": "on final, this Kyiv-Passenger"
+                },
+                "fr": {
+                  "meaning": "Au terminus, c'est Kyiv-Passajyrsky.",
+                  "note": "« Київ-Пасажирський » (Kyiv-Voyageurs) est la gare centrale de la capitale. « Кінцева » = le terminus.",
+                  "literal": "sur terminus, c'est Kyiv-Voyageurs"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Ви приймаєте картки?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Ви приймаєте картки?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vy pryimaiete kartky?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards?",
+                  "note": "A question can simply be the statement said with rising intonation.",
+                  "literal": "you accept cards"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte ?",
+                  "note": "Pas besoin de « est-ce que » : l'intonation montante suffit à faire la question. Dans « приймаєте », l'accent tombe sur « ма ».",
+                  "literal": "vous acceptez cartes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Так, звичайно. З вас тисяча двісті гривень.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Так, звичайно. З вас тисяча двісті гривень."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Tak, zvychaino. Z vas tysiacha dvisti hryven."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course. That's one thousand two hundred hryvnias.",
+                  "note": "З вас ('from you') is how cashiers announce the total.",
+                  "literal": "yes, of-course. from you thousand two-hundred hryvnias"
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr. Ça vous fait mille deux cents hryvnias.",
+                  "note": "« З вас » (mot à mot « de vous ») : c'est ainsi que les caissiers annoncent le total. « Двісті » = deux cents.",
+                  "literal": "oui, bien-sûr. de vous mille deux-cents hryvnias"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_buy_train_ticket:ticket_tomorrow",
+              "key": "ticket_tomorrow",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Мені один квиток до Києва на завтра.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мені один квиток до Києва на завтра."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Meni odyn kvytok do Kyieva na zavtra."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One ticket to Kyiv for tomorrow.",
+                  "note": "На завтра = for tomorrow, на сьогодні = for today. Long-distance tickets carry the passenger's name.",
+                  "literal": "to-me one ticket up-to Kyiv for tomorrow"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Kyiv pour demain.",
+                  "note": "« На завтра » = pour demain, « на сьогодні » = pour aujourd'hui. Les billets de grandes lignes sont nominatifs.",
+                  "literal": "à-moi un billet jusqu'à Kyiv pour demain"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ukrainian_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "ukrainian_bohdan_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "On Svobody Avenue on a hot afternoon, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Sur l'avenue Svobody, par un après-midi très chaud, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Допоможіть, будь ласка!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Допоможіть, будь ласка!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dopomozhit, bud laska!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help, please!",
+                  "note": "In an emergency dial 112 anywhere in Ukraine; 103 reaches the ambulance service directly.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "En cas d'urgence, composez le 112 partout en Ukraine ; le 103 joint directement les ambulances. Accent sur la dernière syllabe : « do-po-mo-JIT ».",
+                  "literal": "aidez, s'il-vous-plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the last syllable: do-po-mo-ZHEET."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Що сталося?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Що сталося?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Shcho stalosia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Що » se prononce « chtcho ». « Сталося » est un passé au neutre : « (quoi) est arrivé ».",
+                  "literal": "quoi est-arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Що is pronounced shcho; stress стАлося on the first syllable."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Моїй подрузі стало зле.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Моїй подрузі стало зле."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Moii podruzi stalo zle."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend has been taken ill.",
+                  "note": "The person goes in the dative, and г changes to з: подруга → подрузі. About a man: Моєму другові стало зле. Зле = погано (unwell).",
+                  "literal": "to-my friend(f) became badly"
+                },
+                "fr": {
+                  "meaning": "Mon amie a un malaise.",
+                  "note": "La personne se met au datif, et le г devient з : подруга → подрузі. Pour un homme : Моєму другові стало зле. « Зле » est synonyme de « погано » (mal).",
+                  "literal": "à-mon amie est-devenu mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:anything_hurt",
+              "key": "anything_hurt",
+              "intentKey": "ask_clarification",
+              "slotId": "anything_hurt",
+              "speaker": "character",
+              "text": "У неї щось болить?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У неї щось болить?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U nei shchos bolyt?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is she in pain anywhere?",
+                  "note": "У неї = 'at her': something hurts 'at' a person. For a man: у нього.",
+                  "literal": "at her something hurts"
+                },
+                "fr": {
+                  "meaning": "Elle a mal quelque part ?",
+                  "note": "« У неї » = chez elle : quelque chose fait mal « chez » la personne. Pour un homme : у нього.",
+                  "literal": "chez elle quelque-chose fait-mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "У неї дуже болить голова.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У неї дуже болить голова."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U nei duzhe bolyt holova."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a bad headache.",
+                  "note": "For yourself: У мене болить голова. Swap in живіт (stomach), горло (throat), нога (leg).",
+                  "literal": "at her very hurts head"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "Pour soi : У мене болить голова. Remplacez par живіт (ventre), горло (gorge), нога (jambe). Le г est un « h » soufflé et l'accent est final : « ho-lo-VA ».",
+                  "literal": "chez elle très fait-mal tête"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "г is a soft, breathy h: ho-lo-VA, with the stress at the end."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:call_ambulance",
+              "key": "call_ambulance",
+              "intentKey": "offer_help",
+              "slotId": "call_ambulance",
+              "speaker": "character",
+              "text": "Не хвилюйтеся. Викликати швидку?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Не хвилюйтеся. Викликати швидку?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ne khvyliuitesia. Vyklykaty shvydku?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Don't worry. Shall I call an ambulance?",
+                  "note": "Швидка (short for швидка допомога, 'fast help') is the ambulance. A bare infinitive with rising intonation offers to do something.",
+                  "literal": "not worry. to-call ambulance"
+                },
+                "fr": {
+                  "meaning": "Ne vous inquiétez pas. J'appelle une ambulance ?",
+                  "note": "« Швидка » (abréviation de « швидка допомога », le secours rapide) = l'ambulance. Un infinitif seul, dit avec l'intonation montante, sert à proposer : « (faut-il) appeler ? ».",
+                  "literal": "ne vous-inquiétez. appeler ambulance"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:not_yet",
+              "key": "not_yet",
+              "intentKey": "decline_offer",
+              "slotId": "not_yet",
+              "speaker": "learner",
+              "text": "Дякую, поки що не треба.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Дякую, поки що не треба."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Diakuiu, poky shcho ne treba."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, there's no need for now.",
+                  "note": "Не треба = 'no need': a gentle way to turn something down.",
+                  "literal": "thanks, for-now not needed"
+                },
+                "fr": {
+                  "meaning": "Merci, pas pour l'instant.",
+                  "note": "« Не треба » = ce n'est pas la peine : une façon douce de refuser.",
+                  "literal": "merci, pour-l'instant pas nécessaire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Тут поблизу є аптека?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Тут поблизу є аптека?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Tut poblyzu ye apteka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Поблизу = 'nearby'. Look for the green cross and the word АПТЕКА.",
+                  "literal": "here nearby there-is pharmacy"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Поблизу » = à proximité. Cherchez la croix verte et le mot АПТЕКА. « Є » = il y a.",
+                  "literal": "ici à-proximité il-y-a pharmacie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Так, аптека он там, за рогом.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Так, аптека он там, за рогом."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Tak, apteka on tam, za rohom."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, the pharmacy is over there, round the corner.",
+                  "note": "Он там points at something you can see in the distance; за рогом = 'behind the corner'.",
+                  "literal": "yes, pharmacy over there, behind corner"
+                },
+                "fr": {
+                  "meaning": "Oui, la pharmacie est là-bas, au coin de la rue.",
+                  "note": "« Он там » désigne ce que l'on montre au loin ; « за рогом » = juste après le coin de la rue (« ріг » : le coin, mais aussi la corne).",
+                  "literal": "oui, pharmacie là-bas, derrière coin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Зрозуміло. Дуже вам дякую!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Зрозуміло. Дуже вам дякую!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zrozumilo. Duzhe vam diakuiu!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I see. Thank you very much!",
+                  "note": "Зрозуміло ('it is clear') avoids the gendered я зрозумів (man) / я зрозуміла (woman).",
+                  "literal": "understood. very to-you I-thank"
+                },
+                "fr": {
+                  "meaning": "C'est compris. Merci beaucoup à vous !",
+                  "note": "« Зрозуміло » (c'est clair) évite de choisir entre « я зрозумів » (homme) et « я зрозуміла » (femme). « Дякую » est un verbe : je remercie.",
+                  "literal": "compris. très à-vous je-remercie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:call_ambulance_please",
+              "key": "call_ambulance_please",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Викличте швидку, будь ласка!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Викличте швидку, будь ласка!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vyklychte shvydku, bud laska!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Call an ambulance, please!",
+                  "note": "The phrase to remember if things look serious.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Appelez une ambulance, s'il vous plaît !",
+                  "note": "La phrase à retenir si la situation est grave. L'accent tombe sur la première syllabe, « ви ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the first syllable: VY-klych-te."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Мені потрібен лікар.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Мені потрібен лікар."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Meni potriben likar."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": "Потрібен agrees with what is needed, not with the speaker: потрібен лікар, потрібна аптека.",
+                  "literal": "to-me needed doctor"
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Потрібен » s'accorde avec ce dont on a besoin, non avec la personne qui parle : потрібен лікар, потрібна аптека. Mot à mot : « un médecin m'est nécessaire ».",
+                  "literal": "à-moi nécessaire médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ukrainian_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "ukrainian_mariia_host",
+          "titles": {
+            "en": "Sunday lunch at pani Mariia's",
+            "fr": "Déjeuner du dimanche chez pani Mariia"
+          },
+          "sceneNotes": {
+            "en": "Your neighbour Oksana takes you to her mother's flat for Sunday lunch; pani Mariia keeps filling your plate and wants to know all about your family.",
+            "fr": "Votre voisine Oksana vous emmène déjeuner dimanche chez sa mère ; pani Mariia remplit sans cesse votre assiette et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:help_yourself",
+              "key": "help_yourself",
+              "intentKey": "welcome_someone",
+              "slotId": "help_yourself",
+              "speaker": "character",
+              "text": "Сідайте, пригощайтеся! Це львівський сирник.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Сідайте, пригощайтеся! Це львівський сирник."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Sidaite, pryhoshchaitesia! Tse lvivskyi syrnyk."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sit down, help yourself! This is Lviv cheesecake.",
+                  "note": "Львівський сирник is the city's signature dessert: a baked curd-cheese cake under chocolate glaze. Пригощайтеся is what every host says.",
+                  "literal": "sit-down, treat-yourself! this Lviv cheesecake"
+                },
+                "fr": {
+                  "meaning": "Asseyez-vous, servez-vous ! C'est le syrnyk de Lviv.",
+                  "note": "Le « львівський сирник » est le dessert emblématique de la ville : un gâteau au fromage blanc nappé de chocolat. « Пригощайтеся » est la formule de toute maîtresse de maison.",
+                  "literal": "asseyez-vous, régalez-vous ! c'est de-Lviv gâteau-au-fromage"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Який смачний сирник!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Який смачний сирник!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Yakyi smachnyi syrnyk!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What a delicious cheesecake!",
+                  "note": "Який / яка / яке + adjective + noun makes an exclamation: Яка смачна кава!",
+                  "literal": "what tasty cheesecake"
+                },
+                "fr": {
+                  "meaning": "Quel délicieux gâteau au fromage !",
+                  "note": "« Який / яка / яке » + adjectif + nom = exclamation, comme « quel… ! » : Яка смачна кава! « Сир » désigne le fromage blanc, d'où « сирник ».",
+                  "literal": "quel savoureux gâteau-au-fromage"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Ви так гарно говорите українською!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Ви так гарно говорите українською!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vy tak harno hovoryte ukrainskoiu!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak Ukrainian so nicely!",
+                  "note": "Гарно = 'nicely, beautifully'. The language you speak goes in the instrumental: українською.",
+                  "literal": "you so nicely speak in-Ukrainian"
+                },
+                "fr": {
+                  "meaning": "Vous parlez si bien ukrainien !",
+                  "note": "« Гарно » = joliment, bien. La langue que l'on parle se met à l'instrumental : українською. Le г est un « h » soufflé : « HAR-no », « ho-VO-ry-té ».",
+                  "literal": "vous si joliment parlez en-ukrainien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Дякую, я стараюся.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Дякую, я стараюся."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Diakuiu, ya staraiusia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm doing my best.",
+                  "note": "A modest, common reply when someone praises your Ukrainian. More generally: Дякую, мені дуже приємно.",
+                  "literal": "thanks, I try"
+                },
+                "fr": {
+                  "meaning": "Merci, je fais de mon mieux.",
+                  "note": "Réponse modeste et courante quand on vous complimente sur votre ukrainien. Plus général : Дякую, мені дуже приємно (ça me fait très plaisir).",
+                  "literal": "merci, je m'efforce"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Пані Маріє, у вас є онуки?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Пані Маріє, у вас є онуки?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pani Mariie, u vas ye onuky?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Pani Mariia, do you have grandchildren?",
+                  "note": "Пані + first name is the polite way to address a woman (пан for a man). The name takes the vocative: Марія → Маріє.",
+                  "literal": "Mrs Mariia, at you there-is grandchildren"
+                },
+                "fr": {
+                  "meaning": "Pani Mariia, vous avez des petits-enfants ?",
+                  "note": "« Пані » + prénom : la façon polie de s'adresser à une dame (« пан » pour un homme). Le prénom se met au vocatif : Марія → Маріє. « У вас є » = chez vous il y a.",
+                  "literal": "madame Mariia, chez vous il-y-a petits-enfants"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Так, троє. А ви маєте братів чи сестер?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Так, троє. А ви маєте братів чи сестер?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Tak, troie. A vy maiete brativ chy sester?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, three. And do you have brothers or sisters?",
+                  "note": "Мати (to have) is as common as у вас є, especially in western Ukraine. Троє is the collective 'three' used for children.",
+                  "literal": "yes, three. and you have brothers or sisters"
+                },
+                "fr": {
+                  "meaning": "Oui, trois. Et vous, vous avez des frères et sœurs ?",
+                  "note": "Le verbe « мати » (avoir) est aussi courant que « у вас є », surtout dans l'ouest du pays. « Троє » est le numéral collectif employé pour les enfants (двоє, троє, четверо).",
+                  "literal": "oui, trois. et vous avez frères ou sœurs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "У мене є брат і дві сестри.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "У мене є брат і дві сестри."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "U mene ye brat i dvi sestry."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and two sisters.",
+                  "note": "Дві is the feminine 'two' (два for masculine nouns). With the verb 'to have': Я маю брата і дві сестри.",
+                  "literal": "at me there-is brother and two sisters"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et deux sœurs.",
+                  "note": "« У мене є » = chez moi il y a. « Дві » est le féminin de « два ». Avec le verbe avoir : Я маю брата і дві сестри.",
+                  "literal": "chez moi il-y-a frère et deux sœurs"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "А ви надовго до Львова?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "А ви надовго до Львова?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "A vy nadovho do Lvova?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And are you in Lviv for long?",
+                  "note": "Надовго = 'for a long time'. Львів becomes до Львова: і turns into о when an ending is added.",
+                  "literal": "and you for-long to Lviv"
+                },
+                "fr": {
+                  "meaning": "Et vous êtes à Lviv pour longtemps ?",
+                  "note": "« Надовго » = pour longtemps. « Львів » devient « до Львова » : le і se change en о dès qu'une terminaison s'ajoute.",
+                  "literal": "et vous pour-longtemps jusqu'à Lviv"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Я ще не знаю.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я ще не знаю."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya shche ne znaiu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Ще не = 'not yet'.",
+                  "literal": "I yet not know"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "« Ще не » = pas encore. Une seule négation : « не », placé devant le verbe. Le щ se prononce « chtch ».",
+                  "literal": "je encore ne sais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Я єдина дитина в сім’ї.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Я єдина дитина в сім’ї."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya yedyna dytyna v simi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "Said by men and women alike: єдина agrees with the feminine noun дитина (child), not with the speaker.",
+                  "literal": "I only child in family"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "Identique pour un homme et une femme : « єдина » s'accorde avec le nom féminin « дитина » (enfant), non avec la personne qui parle. Pas de verbe « être » au présent.",
+                  "literal": "je unique enfant dans famille"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ukrainian_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "ukrainian_ostap_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Ostap wants to go to the football on Saturday, but you are busy that day; you suggest walking up to the High Castle on Sunday instead.",
+            "fr": "Votre ami Ostap veut aller voir un match de foot samedi, mais vous n'êtes pas libre ce jour-là ; vous proposez plutôt de monter au Haut-Château dimanche."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:football_saturday",
+              "key": "football_saturday",
+              "intentKey": "invite",
+              "slotId": "football_saturday",
+              "speaker": "character",
+              "text": "Хочеш у суботу піти на футбол?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Хочеш у суботу піти на футбол?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Khochesh u subotu pity na futbol?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want to go to the football on Saturday?",
+                  "note": "Friends say ти: хочеш. Days take у/в + accusative: у суботу. Events take на: на футбол, на концерт.",
+                  "literal": "you-want on Saturday to-go to football"
+                },
+                "fr": {
+                  "meaning": "Tu veux aller au foot samedi ?",
+                  "note": "Entre amis, on se tutoie : « хочеш ». Les jours : у/в + accusatif (у суботу). Pour un événement, on dit « на » : на футбол, на концерт.",
+                  "literal": "tu-veux en samedi aller sur football"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Вибач, у суботу я не можу.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Вибач, у суботу я не можу."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Vybach, u subotu ya ne mozhu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I can't on Saturday.",
+                  "note": "Вибач is the ти form; to a stranger you say вибачте.",
+                  "literal": "excuse, on Saturday I not can"
+                },
+                "fr": {
+                  "meaning": "Excuse-moi, samedi je ne peux pas.",
+                  "note": "« Вибач » est la forme du tutoiement ; à un inconnu : вибачте. « Субота » devient « у суботу » (accusatif).",
+                  "literal": "excuse, en samedi je ne peux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Може, краще в неділю?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Може, краще в неділю?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhe, krashche v nediliu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Maybe Sunday instead?",
+                  "note": "Краще = 'better, rather'. У and в are one and the same word: в after a vowel, у between consonants.",
+                  "literal": "maybe, better on Sunday"
+                },
+                "fr": {
+                  "meaning": "Plutôt dimanche, peut-être ?",
+                  "note": "« Краще » = mieux, plutôt. « У » et « в » sont un seul et même mot : в après une voyelle, у entre consonnes. « Неділя », c'est le dimanche.",
+                  "literal": "peut-être, mieux en dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Добре, у неділю я вільний.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Добре, у неділю я вільний."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Dobre, u nediliu ya vilnyi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'm free on Sunday.",
+                  "note": "Остап is a man: вільний. A woman says вільна.",
+                  "literal": "good, on Sunday I free"
+                },
+                "fr": {
+                  "meaning": "D'accord, dimanche je suis libre.",
+                  "note": "Ostap est un homme : « вільний ». Une femme dit « вільна ». « Добре » = bien, d'accord.",
+                  "literal": "bien, en dimanche je libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Ходімо на Високий Замок!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Ходімо на Високий Замок!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Khodimo na Vysokyi Zamok!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go up to the High Castle!",
+                  "note": "Ходімо = 'let's go'. Високий Замок is the hill above the old town with the best view over Lviv; the castle itself is long gone.",
+                  "literal": "let's-go onto High Castle"
+                },
+                "fr": {
+                  "meaning": "Allons au Haut-Château !",
+                  "note": "« Ходімо » = allons-y. Le « Високий Замок » est la colline qui domine la vieille ville, avec la plus belle vue sur Lviv ; du château lui-même, il ne reste presque rien.",
+                  "literal": "allons sur Haut Château"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Зустрінемося о третій біля Оперного?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Зустрінемося о третій біля Оперного?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zustrinemosia o tretii bilia Opernoho?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at three by the Opera?",
+                  "note": "The Opera House is a classic Lviv meeting point. О третій = 'at the third (hour)': clock times use ordinals.",
+                  "literal": "we-will-meet at third near Opera"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à trois heures devant l'Opéra ?",
+                  "note": "L'Opéra est un point de rendez-vous classique à Lviv. « О третій » = à la troisième (heure) : l'heure se dit avec un ordinal. « Біля » = près de.",
+                  "literal": "nous-nous-retrouverons à troisième près-de Opéra"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:coffee_after",
+              "key": "coffee_after",
+              "intentKey": "invite",
+              "slotId": "coffee_after",
+              "speaker": "character",
+              "text": "Чудово! А потім підемо на каву?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Чудово! А потім підемо на каву?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Chudovo! A potim pidemo na kavu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! And shall we go for a coffee afterwards?",
+                  "note": "Піти на каву, 'to go for a coffee', is a Lviv institution: the city is proud of its coffee houses.",
+                  "literal": "wonderful! and then we-will-go for coffee"
+                },
+                "fr": {
+                  "meaning": "Super ! Et après, on va prendre un café ?",
+                  "note": "« Піти на каву » (aller prendre un café) est une institution à Lviv, ville fière de ses cafés. Même « на » que dans на футбол.",
+                  "literal": "merveilleux ! et ensuite nous-irons sur café"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Залюбки, я тільки за!",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Залюбки, я тільки за!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Zaliubky, ya tilky za!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Gladly, I'm all for it!",
+                  "note": "Залюбки = 'with pleasure'. Я за = 'I'm for (it)'; тільки adds 'only': nothing but yes.",
+                  "literal": "gladly, I only for"
+                },
+                "fr": {
+                  "meaning": "Volontiers, je suis tout à fait pour !",
+                  "note": "« Залюбки » = volontiers. « Я за » = je suis pour ; « тільки » (seulement) renforce : « je ne demande que ça ». Identique pour un homme et une femme.",
+                  "literal": "volontiers, je seulement pour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Домовилися! У неділю о третій.",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Домовилися! У неділю о третій."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Domovylysia! U nediliu o tretii."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's a deal! Sunday at three.",
+                  "note": "Домовилися ('we have agreed') seals any arrangement.",
+                  "literal": "we-agreed! on Sunday at third"
+                },
+                "fr": {
+                  "meaning": "Ça marche ! Dimanche à trois heures.",
+                  "note": "« Домовилися » (nous nous sommes mis d'accord) scelle tout rendez-vous. L'accent tombe sur « мо ».",
+                  "literal": "nous-sommes-convenus ! en dimanche à troisième"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress домОвилися on the second syllable: do-MO-vy-ly-sia."
+            },
+            {
+              "id": "ukrainian_ch2:ukrainian_make_weekend_plans:cinema",
+              "key": "cinema",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Може, підемо в кіно?",
+              "forms": [
+                {
+                  "script": "Cyrl",
+                  "scheme": null,
+                  "text": "Може, підемо в кіно?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mozhe, pidemo v kino?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Maybe we could go to the cinema?",
+                  "note": "Може = 'maybe': a softer way to suggest something. Кіно never changes its ending.",
+                  "literal": "maybe, we-will-go to cinema"
+                },
+                "fr": {
+                  "meaning": "Et si on allait au cinéma ?",
+                  "note": "« Може » = peut-être : une façon plus douce de proposer. « Кіно » est invariable ; le ж se prononce comme le « j » de « jour ».",
+                  "literal": "peut-être, nous-irons dans cinéma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

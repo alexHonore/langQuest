@@ -2786,6 +2786,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "german_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "german",
+      "targetVarietyId": "de",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Köln and Hamburg",
+        "fr": "Prendre ses marques à Cologne et Hambourg"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for German (de); native review required before publishing.",
+        "Standard German: Sie with the waiter, the shop assistant, the clerk, the passer-by and the elderly host (who says Sie back, as German adults do), du only with the friend. A reviewer should confirm the host scene does not sound stiff for the Rhineland.",
+        "Colloquial wordings to check first: \"Sind da Nüsse drin?\", \"Gut, die nehme ich.\", \"Einmal Hamburg, hin und zurück, bitte.\", \"Ja, gleich da vorne an der Ecke.\", \"Wie wäre es am Sonntag?\".",
+        "Local facts to verify: trains from Köln calling at Hamburg-Harburg before Hamburg Hbf, the departure from Gleis 5, the Brauhaus details (Köbes, Sauerbraten, Kölsch and the beer mat), meeting am Dom.",
+        "The learner's lines avoid gendered forms; \"Meiner Freundin geht es nicht gut\" needs its masculine counterpart (Meinem Freund geht es nicht gut) recorded. The emergency scene is set on a trip to Hamburg, the other five in Köln."
+      ],
+      "characters": [
+        {
+          "key": "german_stefan_waiter",
+          "name": "Stefan",
+          "role": "waiter",
+          "personality": "a Brauhaus waiter: brisk, dry-humoured, proud of the house Sauerbraten",
+          "homeRegion": "Köln",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "german_julia_shop_assistant",
+          "name": "Julia",
+          "role": "shop assistant",
+          "personality": "attentive, practical, honest about what fits",
+          "homeRegion": "Köln",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "german_petra_ticket_clerk",
+          "name": "Petra",
+          "role": "ticket clerk",
+          "personality": "efficient, precise, patient with travellers",
+          "homeRegion": "Köln",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "german_jan_bystander",
+          "name": "Jan",
+          "role": "helpful bystander",
+          "personality": "calm, down-to-earth, quick to help",
+          "homeRegion": "Hamburg",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "german_ingrid_host",
+          "name": "Ingrid",
+          "role": "host",
+          "personality": "warm, bakes her own cakes, curious about your family",
+          "homeRegion": "Köln",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "german_jonas_friend",
+          "name": "Jonas",
+          "role": "friend",
+          "personality": "easy-going, always up for a walk and a Kölsch",
+          "homeRegion": "Köln",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "german_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "german_stefan_waiter",
+          "titles": {
+            "en": "Dinner at a Cologne brewhouse",
+            "fr": "Dîner dans une brasserie de Cologne"
+          },
+          "sceneNotes": {
+            "en": "A traditional Brauhaus in Cologne's old town on a busy evening; the waiter is brisk but kind and recommends the house Sauerbraten.",
+            "fr": "Vous dînez dans un Brauhaus, une brasserie traditionnelle de la vieille ville de Cologne, un soir d'affluence ; le serveur, bourru mais aimable, recommande le Sauerbraten maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Guten Abend! Wie viele Personen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Guten Abend! Wie viele Personen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening! How many people?",
+                  "note": "In a Cologne Brauhaus the waiter is called the Köbes and is famously blunt. You may also hear Haben Sie reserviert? (have you booked?).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonsoir ! Combien de personnes ?",
+                  "note": "Dans un Brauhaus de Cologne, le serveur s'appelle le « Köbes » et il est réputé pour son franc-parler. On entend aussi « Haben Sie reserviert? » (vous avez réservé ?).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Einen Tisch für zwei, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Einen Tisch für zwei, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Einen is the accusative of ein: an unspoken 'I'd like' is understood. Change the number: für drei, für vier.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Tisch » est masculin, d'où « einen » (accusatif de « ein ») : on sous-entend « je voudrais ». Le z de « zwei » se prononce « ts » : tsvaï.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tisch ends in sh; zwei starts with ts and rhymes with 'eye': tsvy."
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Was können Sie empfehlen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Was können Sie empfehlen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What can you recommend?",
+                  "note": "Sie with a capital S is the polite 'you'. The second verb, empfehlen, goes to the end.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Que pouvez-vous recommander ?",
+                  "note": "« Sie » avec une majuscule est le vouvoiement. Le second verbe, « empfehlen », se place à la fin ; « pf » se prononce d'un seul geste : èm-PFÉ-leun.",
+                  "literal": "quoi pouvez vous recommander"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "pf is one sound, lips closed then released: em-PFAY-len."
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "state_opinion",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Der Sauerbraten ist heute sehr gut.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Der Sauerbraten ist heute sehr gut."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The Sauerbraten is very good today.",
+                  "note": "Rheinischer Sauerbraten is the Rhineland's pot roast: beef marinated for days in vinegar, in a sweet-and-sour sauce.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Le Sauerbraten est très bon aujourd'hui.",
+                  "note": "Le Sauerbraten rhénan est un rôti de bœuf mariné plusieurs jours dans le vinaigre, à la sauce aigre-douce. « heute » se prononce « HOÏ-te ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Sind da Nüsse drin?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sind da Nüsse drin?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are there nuts in it?",
+                  "note": "Da … drin (in there) is the everyday way to ask what a dish contains. With a singular word: Ist da Fleisch drin? (is there meat in it?)",
+                  "literal": "are there nuts in-it"
+                },
+                "fr": {
+                  "meaning": "Il y a des fruits à coque dedans ?",
+                  "note": "« Da … drin » = là-dedans : la tournure courante pour demander ce que contient un plat. Au singulier : « Ist da Fleisch drin? » (il y a de la viande ?). Le ü se prononce comme le « u » français.",
+                  "literal": "sont là noix dedans"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ü: say 'ee' with rounded lips. Nüsse: NUE-suh."
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:no_nuts",
+              "key": "no_nuts",
+              "intentKey": "explain_meaning",
+              "slotId": "no_nuts",
+              "speaker": "character",
+              "text": "Nein, keine Nüsse, aber Rosinen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nein, keine Nüsse, aber Rosinen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, no nuts, but raisins.",
+                  "note": "Kein = 'no, not any' before a noun. Raisins in the sauce are the mark of the Rhineland recipe.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Non, pas de fruits à coque, mais des raisins secs.",
+                  "note": "« Kein » = « pas de » devant un nom. Faux ami : « Rosinen » désigne les raisins secs ; le raisin frais se dit « Trauben ».",
+                  "literal": "non, aucunes noix, mais raisins-secs"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Dann nehme ich den Sauerbraten, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dann nehme ich den Sauerbraten, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then I'll have the Sauerbraten, please.",
+                  "note": "Ich nehme (I take) is the usual way to order. After dann the verb still comes second, so ich moves behind it.",
+                  "literal": "then take I the Sauerbraten, please"
+                },
+                "fr": {
+                  "meaning": "Alors je prends le Sauerbraten, s'il vous plaît.",
+                  "note": "« Ich nehme » = « je prends », comme en français pour commander. Après « dann », le verbe reste en deuxième position et le sujet passe derrière.",
+                  "literal": "alors prends je le Sauerbraten, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Das schmeckt sehr gut!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Das schmeckt sehr gut!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This tastes very good!",
+                  "note": "Schmecken = to taste. The waiter often asks Hat es geschmeckt? (did you enjoy it?) when clearing the plates.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est très bon !",
+                  "note": "« Schmecken » = avoir du goût, être bon ; en débarrassant, le serveur demande « Hat es geschmeckt? » (ça vous a plu ?). « sch » se prononce comme le « ch » de « chat ».",
+                  "literal": "cela goûte très bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "schm- starts with sh: SHMEKT. The s of sehr sounds like z: zair."
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Wir möchten bitte zahlen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wir möchten bitte zahlen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We'd like to pay, please.",
+                  "note": "In Germany the bill is not brought until you ask for it.",
+                  "literal": "we would-like please to-pay"
+                },
+                "fr": {
+                  "meaning": "Nous voudrions payer, s'il vous plaît.",
+                  "note": "En Allemagne, on n'apporte pas l'addition tant que vous ne la demandez pas. Le z de « zahlen » se prononce « ts » : TSA-leun.",
+                  "literal": "nous voudrions s'il-vous-plaît payer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "z is always ts: TSAH-len. ö in möchten: say 'e' with rounded lips."
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:together_or_separate",
+              "key": "together_or_separate",
+              "intentKey": "offer_options",
+              "slotId": "together_or_separate",
+              "speaker": "character",
+              "text": "Zusammen oder getrennt?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Zusammen oder getrennt?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Together or separately?",
+                  "note": "Asked at almost every table: splitting the bill is normal in Germany.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Ensemble ou séparément ?",
+                  "note": "Question quasi systématique : en Allemagne, chacun paie volontiers sa part.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:together",
+              "key": "together",
+              "intentKey": "choose_option",
+              "slotId": "together",
+              "speaker": "learner",
+              "text": "Zusammen, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Zusammen, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Together, please.",
+                  "note": "To tip, round up by 5 to 10% and name the total you want to pay, or say Stimmt so (keep the change).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Ensemble, s'il vous plaît.",
+                  "note": "Pour le pourboire, arrondissez de 5 à 10 % en annonçant le total que vous payez, ou dites « Stimmt so » (gardez la monnaie).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Haben Sie einen Tisch für zwei?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Haben Sie einen Tisch für zwei?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux ?",
+                  "note": "Pratique quand on arrive sans réservation. Si la salle semble pleine, ajoutez « noch » (encore) : « Haben Sie noch einen Tisch? »",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "german_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "german_julia_shop_assistant",
+          "titles": {
+            "en": "Buying a rain jacket",
+            "fr": "Acheter une veste de pluie"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop on Ehrenstraße in Cologne on a grey day; the assistant is attentive and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de l'Ehrenstraße, à Cologne, par un jour gris ; la vendeuse est attentive et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Hallo! Suchen Sie etwas Bestimmtes?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hallo! Suchen Sie etwas Bestimmtes?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Are you looking for something in particular?",
+                  "note": null,
+                  "literal": "hello! seek you something particular"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous cherchez quelque chose de précis ?",
+                  "note": "La phrase d'accueil classique des vendeurs. Après « etwas », l'adjectif prend une majuscule et la terminaison -es : etwas Bestimmtes.",
+                  "literal": "bonjour ! cherchez vous quelque-chose précis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Ich schaue mich nur um, danke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ich schaue mich nur um, danke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking around, thanks.",
+                  "note": "Sich umschauen = to look around. The prefix um splits off and goes to the end.",
+                  "literal": "I look myself only around, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Sich umschauen » = jeter un coup d'œil ; la particule « um » se détache et part en fin de phrase. « sch » = le « ch » de « chat », « au » = « ao ».",
+                  "literal": "je regarde me seulement autour, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "sch = sh, au = ow as in 'now': SHAU-uh."
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Entschuldigung, ich suche eine Regenjacke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Entschuldigung, ich suche eine Regenjacke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, I'm looking for a rain jacket.",
+                  "note": "Suchen needs no 'for'. German joins short words into long ones: Regen (rain) + Jacke (jacket).",
+                  "literal": "excuse-me, I seek a rain-jacket"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je cherche une veste de pluie.",
+                  "note": "« Suchen » se construit sans préposition, comme « chercher ». Regen (pluie) + Jacke (veste) ; le j se prononce comme le « y » de « yaourt ».",
+                  "literal": "excuse, je cherche une pluie-veste"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Regenjacke: hard g, and j sounds like y: RAY-gen-yak-uh."
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:size_medium",
+              "key": "size_medium",
+              "intentKey": "offer_options",
+              "slotId": "size_medium",
+              "speaker": "character",
+              "text": "Gern. Diese hier ist Größe M.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gern. Diese hier ist Größe M."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Certainly. This one here is size M.",
+                  "note": "To try it on, ask Kann ich die anprobieren? The fitting room is die Umkleidekabine.",
+                  "literal": "gladly. this here is size M"
+                },
+                "fr": {
+                  "meaning": "Volontiers. Celle-ci est en taille M.",
+                  "note": "« Größe » = la taille, de « groß » (grand) ; le ß se prononce [s]. Pour essayer : « Kann ich die anprobieren? »",
+                  "literal": "volontiers. celle-ci ici est taille M"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:too_small",
+              "key": "too_small",
+              "intentKey": "state_opinion",
+              "slotId": "too_small",
+              "speaker": "learner",
+              "text": "Die ist leider zu klein.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Die ist leider zu klein."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Unfortunately it's too small.",
+                  "note": "Zu + adjective = too: zu klein, zu groß (too big), zu teuer (too expensive).",
+                  "literal": "that-one is unfortunately too small"
+                },
+                "fr": {
+                  "meaning": "Elle est malheureusement trop petite.",
+                  "note": "« Zu » + adjectif = trop : zu groß (trop grand), zu teuer (trop cher). « Die » reprend « die Jacke » : à l'oral, l'article sert de pronom.",
+                  "literal": "celle-là est malheureusement trop petite"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Haben Sie die auch in L?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Haben Sie die auch in L?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in L as well?",
+                  "note": "For a colour: Haben Sie die auch in Blau? One size up is eine Nummer größer.",
+                  "literal": "have you that-one also in L"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez aussi en L ?",
+                  "note": "« Auch » = aussi. Pour une couleur : « Haben Sie die auch in Blau? » ; la taille au-dessus se dit « eine Nummer größer ».",
+                  "literal": "avez vous celle-là aussi en L"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:here_large",
+              "key": "here_large",
+              "intentKey": "confirm_understood",
+              "slotId": "here_large",
+              "speaker": "character",
+              "text": "Ja, einen Moment. Hier, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, einen Moment. Hier, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, one moment. Here you are.",
+                  "note": "Bitte also means 'here you are' when someone hands you something.",
+                  "literal": "yes, a moment. here, please"
+                },
+                "fr": {
+                  "meaning": "Oui, un instant. Voilà.",
+                  "note": "« Bitte » se dit aussi en tendant quelque chose : « voilà », « tenez ».",
+                  "literal": "oui, un moment. ici, je-vous-en-prie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Wie viel kostet die Jacke?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wie viel kostet die Jacke?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is the jacket?",
+                  "note": null,
+                  "literal": "how much costs the jacket"
+                },
+                "fr": {
+                  "meaning": "Combien coûte la veste ?",
+                  "note": "Au pluriel, le verbe prend -en : « Wie viel kosten die Schuhe? » (les chaussures). Le v de « viel » se prononce [f] : fil.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "viel sounds like 'feel'."
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Neunundsiebzig Euro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Neunundsiebzig Euro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Seventy-nine euros.",
+                  "note": "German says the units first: 'nine-and-seventy'. Euro stays singular after a number.",
+                  "literal": "nine-and-seventy euro"
+                },
+                "fr": {
+                  "meaning": "Soixante-dix-neuf euros.",
+                  "note": "L'allemand dit l'unité avant la dizaine : « neuf-et-septante ». « Euro » se prononce « OÏ-ro » et reste invariable.",
+                  "literal": "neuf-et-septante euro"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Gut, die nehme ich.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gut, die nehme ich."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good, I'll take it.",
+                  "note": "For a masculine item (der Pullover): den nehme ich; for a neuter one (das Hemd): das nehme ich.",
+                  "literal": "good, that-one take I"
+                },
+                "fr": {
+                  "meaning": "Bien, je la prends.",
+                  "note": "L'objet choisi vient en tête, le verbe reste deuxième et « ich » passe après. Pour un masculin (der Pullover) : « den nehme ich ».",
+                  "literal": "bien, celle-là prends je"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Kann ich mit Karte zahlen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kann ich mit Karte zahlen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Worth asking: small shops and cafés in Germany sometimes take cash only (nur Bargeld).",
+                  "literal": "can I with card pay"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "Question utile : en Allemagne, certains petits commerces n'acceptent que les espèces (nur Bargeld).",
+                  "literal": "puis-je avec carte payer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_shop_for_clothes:just_browsing",
+              "key": "just_browsing",
+              "intentKey": "say_just_looking",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Danke, ich schaue nur.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Danke, ich schaue nur."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, I'm just looking.",
+                  "note": null,
+                  "literal": "thanks, I look only"
+                },
+                "fr": {
+                  "meaning": "Merci, je regarde juste.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "german_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "german_petra_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Hamburg",
+            "fr": "Un billet de train pour Hambourg"
+          },
+          "sceneNotes": {
+            "en": "The ticket desk (Reisezentrum) at Cologne's main station on a busy morning; the next train to Hamburg leaves in a few minutes.",
+            "fr": "Vous êtes au guichet (Reisezentrum) de la gare centrale de Cologne, un matin chargé ; le prochain train pour Hambourg part dans quelques minutes."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Eine Fahrkarte nach Hamburg, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Eine Fahrkarte nach Hamburg, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Hamburg, please.",
+                  "note": "Nach is 'to' with cities and most countries: nach Hamburg, nach Berlin.",
+                  "literal": "a travel-card to Hamburg, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Hambourg, s'il vous plaît.",
+                  "note": "« Nach » = « pour, à » devant une ville : nach Hamburg, nach Berlin. Le h de « Fahrkarte » ne se prononce pas : il allonge le a.",
+                  "literal": "une carte-de-trajet vers Hambourg, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h in Fahrkarte is silent and lengthens the a: FAR-kar-tuh."
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Einfach oder hin und zurück?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Einfach oder hin und zurück?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way or return?",
+                  "note": null,
+                  "literal": "simple or there and back"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": null,
+                  "literal": "simple ou aller et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "Hin und zurück, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hin und zurück, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": null,
+                  "literal": "there and back, please"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": "Pour un aller simple : « Einfach, bitte. » Le z de « zurück » se prononce « ts », le ü comme le « u » français.",
+                  "literal": "aller et retour, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zurück: z = ts, ü = 'ee' with rounded lips: tsoo-RUEK."
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:alone",
+              "key": "alone",
+              "intentKey": "ask_clarification",
+              "slotId": "alone",
+              "speaker": "character",
+              "text": "Reisen Sie allein?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Reisen Sie allein?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you travelling alone?",
+                  "note": null,
+                  "literal": "travel you alone"
+                },
+                "fr": {
+                  "meaning": "Vous voyagez seul ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Nein, wir sind zu zweit.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nein, wir sind zu zweit."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there are two of us.",
+                  "note": "Zu zweit, zu dritt, zu viert = as a group of two, three, four. For the tickets themselves: Zwei Fahrkarten, bitte.",
+                  "literal": "no, we are at two"
+                },
+                "fr": {
+                  "meaning": "Non, nous sommes deux.",
+                  "note": "« Zu zweit, zu dritt, zu viert » = à deux, à trois, à quatre. Pour les billets eux-mêmes : « Zwei Fahrkarten, bitte. »",
+                  "literal": "non, nous sommes à deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Wann fährt der nächste Zug?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wann fährt der nächste Zug?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When does the next train leave?",
+                  "note": "Fahren changes its vowel with er, sie, es: der Zug fährt. To arrive = ankommen.",
+                  "literal": "when goes the next train"
+                },
+                "fr": {
+                  "meaning": "Quand part le prochain train ?",
+                  "note": "« Fahren » (rouler, partir) change de voyelle à la 3e personne : der Zug fährt. « ä » se prononce « è » ; « Zug » se dit « tsouk ».",
+                  "literal": "quand roule le prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ä is like the e in 'bed'; the ch in nächste is the soft hiss of ich; Zug = tsook."
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Um zehn Uhr zwölf, von Gleis fünf.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Um zehn Uhr zwölf, von Gleis fünf."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At 10:12, from platform five.",
+                  "note": "Stations use the 24-hour clock: vierzehn Uhr zwölf = 2:12 p.m. Gleis = platform (literally 'track').",
+                  "literal": "at ten o'clock twelve, from track five"
+                },
+                "fr": {
+                  "meaning": "À dix heures douze, voie cinq.",
+                  "note": "« Um » introduit l'heure ; dans les gares, on compte sur 24 heures, comme en France. « Gleis » = la voie.",
+                  "literal": "à dix heure douze, de voie cinq"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Wo muss ich aussteigen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wo muss ich aussteigen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do I have to get off?",
+                  "note": "Aussteigen = to get off, einsteigen = to get on, umsteigen = to change trains.",
+                  "literal": "where must I get-off"
+                },
+                "fr": {
+                  "meaning": "Où dois-je descendre ?",
+                  "note": "« Aussteigen » = descendre, « einsteigen » = monter, « umsteigen » = changer de train. « st » se prononce « cht » : AOSS-chtaï-guen.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "st inside aussteigen sounds like sht: OWS-shty-gen."
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:main_station",
+              "key": "main_station",
+              "intentKey": "state_destination",
+              "slotId": "main_station",
+              "speaker": "character",
+              "text": "Am Hauptbahnhof, nicht in Harburg.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Am Hauptbahnhof, nicht in Harburg."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the main station, not at Harburg.",
+                  "note": "Trains from Cologne stop at Hamburg-Harburg first: stay on until Hamburg Hauptbahnhof (Hbf).",
+                  "literal": "at-the main-station, not in Harburg"
+                },
+                "fr": {
+                  "meaning": "À la gare centrale, pas à Harburg.",
+                  "note": "Les trains venant de Cologne s'arrêtent d'abord à Hamburg-Harburg : restez à bord jusqu'à Hamburg Hauptbahnhof (Hbf), la gare centrale.",
+                  "literal": "à-la gare-principale, pas à Harburg"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Kann man hier mit Karte bezahlen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kann man hier mit Karte bezahlen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it possible to pay by card here?",
+                  "note": "Man = 'one', people in general: the neutral way to ask what is possible.",
+                  "literal": "can one here with card pay"
+                },
+                "fr": {
+                  "meaning": "On peut payer par carte ici ?",
+                  "note": "« Man » correspond exactement à « on » (avec un seul n : « Mann », c'est l'homme). « Bezahlen » et « zahlen » veulent tous deux dire payer.",
+                  "literal": "peut on ici avec carte payer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_buy_train_ticket:once_return",
+              "key": "once_return",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Einmal Hamburg, hin und zurück, bitte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Einmal Hamburg, hin und zurück, bitte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One return to Hamburg, please.",
+                  "note": "Einmal (once) = one ticket, zweimal = two: the quick way regulars ask at a counter.",
+                  "literal": "once Hamburg, there and back, please"
+                },
+                "fr": {
+                  "meaning": "Un aller-retour pour Hambourg, s'il vous plaît.",
+                  "note": "« Einmal » (une fois) = un billet, « zweimal » = deux : la formule rapide des habitués, au guichet comme au snack.",
+                  "literal": "une-fois Hambourg, aller et retour, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "german_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "german_jan_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "At the Landungsbrücken in Hamburg, after a long walk around the harbour, the friend travelling with you suddenly feels unwell; a passer-by stops to help.",
+            "fr": "Aux Landungsbrücken, à Hambourg, après une longue promenade sur le port, l'amie qui voyage avec vous se sent mal tout à coup ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Hilfe! Können Sie mir bitte helfen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hilfe! Können Sie mir bitte helfen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Can you help me, please?",
+                  "note": "For a real emergency call 112 (ambulance and fire brigade) anywhere in Germany; the police are on 110.",
+                  "literal": "help! can you me please help"
+                },
+                "fr": {
+                  "meaning": "À l'aide ! Pouvez-vous m'aider, s'il vous plaît ?",
+                  "note": "En cas d'urgence, composez le 112 (secours et pompiers) partout en Allemagne ; la police, c'est le 110. Le h de « Hilfe » se souffle nettement.",
+                  "literal": "aide ! pouvez vous à-moi s'il-vous-plaît aider"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Was ist passiert?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Was ist passiert?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": null,
+                  "literal": "what is happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Passieren » = se passer, arriver ; son passé se forme avec « sein » (être). On entend aussi « Was ist los? » (qu'est-ce qu'il y a ?).",
+                  "literal": "quoi est passé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Meiner Freundin geht es nicht gut.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Meiner Freundin geht es nicht gut."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend isn't feeling well.",
+                  "note": "Same pattern as Wie geht es Ihnen?: the person is in the dative. For a man: Meinem Freund geht es nicht gut.",
+                  "literal": "to-my friend goes it not well"
+                },
+                "fr": {
+                  "meaning": "Mon amie ne va pas bien.",
+                  "note": "Même tournure que « Wie geht es Ihnen? » : la personne est au datif. Pour un homme : « Meinem Freund geht es nicht gut. »",
+                  "literal": "à-mon amie va il pas bien"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Sie hat starke Kopfschmerzen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sie hat starke Kopfschmerzen."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a bad headache.",
+                  "note": "Kopf (head) + Schmerzen (pains); likewise Bauchschmerzen (stomach ache). 'She feels dizzy' is Ihr ist schwindelig.",
+                  "literal": "she has strong head-pains"
+                },
+                "fr": {
+                  "meaning": "Elle a très mal à la tête.",
+                  "note": "Kopf (tête) + Schmerzen (douleurs) ; de même Bauchschmerzen (mal au ventre). « Elle a la tête qui tourne » : « Ihr ist schwindelig. »",
+                  "literal": "elle a fortes tête-douleurs"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Kopfschmerzen: pf together, sch = sh, z = ts: KOPF-shmair-tsen."
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "Oh je! Soll ich einen Krankenwagen rufen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh je! Soll ich einen Krankenwagen rufen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh dear! Shall I call an ambulance?",
+                  "note": "Soll ich …? = shall I …? — the way to offer to do something.",
+                  "literal": "oh dear! shall I an ambulance call"
+                },
+                "fr": {
+                  "meaning": "Oh là là ! Voulez-vous que j'appelle une ambulance ?",
+                  "note": "« Soll ich …? » = « voulez-vous que je … ? » : la formule pour proposer de faire quelque chose. « Krankenwagen » = mot à mot « voiture des malades ».",
+                  "literal": "oh là ! dois je une ambulance appeler"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:no_need",
+              "key": "no_need",
+              "intentKey": "decline_offer",
+              "slotId": "no_need",
+              "speaker": "learner",
+              "text": "Nein, danke, das ist nicht nötig.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nein, danke, das ist nicht nötig."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, that's not necessary.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Non merci, ce n'est pas nécessaire.",
+                  "note": "Une façon polie de refuser n'importe quelle offre. Le ö de « nötig » se prononce comme le « eu » de « feu ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ö in nötig: say 'ay' with rounded lips; the final -ig sounds like ich."
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Gibt es hier in der Nähe eine Apotheke?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gibt es hier in der Nähe eine Apotheke?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Es gibt = there is, there are. Pharmacies show a big red A; a Drogerie sells toiletries, not medicines.",
+                  "literal": "gives it here in the nearness a pharmacy"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Es gibt » = « il y a », invariable. Les pharmacies se repèrent à leur grand A rouge ; une « Drogerie », elle, ne vend pas de médicaments.",
+                  "literal": "donne-t-il ici dans la proximité une pharmacie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "th is a plain t: ah-po-TAY-kuh."
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Ja, gleich da vorne an der Ecke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, gleich da vorne an der Ecke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, just up there on the corner.",
+                  "note": null,
+                  "literal": "yes, right there in-front at the corner"
+                },
+                "fr": {
+                  "meaning": "Oui, juste là-devant, au coin.",
+                  "note": "« Gleich » = juste, tout de suite ; « an der Ecke » = au coin de la rue. Le v de « vorne » se prononce [f].",
+                  "literal": "oui, juste là devant à le coin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Alles klar, verstanden. Danke!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Alles klar, verstanden. Danke!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All right, understood. Thank you!",
+                  "note": "Alles klar is the everyday 'all right, got it'. The helper will probably add Gute Besserung! (get well soon).",
+                  "literal": "all clear, understood. thanks"
+                },
+                "fr": {
+                  "meaning": "D'accord, compris. Merci !",
+                  "note": "« Alles klar » = « d'accord, c'est clair ». On vous souhaitera sans doute « Gute Besserung! » (bon rétablissement).",
+                  "literal": "tout clair, compris. merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ich brauche einen Arzt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ich brauche einen Arzt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need a doctor.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai besoin d'un médecin.",
+                  "note": "« Brauchen » se construit sans préposition : ich brauche Hilfe (j'ai besoin d'aide). « Arzt » se prononce « artst ».",
+                  "literal": "je nécessite un médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "german_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "german_ingrid_host",
+          "titles": {
+            "en": "Coffee and cake at the neighbour's",
+            "fr": "Café et gâteau chez la voisine"
+          },
+          "sceneNotes": {
+            "en": "Sunday afternoon coffee and cake at your neighbour's mother's flat in Cologne; family photos cover the wall and Ingrid wants to know all about you.",
+            "fr": "Dimanche après-midi, vous êtes invité à prendre le café et le gâteau chez la mère de votre voisine, à Cologne ; le mur est couvert de photos de famille et Ingrid veut tout savoir de vous."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Schön, dass Sie da sind! Kommen Sie rein.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Schön, dass Sie da sind! Kommen Sie rein."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How nice that you're here! Come in.",
+                  "note": "German adults keep Sie with each other until the older one offers du.",
+                  "literal": "nice, that you there are! come you in"
+                },
+                "fr": {
+                  "meaning": "Quel plaisir que vous soyez là ! Entrez.",
+                  "note": "Entre adultes, on se vouvoie (Sie) tant que la personne la plus âgée n'a pas proposé le « du ».",
+                  "literal": "beau, que vous là êtes ! venez vous dedans"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:thanks_invitation",
+              "key": "thanks_invitation",
+              "intentKey": "thank",
+              "slotId": "thanks_invitation",
+              "speaker": "learner",
+              "text": "Vielen Dank für die Einladung!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vielen Dank für die Einladung!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much for the invitation!",
+                  "note": "Arrive on time, and not empty-handed: flowers or chocolates do nicely.",
+                  "literal": "many thanks for the invitation"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup pour l'invitation !",
+                  "note": "Arrivez à l'heure, et pas les mains vides : des fleurs ou des chocolats font très bien l'affaire. « ei » se prononce « aï » : AÏN-la-doung.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Der Apfelkuchen ist wirklich lecker!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Der Apfelkuchen ist wirklich lecker!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The apple cake is really delicious!",
+                  "note": "Lecker is the everyday word for tasty food. The cake is usually home-made (selbst gebacken).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Le gâteau aux pommes est vraiment délicieux !",
+                  "note": "« Lecker » est le mot courant pour ce qui est bon à manger. Le « ch » de « Kuchen » est raclé, comme la jota espagnole.",
+                  "literal": "le pomme-gâteau est vraiment délicieux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ch in Kuchen is the rough sound of Scottish 'loch': KOO-khen."
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Das freut mich. Sie sprechen aber gut Deutsch!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Das freut mich. Sie sprechen aber gut Deutsch!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm glad. You do speak German well!",
+                  "note": "Aber here is not 'but': it adds surprise or admiration.",
+                  "literal": "that pleases me. you speak but well German"
+                },
+                "fr": {
+                  "meaning": "Ça me fait plaisir. Mais vous parlez bien allemand !",
+                  "note": "Ici, « aber » n'oppose rien : il marque la surprise admirative, comme dans « mais c'est très bien ! ».",
+                  "literal": "cela réjouit moi. vous parlez mais bien allemand"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Danke, aber ich lerne noch.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Danke, aber ich lerne noch."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, but I'm still learning.",
+                  "note": "Noch = still. A modest answer is the expected reply to a compliment.",
+                  "literal": "thanks, but I learn still"
+                },
+                "fr": {
+                  "meaning": "Merci, mais j'apprends encore.",
+                  "note": "« Noch » = encore. Le « ch » de « ich » est un souffle doux, la langue contre le palais ; celui de « noch » est raclé.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Ist das Ihre Familie?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ist das Ihre Familie?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is that your family?",
+                  "note": "Said while pointing at the photos. Ihre with a capital I is the polite 'your'.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est votre famille ?",
+                  "note": "À dire en montrant les photos. « Ihre » avec une majuscule = « votre » ; sans majuscule, « ihre » veut dire « son, sa » (à elle) ou « leur ».",
+                  "literal": "est cela votre famille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Ja, das sind meine Enkel. Haben Sie Geschwister?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, das sind meine Enkel. Haben Sie Geschwister?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, those are my grandchildren. Do you have brothers and sisters?",
+                  "note": "Geschwister is a single word for brothers and sisters together.",
+                  "literal": "yes, that are my grandchildren. have you siblings"
+                },
+                "fr": {
+                  "meaning": "Oui, ce sont mes petits-enfants. Vous avez des frères et sœurs ?",
+                  "note": "« Geschwister » désigne en un seul mot les frères et sœurs ; « Enkel » = petits-enfants.",
+                  "literal": "oui, cela sont mes petits-enfants. avez vous frères-et-sœurs"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Ich habe einen Bruder und eine Schwester.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ich habe einen Bruder und eine Schwester."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": "Einen for a masculine noun (der Bruder), eine for a feminine one (die Schwester).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "« Einen » devant un masculin (der Bruder), « eine » devant un féminin (die Schwester). « Schw » se prononce « chv » : CHVÈSS-teur.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Schwester: schw = shv: SHVES-ter."
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "Und wie lange bleiben Sie in Köln?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Und wie lange bleiben Sie in Köln?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how long are you staying in Cologne?",
+                  "note": null,
+                  "literal": "and how long stay you in Cologne"
+                },
+                "fr": {
+                  "meaning": "Et combien de temps restez-vous à Cologne ?",
+                  "note": "« Bleiben » = rester. Le ö de « Köln » se prononce comme le « eu » de « peur ».",
+                  "literal": "et comment longtemps restez vous à Cologne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Das weiß ich noch nicht.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Das weiß ich noch nicht."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know that yet.",
+                  "note": "Noch nicht = not yet.",
+                  "literal": "that know I still not"
+                },
+                "fr": {
+                  "meaning": "Je ne le sais pas encore.",
+                  "note": "« Noch nicht » = pas encore. « Das » est en tête, donc « ich » passe après le verbe ; « weiß » se prononce « vaïss ».",
+                  "literal": "cela sais je encore pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "weiß: w = v, ei = 'eye', ß = s: vice."
+            },
+            {
+              "id": "german_ch2:german_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ich bin Einzelkind.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ich bin Einzelkind."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "No article in German. The word is the same for men and women.",
+                  "literal": "I am single-child"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "Pas d'article, comme en français ; le mot vaut pour un homme comme pour une femme. Le z se prononce « ts » : AÏN-tsel-kinnt.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "german_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "german_jonas_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Jonas wants to go to a beer garden on Saturday, but you are busy; together you find another day and a plan by the Rhine.",
+            "fr": "Votre ami Jonas veut aller au Biergarten samedi, mais vous n'êtes pas libre ; vous cherchez ensemble un autre jour et une idée de sortie au bord du Rhin."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "german_ch2:german_make_weekend_plans:beer_garden_saturday",
+              "key": "beer_garden_saturday",
+              "intentKey": "invite",
+              "slotId": "beer_garden_saturday",
+              "speaker": "character",
+              "text": "Kommst du am Samstag mit in den Biergarten?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kommst du am Samstag mit in den Biergarten?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you coming along to the beer garden on Saturday?",
+                  "note": "Mitkommen = to come along; the prefix mit splits off. Days take am: am Samstag.",
+                  "literal": "come you on-the Saturday along in the beer-garden"
+                },
+                "fr": {
+                  "meaning": "Tu viens avec nous au Biergarten samedi ?",
+                  "note": "« Mitkommen » = venir avec quelqu'un ; la particule « mit » se détache. Les jours s'emploient avec « am » : am Samstag.",
+                  "literal": "viens tu au samedi avec dans le jardin-à-bière"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Am Samstag kann ich leider nicht.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Am Samstag kann ich leider nicht."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Unfortunately I can't on Saturday.",
+                  "note": "Leider (unfortunately) softens the no. In northern Germany Saturday is also called Sonnabend.",
+                  "literal": "on-the Saturday can I unfortunately not"
+                },
+                "fr": {
+                  "meaning": "Samedi, malheureusement, je ne peux pas.",
+                  "note": "« Leider » (malheureusement) adoucit le refus. Dans le Nord, samedi se dit aussi « Sonnabend ».",
+                  "literal": "au samedi peux je malheureusement pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The S of Samstag sounds like z: ZAMS-tahk. leider: LY-der."
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Wie wäre es am Sonntag?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wie wäre es am Sonntag?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How about Sunday?",
+                  "note": "Wie wäre es …? = how about …? — a soft way to suggest anything: Wie wäre es mit Kino?",
+                  "literal": "how would-be it on-the Sunday"
+                },
+                "fr": {
+                  "meaning": "Et dimanche, ça irait ?",
+                  "note": "« Wie wäre es …? » = « que dirais-tu de … ? », mot à mot « comment serait-ce ». Le s de « Sonntag » se prononce [z].",
+                  "literal": "comment serait ce au dimanche"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "wäre: w = v, ä like the e in 'bed': VAIR-uh."
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Ja, Sonntag passt mir gut.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, Sonntag passt mir gut."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday suits me fine.",
+                  "note": null,
+                  "literal": "yes, Sunday fits to-me well"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche, ça me va bien.",
+                  "note": "« Das passt mir » = ça me va. Rien à voir avec « passer ».",
+                  "literal": "oui, dimanche convient à-moi bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Wollen wir am Rhein spazieren gehen?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wollen wir am Rhein spazieren gehen?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go for a walk along the Rhine?",
+                  "note": "Wollen wir …? (do we want …?) is how you suggest doing something together.",
+                  "literal": "want we at-the Rhine to-stroll go"
+                },
+                "fr": {
+                  "meaning": "On va se promener au bord du Rhin ?",
+                  "note": "« Wollen wir …? » (voulons-nous … ?) sert à proposer, comme « on … ? ». « sp » en début de mot se prononce « chp » : chpa-TSI-reun.",
+                  "literal": "voulons nous au Rhin promener aller"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "sp at the start of a word is shp: shpa-TSEE-ren."
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Treffen wir uns um drei am Dom?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Treffen wir uns um drei am Dom?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at three by the cathedral?",
+                  "note": "Sich treffen = to meet up. In Cologne everyone arranges to meet am Dom, in front of the cathedral.",
+                  "literal": "meet we ourselves at three at-the cathedral"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à trois heures devant la cathédrale ?",
+                  "note": "À Cologne, on se donne rendez-vous « am Dom », devant la cathédrale. Faux ami : « Dom » = cathédrale, pas dôme.",
+                  "literal": "rencontrons nous nous à trois à-la cathédrale"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:koelsch_after",
+              "key": "koelsch_after",
+              "intentKey": "invite",
+              "slotId": "koelsch_after",
+              "speaker": "character",
+              "text": "Super! Und danach trinken wir ein Kölsch?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Super! Und danach trinken wir ein Kölsch?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! And afterwards we have a Kölsch?",
+                  "note": "Kölsch is Cologne's light beer, served in small 0.2-litre glasses; fresh ones keep coming until you put your beer mat on the glass.",
+                  "literal": "super! and afterwards drink we a Kölsch"
+                },
+                "fr": {
+                  "meaning": "Super ! Et après, on boit une Kölsch ?",
+                  "note": "La Kölsch est la bière blonde de Cologne, servie en verres de 20 cl ; on vous en rapporte tant que le sous-bock n'est pas posé sur le verre.",
+                  "literal": "super ! et après buvons nous une Kölsch"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Ja, gern! Ich bin dabei.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, gern! Ich bin dabei."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, gladly! I'm in.",
+                  "note": "Ich bin dabei = count me in.",
+                  "literal": "yes, gladly! I am there-with"
+                },
+                "fr": {
+                  "meaning": "Oui, volontiers ! J'en suis.",
+                  "note": "« Ich bin dabei » = j'en suis, je suis partant. Le g de « gern » est toujours dur, comme dans « gare ».",
+                  "literal": "oui, volontiers ! je suis y-avec"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Also, Sonntag um drei am Dom!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Also, Sonntag um drei am Dom!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, Sunday at three by the cathedral!",
+                  "note": "Also means 'so, well then' — never 'also', which is auch.",
+                  "literal": "so, Sunday at three at-the cathedral"
+                },
+                "fr": {
+                  "meaning": "Alors, dimanche à trois heures devant la cathédrale !",
+                  "note": "« Also » = alors, donc. Rien à voir avec l'anglais « also » (aussi), qui se dit « auch ».",
+                  "literal": "donc, dimanche à trois à-la cathédrale"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "german_ch2:german_make_weekend_plans:cinema",
+              "key": "cinema",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hast du Lust auf Kino?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hast du Lust auf Kino?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you feel like going to the cinema?",
+                  "note": "Lust auf + noun = to fancy something: Hast du Lust auf Pizza?",
+                  "literal": "have you desire on cinema"
+                },
+                "fr": {
+                  "meaning": "Ça te dit, un ciné ?",
+                  "note": "« Lust haben auf » + nom = avoir envie de. « Lust » se prononce « loust ».",
+                  "literal": "as tu envie sur cinéma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

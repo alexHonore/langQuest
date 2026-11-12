@@ -2576,6 +2576,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "vietnamese_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "vietnamese",
+      "targetVarietyId": "vi",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Hanoi",
+        "fr": "Prendre ses marques à Hanoï"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Vietnamese (vi); native review required before publishing.",
+        "Check the pronoun pairings first: the learner keeps chapter 1's neutral tôi with strangers (chị Mai, chị Thu and anh Dũng, who all call the learner em), calls the young waiter em, becomes cháu facing bác Hạnh, and says mình to a friend. Every character addresses the learner with a term that fits a man or a woman (em, cháu, anh chị for the table of two).",
+        "Wordings chosen as plain and safe rather than certain: \"Bạn tôi bị say nắng\" for heat exhaustion, \"Thế bao giờ cháu lập gia đình?\" as the host's nosy question, \"Cho tôi thanh toán nhé\" said to a waiter, \"Cháu mời bác ăn cơm ạ\" before the meal, \"Em đi ghế ngồi hay giường nằm?\" at the ticket counter.",
+        "Facts to verify: the departure time and fare of the Hà Nội to Lào Cai night train, the 2026 prices (bún chả, a shirt on Hàng Gai), and the French etymologies given in the French notes (sơ mi, len, ga, xe buýt, bia, kem, phim; vé from « billet » is given with a hedge).",
+        "Northern vocabulary throughout (lạc, nem rán, suất, hiệu thuốc, nghìn, vâng, thế, đấy), with the Southern word mentioned in the note where learners are likely to meet it; no Southern substitutions in the lines."
+      ],
+      "characters": [
+        {
+          "key": "vietnamese_tuan_waiter",
+          "name": "Tuấn",
+          "role": "waiter",
+          "personality": "young, quick on his feet, proud of the family's bún chả",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "vietnamese_mai_shop_assistant",
+          "name": "Mai",
+          "role": "shop assistant",
+          "personality": "friendly, frank about what fits, never pushy",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_thu_ticket_clerk",
+          "name": "Thu",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_dung_bystander",
+          "name": "Dũng",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "vietnamese_hanh_host",
+          "name": "Hạnh",
+          "role": "host",
+          "personality": "warm, keeps filling your bowl, curious about your family",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_nam_friend",
+          "name": "Nam",
+          "role": "friend",
+          "personality": "easy-going, always has an idea for the weekend",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "vietnamese_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "vietnamese_tuan_waiter",
+          "titles": {
+            "en": "Bún chả for lunch",
+            "fr": "Un bún chả pour le déjeuner"
+          },
+          "sceneNotes": {
+            "en": "A small family-run bún chả restaurant in Hanoi's Old Quarter at lunchtime; the young waiter is proud of the house speciality.",
+            "fr": "Vous déjeunez dans un petit restaurant familial de bún chả du Vieux Quartier de Hanoï ; le jeune serveur est fier de la spécialité de la maison."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Em chào anh chị. Anh chị đi mấy người ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em chào anh chị. Anh chị đi mấy người ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello. How many of you are there?",
+                  "note": "The young waiter calls himself em (younger sibling) and his customers anh chị (older brother, older sister). To a woman on her own he would say chị, to a man anh.",
+                  "literal": "younger-sibling greet older-brother older-sister. older-brother older-sister go how-many person (polite)"
+                },
+                "fr": {
+                  "meaning": "Bonjour. Vous êtes combien ?",
+                  "note": "Le jeune serveur se désigne par « em » (cadet) et appelle ses clients « anh chị » (grand frère, grande sœur). À une femme seule, il dirait « chị » ; à un homme, « anh ». « ạ » final : marque de respect, ton bas et bref.",
+                  "literal": "cadet saluer grand-frère grande-sœur. grand-frère grande-sœur aller combien personne (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Cho tôi một bàn hai người nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi một bàn hai người nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "You call a waiter younger than you em, so the respectful ạ (kept for elders) gives way to the friendly nhé. Tôi remains your safe, neutral 'I'.",
+                  "literal": "give me one table two person (okay?)"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "À un serveur plus jeune (« em »), on ne dit pas « ạ », réservé aux aînés, mais « nhé », amical. « Tôi » reste votre « je » neutre. « nh » = le « gn » d'« agneau » ; « bàn » : ton descendant, comme un « bon… » las.",
+                  "literal": "donner moi une table deux personne (d'accord ?)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Nh is the ny of 'canyon'; người starts with the ng of 'singer'. Bàn and người both fall."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Em ơi, ở đây có món gì ngon?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em ơi, ở đây có món gì ngon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, what's good here?",
+                  "note": "Em ơi! is how you call a waiter or waitress younger than you; to an older one say anh ơi or chị ơi. The question word gì (what) stays where the answer would go.",
+                  "literal": "younger-sibling hey, at here have dish what tasty"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, qu'est-ce qu'il y a de bon ici ?",
+                  "note": "« Em ơi ! » : c'est ainsi qu'on appelle un serveur ou une serveuse plus jeune que soi ; sinon « anh ơi », « chị ơi ». « Gì » (quoi) reste à la place de la réponse : « zi », ton descendant. « ơi » se dit « eu-i ».",
+                  "literal": "cadet hé, à ici avoir plat quoi bon"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ơi sounds like uh-ee; gì is zee with a low falling tone."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "state_opinion",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Bún chả nhà em ngon lắm ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bún chả nhà em ngon lắm ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Our bún chả is really good.",
+                  "note": "Bún chả, grilled pork with rice noodles and herbs, is Hanoi's signature lunch. Nhà em, literally 'my house', means 'our place': the waiter is still calling himself em.",
+                  "literal": "rice-noodle grilled-pork house younger-sibling tasty very (polite)"
+                },
+                "fr": {
+                  "meaning": "Notre bún chả est très bon.",
+                  "note": "Le bún chả (porc grillé, vermicelles de riz, herbes) est le déjeuner typique de Hanoï. « Nhà em », mot à mot « la maison du cadet », veut dire « chez nous » : le serveur se désigne toujours par « em ».",
+                  "literal": "vermicelle porc-grillé maison cadet bon très (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Cho tôi hai suất bún chả.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi hai suất bún chả."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two portions of bún chả for me, please.",
+                  "note": "Suất (a portion) is the Northern word; the South says phần. Number + measure word + dish: hai suất bún chả, một bát phở (one bowl of pho).",
+                  "literal": "give me two portion rice-noodle grilled-pork"
+                },
+                "fr": {
+                  "meaning": "Deux portions de bún chả, s'il vous plaît.",
+                  "note": "« Suất » (portion) est le mot du Nord ; le Sud dit « phần ». Ordre : nombre + mot de mesure + plat (một bát phở, un bol de phở). « ch » se prononce « tch » ; « chả » descend puis remonte, « bún » monte.",
+                  "literal": "donner moi deux portion vermicelle porc-grillé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Suất is roughly swut with a sharp rising tone; chả dips, then rises."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Món này có lạc không em?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Món này có lạc không em?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are there peanuts in this dish?",
+                  "note": "Có … không? frames a yes/no question: 'has … or not?'. Lạc is the Northern word for peanuts (đậu phộng in the South). Swap in tôm (shrimp), thịt lợn (pork), ớt (chilli).",
+                  "literal": "dish this have peanut or-not younger-sibling"
+                },
+                "fr": {
+                  "meaning": "Il y a des cacahuètes dans ce plat ?",
+                  "note": "« Có … không ? » encadre la question : « il y a … ou non ? ». « Lạc » = cacahuète dans le Nord (« đậu phộng » au Sud) : ton bas et bref, c final à peine prononcé. À la place : tôm (crevette), ớt (piment).",
+                  "literal": "plat ce avoir cacahuète ou-non cadet"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:no_peanuts",
+              "key": "no_peanuts",
+              "intentKey": "confirm_order",
+              "slotId": "no_peanuts",
+              "speaker": "character",
+              "text": "Không có đâu ạ. Em mang ra ngay ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Không có đâu ạ. Em mang ra ngay ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there aren't any. I'll bring it right out.",
+                  "note": "Đâu after a negative makes it firmer yet gentle: 'not at all'. Ngay = right away.",
+                  "literal": "not have at-all (polite). younger-sibling carry out right-away (polite)"
+                },
+                "fr": {
+                  "meaning": "Non, il n'y en a pas. Je vous apporte ça tout de suite.",
+                  "note": "« Đâu » après une négation la renforce avec douceur : « pas du tout ». « Ngay » = tout de suite. Le « kh » de « không » se racle au fond de la gorge, comme la jota espagnole.",
+                  "literal": "ne-pas avoir du-tout (politesse). cadet porter sortir tout-de-suite (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Bún chả ngon thật đấy!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bún chả ngon thật đấy!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bún chả really is delicious!",
+                  "note": "Thật = really; the Northern particle đấy adds 'I mean it'. Ngon is only for food and drink.",
+                  "literal": "rice-noodle grilled-pork tasty really (emphasis)"
+                },
+                "fr": {
+                  "meaning": "Le bún chả est vraiment délicieux !",
+                  "note": "« Thật » = vraiment ; la particule du Nord « đấy » insiste : « je vous assure ». « Ngon » ne se dit que de ce qui se mange ou se boit. « ng » comme dans « parking » ; « thật » : t suivi d'un souffle, ton bas et bref.",
+                  "literal": "vermicelle porc-grillé bon vraiment (insistance)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ng at the start of a word is the ng of 'singer': ngon. Thật is short and low."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Em ơi, cho tôi thanh toán nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em ơi, cho tôi thanh toán nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can I pay, please?",
+                  "note": "Thanh toán (to settle up) is what you hear all over Hanoi's restaurants; chapter 1's tính tiền works too. No tip is expected.",
+                  "literal": "younger-sibling hey, let me settle-up (okay?)"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, je voudrais régler.",
+                  "note": "« Thanh toán » (régler) s'entend partout dans les restaurants de Hanoï ; « tính tiền » (chapitre 1) convient aussi. Pas de pourboire attendu. « th » est un t suivi d'un souffle, jamais le « th » anglais.",
+                  "literal": "cadet hé, laisser moi régler (d'accord ?)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Th is a t with a puff of air, never the English th. Toán rises."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Vâng, của anh chị hết một trăm bốn mươi nghìn ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vâng, của anh chị hết một trăm bốn mươi nghìn ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Certainly, that comes to 140,000 dong.",
+                  "note": "Của anh chị hết … = 'yours comes to …'. Nghìn (thousand) is Northern; the South says ngàn. Vâng is the polite Northern 'yes'.",
+                  "literal": "yes, of older-brother older-sister use-up one hundred four ten thousand (polite)"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, ça vous fait 140 000 dông.",
+                  "note": "« Của anh chị hết… » = « pour vous, ça fait… ». Les nombres sont réguliers : một trăm (cent) bốn mươi (quatre-dix) nghìn (mille). « ngh » = le « ng » de « parking », même en début de mot.",
+                  "literal": "oui, de grand-frère grande-sœur épuiser un cent quatre dix mille (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_restaurant_order_meal:more_nem",
+              "key": "more_nem",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cho tôi thêm một đĩa nem rán.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi thêm một đĩa nem rán."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And a plate of fried spring rolls for me, please.",
+                  "note": "Thêm = more, in addition. Nem rán is the Northern name for fried spring rolls; the South calls them chả giò.",
+                  "literal": "give me add one plate spring-roll fried"
+                },
+                "fr": {
+                  "meaning": "Et une assiette de nems, s'il vous plaît.",
+                  "note": "Le mot français « nem » vient de là : « nem rán » (nem frit) est le nom du Nord, le Sud dit « chả giò ». « Thêm » = en plus. Dans le Nord, le r se prononce « z » : « rán » se dit « zane », ton montant.",
+                  "literal": "donner moi ajouter une assiette nem frit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "vietnamese_mai_shop_assistant",
+          "titles": {
+            "en": "Buying a shirt",
+            "fr": "Acheter une chemise"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop on Hàng Gai, the silk street of Hanoi's Old Quarter; the shopkeeper is friendly and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de la rue Hàng Gai, la rue de la soie du Vieux Quartier de Hanoï ; la vendeuse est aimable et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Chào em, em cần tìm gì thế?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào em, em cần tìm gì thế?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, what are you looking for?",
+                  "note": "A shopkeeper a little older than you calls you em, man or woman, and you call her chị, as in chapter 1. Thế rounds off a question in the North (the South says vậy).",
+                  "literal": "hello younger-sibling, younger-sibling need find what then"
+                },
+                "fr": {
+                  "meaning": "Bonjour, vous cherchez quelque chose ?",
+                  "note": "Une vendeuse un peu plus âgée vous appelle « em » (cadet ou cadette) et vous lui dites « chị », comme au chapitre 1. « Thế » arrondit la question dans le Nord (« vậy » au Sud).",
+                  "literal": "bonjour cadet, cadet avoir-besoin chercher quoi donc"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Tôi chỉ xem thôi ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi chỉ xem thôi ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking.",
+                  "note": "Chỉ … thôi wraps the verb: 'only … and that's all'. Since she calls you em, you could also say em instead of tôi; it sounds warmer.",
+                  "literal": "I only look that's-all (polite)"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement.",
+                  "note": "« Chỉ … thôi » encadre le verbe, comme « ne … que ». Puisqu'elle vous appelle « em », vous pouvez aussi dire « em » au lieu de « tôi » : c'est plus chaleureux. « x » se prononce s : « sèm » ; « chỉ » descend puis remonte.",
+                  "literal": "je seulement regarder c'est-tout (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "X is a plain s: xem sounds like sem. Chỉ dips, then rises."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Chị ơi, cho tôi xem chiếc áo sơ mi kia.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị ơi, cho tôi xem chiếc áo sơ mi kia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, could I see that shirt over there?",
+                  "note": "Chiếc is the classifier for a single garment (cái also works). Áo is any top; sơ mi narrows it to a shirt. Kia = that one over there; này = this one.",
+                  "literal": "older-sister hey, let me look (classifier) top shirt over-there"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, je peux voir cette chemise, là-bas ?",
+                  "note": "« Sơ mi » vient du français « chemise » : dites « seu mi », sur un ton plat. « Chiếc » est le classificateur d'un vêtement (ou « cái ») ; « áo » = tout vêtement du haut. « Kia » = là-bas, « này » = celui-ci.",
+                  "literal": "grande-sœur hé, laisser moi voir (classificateur) haut chemise là-bas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sơ mi is suh mee, both level; chiếc is chyek, rising, with the final c cut short."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:try_it",
+              "key": "try_it",
+              "intentKey": "ask_opinion",
+              "slotId": "try_it",
+              "speaker": "character",
+              "text": "Em mặc thử đi. Có vừa không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em mặc thử đi. Có vừa không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try it on. Does it fit?",
+                  "note": "Thử after a verb means 'to try doing': mặc thử = try on, ăn thử = taste. Final đi turns a verb into a friendly 'go on'.",
+                  "literal": "younger-sibling wear try go-on. (question) fit or-not"
+                },
+                "fr": {
+                  "meaning": "Essayez-la. Elle vous va ?",
+                  "note": "« Thử » après un verbe = essayer : mặc thử (essayer un vêtement), ăn thử (goûter). « Đi » en fin de phrase invite à agir : « allez-y ». « Vừa » = être à la bonne taille.",
+                  "literal": "cadet porter essayer vas-y. (question) être-à-la-taille ou-non"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Hơi chật ạ. Chị có cỡ to hơn không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hơi chật ạ. Chị có cỡ to hơn không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's a bit tight. Do you have a bigger size?",
+                  "note": "Hơi = a bit; chật = tight (rộng = loose). Adjective + hơn makes the comparative: to hơn = bigger, nhỏ hơn = smaller.",
+                  "literal": "a-bit tight (polite). older-sister have size big more or-not"
+                },
+                "fr": {
+                  "meaning": "C'est un peu serré. Vous avez la taille au-dessus ?",
+                  "note": "« Hơi » = un peu ; « chật » = serré (« rộng » = large). Adjectif + « hơn » = comparatif : to hơn (plus grand), nhỏ hơn (plus petit). « Cỡ » : « keu », ton montant cassé par un bref coup de glotte.",
+                  "literal": "un-peu serré (politesse). grande-sœur avoir taille grand plus ou-non"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cỡ is kuh with a rising tone broken by a catch in the throat; chật is short and low."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:here_is_large",
+              "key": "here_is_large",
+              "intentKey": "offer_options",
+              "slotId": "here_is_large",
+              "speaker": "character",
+              "text": "Có, cỡ L đây em.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Có, cỡ L đây em."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, here's the L.",
+                  "note": "You answer a có … không? question by repeating có (yes) or saying không (no). Sizes go by the international letters: S, M, L.",
+                  "literal": "have, size L here younger-sibling"
+                },
+                "fr": {
+                  "meaning": "Oui, voici le L.",
+                  "note": "À une question en « có … không ? », on répond en reprenant « có » (oui) ou par « không » (non). Les tailles suivent les lettres internationales : S, M, L. « Đây » = voici, ici.",
+                  "literal": "avoir, taille L voici cadet"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Chiếc áo này giá bao nhiêu ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chiếc áo này giá bao nhiêu ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this shirt?",
+                  "note": "Giá = price. Classifier + noun + này = 'this …': chiếc áo này. In a small shop you can then bargain a little, with a smile.",
+                  "literal": "(classifier) top this price how-much (polite)"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette chemise ?",
+                  "note": "« Giá » = le prix. Classificateur + nom + « này » = « ce …-ci » : chiếc áo này. Dans le Nord, « gi » se prononce z : « za », ton montant. En boutique, on peut marchander un peu, avec le sourire.",
+                  "literal": "(classificateur) haut ce prix combien (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In the North gi is a z sound: giá is zah, rising."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Chiếc này ba trăm năm mươi nghìn em nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chiếc này ba trăm năm mươi nghìn em nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This one is 350,000 dong.",
+                  "note": "You will often hear just ba trăm rưỡi, 'three hundred and a half': the thousands are understood. Nhé keeps it friendly.",
+                  "literal": "(classifier) this three hundred five ten thousand younger-sibling (okay?)"
+                },
+                "fr": {
+                  "meaning": "Celle-ci fait 350 000 dông.",
+                  "note": "On entend souvent simplement « ba trăm rưỡi », « trois cent et demi » : les milliers sont sous-entendus. « Chiếc này » : le classificateur seul remplace le nom, comme « celle-ci ».",
+                  "literal": "(classificateur) ce trois cent cinq dix mille cadet (d'accord ?)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Vâng, tôi lấy chiếc này.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vâng, tôi lấy chiếc này."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All right, I'll take this one.",
+                  "note": "The classifier stands in for the noun: chiếc này = this one. Vâng is the polite Northern 'yes' (the South says dạ).",
+                  "literal": "yes, I take (classifier) this"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends celle-ci.",
+                  "note": "Le classificateur remplace le nom : chiếc này = celle-ci. « Vâng » (le oui poli du Nord) se dit à peu près « veung », bref et sur un ton plat ; « lấy » (prendre) monte.",
+                  "literal": "oui, je prendre (classificateur) ce"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Chị có nhận thẻ không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị có nhận thẻ không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you take cards?",
+                  "note": "Thẻ = card; tiền mặt = cash. Small shops often prefer cash or a bank transfer by QR code (chuyển khoản).",
+                  "literal": "older-sister (question) accept card or-not (polite)"
+                },
+                "fr": {
+                  "meaning": "Vous prenez la carte ?",
+                  "note": "« Thẻ » = carte ; « tiền mặt » = espèces. Les petites boutiques préfèrent souvent les espèces ou le virement par QR code (chuyển khoản). « Nhận » : « gn » d'« agneau », ton bas et bref ; « thẻ » : t soufflé.",
+                  "literal": "grande-sœur (question) accepter carte ou-non (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chiếc này chị có màu khác không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chiếc này chị có màu khác không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have this one in another colour?",
+                  "note": "Khác = other, different, placed after the noun. Colours follow the noun too: áo trắng (white top), áo đen (black), áo xanh (blue or green).",
+                  "literal": "(classifier) this older-sister have colour other or-not (polite)"
+                },
+                "fr": {
+                  "meaning": "Celle-ci, vous l'avez dans une autre couleur ?",
+                  "note": "« Khác » = autre, placé après le nom. La couleur suit aussi le nom : áo trắng (blanc), áo đen (noir), áo xanh (bleu ou vert). « kh » se racle comme la jota espagnole ou le « ch » allemand de « Bach ».",
+                  "literal": "(classificateur) ce grande-sœur avoir couleur autre ou-non (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_shop_for_clothes:see_jumper",
+              "key": "see_jumper",
+              "intentKey": "request_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cho em xem chiếc áo len kia ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho em xem chiếc áo len kia ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could I see that jumper over there, please?",
+                  "note": "The same request with em for 'I': natural once the shopkeeper has called you em. Áo len = woollen top, a jumper.",
+                  "literal": "let younger-sibling look (classifier) top wool over-there (polite)"
+                },
+                "fr": {
+                  "meaning": "Je peux voir ce pull, là-bas, s'il vous plaît ?",
+                  "note": "La même demande avec « em » pour « je » : naturel dès que la vendeuse vous a appelé « em ». « Len » vient du français « laine » : áo len = un pull. Autres emprunts : « vét » (veste), « cà vạt » (cravate).",
+                  "literal": "laisser cadet voir (classificateur) haut laine là-bas (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "vietnamese_thu_ticket_clerk",
+          "titles": {
+            "en": "A night train to Sa Pa",
+            "fr": "Un train de nuit pour Sa Pa"
+          },
+          "sceneNotes": {
+            "en": "The ticket counter at Hanoi station on a quiet evening; you want to take the night train towards the mountains of Sa Pa.",
+            "fr": "Vous êtes au guichet de la gare de Hanoï, un soir tranquille ; vous voulez prendre le train de nuit vers les montagnes de Sa Pa."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Tôi muốn mua vé đi Sa Pa ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi muốn mua vé đi Sa Pa ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to buy tickets to Sa Pa.",
+                  "note": "Nouns have no plural: vé is 'ticket' or 'tickets'; a number makes it clear. Đi (to go) before a place name means 'to', 'bound for'.",
+                  "literal": "I want buy ticket go Sa Pa (polite)"
+                },
+                "fr": {
+                  "meaning": "Je voudrais acheter des billets pour Sa Pa.",
+                  "note": "Pas de pluriel : « vé » = billet ou billets (le mot viendrait du français « billet »). « Đi » (aller) devant un lieu = « pour ». « vé » se dit « vè », ton montant comme la fin d'une question en français.",
+                  "literal": "je vouloir acheter billet aller Sa Pa (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vé is veh with a rising tone; muốn rises too."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:seat_or_berth",
+              "key": "seat_or_berth",
+              "intentKey": "offer_options",
+              "slotId": "seat_or_berth",
+              "speaker": "character",
+              "text": "Em đi ghế ngồi hay giường nằm?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em đi ghế ngồi hay giường nằm?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you like a seat or a sleeping berth?",
+                  "note": "The clerk, a little older than you, calls you em; you keep tôi and ạ. Hay is the 'or' of questions. The train runs overnight, so most travellers take a berth (giường nằm, literally 'bed to lie on').",
+                  "literal": "younger-sibling go chair sit or bed lie-down"
+                },
+                "fr": {
+                  "meaning": "Vous voulez une place assise ou une couchette ?",
+                  "note": "La guichetière, un peu plus âgée, vous dit « em » ; vous gardez « tôi » et « ạ ». « Hay » = le « ou » des questions. De nuit, on prend une couchette (giường nằm, « lit pour s'allonger »). « gi » = z dans le Nord ; deux tons descendants.",
+                  "literal": "cadet aller chaise s'asseoir ou lit s'allonger"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:berth_please",
+              "key": "berth_please",
+              "intentKey": "choose_option",
+              "slotId": "berth_please",
+              "speaker": "learner",
+              "text": "Giường nằm ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Giường nằm ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A berth, please.",
+                  "note": "To choose, just repeat the option you want and add ạ: no verb needed.",
+                  "literal": "bed lie-down (polite)"
+                },
+                "fr": {
+                  "meaning": "Une couchette, s'il vous plaît.",
+                  "note": "Pour choisir, on répète simplement l'option voulue, suivie de « ạ » : pas besoin de verbe.",
+                  "literal": "lit s'allonger (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Mấy giờ tàu chạy ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mấy giờ tàu chạy ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the train leave?",
+                  "note": "Mấy giờ? = at what time? (literally 'how many hours'). A train 'runs' (chạy) when it leaves. Tàu is a train or a boat; the full word for train is tàu hỏa, 'fire vessel'.",
+                  "literal": "how-many hour train run (polite)"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le train ?",
+                  "note": "« Mấy giờ ? » = à quelle heure ? (mot à mot « combien d'heures »). Le train « court » (chạy) quand il part. « giờ » : « zeu », ton descendant ; « chạy » : « tchaï », bas et bref.",
+                  "literal": "combien heure train courir (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Giờ is zuh with a falling tone; chạy sounds like a short, low 'chai'."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Tàu chạy lúc mười giờ tối.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tàu chạy lúc mười giờ tối."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The train leaves at ten at night.",
+                  "note": "Lúc = at (a time). Vietnamese adds the part of the day: sáng (morning), trưa (midday), chiều (afternoon), tối (evening). Mười giờ tối = 10 p.m.",
+                  "literal": "train run at ten hour evening"
+                },
+                "fr": {
+                  "meaning": "Le train part à dix heures du soir.",
+                  "note": "« Lúc » = à (telle heure). On précise le moment de la journée : sáng (matin), trưa (midi), chiều (après-midi), tối (soir). Mười giờ tối = 22 h.",
+                  "literal": "train courir à dix heure soir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Cho tôi hai vé ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi hai vé ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "Cho tôi + number + thing is the all-purpose way to ask for something at a counter. Một, hai, ba, bốn = 1, 2, 3, 4.",
+                  "literal": "give me two ticket (polite)"
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "« Cho tôi » + nombre + chose : la formule passe-partout au guichet. Một, hai, ba, bốn = 1, 2, 3, 4. « hai » se prononce « haï », avec un h bien soufflé.",
+                  "literal": "donner moi deux billet (politesse)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Tôi phải xuống ga nào ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi phải xuống ga nào ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station do I have to get off at?",
+                  "note": "Phải + verb = must. Xuống = to go down, to get off (lên = to go up, to get on). Nào = which, placed after the noun: ga nào.",
+                  "literal": "I must go-down station which (polite)"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "« Ga » vient du français « gare » (chapitre 1 : nhà ga). « Phải » + verbe = devoir ; « xuống » = descendre (« lên » = monter) ; « nào » = quel, après le nom. « ph » se prononce f et « x » se prononce s.",
+                  "literal": "je devoir descendre gare quelle (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ph is f and x is s: phải dips and rises, xuống rises."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:lao_cai",
+              "key": "lao_cai",
+              "intentKey": "state_destination",
+              "slotId": "lao_cai",
+              "speaker": "character",
+              "text": "Em xuống ga Lào Cai, rồi đi xe buýt lên Sa Pa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em xuống ga Lào Cai, rồi đi xe buýt lên Sa Pa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at Lào Cai station, then take the bus up to Sa Pa.",
+                  "note": "There is no railway to Sa Pa itself: the line ends at Lào Cai, about an hour away by road. Rồi = then; lên = up to (Sa Pa is in the mountains).",
+                  "literal": "younger-sibling go-down station Lào Cai, then go vehicle bus go-up Sa Pa"
+                },
+                "fr": {
+                  "meaning": "Vous descendez à la gare de Lào Cai, puis vous prenez le bus pour monter à Sa Pa.",
+                  "note": "Le train ne va pas jusqu'à Sa Pa : la ligne s'arrête à Lào Cai, à une heure de route. « Rồi » = ensuite ; « lên » = monter (Sa Pa est en montagne). « Xe buýt » vient de « bus » : « sè bouït ».",
+                  "literal": "cadet descendre gare Lào Cai, ensuite aller véhicule bus monter Sa Pa"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Tôi trả bằng thẻ được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi trả bằng thẻ được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "… được không? at the end of a sentence asks 'is that possible, is that OK?'. Bằng = by means of: bằng thẻ (by card), bằng tiền mặt (in cash).",
+                  "literal": "I pay by card possible or-not (polite)"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« … được không ? » en fin de phrase = « c'est possible ? ». « Bằng » = au moyen de : bằng thẻ (par carte), bằng tiền mặt (en espèces). « tr » se prononce « tch » dans le Nord ; « được » : ton bas, bref et appuyé.",
+                  "literal": "je payer au-moyen-de carte possible ou-non (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Được chứ. Của em hết chín trăm nghìn.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Được chứ. Của em hết chín trăm nghìn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course. That comes to 900,000 dong.",
+                  "note": "Được on its own means 'yes, that's fine'; chứ adds 'of course'. Của em hết … = 'yours comes to …'.",
+                  "literal": "possible of-course. of younger-sibling use-up nine hundred thousand"
+                },
+                "fr": {
+                  "meaning": "Bien sûr. Ça vous fait 900 000 dông.",
+                  "note": "« Được » seul = « oui, c'est possible » ; « chứ » ajoute « bien sûr ». « Của em hết… » = « pour vous, ça fait… ». « chín » (neuf) : « tchine », ton montant.",
+                  "literal": "possible bien-sûr. de cadet épuiser neuf cent mille"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_buy_train_ticket:return_hai_phong",
+              "key": "return_hai_phong",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cho tôi một vé khứ hồi đi Hải Phòng ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi một vé khứ hồi đi Hải Phòng ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A return ticket to Hải Phòng, please.",
+                  "note": "Vé khứ hồi = return ticket; vé một chiều = one-way ticket. Hải Phòng, the big port city, is about two and a half hours from Hanoi by train.",
+                  "literal": "give me one ticket go-and-return go Hải Phòng (polite)"
+                },
+                "fr": {
+                  "meaning": "Un aller-retour pour Hải Phòng, s'il vous plaît.",
+                  "note": "« Vé khứ hồi » = aller-retour ; « vé một chiều » = aller simple (« un sens »). Hải Phòng, le grand port du Nord, est à environ deux heures et demie de train de Hanoï. « kh » : jota espagnole ; « ph » = f.",
+                  "literal": "donner moi un billet aller-retour aller Hải Phòng (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "vietnamese_dung_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "By Hoàn Kiếm Lake on a scorching afternoon, the friend you are walking with suddenly feels unwell; a man passing by stops to help.",
+            "fr": "Au bord du lac Hoàn Kiếm, par un après-midi de canicule, la personne qui vous accompagne se sent mal ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Anh ơi, giúp tôi với!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh ơi, giúp tôi với!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please help me!",
+                  "note": "Call out anh ơi to a man a bit older than you, chị ơi to a woman, em ơi to someone younger. Với at the end of a request means 'please, do'.",
+                  "literal": "older-brother hey, help me (please-do)"
+                },
+                "fr": {
+                  "meaning": "Monsieur, aidez-moi, s'il vous plaît !",
+                  "note": "On interpelle « anh ơi » un homme un peu plus âgé que soi, « chị ơi » une femme, « em ơi » quelqu'un de plus jeune. « Với » en fin de demande = « je vous en prie ». « giúp » : « zoup », ton montant, p final non relâché.",
+                  "literal": "grand-frère hé, aider moi (je-vous-en-prie)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Giúp is zoop, rising, with the final p cut short; với is vuh-ee, rising."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Có chuyện gì thế em?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Có chuyện gì thế em?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the matter?",
+                  "note": "The passer-by is older than you, so he calls you em whether you are a man or a woman. Chuyện = a matter, a story.",
+                  "literal": "have matter what then younger-sibling"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui se passe ?",
+                  "note": "Le passant, plus âgé, vous appelle « em », que vous soyez un homme ou une femme. « Chuyện » = une affaire, une histoire : « tchouyène », ton bas et bref.",
+                  "literal": "avoir affaire quoi donc cadet"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Bạn tôi bị say nắng.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bạn tôi bị say nắng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend has sunstroke.",
+                  "note": "Bị marks something unpleasant that happens to you: bị ốm (to fall ill), bị ngã (to fall over). Say nắng is literally 'drunk on sun'. Possession needs no word: bạn tôi = my friend.",
+                  "literal": "friend me suffer drunk sun"
+                },
+                "fr": {
+                  "meaning": "Mon ami a une insolation.",
+                  "note": "« Bị » signale ce qu'on subit : bị ốm (tomber malade), bị ngã (tomber). « Say nắng », mot à mot « ivre de soleil ». Pas de possessif : bạn tôi = mon ami ou mon amie. « s » et « x » se prononcent tous deux s dans le Nord.",
+                  "literal": "ami moi subir ivre soleil"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Bạn and bị are short and low; nắng rises, with a short a."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Bạn ấy đau đầu lắm.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bạn ấy đau đầu lắm."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "He (or she) has a bad headache.",
+                  "note": "Đau + body part = it hurts there: đau đầu (head), đau bụng (stomach), đau chân (leg). Bạn ấy, 'that friend', is a handy he-or-she. Lắm = very, after the adjective.",
+                  "literal": "friend that hurt head very"
+                },
+                "fr": {
+                  "meaning": "Il (ou elle) a très mal à la tête.",
+                  "note": "« Đau » + partie du corps = avoir mal à : đau đầu (tête), đau bụng (ventre), đau chân (jambe). « Bạn ấy », « cet ami-là », vaut pour « il » comme pour « elle ». « đ » est un d français ; « đầu » a un ton descendant.",
+                  "literal": "ami celui-là avoir-mal tête très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Đ is a firm d: đau rhymes with 'now'; đầu is a short duh-oo, falling."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:calm",
+              "key": "calm",
+              "intentKey": "react_with_empathy",
+              "slotId": "calm",
+              "speaker": "character",
+              "text": "Em cứ bình tĩnh. Có cần gọi cấp cứu không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Em cứ bình tĩnh. Có cần gọi cấp cứu không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Stay calm. Shall I call an ambulance?",
+                  "note": "Cứ + verb = 'just go ahead and', 'keep'. Cấp cứu = emergency care; the ambulance number in Vietnam is 115 (police 113, fire 114).",
+                  "literal": "younger-sibling just calm. (question) need call emergency or-not"
+                },
+                "fr": {
+                  "meaning": "Restez calme. Il faut appeler une ambulance ?",
+                  "note": "« Cứ » + verbe = « continuez à », « n'hésitez pas à ». « Cấp cứu » = les urgences : au Vietnam, l'ambulance répond au 115 (police 113, pompiers 114). « ư » : un « ou » prononcé lèvres étirées, sans les arrondir.",
+                  "literal": "cadet simplement calme. (question) falloir appeler urgences ou-non"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:no_need",
+              "key": "no_need",
+              "intentKey": "decline_offer",
+              "slotId": "no_need",
+              "speaker": "learner",
+              "text": "Không cần đâu ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Không cần đâu ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, there's no need.",
+                  "note": "Không cần = no need. Đâu softens the refusal, as in chapter 1's không xa đâu (it's not far at all).",
+                  "literal": "not need at-all (polite)"
+                },
+                "fr": {
+                  "meaning": "Non, ce n'est pas la peine.",
+                  "note": "« Không cần » = pas besoin. « Đâu » adoucit le refus, comme dans « không xa đâu » (ce n'est pas loin du tout) au chapitre 1. « cần » : « keune », ton descendant.",
+                  "literal": "ne-pas falloir du-tout (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Hiệu thuốc gần nhất ở đâu ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hiệu thuốc gần nhất ở đâu ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the nearest pharmacy?",
+                  "note": "Hiệu thuốc, 'medicine shop', is the Northern word; signs usually read Nhà thuốc. Adjective + nhất = the most: gần nhất = nearest.",
+                  "literal": "shop medicine near most at where (polite)"
+                },
+                "fr": {
+                  "meaning": "Où est la pharmacie la plus proche ?",
+                  "note": "« Hiệu thuốc » (boutique de médicaments) est le mot du Nord ; les enseignes indiquent souvent « Nhà thuốc ». Adjectif + « nhất » = le plus : gần nhất (le plus proche). « thuốc » : t soufflé, « touôc », ton montant.",
+                  "literal": "boutique médicament proche le-plus à où (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Ngay đầu phố kia có một hiệu thuốc.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ngay đầu phố kia có một hiệu thuốc."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There's a pharmacy right at the end of that street.",
+                  "note": "Đầu phố, 'the head of the street', is where a street starts, at the corner. Place first, then có (there is): the usual order for saying where something is.",
+                  "literal": "right head street over-there have one shop medicine"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie juste au bout de cette rue.",
+                  "note": "« Đầu phố », « la tête de la rue » : là où la rue commence, à l'angle. Le lieu d'abord, puis « có » (il y a) : l'ordre habituel pour situer quelque chose. « phố » : « fô », ton montant.",
+                  "literal": "juste tête rue là-bas avoir une boutique médicament"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Vâng, tôi hiểu rồi. Cảm ơn anh nhiều!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vâng, tôi hiểu rồi. Cảm ơn anh nhiều!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I've got it. Thank you very much!",
+                  "note": "Rồi (already) after a verb marks it as done: hiểu rồi = understood. The thanks name the person, here anh; with a woman, cảm ơn chị.",
+                  "literal": "yes, I understand already. thank older-brother much"
+                },
+                "fr": {
+                  "meaning": "Oui, j'ai compris. Merci beaucoup !",
+                  "note": "« Rồi » (déjà) après un verbe indique que c'est fait : hiểu rồi = c'est compris. On nomme la personne remerciée : « anh » ici, « chị » pour une femme. « hiểu » : « hiéou », la voix descend puis remonte.",
+                  "literal": "oui, je comprendre déjà. remercier grand-frère beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tôi cần gặp bác sĩ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi cần gặp bác sĩ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need to see a doctor.",
+                  "note": "Gặp = to meet: you 'meet' a doctor. Bệnh viện = hospital. This bác is not the kinship word of the next mission, only part of bác sĩ (doctor).",
+                  "literal": "I need meet doctor"
+                },
+                "fr": {
+                  "meaning": "J'ai besoin de voir un médecin.",
+                  "note": "« Gặp » = rencontrer : on « rencontre » le médecin. « Bệnh viện » = hôpital. « bác sĩ » : « bac si », le premier monte, le second monte en se cassant ; « gặp » : ton bas et bref, p final non relâché.",
+                  "literal": "je avoir-besoin rencontrer médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_emergency_ask_help:save_me",
+              "key": "save_me",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cứu tôi với!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cứu tôi với!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Save me!",
+                  "note": "The cry for real danger: cứu = to rescue. People also shout just Cứu với! For an ambulance, dial 115.",
+                  "literal": "rescue me (please-do)"
+                },
+                "fr": {
+                  "meaning": "Au secours !",
+                  "note": "Le cri des vrais dangers : « cứu » = sauver. On crie aussi simplement « Cứu với ! ». Pour une ambulance, composez le 115. À Hanoï, « cứu » se dit à peu près « kiou », ton montant.",
+                  "literal": "sauver moi (je-vous-en-prie)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In Hanoi cứu sounds close to 'kew', with a rising tone."
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "vietnamese_hanh_host",
+          "titles": {
+            "en": "Sunday lunch at bác Hạnh's",
+            "fr": "Déjeuner du dimanche chez bác Hạnh"
+          },
+          "sceneNotes": {
+            "en": "Sunday lunch at the home of your neighbour Lan's parents; her mother, bác Hạnh, keeps filling your bowl and wants to know all about your family.",
+            "fr": "Vous déjeunez un dimanche chez les parents de votre voisine Lan ; sa mère, bác Hạnh, remplit sans cesse votre bol et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Cháu vào đi! Cứ tự nhiên như ở nhà nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu vào đi! Cứ tự nhiên như ở nhà nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in! Make yourself at home.",
+                  "note": "A host of your parents' age or older calls you cháu (nephew, niece, grandchild) and you call her bác: both words change from the tôi and chị of the street.",
+                  "literal": "nephew/niece enter go-on! just natural like at home (okay?)"
+                },
+                "fr": {
+                  "meaning": "Entre ! Fais comme chez toi.",
+                  "note": "Une hôtesse de l'âge de vos parents ou plus vous appelle « cháu » (neveu, nièce, petit-enfant) et vous lui dites « bác » : on quitte le « tôi » et le « chị » de la rue. « cháu » : « tchaou », ton montant.",
+                  "literal": "neveu/nièce entrer vas-y ! simplement naturel comme à maison (d'accord ?)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:please_eat",
+              "key": "please_eat",
+              "intentKey": "invite",
+              "slotId": "please_eat",
+              "speaker": "learner",
+              "text": "Cháu mời bác ăn cơm ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu mời bác ăn cơm ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Enjoy your meal! (said to an elder before eating)",
+                  "note": "In the North the younger ones 'invite' their elders before picking up their chopsticks. With bác you call yourself cháu, never tôi, which would sound cold.",
+                  "literal": "nephew/niece invite elder-aunt eat rice (polite)"
+                },
+                "fr": {
+                  "meaning": "Bon appétit ! (à dire à un aîné avant de manger)",
+                  "note": "Dans le Nord, les plus jeunes « invitent » les aînés avant de prendre leurs baguettes. Face à « bác », on se désigne par « cháu », jamais par « tôi », qui serait froid. « ơ » = le « eu » de « peur » : « meuï », « keum ».",
+                  "literal": "neveu/nièce inviter tante-aînée manger riz (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mời is muh-ee with a falling tone; ăn has a short a; cơm is kuhm."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Bác nấu ăn ngon quá ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bác nấu ăn ngon quá ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You cook so well!",
+                  "note": "Bác, literally an aunt or uncle older than your parents, is the respectful 'you' for their whole generation, man or woman. Quá after an adjective = so, really.",
+                  "literal": "elder-aunt cook eat tasty so (polite)"
+                },
+                "fr": {
+                  "meaning": "Vous cuisinez tellement bien !",
+                  "note": "« Bác », mot à mot l'oncle ou la tante aînés de vos parents, est le « vous » respectueux pour toute leur génération, homme ou femme. « Quá » après l'adjectif = tellement. « qu » se prononce « kou » : « kouá », ton montant.",
+                  "literal": "tante-aînée cuisiner manger bon tellement (politesse)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Cháu nói tiếng Việt giỏi thế!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu nói tiếng Việt giỏi thế!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How well you speak Vietnamese!",
+                  "note": "Giỏi = good at something. Thế at the end of an exclamation means 'so …!' in the North.",
+                  "literal": "nephew/niece speak language Viet skilled so"
+                },
+                "fr": {
+                  "meaning": "Comme tu parles bien vietnamien !",
+                  "note": "« Giỏi » = doué, fort : « zoï », la voix descend puis remonte. « Thế » en fin d'exclamation = « tellement ! » dans le Nord. « Tiếng » = langue : tiếng Việt, tiếng Pháp (le français).",
+                  "literal": "neveu/nièce parler langue viet doué tellement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Cháu cảm ơn bác. Cháu còn phải học nhiều ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu cảm ơn bác. Cháu còn phải học nhiều ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you. I still have a lot to learn.",
+                  "note": "Modesty is the polite answer to praise. In careful speech the subject comes first: cháu cảm ơn bác, 'I thank you'. Còn = still.",
+                  "literal": "nephew/niece thank elder-aunt. nephew/niece still must study much (polite)"
+                },
+                "fr": {
+                  "meaning": "Merci. J'ai encore beaucoup à apprendre.",
+                  "note": "La modestie est la réponse polie à un compliment. Dans un style soigné, on met le sujet devant : cháu cảm ơn bác, « je vous remercie ». « Còn » = encore. « học » : ton bas et bref, c final non relâché.",
+                  "literal": "neveu/nièce remercier tante-aînée. neveu/nièce encore devoir étudier beaucoup (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Bác có mấy người con ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bác có mấy người con ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many children do you have?",
+                  "note": "Mấy asks 'how many' when you expect a small number. Người is the classifier for people: mấy người con, hai người bạn (two friends).",
+                  "literal": "elder-aunt have how-many (person-classifier) child (polite)"
+                },
+                "fr": {
+                  "meaning": "Vous avez combien d'enfants ?",
+                  "note": "« Mấy » = combien, quand on attend un petit nombre. « Người » est le classificateur des personnes : mấy người con, hai người bạn (deux amis). « Con » = l'enfant de quelqu'un, avec un o ouvert comme dans « bonne ».",
+                  "literal": "tante-aînée avoir combien (classificateur-personne) enfant (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mấy rises (may, with a short vowel); người falls; con sounds like 'kawn', level."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Bác có hai con. Thế cháu có anh chị em không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bác có hai con. Thế cháu có anh chị em không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have two children. And you, do you have brothers and sisters?",
+                  "note": "She calls herself bác too: kinship words serve as both 'I' and 'you'. Anh chị em (older brother, older sister, younger sibling) is how you say 'siblings'.",
+                  "literal": "elder-aunt have two child. so nephew/niece have older-brother older-sister younger-sibling or-not"
+                },
+                "fr": {
+                  "meaning": "J'ai deux enfants. Et toi, tu as des frères et sœurs ?",
+                  "note": "Elle se désigne elle aussi par « bác » : les termes de parenté servent à la fois de « je » et de « tu ». « Anh chị em » (grand frère, grande sœur, cadet) = les frères et sœurs. « Thế » en tête = « et alors ».",
+                  "literal": "tante-aînée avoir deux enfant. alors neveu/nièce avoir grand-frère grande-sœur cadet ou-non"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Cháu có một anh trai và một em gái ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu có một anh trai và một em gái ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have an older brother and a younger sister.",
+                  "note": "There is no plain word for 'brother' or 'sister': you must say older or younger. Anh trai, em trai = older, younger brother; chị gái, em gái = older, younger sister.",
+                  "literal": "nephew/niece have one older-brother male and one younger-sibling female (polite)"
+                },
+                "fr": {
+                  "meaning": "J'ai un grand frère et une petite sœur.",
+                  "note": "Pas de mot neutre pour « frère » ou « sœur » : il faut préciser l'âge. Anh trai, em trai = grand, petit frère ; chị gái, em gái = grande, petite sœur. « tr » se prononce « tch » dans le Nord : « tchaï ».",
+                  "literal": "neveu/nièce avoir un grand-frère garçon et un cadet fille (politesse)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:when_marry",
+              "key": "when_marry",
+              "intentKey": "ask_about_family",
+              "slotId": "when_marry",
+              "speaker": "character",
+              "text": "Thế bao giờ cháu lập gia đình?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thế bao giờ cháu lập gia đình?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So when are you going to get married?",
+                  "note": "Elders ask this very freely; it shows interest, not rudeness. Lập gia đình, 'to set up a family', means to get married. Bao giờ at the start of a sentence asks about the future.",
+                  "literal": "so when nephew/niece set-up family"
+                },
+                "fr": {
+                  "meaning": "Alors, tu te maries quand ?",
+                  "note": "Les aînés posent cette question sans gêne : c'est une marque d'intérêt, pas une indiscrétion. « Lập gia đình », « fonder une famille » = se marier. « Bao giờ » en tête de phrase interroge sur le futur. « gia » : « za ».",
+                  "literal": "alors quand neveu/nièce fonder famille"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Cháu cũng chưa biết ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu cũng chưa biết ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't really know yet.",
+                  "note": "Chưa = not yet, softer than a flat không. Cũng (also) here just softens the answer, like 'well, …'.",
+                  "literal": "nephew/niece also not-yet know (polite)"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "« Chưa » = pas encore, plus doux qu'un « không » sec. « Cũng » (aussi) ne fait ici qu'adoucir la réponse : ton montant cassé par un coup de glotte. « chưa » : « tcheu-a » ; « biết » : « biét », ton montant.",
+                  "literal": "neveu/nièce aussi pas-encore savoir (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cũng rises with a catch in the throat; chưa is chuh-uh, level; biết is byet, rising."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_talk_about_family:four_of_us",
+              "key": "four_of_us",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nhà cháu có bốn người ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nhà cháu có bốn người ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There are four of us in my family.",
+                  "note": "Nhà (house) also means the household: nhà cháu = my family. Bố = father, mẹ = mother in the North.",
+                  "literal": "house nephew/niece have four person (polite)"
+                },
+                "fr": {
+                  "meaning": "Nous sommes quatre dans ma famille.",
+                  "note": "« Nhà » (maison) désigne aussi le foyer : nhà cháu = ma famille. Dans le Nord, bố = papa, mẹ = maman. « nh » = le « gn » d'« agneau » ; « bốn » (quatre) : ton montant.",
+                  "literal": "maison neveu/nièce avoir quatre personne (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "vietnamese_nam_friend",
+          "titles": {
+            "en": "Weekend plans with Nam",
+            "fr": "Un week-end avec Nam"
+          },
+          "sceneNotes": {
+            "en": "Your friend Nam wants to go out this weekend, but the evening he suggests does not suit you; you settle on a walk around Hoàn Kiếm Lake.",
+            "fr": "Votre ami Nam veut sortir ce week-end, mais le soir qu'il propose ne vous convient pas ; vous optez pour une promenade autour du lac Hoàn Kiếm."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:beer_saturday",
+              "key": "beer_saturday",
+              "intentKey": "invite",
+              "slotId": "beer_saturday",
+              "speaker": "character",
+              "text": "Tối thứ Bảy đi uống bia hơi không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tối thứ Bảy đi uống bia hơi không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fancy going for a draught beer on Saturday evening?",
+                  "note": "Bia hơi, fresh draught beer drunk on low plastic stools, is a Hanoi institution. Between friends the subject is often dropped. Thứ Bảy = 'day seven', Saturday.",
+                  "literal": "evening day seven go drink beer draught or-not"
+                },
+                "fr": {
+                  "meaning": "Ça te dit d'aller boire une bière pression samedi soir ?",
+                  "note": "« Bia » vient du français « bière ». La « bia hơi », bière pression bue sur de petits tabourets, est une institution à Hanoï. Entre amis, on omet souvent le sujet. Thứ Bảy = « jour sept », samedi.",
+                  "literal": "soir jour sept aller boire bière pression ou-non"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Tiếc quá, tối thứ Bảy mình bận rồi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tiếc quá, tối thứ Bảy mình bận rồi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What a pity, I'm busy on Saturday evening.",
+                  "note": "With a friend your own age, 'I' is mình (or tớ in the North) and 'you' is bạn or cậu; tôi would sound distant. Bận rồi = already busy.",
+                  "literal": "pity so, evening day seven I busy already"
+                },
+                "fr": {
+                  "meaning": "Dommage, samedi soir je suis déjà pris.",
+                  "note": "Avec un ami de votre âge, « je » se dit « mình » (ou « tớ » dans le Nord) et « tu » « bạn » ou « cậu » ; « tôi » ferait distant. « Bận rồi » = déjà occupé. « tiếc » : « tiék », ton montant, c final non relâché.",
+                  "literal": "dommage tellement, soir jour sept moi occupé déjà"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Chủ nhật được không?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chủ nhật được không?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would Sunday work?",
+                  "note": "Chủ nhật, Sunday, is the only day without a number; the others count from thứ Hai ('day two', Monday) to thứ Bảy.",
+                  "literal": "Sunday possible or-not"
+                },
+                "fr": {
+                  "meaning": "Dimanche, ça irait ?",
+                  "note": "« Chủ nhật » (dimanche) est le seul jour sans numéro ; les autres se comptent de thứ Hai (« jour deux », lundi) à thứ Bảy. « chủ » : « tchou », la voix descend puis remonte ; « nhật » : « gneut », bas et bref.",
+                  "literal": "dimanche possible ou-non"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chủ dips and rises; nhật is nyut, short and low; được is low and heavy."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Được, Chủ nhật mình rảnh.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Được, Chủ nhật mình rảnh."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'm free on Sunday.",
+                  "note": "Nam says mình for 'I' as well. Rảnh = free, not busy (the opposite of bận).",
+                  "literal": "possible, Sunday I free"
+                },
+                "fr": {
+                  "meaning": "D'accord, dimanche je suis libre.",
+                  "note": "Nam dit lui aussi « mình » pour « je ». « Rảnh » = libre, disponible (le contraire de « bận »). Dans le Nord, le r se prononce z.",
+                  "literal": "possible, dimanche moi libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Đi dạo quanh Hồ Gươm đi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Đi dạo quanh Hồ Gươm đi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's go for a walk around Hoàn Kiếm Lake!",
+                  "note": "The first đi means 'go'; the last one turns the sentence into 'let's!'. Hồ Gươm, 'Sword Lake', is the everyday name of Hoàn Kiếm Lake; the streets around it are closed to traffic at weekends.",
+                  "literal": "go stroll around Lake Sword let's"
+                },
+                "fr": {
+                  "meaning": "Allons nous promener autour du lac Hoàn Kiếm !",
+                  "note": "Le premier « đi » = aller ; le dernier fait de la phrase un « allons-y ! ». Hồ Gươm, « lac de l'Épée », est le nom courant du lac Hoàn Kiếm, aux abords piétons le week-end. « d » sans barre = z dans le Nord : « zao ».",
+                  "literal": "aller se-promener autour lac Épée allons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "D without a bar is z in the North: dạo is a low, short zow. Đ with a bar is a firm d."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Năm giờ chiều gặp nhau nhé?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Năm giờ chiều gặp nhau nhé?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at five in the afternoon?",
+                  "note": "Time first, then the action. Gặp nhau = to meet each other. Nhé asks the other person to agree: 'OK?'.",
+                  "literal": "five hour afternoon meet each-other (okay?)"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à cinq heures de l'après-midi ?",
+                  "note": "L'heure d'abord, l'action ensuite. « Gặp nhau » = se retrouver (« se rencontrer l'un l'autre »). « Nhé » demande l'accord de l'autre : « d'accord ? ». Le « ă » de « năm » est un a très bref ; « giờ » : « zeu ».",
+                  "literal": "cinq heure après-midi rencontrer l'un-l'autre (d'accord ?)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:ice_cream_after",
+              "key": "ice_cream_after",
+              "intentKey": "invite",
+              "slotId": "ice_cream_after",
+              "speaker": "character",
+              "text": "Ừ. Xong rồi đi ăn kem Tràng Tiền nhé?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ừ. Xong rồi đi ăn kem Tràng Tiền nhé?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure. And afterwards shall we get a Tràng Tiền ice cream?",
+                  "note": "Kem Tràng Tiền, on the street of the same name beside the lake, has sold ice cream since 1958. Xong rồi = once that's done, afterwards.",
+                  "literal": "yeah. finished already go eat ice-cream Tràng Tiền (okay?)"
+                },
+                "fr": {
+                  "meaning": "Ça marche. Et après, on va manger une glace Tràng Tiền ?",
+                  "note": "« Kem » (glace) vient du français « crème », comme « cà phê » (café) ou « pho mát » (fromage). Kem Tràng Tiền, dans la rue du même nom près du lac, vend des glaces depuis 1958. « Xong rồi » = ensuite.",
+                  "literal": "ouais. fini déjà aller manger glace Tràng Tiền (d'accord ?)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Ừ, hay đấy!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ừ, hay đấy!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yeah, good idea!",
+                  "note": "Ừ is the casual 'yes' between friends; never say it to an elder, who gets vâng. Hay = interesting, nice; đấy adds emphasis.",
+                  "literal": "yeah, nice (emphasis)"
+                },
+                "fr": {
+                  "meaning": "Ouais, bonne idée !",
+                  "note": "« Ừ » est le « oui » familier entre amis ; jamais à un aîné, à qui l'on dit « vâng ». « Hay » = intéressant, sympa ; « đấy » insiste. « ừ » : un « ou » dit lèvres étirées, ton descendant.",
+                  "literal": "ouais, sympa (insistance)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ừ is a low, falling uh said with the lips spread, not rounded."
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Thế Chủ nhật, năm giờ chiều nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thế Chủ nhật, năm giờ chiều nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, Sunday at five in the afternoon.",
+                  "note": "Thế at the start of a sentence = so, then (the South says vậy). Ending on nhé seals the plan in a friendly way.",
+                  "literal": "so Sunday, five hour afternoon (okay?)"
+                },
+                "fr": {
+                  "meaning": "Alors, dimanche à cinq heures de l'après-midi.",
+                  "note": "« Thế » en début de phrase = alors, donc (« vậy » au Sud). Finir par « nhé » scelle le rendez-vous sur un ton amical. « chiều » : « tchiéou », ton descendant.",
+                  "literal": "alors dimanche, cinq heure après-midi (d'accord ?)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch2:vietnamese_make_weekend_plans:go_see_film",
+              "key": "go_see_film",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hay là đi xem phim?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hay là đi xem phim?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Or how about going to see a film?",
+                  "note": "Hay là …? = or how about …? Xem phim = to watch a film; rạp chiếu phim = cinema.",
+                  "literal": "or be go watch film"
+                },
+                "fr": {
+                  "meaning": "Ou alors, on va voir un film ?",
+                  "note": "« Phim » vient du français « film » : « ph » se prononce toujours f. « Hay là… ? » = « ou alors… ? », pour lancer une autre idée. Xem phim = regarder un film.",
+                  "literal": "ou être aller regarder film"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

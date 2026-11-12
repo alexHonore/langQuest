@@ -2637,6 +2637,2299 @@
           ]
         }
       ]
+    },
+    {
+      "key": "swahili_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "swahili",
+      "targetVarietyId": "sw",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Mombasa",
+        "fr": "Prendre ses marques à Mombasa"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Swahili (sw); native review required before publishing.",
+        "Setting: chapter 1 moves along the whole coast (Mombasa, Dar es Salaam, Zanzibar); this chapter stays in Mombasa, Kenya (Kenyan shillings, M-Pesa, the Madaraka Express, 999/112). A Tanzanian reviewer would change those facts, not only the wording. Train time (saa mbili asubuhi) and prices (1,500 for a shirt, 6,000 for two return tickets) are plausible examples, not checked against a current timetable or fare list.",
+        "Wording chosen for plainness over local colour; a Kenyan coastal speaker should say whether these are what people really say: restaurant_order_meal/recommend (Unapendekeza chakula gani? may sound bookish next to Chakula gani ni kizuri leo?), restaurant_order_meal/dish_of_day (biriani spelling, and tamu for a savoury dish), restaurant_order_meal/bill (bili rather than hesabu), shop_for_clothes/can_i_help (Nikusaidie nini? or Nikusaidie na nini?), shop_for_clothes/try_this (jaribu; Kenyans also say pima for trying clothes on), shop_for_clothes/variant (saizi; many simply say size), shop_for_clothes/card (kulipa na M-Pesa or kwa M-Pesa).",
+        "Also to check: buy_train_ticket/when (treni ijayo or treni inayofuata), buy_train_ticket/which_stop (Nishuke kituo gani? against Nitashuka wapi? or Nishukie wapi?), buy_train_ticket/last_stop (a bare imperative Shuka from the clerk), emergency_ask_help/type (anajisikia vibaya or hajisikii vizuri), emergency_ask_help/pain (position of sana), emergency_ask_help/pharmacy (duka la dawa; chemist is the everyday Kenyan word), emergency_ask_help/pharmacy_near (liko pale mbele), talk_about_family/how_long (Utakaa Mombasa mpaka lini?), make_weekend_plans/other_time (Na Jumapili je?), make_weekend_plans/suggest (Twende kuogelea baharini? where friends would more likely say Twende beach?), make_weekend_plans/accept (Wazo zuri, twende!).",
+        "Loanwords kept because people use them in these situations: bili, tiketi, treni, saizi, shati, kadi, mechi, daktari. Swahili has no polite plural for one person: French meanings use vous with strangers and the host, tu with the friend, and the glosses show the singular u-. Glosses mark tense in square brackets ([present], [future]) and visible class agreement as a bracketed prefix ([wa-]two)."
+      ],
+      "characters": [
+        {
+          "key": "swahili_hamisi_waiter",
+          "name": "Hamisi",
+          "role": "waiter",
+          "personality": "quick on his feet, proud of the kitchen, knows the day's dishes by heart",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swahili_zainabu_shop_assistant",
+          "name": "Zainabu",
+          "role": "shop assistant",
+          "personality": "friendly, honest about what fits, enjoys a little bargaining",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_salma_ticket_clerk",
+          "name": "Salma",
+          "role": "ticket clerk",
+          "personality": "efficient, patient with travellers",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_omari_bystander",
+          "name": "Omari",
+          "role": "helpful bystander",
+          "personality": "calm, kind, quick to help",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swahili_mama_fatuma_host",
+          "name": "Mama Fatuma",
+          "role": "host",
+          "personality": "warm, keeps filling your plate, curious about your family",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_baraka_friend",
+          "name": "Baraka",
+          "role": "friend",
+          "personality": "easy-going, football-mad, always up for the sea",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "swahili_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "swahili_hamisi_waiter",
+          "titles": {
+            "en": "Lunch at a Swahili restaurant",
+            "fr": "Déjeuner dans un restaurant swahili"
+          },
+          "sceneNotes": {
+            "en": "A small family restaurant in Mombasa's Old Town at lunchtime; the waiter knows the day's dishes by heart and recommends the chicken biryani.",
+            "fr": "Vous déjeunez dans un petit restaurant familial de la vieille ville de Mombasa ; le serveur connaît les plats du jour par cœur et recommande le biryani au poulet."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Karibuni! Mko wangapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibuni! Mko wangapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! How many of you are there?",
+                  "note": "Karibuni is karibu said to several people: the ending -ni marks the plural. M-ko = you (all) are; wa-ngapi takes wa-, the prefix for people.",
+                  "literal": "welcome-[you all]! you(all)-are [wa-]how-many"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Vous êtes combien ?",
+                  "note": "« Karibuni » est « karibu » adressé à plusieurs personnes : la terminaison -ni marque le pluriel. M-ko = vous êtes ; wa-ngapi prend wa-, le préfixe des personnes.",
+                  "literal": "bienvenue-[à vous tous] ! vous(pl.)-êtes [wa-]combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Naomba meza ya watu wawili, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba meza ya watu wawili, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Naomba (I ask for) is the polite way to request anything. Numbers agree with people: watu wawili, watu watatu (three), watu wanne (four).",
+                  "literal": "I-[present]-ask-for table of people [wa-]two, please"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Naomba » (je demande) est la formule polie pour tout demander. Le nombre s'accorde avec « watu » : watu wawili, watu watatu (trois), watu wanne (quatre). L'accent tombe toujours sur l'avant-dernière syllabe : wa-WI-li.",
+                  "literal": "je-[présent]-demande table de personnes [wa-]deux, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress always falls on the second-to-last syllable: na-OM-ba, wa-WI-li, ta-fa-DHA-li."
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Unapendekeza chakula gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unapendekeza chakula gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which dish do you recommend?",
+                  "note": "U-na-pendekeza: u- is 'you', -na- marks the present. Gani (which) always follows its noun: chakula gani?",
+                  "literal": "you-[present]-recommend food which"
+                },
+                "fr": {
+                  "meaning": "Quel plat recommandez-vous ?",
+                  "note": "U-na-pendekeza : u- = tu, -na- = présent. Le swahili n'a qu'un seul « tu » : pas de vouvoiement, la politesse passe par « tafadhali » et « naomba ». « Gani » (quel) suit toujours le nom. Le u se prononce « ou ».",
+                  "literal": "tu-[présent]-recommandes nourriture quelle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "oo-na-pen-de-KE-za: plain vowels, stress on KE."
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "state_opinion",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Biriani ya kuku ni tamu sana leo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Biriani ya kuku ni tamu sana leo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The chicken biryani is very good today.",
+                  "note": "Mombasa is known for its biryani and pilau, a legacy of centuries of trade across the Indian Ocean. Tamu means sweet, and also tasty for any dish.",
+                  "literal": "biryani of chicken is tasty very today"
+                },
+                "fr": {
+                  "meaning": "Le biryani au poulet est très bon aujourd'hui.",
+                  "note": "Mombasa est réputée pour son biryani et son pilau, héritage de siècles d'échanges sur l'océan Indien. « Tamu » veut dire sucré, mais aussi savoureux pour n'importe quel plat.",
+                  "literal": "biryani de poulet est savoureux très aujourd'hui"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Naomba biriani ya kuku, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba biriani ya kuku, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like the chicken biryani, please.",
+                  "note": "Swap in another dish: pilau ya nyama (pilau with meat), samaki wa kupaka (fish in coconut sauce), wali wa nazi (coconut rice).",
+                  "literal": "I-[present]-ask-for biryani of chicken, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais le biryani au poulet, s'il vous plaît.",
+                  "note": "Remplacez le plat : pilau ya nyama (pilau à la viande), samaki wa kupaka (poisson en sauce coco), wali wa nazi (riz au lait de coco).",
+                  "literal": "je-[présent]-demande biryani de poulet, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Ina pilipili nyingi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ina pilipili nyingi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Does it have a lot of chilli in it?",
+                  "note": "I-na = it has: i- stands for biriani, -na is 'have'. Swap in karanga (peanuts), nyama (meat), maziwa (milk).",
+                  "literal": "it[i-]-has chilli much"
+                },
+                "fr": {
+                  "meaning": "Il y a beaucoup de piment dedans ?",
+                  "note": "I-na = il a : i- reprend « biriani », -na = avoir. Remplacez par karanga (cacahuètes), nyama (viande), maziwa (lait). « ny » se prononce comme le « gn » de « agneau ».",
+                  "literal": "il[i-]-a piment beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ny is one sound, as in 'canyon': NYEEN-gee."
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:not_spicy",
+              "key": "not_spicy",
+              "intentKey": "confirm_order",
+              "slotId": "not_spicy",
+              "speaker": "character",
+              "text": "Hapana, ni kidogo tu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hapana, ni kidogo tu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, only a little.",
+                  "note": "Kidogo = a little; tu = only. Chilli is often served on the side, so you can add your own.",
+                  "literal": "no, it-is little only"
+                },
+                "fr": {
+                  "meaning": "Non, juste un peu.",
+                  "note": "« Kidogo » = un peu ; « tu » = seulement (prononcé « tou », rien à voir avec le « tu » français). Le piment est souvent servi à part : chacun en ajoute à son goût.",
+                  "literal": "non, c'est peu seulement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Chakula ni kitamu sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chakula ni kitamu sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The food is delicious!",
+                  "note": "The adjective copies the noun's prefix: chakula belongs to the KI- class (ki- turns into ch- before a vowel), so -tamu becomes ki-tamu.",
+                  "literal": "food is [ki-]tasty very"
+                },
+                "fr": {
+                  "meaning": "Le repas est délicieux !",
+                  "note": "L'adjectif reprend le préfixe du nom : « chakula » appartient à la classe KI- (ki- devient ch- devant une voyelle), donc -tamu devient ki-tamu. « ch » se prononce « tch ».",
+                  "literal": "nourriture est [ki-]savoureuse très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Tunaomba bili, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tunaomba bili, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could we have the bill, please?",
+                  "note": "Tu-na-omba: tu- is 'we'. Bili comes from English and is the usual word in Kenya.",
+                  "literal": "we-[present]-ask-for bill, please"
+                },
+                "fr": {
+                  "meaning": "Nous voudrions l'addition, s'il vous plaît.",
+                  "note": "Tu-na-omba : tu- au début du verbe = nous (le « tu » qui veut dire « seulement » se place, lui, après le mot). « Bili » vient de l'anglais « bill » ; c'est le mot courant au Kenya.",
+                  "literal": "nous-[présent]-demandons addition, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "Sawa, naileta sasa hivi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, naileta sasa hivi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll bring it right away.",
+                  "note": "Na-i-leta: the -i- in the middle is 'it' (the bill). Sasa hivi = right now.",
+                  "literal": "okay, I-[present]-it-bring now just"
+                },
+                "fr": {
+                  "meaning": "D'accord, je l'apporte tout de suite.",
+                  "note": "Na-i-leta : le -i- glissé au milieu du verbe est le pronom « la » (l'addition). « Sasa hivi » = tout de suite.",
+                  "literal": "d'accord, je-[présent]-la-apporte maintenant même"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mna meza ya watu wawili?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mna meza ya watu wawili?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two?",
+                  "note": "M-na = you (all) have: you are addressing the restaurant, not just the waiter. To one person: una.",
+                  "literal": "you(all)-have table of people [wa-]two"
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux ?",
+                  "note": "M-na = vous avez, au pluriel : on s'adresse au restaurant, pas au seul serveur. À une seule personne : una. Le m- forme une syllabe à lui seul : m-na.",
+                  "literal": "vous(pl.)-avez table de personnes [wa-]deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_restaurant_order_meal:would_like_pilau",
+              "key": "would_like_pilau",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ningependa pilau ya nyama.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ningependa pilau ya nyama."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like the meat pilau.",
+                  "note": "Ni-nge-penda: -nge- is 'would', so 'I would like'. Softer than nataka (I want).",
+                  "literal": "I-[would]-like pilau of meat"
+                },
+                "fr": {
+                  "meaning": "J'aimerais le pilau à la viande.",
+                  "note": "Ni-nge-penda : -nge- marque le conditionnel, comme dans « j'aimerais ». Plus doux que « nataka » (je veux).",
+                  "literal": "je-[conditionnel]-aime pilau de viande"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "swahili_zainabu_shop_assistant",
+          "titles": {
+            "en": "Buying a kitenge shirt",
+            "fr": "Acheter une chemise en kitenge"
+          },
+          "sceneNotes": {
+            "en": "A clothes stall on Biashara Street in Mombasa, hung with kanga and kitenge cloth; the seller is friendly and the first shirt is too small.",
+            "fr": "Vous êtes devant un étal de Biashara Street, à Mombasa, tapissé de kangas et de kitenges ; la vendeuse est aimable et la première chemise est trop petite."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Karibu! Nikusaidie nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibu! Nikusaidie nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! What can I help you with?",
+                  "note": "Ni-ku-saidi-e: 'that I help you'. The final -e (instead of -a) turns a verb into an offer, a wish or a polite request.",
+                  "literal": "welcome! I-you-help-[may] what"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Que puis-je faire pour vous ?",
+                  "note": "Ni-ku-saidi-e : « que je t'aide ». Le -e final (au lieu de -a) est un subjonctif : il sert à proposer, à souhaiter ou à demander poliment.",
+                  "literal": "bienvenue ! je-te-aide-[subjonctif] quoi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Naangalia tu, asante.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naangalia tu, asante."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Tu (only) comes after the word it limits: naangalia tu = I'm only looking.",
+                  "literal": "I-[present]-look only, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Tu » (seulement) se place après le mot qu'il limite. Les deux a du début se prononcent séparément : na-an-ga-LI-a ; « ng » s'entend n+g, comme dans « bingo ».",
+                  "literal": "je-[présent]-regarde seulement, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Two separate a's at the start: na-an-ga-LI-a. Ng as in 'finger'."
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Natafuta shati la kitenge.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Natafuta shati la kitenge."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a kitenge shirt.",
+                  "note": "Kitenge is the bright printed cotton worn all over East Africa. The word for 'of' changes with the noun: shati la kitenge, but meza ya watu.",
+                  "literal": "I-[present]-look-for shirt of[la] kitenge"
+                },
+                "fr": {
+                  "meaning": "Je cherche une chemise en kitenge.",
+                  "note": "Le kitenge est le coton imprimé aux couleurs vives porté dans toute l'Afrique de l'Est. Le mot « de » s'accorde avec le nom : shati la kitenge, mais meza ya watu.",
+                  "literal": "je-[présent]-cherche chemise de[la] kitenge"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:try_this",
+              "key": "try_this",
+              "intentKey": "offer_options",
+              "slotId": "try_this",
+              "speaker": "character",
+              "text": "Jaribu hili, ni zuri sana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jaribu hili, ni zuri sana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try this one, it's very nice.",
+                  "note": "Hili = this one, for a noun like shati. A bare verb stem (jaribu) is the everyday way to tell one person to do something; it is not rude.",
+                  "literal": "try this-one[li-], it-is nice very"
+                },
+                "fr": {
+                  "meaning": "Essayez celle-ci, elle est très jolie.",
+                  "note": "« Hili » = celle-ci, pour un nom comme « shati ». Le radical nu du verbe (jaribu) est l'impératif courant, sans rien d'impoli. Le j se prononce « dj ».",
+                  "literal": "essaie celle-ci[li-], c'est joli très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Una saizi kubwa zaidi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Una saizi kubwa zaidi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a bigger size?",
+                  "note": "Zaidi (more) after an adjective makes the comparison: kubwa zaidi = bigger, ndogo zaidi = smaller. Saizi is the English word 'size'.",
+                  "literal": "you-have size big more"
+                },
+                "fr": {
+                  "meaning": "Vous avez une taille au-dessus ?",
+                  "note": "« Zaidi » (plus) placé après l'adjectif fait le comparatif : kubwa zaidi = plus grand, ndogo zaidi = plus petit. « Saizi » vient de l'anglais « size ». Le u se prononce « ou » : ou-na, kou-bwa.",
+                  "literal": "tu-as taille grande plus"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:here_is_large",
+              "key": "here_is_large",
+              "intentKey": "offer_options",
+              "slotId": "here_is_large",
+              "speaker": "character",
+              "text": "Ndiyo, hili hapa ni kubwa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndiyo, hili hapa ni kubwa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, this one here is large.",
+                  "note": "Ndiyo = yes (literally 'it is so'); hapana = no. Hapa = here.",
+                  "literal": "yes, this-one[li-] here is big"
+                },
+                "fr": {
+                  "meaning": "Oui, celle-ci est grande.",
+                  "note": "« Ndiyo » = oui (mot à mot « c'est ainsi ») ; « hapana » = non. « Hapa » = ici.",
+                  "literal": "oui, celle-ci[li-] ici est grande"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Shati hili ni bei gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Shati hili ni bei gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this shirt?",
+                  "note": "Demonstratives follow the noun: shati hili = this shirt. In Kenya you will also hear: Ni pesa ngapi?",
+                  "literal": "shirt this[li-] is price which"
+                },
+                "fr": {
+                  "meaning": "Combien coûte cette chemise ?",
+                  "note": "Le démonstratif suit le nom : shati hili = cette chemise. Au Kenya, on entend aussi : Ni pesa ngapi ? (mot à mot « c'est combien d'argent ? »). « sh » se prononce « ch ».",
+                  "literal": "chemise celle-ci[li-] est prix quel"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Ni shilingi elfu moja na mia tano.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni shilingi elfu moja na mia tano."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's one thousand five hundred shillings.",
+                  "note": "The figure follows the unit: elfu moja (thousand one), mia tano (hundred five). At a stall the first price is an opening offer.",
+                  "literal": "it-is shillings thousand one and hundred five"
+                },
+                "fr": {
+                  "meaning": "C'est mille cinq cents shillings.",
+                  "note": "Le chiffre suit l'unité : elfu moja (mille un), mia tano (cent cinq). Sur un étal, le premier prix est une base de discussion : on marchande avec le sourire.",
+                  "literal": "c'est shillings mille un et cent cinq"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Sawa, nitachukua hili.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, nitachukua hili."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take this one.",
+                  "note": "Ni-ta-chukua: -ta- marks the future. Compare ni-na-chukua, I am taking.",
+                  "literal": "okay, I-[future]-take this-one[li-]"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends celle-ci.",
+                  "note": "Ni-ta-chukua : -ta- marque le futur (je prendrai). Comparez ni-na-chukua, je prends. « ch » se prononce « tch ».",
+                  "literal": "d'accord, je-[futur]-prends celle-ci[li-]"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Naweza kulipa na M-Pesa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naweza kulipa na M-Pesa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay with M-Pesa?",
+                  "note": "M-Pesa is Kenya's mobile money, used far more than cards at stalls and small shops. Pesa means money; ku-lipa = to pay.",
+                  "literal": "I-[present]-can to-pay with M-Pesa"
+                },
+                "fr": {
+                  "meaning": "Je peux payer avec M-Pesa ?",
+                  "note": "M-Pesa est le paiement par téléphone du Kenya : sur les étals et dans les petites boutiques, on l'utilise bien plus que la carte. « Pesa » = argent ; ku-lipa = payer (ku- marque l'infinitif).",
+                  "literal": "je-[présent]-peux payer avec M-Pesa"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Una rangi nyingine?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Una rangi nyingine?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have another colour?",
+                  "note": "-ingine (other) agrees with its noun: rangi nyingine, but shati lingine (another shirt).",
+                  "literal": "you-have colour [ny-]other"
+                },
+                "fr": {
+                  "meaning": "Vous avez une autre couleur ?",
+                  "note": "-ingine (autre) s'accorde avec le nom : rangi nyingine, mais shati lingine (une autre chemise).",
+                  "literal": "tu-as couleur [ny-]autre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_shop_for_clothes:want_kikoi",
+              "key": "want_kikoi",
+              "intentKey": "request_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nataka kununua kikoi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nataka kununua kikoi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to buy a kikoi.",
+                  "note": "A kikoi is the striped cotton wrap of the Kenyan coast. Nataka + ku-verb = I want to do something.",
+                  "literal": "I-[present]-want to-buy kikoi"
+                },
+                "fr": {
+                  "meaning": "Je veux acheter un kikoi.",
+                  "note": "Le kikoi est le pagne de coton rayé de la côte kényane. Nataka + verbe en ku- = je veux faire quelque chose.",
+                  "literal": "je-[présent]-veux acheter kikoi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "swahili_salma_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Nairobi",
+            "fr": "Un billet de train pour Nairobi"
+          },
+          "sceneNotes": {
+            "en": "The ticket counter at Mombasa Terminus early in the morning; the Madaraka Express to Nairobi leaves soon and you are travelling with a friend.",
+            "fr": "Vous êtes au guichet de la gare de Mombasa Terminus, tôt le matin ; le Madaraka Express pour Nairobi part bientôt et vous voyagez avec un ami."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Naomba tiketi ya kwenda Nairobi, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba tiketi ya kwenda Nairobi, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Nairobi, please.",
+                  "note": "Ya kwenda = 'of going': the usual way to say where a ticket is for. Tiketi comes from English.",
+                  "literal": "I-[present]-ask-for ticket of to-go Nairobi, please"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Nairobi, s'il vous plaît.",
+                  "note": "« Ya kwenda » = « d'aller » : c'est ainsi qu'on indique la destination d'un billet. « Tiketi » vient de l'anglais « ticket ».",
+                  "literal": "je-[présent]-demande billet de aller Nairobi, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Kwenda tu, au kwenda na kurudi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kwenda tu, au kwenda na kurudi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One way, or return?",
+                  "note": "Kurudi = to come back. Kwenda na kurudi, 'going and returning', is a return ticket.",
+                  "literal": "to-go only, or to-go and to-return"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Kurudi » = revenir. « Kwenda na kurudi », « aller et revenir », c'est l'aller-retour. Attention au faux ami : « au » veut dire « ou ».",
+                  "literal": "aller seulement, ou aller et revenir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "Kwenda na kurudi, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kwenda na kurudi, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": null,
+                  "literal": "to-go and to-return, please"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": "Le dh de « tafadhali » se prononce comme le « th » de l'anglais « this » ; à défaut, un z passe très bien.",
+                  "literal": "aller et revenir, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The dh in tafadhali is the th of 'this': ta-fa-THA-li."
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Treni ijayo inaondoka saa ngapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Treni ijayo inaondoka saa ngapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What time does the next train leave?",
+                  "note": "I-na-ondoka: i- stands for treni. Ijayo = 'which is coming', so the next one: wiki ijayo is next week.",
+                  "literal": "train which-comes it-[present]-leaves hour how-many"
+                },
+                "fr": {
+                  "meaning": "À quelle heure part le prochain train ?",
+                  "note": "I-na-ondoka : i- reprend « treni ». « Ijayo » = « qui vient », donc le prochain : wiki ijayo = la semaine prochaine. « Saa ngapi ? » = quelle heure, mot à mot « heure combien ».",
+                  "literal": "train qui-vient il-[présent]-part heure combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Inaondoka saa mbili asubuhi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Inaondoka saa mbili asubuhi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at eight in the morning.",
+                  "note": "Swahili hours are counted from sunrise: saa mbili, 'hour two', is 8 o'clock. Add or take away six from the number you hear.",
+                  "literal": "it-[present]-leaves hour two morning"
+                },
+                "fr": {
+                  "meaning": "Il part à huit heures du matin.",
+                  "note": "L'heure swahilie se compte à partir du lever du soleil : saa mbili, « heure deux », c'est 8 heures. Ajoutez ou retirez six au chiffre entendu.",
+                  "literal": "il-[présent]-part heure deux matin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Tiketi mbili, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tiketi mbili, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two tickets, please.",
+                  "note": "Tiketi does not change in the plural; the number comes after the noun.",
+                  "literal": "tickets two, please"
+                },
+                "fr": {
+                  "meaning": "Deux billets, s'il vous plaît.",
+                  "note": "« Tiketi » ne change pas au pluriel ; le nombre se place après le nom. Le « mb » de « mbili » se prononce d'un seul trait.",
+                  "literal": "billets deux, s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mb is one sound: say m and b together, m-BEE-lee."
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Nishuke kituo gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nishuke kituo gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which station should I get off at?",
+                  "note": "Ni-shuk-e: the final -e means 'should I'. Kituo is a station or a stop: kituo cha basi = bus stop.",
+                  "literal": "I-get-off-[should] station which"
+                },
+                "fr": {
+                  "meaning": "À quelle gare dois-je descendre ?",
+                  "note": "Ni-shuk-e : le -e final (subjonctif) donne « dois-je… ? ». « Kituo » = gare ou arrêt : kituo cha basi = arrêt de bus. « sh » se prononce « ch ».",
+                  "literal": "je-descende-[subjonctif] gare quelle"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:last_stop",
+              "key": "last_stop",
+              "intentKey": "state_destination",
+              "slotId": "last_stop",
+              "speaker": "character",
+              "text": "Shuka Nairobi Terminus, ni kituo cha mwisho.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Shuka Nairobi Terminus, ni kituo cha mwisho."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Get off at Nairobi Terminus, it's the last stop.",
+                  "note": "Nairobi Terminus is at Syokimau, outside the city centre: allow time for the ride into town. Cha is 'of' for a KI- noun like kituo.",
+                  "literal": "get-off Nairobi Terminus, it-is station of[cha] end"
+                },
+                "fr": {
+                  "meaning": "Descendez à Nairobi Terminus, c'est le dernier arrêt.",
+                  "note": "Nairobi Terminus se trouve à Syokimau, hors du centre-ville : prévoyez le trajet jusqu'au centre. « Cha » = « de », accordé avec « kituo » (classe KI-).",
+                  "literal": "descends Nairobi Terminus, c'est gare de[cha] fin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Naweza kulipa kwa kadi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naweza kulipa kwa kadi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Kwa = by, with: kwa kadi (by card), kwa pesa taslimu (in cash).",
+                  "literal": "I-[present]-can to-pay by card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "« Kwa » = par, avec : kwa kadi (par carte), kwa pesa taslimu (en espèces).",
+                  "literal": "je-[présent]-peux payer par carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:total",
+              "key": "total",
+              "intentKey": "state_price",
+              "slotId": "total",
+              "speaker": "character",
+              "text": "Ndiyo. Jumla ni shilingi elfu sita.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndiyo. Jumla ni shilingi elfu sita."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes. The total is six thousand shillings.",
+                  "note": "Jumla = the total. Thousands: elfu moja, elfu mbili, elfu sita.",
+                  "literal": "yes. total is shillings thousand six"
+                },
+                "fr": {
+                  "meaning": "Oui. Le total est de six mille shillings.",
+                  "note": "« Jumla » = le total. Les milliers : elfu moja, elfu mbili, elfu sita. Le j se prononce « dj ».",
+                  "literal": "oui. total est shillings mille six"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_buy_train_ticket:want_two_tickets",
+              "key": "want_two_tickets",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nataka tiketi mbili za kwenda Nairobi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nataka tiketi mbili za kwenda Nairobi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want two tickets to Nairobi.",
+                  "note": "With one ticket it is ya kwenda; with several it becomes za kwenda: the little word for 'of' follows the plural.",
+                  "literal": "I-[present]-want tickets two of[za] to-go Nairobi"
+                },
+                "fr": {
+                  "meaning": "Je veux deux billets pour Nairobi.",
+                  "note": "Avec un seul billet, on dit ya kwenda ; avec plusieurs, za kwenda : le petit mot « de » se met au pluriel.",
+                  "literal": "je-[présent]-veux billets deux de[za] aller Nairobi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "swahili_omari_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "Near Fort Jesus in Mombasa on a very hot afternoon, the friend walking with you suddenly feels faint; a passer-by stops to help.",
+            "fr": "Près de Fort Jesus, à Mombasa, par un après-midi très chaud, l'ami qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Nisaidie, tafadhali!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nisaidie, tafadhali!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help me, please!",
+                  "note": "Ni-saidi-e: ni- is 'me', and the final -e makes the request. In Kenya the emergency numbers are 999 and 112.",
+                  "literal": "me-help-[do!], please"
+                },
+                "fr": {
+                  "meaning": "Aidez-moi, s'il vous plaît !",
+                  "note": "Ni-saidi-e : ni- = me, et le -e final exprime la demande. Au Kenya, les numéros d'urgence sont le 999 et le 112. Prononcez chaque voyelle : ni-sa-i-DI-é.",
+                  "literal": "me-aide-[subjonctif], s'il vous plaît"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sound every vowel: nee-sah-ee-DEE-eh."
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Kuna shida gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kuna shida gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the problem?",
+                  "note": "Kuna = there is / there are; it never changes. Shida = a problem, trouble.",
+                  "literal": "there-is problem which"
+                },
+                "fr": {
+                  "meaning": "Quel est le problème ?",
+                  "note": "« Kuna » = « il y a », invariable. « Shida » = problème, ennui ; « sh » se prononce « ch ».",
+                  "literal": "il-y-a problème quel"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Rafiki yangu anajisikia vibaya.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Rafiki yangu anajisikia vibaya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend feels unwell.",
+                  "note": "A-na-ji-sikia: a- is he or she (Swahili has one word for both), -ji- is 'oneself'. Rafiki yangu = my friend.",
+                  "literal": "friend my he/she-[present]-self-feels badly"
+                },
+                "fr": {
+                  "meaning": "Mon ami ne se sent pas bien.",
+                  "note": "A-na-ji-sikia : a- = il ou elle (le swahili ne distingue pas), -ji- = « se ». La phrase vaut donc aussi pour une amie. « Rafiki yangu » = mon ami(e).",
+                  "literal": "ami mon il/elle-[présent]-se-sent mal"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Anaumwa na kichwa sana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anaumwa na kichwa sana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "He has a bad headache.",
+                  "note": "The same sentence means 'she has'. About yourself: ninaumwa na kichwa (head), na tumbo (stomach), na jino (tooth).",
+                  "literal": "he/she-[present]-is-hurt by head very"
+                },
+                "fr": {
+                  "meaning": "Il a très mal à la tête.",
+                  "note": "Même phrase pour « elle ». « Kuumwa na » = avoir mal à (mot à mot « être mordu par »). Pour soi : ninaumwa na kichwa (tête), na tumbo (ventre), na jino (dent).",
+                  "literal": "il/elle-[présent]-a-mal par tête beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:calm",
+              "key": "calm",
+              "intentKey": "react_with_empathy",
+              "slotId": "calm",
+              "speaker": "character",
+              "text": "Pole sana! Usijali, nitakusaidia.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pole sana! Usijali, nitakusaidia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm so sorry! Don't worry, I'll help you.",
+                  "note": "Pole is what you say to anyone who is unwell, tired or in trouble: sympathy, not an apology. U-si-jali = you-not-worry.",
+                  "literal": "sorry very! you-not-worry, I-[future]-you-help"
+                },
+                "fr": {
+                  "meaning": "Oh, je suis navré ! Ne vous inquiétez pas, je vais vous aider.",
+                  "note": "« Pole » se dit à toute personne qui souffre, peine ou est fatiguée : c'est de la compassion, pas une excuse. U-si-jali = tu-ne-t'inquiètes-pas.",
+                  "literal": "désolé beaucoup ! tu-ne-t'inquiètes-pas, je-[futur]-te-aide"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Kuna duka la dawa hapa karibu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kuna duka la dawa hapa karibu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a pharmacy near here?",
+                  "note": "Duka la dawa is 'shop of medicine'. In Kenya many people simply say chemist.",
+                  "literal": "there-is shop of[la] medicine here near"
+                },
+                "fr": {
+                  "meaning": "Il y a une pharmacie près d'ici ?",
+                  "note": "« Duka la dawa », c'est la « boutique de médicaments ». Au Kenya, beaucoup disent simplement « chemist », à l'anglaise.",
+                  "literal": "il-y-a boutique de[la] médicament ici près"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Ndiyo, liko pale mbele, karibu sana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndiyo, liko pale mbele, karibu sana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, it's just ahead there, very near.",
+                  "note": "Li-ko = it is (somewhere): li- stands for duka. Karibu means both 'near' and 'welcome'.",
+                  "literal": "yes, it[li-]-is-located there ahead, near very"
+                },
+                "fr": {
+                  "meaning": "Oui, elle est là-bas devant, tout près.",
+                  "note": "Li-ko = elle se trouve : li- reprend « duka ». « Karibu » veut dire à la fois « près » et « bienvenue ».",
+                  "literal": "oui, elle[li-]-se-trouve là devant, près très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Sawa, nimeelewa. Nashukuru sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, nimeelewa. Nashukuru sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I understand. Thank you so much!",
+                  "note": "Ni-me-elewa: -me- marks something just completed, 'I have understood'. Nashukuru (I am grateful) is a warmer asante.",
+                  "literal": "okay, I-[perfect]-understand. I-[present]-am-grateful very"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'ai compris. Merci infiniment !",
+                  "note": "Ni-me-elewa : -me- marque l'action accomplie, comme le passé composé. « Nashukuru » (je suis reconnaissant) est un « asante » plus appuyé.",
+                  "literal": "d'accord, je-[accompli]-comprends. je-[présent]-remercie beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tunahitaji daktari.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tunahitaji daktari."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need a doctor.",
+                  "note": "Tu-na-hitaji = we need; I need = ninahitaji. Daktari comes from 'doctor'.",
+                  "literal": "we-[present]-need doctor"
+                },
+                "fr": {
+                  "meaning": "Nous avons besoin d'un médecin.",
+                  "note": "Tu-na-hitaji = nous avons besoin ; j'ai besoin = ninahitaji. Le h se prononce toujours, bien soufflé.",
+                  "literal": "nous-[présent]-avons-besoin médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "swahili_mama_fatuma_host",
+          "titles": {
+            "en": "Lunch at Mama Fatuma's",
+            "fr": "Déjeuner chez Mama Fatuma"
+          },
+          "sceneNotes": {
+            "en": "Lunch at your neighbour Mama Fatuma's home in Mombasa; she keeps filling your plate with pilau and wants to know all about your family.",
+            "fr": "Vous êtes invité à déjeuner chez votre voisine Mama Fatuma, à Mombasa ; elle remplit sans cesse votre assiette de pilau et veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Karibu ndani! Karibu chakula.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibu ndani! Karibu chakula."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come on in! Come and eat.",
+                  "note": "Karibu + a noun invites you to it: karibu chakula (to the meal), karibu chai (to tea). You answer asante and sit down.",
+                  "literal": "welcome inside! welcome food"
+                },
+                "fr": {
+                  "meaning": "Entre donc ! Viens manger.",
+                  "note": "« Karibu » + un nom vous invite à quelque chose : karibu chakula (au repas), karibu chai (au thé). On répond « asante » et on s'installe.",
+                  "literal": "bienvenue dedans ! bienvenue nourriture"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Pilau hii ni tamu sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pilau hii ni tamu sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This pilau is really delicious!",
+                  "note": "Hii = this, for a noun like pilau; with chakula you would say chakula hiki. Pilau is rice cooked in spiced meat stock.",
+                  "literal": "pilau this[i-] is tasty very"
+                },
+                "fr": {
+                  "meaning": "Ce pilau est vraiment délicieux !",
+                  "note": "« Hii » = ce/cette, pour un nom comme « pilau » ; avec « chakula », on dirait chakula hiki. Le pilau est un riz cuit dans un bouillon de viande épicé. Dites « pi-la-ou ».",
+                  "literal": "pilau celui-ci[i-] est savoureux très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Asante! Na unaongea Kiswahili vizuri!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante! Na unaongea Kiswahili vizuri!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you! And you speak Swahili well!",
+                  "note": "Languages take the prefix Ki-: Kiswahili, Kiingereza (English), Kifaransa (French). Vizuri = well.",
+                  "literal": "thanks! and you-[present]-speak Swahili well"
+                },
+                "fr": {
+                  "meaning": "Merci ! Et tu parles bien swahili !",
+                  "note": "Les langues prennent le préfixe Ki- : Kiswahili, Kifaransa (le français), Kiingereza (l'anglais). « Vizuri » = bien.",
+                  "literal": "merci ! et tu-[présent]-parles swahili bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Asante, bado ninajifunza.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante, bado ninajifunza."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm still learning.",
+                  "note": "Ni-na-ji-funza: 'I teach myself', the Swahili way to say 'I learn'. Bado = still, or not yet.",
+                  "literal": "thanks, still I-[present]-self-teach"
+                },
+                "fr": {
+                  "meaning": "Merci, j'apprends encore.",
+                  "note": "Ni-na-ji-funza : « je m'enseigne », c'est ainsi que le swahili dit « j'apprends ». « Bado » = encore, ou pas encore selon le contexte.",
+                  "literal": "merci, encore je-[présent]-me-enseigne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Una watoto wangapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Una watoto wangapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many children do you have?",
+                  "note": "A normal, friendly question in East Africa. Mtoto = a child, watoto = children: the plural is made at the front of the word.",
+                  "literal": "you-have children [wa-]how-many"
+                },
+                "fr": {
+                  "meaning": "Vous avez combien d'enfants ?",
+                  "note": "Une question tout à fait normale et amicale en Afrique de l'Est. Mtoto = un enfant, watoto = des enfants : le pluriel se marque au début du mot.",
+                  "literal": "tu-as enfants [wa-]combien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Nina watatu. Na wewe, una kaka au dada?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nina watatu. Na wewe, una kaka au dada?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have three. And you, do you have brothers or sisters?",
+                  "note": "Kaka = brother, dada = sister. Ni-na = I have, u-na = you have: 'have' is literally 'be with'.",
+                  "literal": "I-have [wa-]three. and you, you-have brother or sister"
+                },
+                "fr": {
+                  "meaning": "J'en ai trois. Et toi, tu as des frères ou des sœurs ?",
+                  "note": "Kaka = frère, dada = sœur. Ni-na = j'ai, u-na = tu as : « avoir » se dit mot à mot « être avec ». Rappel : « au » signifie « ou ».",
+                  "literal": "j'ai [wa-]trois. et toi, tu-as frère ou sœur"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Nina kaka mmoja na dada wawili.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nina kaka mmoja na dada wawili."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have one brother and two sisters.",
+                  "note": "Numbers for people take m- (one) or wa- (several): kaka mmoja, dada wawili. Change them to fit your own family.",
+                  "literal": "I-have brother [m-]one and sisters [wa-]two"
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et deux sœurs.",
+                  "note": "Pour des personnes, le nombre prend m- (un seul) ou wa- (plusieurs) : kaka mmoja, dada wawili. Adaptez à votre famille. Dans « mmoja », le premier m forme une syllabe : m-MO-dja.",
+                  "literal": "j'ai frère [m-]un et sœurs [wa-]deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The first m of mmoja is a syllable of its own: m-MO-ja."
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:how_long",
+              "key": "how_long",
+              "intentKey": "ask_clarification",
+              "slotId": "how_long",
+              "speaker": "character",
+              "text": "Utakaa Mombasa mpaka lini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Utakaa Mombasa mpaka lini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How long will you stay in Mombasa?",
+                  "note": "U-ta-kaa: -ta- is the future. Mpaka lini = until when.",
+                  "literal": "you-[future]-stay Mombasa until when"
+                },
+                "fr": {
+                  "meaning": "Tu restes à Mombasa jusqu'à quand ?",
+                  "note": "U-ta-kaa : -ta- marque le futur. « Mpaka lini » = jusqu'à quand. Les deux a de « kaa » se prononcent : ka-a.",
+                  "literal": "tu-[futur]-restes Mombasa jusqu'à quand"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Bado sijui.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bado sijui."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Si-jui: si- is 'I … not'. The negative has its own prefix: ninajua (I know), sijui (I don't know).",
+                  "literal": "yet I-not-know"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "Si-jui : si- = « je… ne… pas ». La négation a son propre préfixe : ninajua (je sais), sijui (je ne sais pas). Le j se prononce « dj ».",
+                  "literal": "encore je-ne-sais-pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_talk_about_family:where_parents",
+              "key": "where_parents",
+              "intentKey": "ask_about_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Wazazi wako wanaishi wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wazazi wako wanaishi wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do your parents live?",
+                  "note": "The wa- of wazazi (parents) is repeated on every word that goes with it: wa-ko (your), wa-na-ishi (they live).",
+                  "literal": "parents [w-]your they-[present]-live where"
+                },
+                "fr": {
+                  "meaning": "Où habitent vos parents ?",
+                  "note": "Le wa- de « wazazi » (parents) se répète sur tous les mots qui en dépendent : wa-ko (tes, vos), wa-na-ishi (ils habitent).",
+                  "literal": "parents [w-]tes ils-[présent]-habitent où"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "swahili_baraka_friend",
+          "titles": {
+            "en": "Plans for the weekend",
+            "fr": "Des projets pour le week-end"
+          },
+          "sceneNotes": {
+            "en": "Your friend Baraka wants you to come and watch the match on Saturday, but you are busy; you suggest Sunday by the sea instead.",
+            "fr": "Votre ami Baraka vous propose de regarder le match samedi, mais vous êtes pris ; vous suggérez plutôt dimanche, au bord de la mer."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:match_saturday",
+              "key": "match_saturday",
+              "intentKey": "invite",
+              "slotId": "match_saturday",
+              "speaker": "character",
+              "text": "Kuna mechi Jumamosi jioni. Utakuja?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kuna mechi Jumamosi jioni. Utakuja?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "There's a match on Saturday evening. Will you come?",
+                  "note": "Mechi is 'match': English football is followed passionately in Kenya. Jumamosi = Saturday, jioni = evening.",
+                  "literal": "there-is match Saturday evening. you-[future]-come"
+                },
+                "fr": {
+                  "meaning": "Il y a un match samedi soir. Tu viens ?",
+                  "note": "« Mechi » vient de « match » : le football anglais passionne le Kenya. Jumamosi = samedi, jioni = le soir.",
+                  "literal": "il-y-a match samedi soir. tu-[futur]-viens"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Samahani, Jumamosi sina nafasi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samahani, Jumamosi sina nafasi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, I'm not free on Saturday.",
+                  "note": "Si-na = I don't have (the opposite of nina). Nafasi is room, a chance or free time.",
+                  "literal": "sorry, Saturday I-not-have free-time"
+                },
+                "fr": {
+                  "meaning": "Pardon, samedi je ne suis pas libre.",
+                  "note": "Si-na = je n'ai pas (le contraire de nina). « Nafasi » = de la place, une occasion ou du temps libre.",
+                  "literal": "pardon, samedi je-n'ai-pas temps-libre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Na Jumapili je?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na Jumapili je?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What about Sunday?",
+                  "note": "Je at the end means 'what about…?': na wewe je? = and what about you? The week starts on Saturday: Jumamosi is 'day one', Jumapili 'day two'.",
+                  "literal": "and Sunday what-about"
+                },
+                "fr": {
+                  "meaning": "Et dimanche ?",
+                  "note": "« Je » en fin de phrase signifie « et… alors ? » : na wewe je ? = et toi ? La semaine commence le samedi : Jumamosi est le « jour un », Jumapili le « jour deux ». Prononcez « djé ».",
+                  "literal": "et dimanche alors"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Poa! Jumapili nina nafasi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Poa! Jumapili nina nafasi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Cool! I'm free on Sunday.",
+                  "note": "Poa (cool) is the casual yes among friends all over Kenya.",
+                  "literal": "cool! Sunday I-have free-time"
+                },
+                "fr": {
+                  "meaning": "Super ! Dimanche, je suis libre.",
+                  "note": "« Poa » (cool) est le « d'accord » décontracté entre amis, partout au Kenya.",
+                  "literal": "cool ! dimanche j'ai temps-libre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Twende kuogelea baharini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Twende kuogelea baharini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go swimming in the sea?",
+                  "note": "Tw-end-e = let's go: tu- (we) plus the final -e of a suggestion. Bahari-ni: the ending -ni means 'in' or 'at'.",
+                  "literal": "we-go-[let's] to-swim sea-in"
+                },
+                "fr": {
+                  "meaning": "On va se baigner dans la mer ?",
+                  "note": "Tw-end-e = allons : tu- (nous) + le -e final de la proposition. Bahari-ni : la terminaison -ni veut dire « dans » ou « à ». Chaque voyelle compte : kou-o-gué-LÉ-a.",
+                  "literal": "nous-allions-[subjonctif] nager mer-dans"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "koo-oh-geh-LEH-ah: each vowel is its own syllable."
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Tukutane saa nne asubuhi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tukutane saa nne asubuhi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at ten in the morning?",
+                  "note": "Tu-kutan-e = let's meet. Saa nne, 'hour four', is ten o'clock: Swahili hours start at sunrise.",
+                  "literal": "we-meet-[let's] hour four morning"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à dix heures du matin ?",
+                  "note": "Tu-kutan-e = retrouvons-nous. Saa nne, « heure quatre », c'est dix heures : l'heure swahilie part du lever du soleil. Dans « nne », le premier n forme une syllabe : n-né.",
+                  "literal": "nous-rencontrions-[subjonctif] heure quatre matin"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:madafu_after",
+              "key": "madafu_after",
+              "intentKey": "invite",
+              "slotId": "madafu_after",
+              "speaker": "character",
+              "text": "Sawa! Halafu tunywe madafu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa! Halafu tunywe madafu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK! And then shall we have some coconut water?",
+                  "note": "Madafu are young green coconuts, opened in front of you along the Mombasa seafront. Tu-nyw-e = let's drink.",
+                  "literal": "okay! then we-drink-[let's] young-coconuts"
+                },
+                "fr": {
+                  "meaning": "D'accord ! Et après, on boit une noix de coco ?",
+                  "note": "Les « madafu » sont de jeunes noix de coco vertes, ouvertes devant vous sur le front de mer de Mombasa. Tu-nyw-e = buvons.",
+                  "literal": "d'accord ! ensuite nous-buvions-[subjonctif] jeunes-noix-de-coco"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Wazo zuri, twende!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wazo zuri, twende!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good idea, let's go!",
+                  "note": "Wazo = an idea; zuri = good. Twende! on its own is the everyday 'let's go!'.",
+                  "literal": "idea good, we-go-[let's]"
+                },
+                "fr": {
+                  "meaning": "Bonne idée, allons-y !",
+                  "note": "« Wazo » = idée ; « zuri » = bonne. « Twende ! » tout seul est le « on y va ! » de tous les jours.",
+                  "literal": "idée bonne, nous-allions-[subjonctif]"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Basi, Jumapili saa nne asubuhi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Basi, Jumapili saa nne asubuhi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So, Sunday at ten in the morning.",
+                  "note": "Basi = so, well then. It also closes a conversation: basi, kwaheri.",
+                  "literal": "so, Sunday hour four morning"
+                },
+                "fr": {
+                  "meaning": "Alors, dimanche à dix heures du matin.",
+                  "note": "« Basi » = alors, bon. Il sert aussi à conclure : basi, kwaheri (bon, au revoir).",
+                  "literal": "alors, dimanche heure quatre matin"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:go_fort_jesus",
+              "key": "go_fort_jesus",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tunaweza kwenda Fort Jesus?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tunaweza kwenda Fort Jesus?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could we go to Fort Jesus?",
+                  "note": "Fort Jesus is the 16th-century Portuguese fort that guards Mombasa's old harbour. Tunaweza + ku-verb = we can.",
+                  "literal": "we-[present]-can to-go Fort Jesus"
+                },
+                "fr": {
+                  "meaning": "On pourrait aller à Fort Jesus ?",
+                  "note": "Fort Jesus est le fort portugais du XVIe siècle qui garde le vieux port de Mombasa. Tunaweza + verbe en ku- = nous pouvons.",
+                  "literal": "nous-[présent]-pouvons aller Fort Jesus"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch2:swahili_make_weekend_plans:ill_come",
+              "key": "ill_come",
+              "intentKey": "accept_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sawa, nitakuja!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, nitakuja!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll come!",
+                  "note": "Ni-ta-kuja: I will come. It answers the friend's question u-ta-kuja?, will you come?",
+                  "literal": "okay, I-[future]-come"
+                },
+                "fr": {
+                  "meaning": "D'accord, je viendrai !",
+                  "note": "Ni-ta-kuja : je viendrai. C'est la réponse à la question de votre ami, u-ta-kuja ? (tu viendras ?).",
+                  "literal": "d'accord, je-[futur]-viens"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }
