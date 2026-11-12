@@ -247,6 +247,10 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     _update(state.learner.withXp(amount, _now));
   }
 
+  /// A mini-game round played to the end: practice, paid like a step (+5 XP; `GameStats` calls this once a day per
+  /// game).
+  void gameRoundPlayed() => _update(state.learner.withXp(XpAmounts.stepCompleted, _now));
+
   /// Rate one due card (+3 XP).
   void reviewCard(String expressionId, ReviewRating rating) {
     final course = state.activeCourse;

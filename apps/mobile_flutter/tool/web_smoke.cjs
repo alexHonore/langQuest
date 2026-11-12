@@ -1,7 +1,7 @@
 // Browser smoke test of the release web build, as CI serves it from the root Dockerfile's image. The widget tests run
 // on the Dart VM; this catches what only the compiled web app does (a dart2js miscompile once broke recording there
 // while every VM test passed). First run → the warm-up → a lesson → record yourself with Chromium's fake microphone →
-// Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
+// the practice session's pairs → the mini-games' door → Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
 // a first visit (the catalog says what each course offers), the opened course's only, then the learner's only.
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
@@ -98,6 +98,26 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   }));
   if (mic.streams !== 1 || mic.live !== 0) throw new Error(`the microphone was not released after the take (${JSON.stringify(mic)})`);
   ok('record yourself: a take is recorded, plays back, and the microphone is released');
+
+  // The practice session and the mini-games are built by seeded shuffles (32-bit arithmetic that only the compiled
+  // app runs as JavaScript numbers): the session opens on its pairs, each card a button named by its phrase; the
+  // games wait for a Learn stop to be done, and say so.
+  await page.evaluate(() => {
+    location.hash = '#/learn/es_greet_and_introduce/practice';
+  });
+  await page.waitForTimeout(2000);
+  await expectButton('Hola, buenos días.');
+  await expectButton('Hello, good morning.');
+  await tap('Hola, buenos días.', { wait: 400 });
+  await tap('Hello, good morning.', { wait: 900 });
+  await expectButton('Hola, buenos días., matched');
+  ok('the practice session opens on its pairs, and a pair matches');
+  await page.evaluate(() => {
+    location.hash = '#/play';
+  });
+  await page.waitForTimeout(1500);
+  await expectButton('Back home');
+  ok('the mini-games wait for a first Learn stop');
 
   await page.evaluate(() => {
     location.hash = '#/account';

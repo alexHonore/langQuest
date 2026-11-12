@@ -97,3 +97,31 @@ class GlassContainer extends StatelessWidget {
     return content;
   }
 }
+
+/// A lantern's glow behind a screen's content: light in [color] that fades out to nothing (Night Market's ambient
+/// bloom). Decorative: it takes no taps.
+class LanternBloom extends StatelessWidget {
+  const LanternBloom({super.key, required this.color, required this.size});
+
+  final Color color;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(
+    child: Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            color,
+            color.withValues(alpha: color.a * 0.45),
+            color.withValues(alpha: 0),
+          ],
+          stops: const [0, 0.45, 1],
+        ),
+      ),
+    ),
+  );
+}

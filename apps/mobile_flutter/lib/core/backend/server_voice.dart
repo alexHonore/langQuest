@@ -214,3 +214,13 @@ final lineVoiceProvider = FutureProvider.autoDispose.family<LineVoice, String?>(
   if (bundled != null) return LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: speech);
   return LineVoice(source: LineVoiceSource.none, speech: speech);
 });
+
+/// The voice for lines as far as it is known right now: [lineVoiceProvider]'s once the device has answered about its
+/// own voices (a browser can take a moment), and until then the bundled clips alone, which need nothing from the
+/// device. For what cannot wait: an exercise asked by ear is built, and said, as soon as its screen opens.
+final lineVoiceNowProvider = Provider.autoDispose.family<LineVoice?, String?>((ref, locale) {
+  final resolved = ref.watch(lineVoiceProvider(locale)).asData?.value;
+  if (resolved != null) return resolved;
+  final bundled = ref.watch(bundledVoiceProvider);
+  return bundled == null ? null : LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: ref.watch(speechServiceProvider));
+});

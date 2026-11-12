@@ -10,14 +10,16 @@ import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/content/content_models.dart';
 import '../call/call_screen.dart';
+import '../games/game_pool.dart';
 import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
-import '../../core/theme/colors.dart';
+import '../../core/theme/typography.dart';
 import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
+import '../learn/exercise_widgets.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
@@ -28,7 +30,9 @@ import '../scenes/animated_scene.dart';
 
 enum _Phase { exchange, recap, completed }
 
-/// The Mission stop of a mission node (N2). Every exchange asks only for a line the Learn stop taught: the
+/// The Mission stop of a mission node (N2), played as the conversation it is: the lines exchanged so far stay above
+/// as a thread, the character's next line arrives in a bubble, and the learner's reply joins it once given. Every
+/// exchange asks only for a line the Learn stop taught: the
 /// character's cue (or the meaning, when the learner speaks first), the reply chosen among three taught phrases,
 /// then said out loud — where the device can record, the learner can record it and hear their take next to the
 /// reference voice. For a signed-in learner whose course the server can check, the take is checked: was the reply
@@ -68,6 +72,9 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   late final bool _wasCompleted;
   int _newReviewCards = 0;
 
+  /// The conversation's thread: it follows the latest line.
+  final _thread = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -82,7 +89,21 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   @override
   void dispose() {
     _speech.stop();
+    _thread.dispose();
     super.dispose();
+  }
+
+  /// Brings the newest line of the thread into view (after the frame that added it).
+  void _followThread() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_thread.hasClients) return;
+      final end = _thread.position.maxScrollExtent;
+      if (context.reduceMotion) {
+        _thread.jumpTo(end);
+      } else {
+        _thread.animateTo(end, duration: const Duration(milliseconds: 280), curve: Curves.easeOutCubic);
+      }
+    });
   }
 
   /// Says [line] in the course's voice (the server's AI voice signed in, else the device's), interrupting the
@@ -140,6 +161,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _firstTry.putIfAbsent(exchange.answer.id, () => correct);
       _answered = correct;
     });
+    _followThread();
     if (correct) _say(exchange.answer);
   }
 
@@ -159,6 +181,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         _phase = _Phase.recap;
       }
     });
+    _followThread();
     if (_phase == _Phase.exchange) _introduce();
   }
 
@@ -175,6 +198,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         _selected = exchange.answerIndex;
         _verdict = verdict;
       });
+      _followThread();
       _say(exchange.answer);
     } else if (verdict.kind == SpeechVerdictKind.notUnderstood) {
       _spoken.putIfAbsent(exchange.answer.id, () => false);
@@ -206,7 +230,6 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     if (plan == null || plan.exchanges.isEmpty) return const MissionUnavailable();
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
-    final accent = appState.accent;
     final l10n = context.l10n;
     final sceneId = sceneIdForSituation(plan.mission.situation);
     final segments = plan.exchanges.length + 1;
@@ -221,73 +244,31 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 4, 16, 4),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(LucideIcons.x, color: colors.textSecondary),
-                    tooltip: l10n.close,
-                    onPressed: () => context.popOrHome(),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          plan.mission.titleIn(plan.source) ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
-                        ),
-                        const SizedBox(height: 6),
-                        Semantics(
-                          label: l10n.stepOf((current + 1).clamp(1, segments), segments),
-                          child: Row(
-                            children: List.generate(
-                              segments,
-                              (i) => Expanded(
-                                child: Container(
-                                  height: 4,
-                                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                                  decoration: BoxDecoration(
-                                    color: i < current ? colors.success : (i == current ? accent.primary : colors.border),
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            LearnTopBar(
+              title: plan.mission.titleIn(plan.source) ?? '',
+              step: (current + 1).clamp(1, segments),
+              total: segments,
+              fraction: current / segments,
+              onClose: () => context.popOrHome(),
             ),
-            if (_phase != _Phase.completed)
+            // The place of the conversation, with who the learner is talking to.
+            if (_phase == _Phase.exchange)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
-                child: LayoutBuilder(
-                  builder: (context, box) {
-                    final height = (MediaQuery.sizeOf(context).height * 0.17).clamp(96.0, 150.0);
-                    return AnimatedSceneWidget(
-                      sceneId: sceneId,
-                      title: sceneTitle(l10n, sceneId),
-                      height: height,
-                      showTimeToggle: false,
-                      child: Center(
-                        child: CharacterBadge(
-                          name: plan.characterName,
-                          speaking: _speaking && _phase == _Phase.exchange && !_answered,
-                          size: (height * 0.45).clamp(40.0, 64.0),
-                        ),
-                      ),
-                    );
-                  },
+                child: AnimatedSceneWidget(
+                  sceneId: sceneId,
+                  title: sceneTitle(l10n, sceneId),
+                  height: (MediaQuery.sizeOf(context).height * 0.13).clamp(84.0, 116.0),
+                  showTimeToggle: false,
+                  child: Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 16),
+                      child: CharacterBadge(name: plan.characterName, speaking: _speaking && !_answered, size: 46),
+                    ),
+                  ),
                 ),
               ),
-            const SizedBox(height: 12),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -312,121 +293,228 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final cue = exchange.cue;
     final wrong = _selected != null && _selected != exchange.answerIndex;
     final canAnswerOutLoud = ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
+    // Said out loud already (understood), or waits for a take of the chosen reply.
+    final waitingForTake = _answered && !_answeredByVoice && speakingRequired(ref) && !_sayStep.done;
 
-    final prompt = Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: colors.border),
-      ),
-      child: cue != null
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        l10n.missionCue(plan.characterName),
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.4, color: colors.textMuted),
-                      ),
-                    ),
-                    ReadAloudButton(onPressed: () => _introduce(asked: true)),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                SizedBox(
-                  width: double.infinity,
-                  child: TargetText(expression: cue, track: plan.track, fontSize: 19),
-                ),
-                const SizedBox(height: 4),
-                Text(plan.meaningOf(cue), style: TextStyle(fontSize: 14, color: colors.textSecondary)),
-                const SizedBox(height: 8),
-                ListenButtons(text: cue.text, expressionId: cue.id, locale: plan.voiceLocale, compact: true),
-              ],
-            )
-          : Row(
+    // Where the conversation happens, then what was exchanged before, as its thread.
+    final thread = <Widget>[
+      if (plan.mission.sceneNoteIn(plan.source) case final note?)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 0, 8, 12),
+          child: Text(
+            note,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13.5, height: 1.4, fontStyle: FontStyle.italic, color: colors.textMuted),
+          ),
+        ),
+      for (final past in plan.exchanges.take(_exchange)) ...[
+        if (past.cue case final said?)
+          LineBubble(
+            expression: said,
+            track: plan.track,
+            meaning: plan.meaningOf(said),
+            byLearner: false,
+            speakerName: plan.characterName,
+            faded: true,
+            fontSize: 16,
+          ),
+        LineBubble(expression: past.answer, track: plan.track, meaning: plan.meaningOf(past.answer), byLearner: true, faded: true, fontSize: 16),
+      ],
+    ];
+
+    // The character's line to answer, or what to say when the learner speaks first.
+    final Widget prompt = cue != null
+        ? LineBubble(
+            expression: cue,
+            track: plan.track,
+            meaning: plan.meaningOf(cue),
+            byLearner: false,
+            speakerName: l10n.missionCue(plan.characterName),
+            speaking: _speaking && !_answered,
+            fontSize: 19,
+            footer: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    l10n.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)),
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: ListenButtons(text: cue.text, expressionId: cue.id, locale: plan.voiceLocale, compact: true),
                   ),
                 ),
                 ReadAloudButton(onPressed: () => _introduce(asked: true)),
               ],
             ),
-    );
+          )
+        : Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+            decoration: BoxDecoration(color: colors.surfaceMuted, borderRadius: BorderRadius.circular(18)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)),
+                    style: TextStyle(fontSize: 17.5, height: 1.3, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                  ),
+                ),
+                ReadAloudButton(onPressed: () => _introduce(asked: true)),
+              ],
+            ),
+          );
 
+    final List<Widget> turn;
     if (_answered) {
-      // Said out loud already (understood), or waits for a take of the chosen reply.
-      final waitingForTake = !_answeredByVoice && speakingRequired(ref) && !_sayStep.done;
-      // Say it: the chosen (correct) reply, big, with its meaning and the device voice when there is one.
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(_answeredByVoice ? LucideIcons.circleCheck : LucideIcons.mic, size: 16, color: _answeredByVoice ? colors.success : accent.primaryText),
-              const SizedBox(width: 6),
-              Text(
+      // Say it: the reply, now the learner's own line in the thread, with its meaning and the voice to copy.
+      turn = [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(_answeredByVoice ? LucideIcons.circleCheck : LucideIcons.mic, size: 16, color: _answeredByVoice ? colors.success : accent.primaryText),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
                 _answeredByVoice ? l10n.missionAnsweredOutLoud : l10n.missionSayIt,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: _answeredByVoice ? colors.success : accent.primaryText),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _answeredByVoice ? colors.success : accent.primaryText),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Container(
+          margin: const EdgeInsetsDirectional.only(start: 20),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: accent.primarySoft,
+            borderRadius: const BorderRadiusDirectional.only(
+              topStart: Radius.circular(22),
+              topEnd: Radius.circular(22),
+              bottomStart: Radius.circular(22),
+              bottomEnd: Radius.circular(6),
+            ),
+            border: Border.all(color: accent.primary, width: 1.5),
+          ),
+          child: Column(
+            children: [
+              TargetText(expression: exchange.answer, track: plan.track, fontSize: 24, textAlign: TextAlign.center),
+              const SizedBox(height: 6),
+              Text(
+                plan.meaningOf(exchange.answer),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, height: 1.3, color: colors.textSecondary),
+              ),
+              const SizedBox(height: 12),
+              ListenButtons(text: exchange.answer.text, expressionId: exchange.answer.id, locale: plan.voiceLocale),
+              const SizedBox(height: 10),
+              // Said out loud and understood already: what was heard; otherwise, say it now.
+              if (_answeredByVoice && _verdict?.heard != null)
+                Text(
+                  l10n.verdictHeard(_verdict!.heard!),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 13.5, color: colors.textSecondary),
+                )
+              else if (!_answeredByVoice)
+                RecordTake(
+                  key: ValueKey('take-$_exchange'),
+                  voiceLocale: plan.voiceLocale,
+                  centered: true,
+                  check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                  onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                  onTake: (outcome) => setState(() => _sayStep.take(outcome)),
+                ),
+              MeloWidget(
+                state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
+                courseTrackId: appState.activeTrackId,
+                size: 48,
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: colors.successSoft,
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: colors.success, width: 1.5),
-                ),
-                child: Column(
+        ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).slideX(begin: 0.08, end: 0, duration: 260.ms, curve: Curves.easeOutCubic)),
+      ];
+    } else {
+      turn = [
+        if (cue != null) ...[
+          const SizedBox(height: 4),
+          Text(l10n.missionWhatDoYouAnswer, style: displayStyle(size: 17, color: colors.textPrimary, bold: false)),
+          const SizedBox(height: 6),
+        ],
+        // With a server that checks speech: answer out loud first, the options are the fallback.
+        if (canAnswerOutLoud)
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 8, top: 2),
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: accent.primarySoft,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: accent.primary.withValues(alpha: 0.5)),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TargetText(expression: exchange.answer, track: plan.track, fontSize: 24, textAlign: TextAlign.center),
-                    const SizedBox(height: 8),
-                    Text(
-                      plan.meaningOf(exchange.answer),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: colors.textSecondary),
-                    ),
-                    const SizedBox(height: 12),
-                    ListenButtons(text: exchange.answer.text, expressionId: exchange.answer.id, locale: plan.voiceLocale),
-                    const SizedBox(height: 10),
-                    // Said out loud and understood already: what was heard; otherwise, say it now.
-                    if (_answeredByVoice && _verdict?.heard != null)
-                      Text(
-                        l10n.verdictHeard(_verdict!.heard!),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 13.5, color: colors.textSecondary),
-                      )
-                    else if (!_answeredByVoice)
-                      RecordTake(
-                        key: ValueKey('take-$_exchange'),
-                        voiceLocale: plan.voiceLocale,
-                        centered: true,
-                        check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                        onVerdict: (verdict) => _onVerdict(exchange, verdict),
-                        onTake: (outcome) => setState(() => _sayStep.take(outcome)),
+                    Icon(LucideIcons.mic, size: 16, color: accent.primaryText),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        l10n.missionAnswerOutLoud,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent.primaryText),
                       ),
-                    const SizedBox(height: 12),
-                    MeloWidget(
-                      state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
-                      courseTrackId: appState.activeTrackId,
-                      size: 56,
                     ),
                   ],
                 ),
-              ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms)),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.missionAnswerOutLoudHint,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary),
+                ),
+                const SizedBox(height: 10),
+                RecordTake(
+                  key: ValueKey('answer-$_exchange'),
+                  voiceLocale: plan.voiceLocale,
+                  centered: true,
+                  check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                  onVerdict: (verdict) => _onSpokenAnswer(exchange, verdict),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 10),
+        // The replies to choose from (tests reach them by this key: the thread above may hold the same words).
+        Column(
+          key: const ValueKey('replies'),
+          children: [
+            for (var i = 0; i < exchange.options.length; i++)
+              OptionTile(
+                semantics: exchange.options[i].romanization == null
+                    ? exchange.options[i].text
+                    : '${exchange.options[i].text}, ${exchange.options[i].romanization}',
+                locale: contentLanguageOf(plan.track),
+                state: _selected == i ? (i == exchange.answerIndex ? OptionState.right : OptionState.wrong) : OptionState.idle,
+                onTap: () => _choose(exchange, i),
+                child: TargetText(expression: exchange.options[i], track: plan.track, fontSize: 17),
+              ),
+          ],
+        ),
+        if (wrong)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
+          ),
+      ];
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _thread,
+            padding: const EdgeInsets.only(top: 12, bottom: 12),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [...thread, prompt, ...turn]),
+          ),
+        ),
+        if (_answered)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: Column(
@@ -445,93 +533,32 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               ],
             ),
           ),
-        ],
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        prompt,
-        const SizedBox(height: 12),
-        if (cue != null)
-          Text(
-            l10n.missionWhatDoYouAnswer,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: colors.textPrimary),
-          ),
-        if (cue != null) const SizedBox(height: 8),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // With a server that checks speech: answer out loud first, the options are the fallback.
-                if (canAnswerOutLoud)
-                  Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: accent.primarySoft,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: accent.primary.withValues(alpha: 0.5)),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(LucideIcons.mic, size: 16, color: accent.primaryText),
-                            const SizedBox(width: 6),
-                            Flexible(
-                              child: Text(
-                                l10n.missionAnswerOutLoud,
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent.primaryText),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          l10n.missionAnswerOutLoudHint,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary),
-                        ),
-                        const SizedBox(height: 10),
-                        RecordTake(
-                          key: ValueKey('answer-$_exchange'),
-                          voiceLocale: plan.voiceLocale,
-                          centered: true,
-                          check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                          onVerdict: (verdict) => _onSpokenAnswer(exchange, verdict),
-                        ),
-                      ],
-                    ),
-                  ),
-                for (var i = 0; i < exchange.options.length; i++)
-                  _OptionTile(plan: plan, optionIndex: i, exchange: exchange, selected: _selected == i, onTap: () => _choose(exchange, i)),
-                if (wrong)
-                  Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
       ],
     );
   }
 
   Widget _recapView(MissionLearnPlan plan) {
-    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
     final l10n = context.l10n;
     final answers = <String, MissionExchange>{for (final x in plan.exchanges) x.answer.id: x};
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          l10n.missionRecapTitle,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: colors.textPrimary),
-        ),
         const SizedBox(height: 10),
+        Row(
+          children: [
+            MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 48),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Semantics(
+                header: true,
+                child: Text(l10n.missionRecapTitle, style: displayStyle(size: 22, color: colors.textPrimary)),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Expanded(
           child: ListView(
             children: [
@@ -541,11 +568,18 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: colors.surface,
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: colors.border),
                   ),
                   child: Row(
                     children: [
+                      // How the reply went: right the first time (and understood, where it was checked), or to review.
+                      Icon(
+                        (_firstTry[x.answer.id] ?? true) && (_spoken[x.answer.id] ?? true) ? LucideIcons.circleCheck : LucideIcons.rotateCcw,
+                        size: 18,
+                        color: (_firstTry[x.answer.id] ?? true) && (_spoken[x.answer.id] ?? true) ? colors.success : colors.amberText,
+                      ),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -556,7 +590,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                           ],
                         ),
                       ),
-                      ListenButtons(text: x.answer.text, expressionId: x.answer.id, locale: plan.voiceLocale, compact: true),
+                      ListenButtons(text: x.answer.text, expressionId: x.answer.id, locale: plan.voiceLocale, compact: true, slow: false),
                     ],
                   ),
                 ),
@@ -597,7 +631,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
             Text(
               l10n.missionCompleted,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: colors.textPrimary),
+              style: displayStyle(size: 28, color: colors.textPrimary),
             ),
             const SizedBox(height: 8),
             if (_wasCompleted)
@@ -612,7 +646,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                 builder: (context, xp) => Text(
                   l10n.xpGain(xp),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: accent.primaryText),
+                  style: displayStyle(size: 24, color: accent.primaryText),
                 ),
               ),
             if (_newReviewCards > 0) ...[
@@ -679,7 +713,16 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   ),
                 ),
               ),
+            // The same phrases, another way: the games (once there is enough to play with).
+            if (ref.watch(gamesAvailableProvider))
+              TextButton.icon(
+                style: TextButton.styleFrom(minimumSize: const Size(48, 48), foregroundColor: accent.primaryText),
+                onPressed: () => context.pushReplacement('/play'),
+                icon: const Icon(LucideIcons.gamepad2, size: 18),
+                label: Text(l10n.pathPlayGames, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+              ),
             TextButton(
+              style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
               onPressed: () => context.popOrHome(),
               child: Text(
                 l10n.missionBackToPath,
@@ -697,69 +740,4 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       ],
     );
   }
-}
-
-class _OptionTile extends ConsumerWidget {
-  final MissionLearnPlan plan;
-  final MissionExchange exchange;
-  final int optionIndex;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _OptionTile({required this.plan, required this.exchange, required this.optionIndex, required this.selected, required this.onTap});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final colors = ref.watch(appStateProvider.select((s) => s.colors));
-    final option = exchange.options[optionIndex];
-    final wrong = selected && optionIndex != exchange.answerIndex;
-    final border = wrong ? colors.error : (selected ? colors.success : colors.border);
-    return Semantics(
-      button: true,
-      selected: selected,
-      label: option.romanization == null ? option.text : '${option.text}, ${option.romanization}',
-      localeForSubtree: contentLanguageOf(plan.track),
-      excludeSemantics: true,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: onTap,
-          // A wrong pick shakes; the right one pops (the new key replays the effect on each pick).
-          child: KeyedSubtree(
-            key: ValueKey('option-$optionIndex-$selected'),
-            child: _optionBox(colors, option, selected, wrong, border).withMotion(
-              context,
-              (a) => wrong
-                  ? a.shake(hz: 5, offset: const Offset(6, 0), rotation: 0, duration: 420.ms)
-                  : selected
-                  ? a.scaleXY(begin: 1, end: 1.04, duration: 130.ms, curve: Curves.easeOut).then().scaleXY(begin: 1.04, end: 1, duration: 180.ms)
-                  : a,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _optionBox(LangQuestColors colors, Expression option, bool selected, bool wrong, Color border) => AnimatedContainer(
-    duration: const Duration(milliseconds: 200),
-    width: double.infinity,
-    constraints: const BoxConstraints(minHeight: 56),
-    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-    decoration: BoxDecoration(
-      color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: border, width: selected ? 2 : 1),
-    ),
-    child: Row(
-      children: [
-        Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
-        const SizedBox(width: 12),
-        Expanded(
-          child: TargetText(expression: option, track: plan.track, fontSize: 17),
-        ),
-      ],
-    ),
-  );
 }

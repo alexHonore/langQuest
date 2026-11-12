@@ -14,8 +14,8 @@ import 'learn_widgets.dart';
 import 'real_examples_sheet.dart';
 
 /// L3 — discovery cards: every phrase the learner says in this mission, one per swipeable card (target script,
-/// romanization, meaning, usage note), tap to hear when the device has a voice for the variety. Finishing the
-/// last card completes the Learn stop.
+/// romanization, meaning, then what helps to make it one's own: its words one by one, when to use it, how to say
+/// it), tap to hear when the device has a voice for the variety. Finishing the last card completes the Learn stop.
 class CardsScreen extends ConsumerStatefulWidget {
   final String missionKey;
   const CardsScreen({super.key, required this.missionKey});
@@ -83,42 +83,57 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
                 itemBuilder: (context, i) {
                   final phrase = plan.phrases[i];
                   final note = plan.noteOf(phrase);
+                  final literal = plan.literalOf(phrase);
                   // Code-switch and pronunciation notes exist in English only: shown to learners taught from English.
-                  final extraNotes = plan.source == 'en' ? [phrase.codeSwitchNote, phrase.pronunciationNote].whereType<String>().toList() : const <String>[];
+                  final english = plan.source == 'en';
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                     child: Container(
                       decoration: BoxDecoration(
                         color: colors.surface,
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(26),
                         border: Border.all(color: colors.border),
                         boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: 0.12), blurRadius: 24, offset: const Offset(0, 8))],
                       ),
-                      padding: const EdgeInsets.all(20),
-                      // FittedBox keeps a long phrase inside the card on a small phone instead of overflowing.
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width - 72),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Semantics(
-                                  header: true,
-                                  child: TargetText(expression: phrase, track: plan.track, fontSize: 32, textAlign: TextAlign.center),
-                                ),
-                                const SizedBox(height: 14),
-                                Text(
-                                  plan.meaningOf(phrase),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600, color: accent.primaryText),
-                                ),
-                                const SizedBox(height: 16),
-                                ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
-                                RealExamplesButton(expression: phrase, track: plan.track, source: plan.source),
-                                for (final n in [?note, ...extraNotes]) ...[const SizedBox(height: 12), _NoteBox(text: n, label: l10n.noteLabel)],
-                              ],
+                      // The phrase first, then what helps to make it one's own; a long card scrolls.
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: LayoutBuilder(
+                          builder: (context, box) => SingleChildScrollView(
+                            padding: const EdgeInsets.all(20),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(minHeight: box.maxHeight - 40),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Semantics(
+                                    header: true,
+                                    child: TargetText(expression: phrase, track: plan.track, fontSize: 32, textAlign: TextAlign.center),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Text(
+                                    plan.meaningOf(phrase),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 19, height: 1.3, fontWeight: FontWeight.w600, color: accent.primaryText),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
+                                  RealExamplesButton(expression: phrase, track: plan.track, source: plan.source),
+                                  if (literal != null) ...[
+                                    const SizedBox(height: 12),
+                                    _NoteBox(icon: LucideIcons.wholeWord, label: l10n.literalLabel, text: literal),
+                                  ],
+                                  if (note != null) ...[const SizedBox(height: 10), _NoteBox(icon: LucideIcons.lightbulb, label: l10n.noteLabel, text: note)],
+                                  if (english && phrase.pronunciationNote != null) ...[
+                                    const SizedBox(height: 10),
+                                    _NoteBox(icon: LucideIcons.audioWaveform, label: l10n.pronunciationLabel, text: phrase.pronunciationNote!),
+                                  ],
+                                  if (english && phrase.codeSwitchNote != null) ...[
+                                    const SizedBox(height: 10),
+                                    _NoteBox(icon: LucideIcons.lightbulb, label: l10n.noteLabel, text: phrase.codeSwitchNote!),
+                                  ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -143,10 +158,12 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
   }
 }
 
+/// What helps with a phrase, under it: its words one by one, when to use it, how to say it.
 class _NoteBox extends ConsumerWidget {
+  final IconData icon;
   final String text;
   final String label;
-  const _NoteBox({required this.text, required this.label});
+  const _NoteBox({required this.icon, required this.text, required this.label});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -154,19 +171,29 @@ class _NoteBox extends ConsumerWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: colors.surfaceMuted, borderRadius: BorderRadius.circular(14)),
-      child: Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: '$label · ',
-              style: TextStyle(fontWeight: FontWeight.w700, color: colors.textSecondary),
+      decoration: BoxDecoration(color: colors.surfaceMuted, borderRadius: BorderRadius.circular(16)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: Icon(icon, size: 16, color: colors.textMuted),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: colors.textMuted),
+                ),
+                const SizedBox(height: 2),
+                Text(text, style: TextStyle(fontSize: 14, height: 1.35, color: colors.textSecondary)),
+              ],
             ),
-            TextSpan(text: text),
-          ],
-        ),
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary),
+          ),
+        ],
       ),
     );
   }

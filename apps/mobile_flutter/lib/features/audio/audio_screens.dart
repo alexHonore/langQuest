@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show ProviderListenable;
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -15,9 +16,13 @@ import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_store.dart';
 import '../../core/services/speech_service.dart';
+import '../../core/content/content_bundle.dart' show Course;
+import '../../core/content/content_models.dart';
+import '../../core/theme/typography.dart';
 import '../../l10n/l10n.dart';
 import '../../navigation/nav.dart';
 import '../learn/learn_content.dart';
+import '../learn/learn_logic.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
 import '../learn/record_take.dart';
@@ -60,19 +65,64 @@ class AudioListened extends Notifier<Map<String, Set<String>>> {
 
 final audioListenedProvider = NotifierProvider<AudioListened, Map<String, Set<String>>>(AudioListened.new);
 
-/// Whether the active course's lessons can be heard here (a device voice for it, or the server's AI voice): the Audio
-/// tab exists only then (visible means usable).
+/// Whether the active course's lessons can be heard here (its bundled clips, a device voice for it, or the server's AI
+/// voice): the Audio tab exists only then (visible means usable). The bundled clips count at once, so the tab does not
+/// wait for the device to list its own voices.
 final audioLessonsAvailableProvider = Provider.autoDispose<bool>((ref) {
   final locale = ref.watch(appStateProvider.select((s) => s.activeCourse?.track.voiceLocale));
   final course = ref.watch(appStateProvider.select((s) => s.activeCourse?.id));
   if (course == null) return false;
-  return ref.watch(lineVoiceProvider(locale)).asData?.value.available ?? false;
+  return ref.watch(lineVoiceNowProvider(locale))?.available ?? false;
 });
 
-AudioNarration narrationOf(AppLocalizations l10n) =>
-    AudioNarration(intro: l10n.audioIntro, phrasesIntro: l10n.audioPhrasesIntro, againIntro: l10n.audioAgainIntro, outro: l10n.audioOutro);
+AudioNarration narrationOf(AppLocalizations l10n) => AudioNarration(
+  intro: l10n.audioIntro,
+  phrasesIntro: l10n.audioPhrasesIntro,
+  recallIntro: l10n.audioRecallIntro,
+  recallPrompt: l10n.missionHowDoYouSay,
+  rolePlayIntro: l10n.audioRolePlayIntro,
+  sayCue: l10n.audioSayCue,
+  outro: l10n.audioOutro,
+  mixConversationsIntro: l10n.audioMixConversationsIntro,
+  mixRecallIntro: l10n.audioMixRecallIntro,
+);
 
-/// The Audio tab: one lesson per mission of the active course, made from what the mission teaches.
+/// How a provider is read: `ref.watch` while building, `ref.read` anywhere else.
+typedef ProviderReader = T Function<T>(ProviderListenable<T> provider);
+
+/// The learn plans of [course]'s missions, in order ([learnedOnly]: those whose Learn stop is done).
+List<MissionLearnPlan> coursePlans(ProviderReader read, Course course, {bool learnedOnly = false}) {
+  final stops = read(appStateProvider.select((s) => s.progress.stops));
+  return [
+    for (final mission in course.missions)
+      if (!learnedOnly || (stops[mission.key]?.contains(PathStop.learn) ?? false)) ?read(learnPlanProvider(mission.key)),
+  ];
+}
+
+/// A mix of [course], narrated with [words]; null when there is nothing to make it from (a recall before anything
+/// was learned).
+AudioLesson? buildMix(ProviderReader read, Course course, AudioMix mix, AppLocalizations words, AppLocalizations l10n) {
+  switch (mix) {
+    case AudioMix.conversations:
+      final plans = coursePlans(read, course);
+      return plans.length < 2 ? null : buildConversationsMix(plans, narrationOf(words), title: l10n.audioMixConversationsTitle);
+    case AudioMix.recall:
+      final learned = coursePlans(read, course, learnedOnly: true);
+      return learned.isEmpty ? null : buildRecallMix(learned, narrationOf(words), title: l10n.audioMixRecallTitle);
+  }
+}
+
+String audioSectionLabel(AppLocalizations l10n, AudioSection section) => switch (section) {
+  AudioSection.conversation => l10n.audioSectionConversation,
+  AudioSection.phraseByPhrase => l10n.audioSectionPhrases,
+  AudioSection.recall => l10n.audioSectionRecall,
+  AudioSection.rolePlay => l10n.audioSectionRolePlay,
+};
+
+int _minutes(Duration length) => (length.inSeconds / 60).ceil().clamp(1, 99);
+
+/// The Audio tab: the course's mixes (every conversation back to back; a recall of what was learned), then one lesson
+/// per mission, made from what the mission teaches.
 class AudioLibraryScreen extends ConsumerWidget {
   const AudioLibraryScreen({super.key});
 
@@ -87,18 +137,17 @@ class AudioLibraryScreen extends ConsumerWidget {
     final voice = ref.watch(lineVoiceProvider(course.track.voiceLocale)).asData?.value;
     final listened = ref.watch(audioListenedProvider)[course.id] ?? const <String>{};
     final narration = narrationOf(l10n);
+    final conversations = buildMix(ref.watch, course, AudioMix.conversations, l10n, l10n);
+    final recall = buildMix(ref.watch, course, AudioMix.recall, l10n, l10n);
 
     return SafeArea(
       bottom: false,
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 110),
+        padding: const EdgeInsets.fromLTRB(16, 18, 16, 110),
         children: [
           Semantics(
             header: true,
-            child: Text(
-              l10n.audioLibraryTitle,
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: colors.textPrimary),
-            ),
+            child: Text(l10n.audioLibraryTitle, style: displayStyle(size: 28, color: colors.textPrimary)),
           ),
           const SizedBox(height: 6),
           Text(l10n.audioLibraryBody, style: TextStyle(fontSize: 14.5, height: 1.4, color: colors.textSecondary)),
@@ -108,28 +157,122 @@ class AudioLibraryScreen extends ConsumerWidget {
               children: [
                 Icon(voice.ai ? LucideIcons.audioLines : LucideIcons.volume2, size: 15, color: accent.primaryText),
                 const SizedBox(width: 6),
-                Text(
-                  voice.ai ? l10n.audioReadByAi : l10n.audioReadByDevice,
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
+                Flexible(
+                  child: Text(
+                    voice.ai ? l10n.audioReadByAi : l10n.audioReadByDevice,
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
+                  ),
                 ),
               ],
             ),
           ],
-          const SizedBox(height: 16),
-          for (final chapter in course.chapters) ...[
-            if (course.chapters.length > 1 && (chapter.titleIn(course.source) ?? '').isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
-                child: Text(
-                  chapter.titleIn(course.source)!.toUpperCase(),
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 0.8, color: colors.textMuted),
-                ),
+          if (conversations != null || recall != null) ...[
+            const SizedBox(height: 20),
+            Text(l10n.audioMixesTitle, style: displayStyle(size: 18, color: colors.textPrimary, bold: false)),
+            const SizedBox(height: 10),
+            if (recall != null)
+              _MixTile(
+                icon: LucideIcons.brain,
+                tint: colors.amberText,
+                title: recall.title,
+                body: l10n.audioMixRecallBody(recall.phraseCount),
+                minutes: _minutes(recall.estimatedLength),
+                onTap: () => context.push('/audio/mix/${AudioMix.recall.kind}'),
               ),
+            if (conversations != null)
+              _MixTile(
+                icon: LucideIcons.messagesSquare,
+                tint: colors.cyanText,
+                title: conversations.title,
+                body: l10n.audioMixConversationsBody(course.missions.length),
+                minutes: _minutes(conversations.estimatedLength),
+                onTap: () => context.push('/audio/mix/${AudioMix.conversations.kind}'),
+              ),
+          ],
+          const SizedBox(height: 14),
+          for (final chapter in course.chapters) ...[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 6, 0, 10),
+              child: Text(
+                (chapter.titleIn(course.source) ?? '').isEmpty ? l10n.chapterLabel(chapter.chapterIndex) : chapter.titleIn(course.source)!,
+                style: displayStyle(size: 18, color: colors.textPrimary, bold: false),
+              ),
+            ),
             for (final mission in chapter.missions)
               if (ref.watch(learnPlanProvider(mission.key)) case final plan?)
                 _LessonTile(plan: plan, lesson: buildAudioLesson(plan, narration), listened: listened.contains(mission.key)),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// A mix: a lesson made from the whole course.
+class _MixTile extends ConsumerWidget {
+  const _MixTile({required this.icon, required this.tint, required this.title, required this.body, required this.minutes, required this.onTap});
+
+  final IconData icon;
+  final Color tint;
+  final String title;
+  final String body;
+  final int minutes;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Semantics(
+        button: true,
+        label: '$title. $body. ${l10n.audioAboutMinutes(minutes)}',
+        excludeSemantics: true,
+        child: Material(
+          color: colors.elevated,
+          borderRadius: BorderRadius.circular(20),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: onTap,
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: tint.withValues(alpha: 0.45)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: tint.withValues(alpha: 0.16),
+                      boxShadow: [BoxShadow(color: tint.withValues(alpha: 0.25), blurRadius: 16)],
+                    ),
+                    child: Icon(icon, size: 24, color: tint),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title, style: displayStyle(size: 17, color: colors.textPrimary)),
+                        const SizedBox(height: 2),
+                        Text(body, style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary)),
+                        const SizedBox(height: 2),
+                        Text(l10n.audioAboutMinutes(minutes), style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Icon(LucideIcons.play, size: 20, color: colors.textMuted),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -148,28 +291,42 @@ class _LessonTile extends ConsumerWidget {
     final colors = appState.colors;
     final accent = appState.accent;
     final l10n = context.l10n;
-    final minutes = (lesson.estimatedLength.inSeconds / 60).ceil().clamp(1, 99);
+    final minutes = _minutes(lesson.estimatedLength);
+    final sceneId = sceneIdForSituation(plan.mission.situation);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Material(
         color: colors.surface,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         child: InkWell(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           onTap: () => context.push('/audio/${plan.mission.key}'),
           child: Container(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(20),
               border: Border.all(color: colors.border),
             ),
             child: Row(
               children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(color: listened ? colors.successSoft : accent.primarySoft, borderRadius: BorderRadius.circular(14)),
-                  child: Icon(listened ? LucideIcons.checkCheck : LucideIcons.headphones, color: listened ? colors.success : accent.primaryText),
+                // The mission's place, with whether the lesson was heard to the end.
+                Stack(
+                  children: [
+                    RepaintBoundary(
+                      child: AnimatedSceneWidget(sceneId: sceneId, height: 60, width: 78, radius: 14, animate: false, showTitle: false, showTimeToggle: false),
+                    ),
+                    if (listened)
+                      PositionedDirectional(
+                        end: 4,
+                        bottom: 4,
+                        child: Container(
+                          width: 22,
+                          height: 22,
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: colors.success),
+                          child: Icon(LucideIcons.check, size: 14, color: colors.background),
+                        ),
+                      ),
+                  ],
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -180,19 +337,26 @@ class _LessonTile extends ConsumerWidget {
                         lesson.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                        style: TextStyle(fontSize: 15.5, height: 1.25, fontWeight: FontWeight.w600, color: colors.textPrimary),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 3),
                       Text(
                         listened
                             ? '${l10n.audioLessonMeta(lesson.phraseCount, minutes)} · ${l10n.audioListened}'
                             : l10n.audioLessonMeta(lesson.phraseCount, minutes),
-                        style: TextStyle(fontSize: 13, color: colors.textSecondary),
+                        style: TextStyle(fontSize: 13, color: listened ? colors.success : colors.textSecondary),
                       ),
                     ],
                   ),
                 ),
-                Icon(LucideIcons.play, color: accent.primaryText),
+                const SizedBox(width: 6),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: accent.primarySoft),
+                  child: Icon(LucideIcons.play, size: 18, color: accent.primaryText),
+                ),
+                const SizedBox(width: 4),
               ],
             ),
           ),
@@ -202,12 +366,18 @@ class _LessonTile extends ConsumerWidget {
   }
 }
 
-/// One audio lesson: what is said now (big, with its meaning), the three parts, the transcript to jump around in,
-/// and the controls: previous / play-pause / next, every line slowly, time to repeat on or off.
+/// One audio lesson — a mission's, or a mix of the course: what is said now (big, with its meaning), its parts, how
+/// much is left, the transcript to jump around in, and the controls: previous / play-pause / next, every line slowly,
+/// time to repeat on or off. Where a phrase is asked from memory, it stays hidden (here and in the transcript) until
+/// it has been said.
 class AudioLessonScreen extends ConsumerStatefulWidget {
-  const AudioLessonScreen({super.key, required this.missionKey});
+  const AudioLessonScreen({super.key, required String this.missionKey}) : mix = null;
 
-  final String missionKey;
+  /// A mix of the active course (`conversations`, `recall`).
+  const AudioLessonScreen.mix({super.key, required String kind}) : missionKey = null, mix = kind;
+
+  final String? missionKey;
+  final String? mix;
 
   @override
   ConsumerState<AudioLessonScreen> createState() => _AudioLessonScreenState();
@@ -244,60 +414,81 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     }
   }
 
-  Future<AudioLessonPlayer?> _make(MissionLearnPlan plan) async {
-    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+  /// The lesson of this screen, narrated with [words]: its mission's, or the mix of the active course.
+  AudioLesson? _lesson(ProviderReader read, AppLocalizations words) {
+    final key = widget.missionKey;
+    if (key != null) {
+      final plan = read(learnPlanProvider(key));
+      return plan == null ? null : buildAudioLesson(plan, narrationOf(words));
+    }
+    final course = read(appStateProvider.select((s) => s.activeCourse));
+    final mix = AudioMix.of(widget.mix ?? '');
+    return course == null || mix == null ? null : buildMix(read, course, mix, words, context.l10n);
+  }
+
+  Future<AudioLessonPlayer?> _make(Course course) async {
+    final voice = await ref.read(lineVoiceProvider(course.track.voiceLocale).future);
     if (!voice.available || !mounted) return null;
     // The narration in the course's instruction language (the AI narrator signed in, else the device's voice for it).
     final narrator = ref.read(narratorProvider);
-    final words = narrationWords(plan.source) ?? context.l10n;
-    final narrates = narrator != null && (narrator.ai || await ref.read(speechServiceProvider).voiceForLanguage(plan.source) != null);
+    final words = narrationWords(course.source) ?? context.l10n;
+    final narrates = narrator != null && (narrator.ai || await ref.read(speechServiceProvider).voiceForLanguage(course.source) != null);
     if (!mounted) return null;
-    final courseId = ref.read(appStateProvider).activeCourse?.id;
+    final lesson = _lesson(ref.read, words);
+    if (lesson == null) return null;
     final player =
         AudioLessonPlayer(
-            lesson: buildAudioLesson(plan, narrationOf(words)),
+            lesson: lesson,
             voice: voice,
             narrate: narrates ? narrator.say : null,
-            onFinished: () {
-              if (courseId != null) ref.read(audioListenedProvider.notifier).markListened(courseId, widget.missionKey);
-            },
+            onFinished: () => ref.read(audioListenedProvider.notifier).markListened(course.id, lesson.id),
           )
           ..speakAtTurns = speakingRequiredNow(ref)
           ..addListener(_onPlayer);
     return player;
   }
 
-  Future<void> _toggle(MissionLearnPlan plan) async {
+  Future<void> _toggle(Course course) async {
     var player = _player;
     if (player == null) {
-      player = await _make(plan);
+      player = await _make(course);
       if (player == null || !mounted) return;
       setState(() => _player = player);
     }
     player.toggle();
   }
 
+  /// The mission the step at [index] belongs to (a narration takes the one of the lines around it).
+  static MissionLearnPlan? _originAt(AudioLesson lesson, int index) {
+    for (var i = index; i >= 0; i--) {
+      if (lesson.steps[i].origin case final plan?) return plan;
+    }
+    for (var i = index + 1; i < lesson.steps.length; i++) {
+      if (lesson.steps[i].origin case final plan?) return plan;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final plan = ref.watch(learnPlanProvider(widget.missionKey));
-    if (plan == null) return const MissionUnavailable();
     final appState = ref.watch(appStateProvider);
-    final colors = appState.colors;
-    final accent = appState.accent;
+    final course = appState.activeCourse;
     final l10n = context.l10n;
     final player = _player;
+    final lesson = player?.lesson ?? (course == null ? null : _lesson(ref.watch, l10n));
+    if (course == null || lesson == null || lesson.steps.isEmpty) return const MissionUnavailable();
+    final colors = appState.colors;
+    final accent = appState.accent;
     // "Can't speak now" (or its end) changes whether turns wait for the phrase.
     ref.listen(speakingPauseProvider, (_, _) => _player?.setSpeakAtTurns(speakingRequiredNow(ref)));
-    final lesson = player?.lesson ?? buildAudioLesson(plan, narrationOf(l10n));
-    final index = player?.index ?? 0;
+    final index = (player?.index ?? 0).clamp(0, lesson.steps.length - 1);
     final step = lesson.steps[index];
     final playing = player?.playing ?? false;
-    final sceneId = sceneIdForSituation(plan.mission.situation);
-    final sections = [
-      (AudioSection.conversation, l10n.audioSectionConversation),
-      (AudioSection.phraseByPhrase, l10n.audioSectionPhrases),
-      (AudioSection.conversationAgain, l10n.audioSectionAgain),
-    ];
+    final finished = player?.finished ?? false;
+    final origin = _originAt(lesson, index);
+    final sceneId = sceneIdForSituation(origin?.mission.situation ?? '');
+    final sections = lesson.sections;
+    final left = finished ? Duration.zero : lesson.lengthFrom(index);
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -318,14 +509,14 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.audioLessonLabel.toUpperCase(),
-                          style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w800, letterSpacing: 0.8, color: colors.textMuted),
+                          widget.mix == null ? l10n.audioLessonLabel : l10n.audioMixLabel,
+                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: accent.primaryText),
                         ),
                         Text(
                           lesson.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                          style: displayStyle(size: 18, color: colors.textPrimary),
                         ),
                       ],
                     ),
@@ -333,33 +524,70 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                 ],
               ),
             ),
+            // How far the lesson is, and roughly how long is left.
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-              child: Row(
-                children: [
-                  for (final (section, label) in sections)
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Semantics(
+                label: finished ? l10n.audioFinished : l10n.audioTimeLeft(_minutes(left)),
+                excludeSemantics: true,
+                child: Row(
+                  children: [
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: _SectionTab(
-                          label: label,
-                          active: step.section == section,
-                          done: step.section.index > section.index,
-                          onTap: player == null || lesson.startOf(section) < 0 || (player.awaitingSpeech && lesson.startOf(section) > index)
-                              ? null
-                              : () => player.seek(lesson.startOf(section)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(3),
+                        child: SizedBox(
+                          height: 6,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              ColoredBox(color: colors.surfaceMuted),
+                              FractionallySizedBox(
+                                alignment: AlignmentDirectional.centerStart,
+                                widthFactor: finished ? 1 : (index / (lesson.steps.length - 1).clamp(1, 1 << 30)).clamp(0.0, 1.0),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(gradient: LinearGradient(colors: [accent.primary, accent.lantern[1]])),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                ],
+                    const SizedBox(width: 10),
+                    Text(finished ? l10n.audioListened : l10n.audioTimeLeft(_minutes(left)), style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
+                  ],
+                ),
               ),
             ),
+            if (sections.length > 1)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(13, 4, 13, 0),
+                child: Row(
+                  children: [
+                    for (final section in sections)
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: _SectionTab(
+                            label: audioSectionLabel(l10n, section),
+                            active: step.section == section,
+                            done: step.section.index > section.index,
+                            onTap: player == null || (player.awaitingSpeech && lesson.startOf(section) > index)
+                                ? null
+                                : () => player.seek(lesson.startOf(section)),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             Expanded(
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
                 child: LayoutBuilder(
                   builder: (context, box) => AnimatedSceneWidget(
+                    key: ValueKey(sceneId),
                     sceneId: sceneId,
                     title: sceneTitle(l10n, sceneId),
                     height: box.maxHeight,
@@ -369,11 +597,12 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(14, 44, 14, 14),
                           child: _NowPlaying(
-                            plan: plan,
+                            track: course.track,
                             step: step,
+                            origin: origin,
                             playing: playing,
                             waited: player?.waited ?? 0,
-                            finished: player?.finished ?? false,
+                            finished: finished,
                             // The turn waits for the phrase: a take, checked where the server can.
                             speak: player != null && player.awaitingSpeech
                                 ? (
@@ -386,7 +615,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                                 : null,
                           ),
                         ),
-                        if (player?.finished ?? false)
+                        if (finished)
                           Positioned.fill(
                             child: ConfettiBurst(
                               colors: [accent.primary, colors.celebrationA, colors.celebrationB, colors.success],
@@ -410,9 +639,11 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                     if (lesson.steps[i].kind == AudioStepKind.say)
                       _TranscriptLine(
                         key: _keys.putIfAbsent(i, GlobalKey.new),
-                        plan: plan,
+                        track: course.track,
                         step: lesson.steps[i],
                         current: i == index || (lesson.steps[index].kind != AudioStepKind.say && i == _lineBefore(lesson, index)),
+                        // A phrase to find from memory is not given away by the transcript before its turn.
+                        hidden: !finished && i > index && _asked(lesson, i),
                         onTap: player == null || (player.awaitingSpeech && i > index) ? null : () => player.seek(i),
                       ),
                 ],
@@ -431,10 +662,10 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                   ),
                   Semantics(
                     button: true,
-                    label: playing ? l10n.audioPause : (player?.finished ?? false ? l10n.audioPlayAgain : l10n.audioPlay),
+                    label: playing ? l10n.audioPause : (finished ? l10n.audioPlayAgain : l10n.audioPlay),
                     excludeSemantics: true,
                     child: GestureDetector(
-                      onTap: () => _toggle(plan),
+                      onTap: () => _toggle(course),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
                         width: 72,
@@ -450,11 +681,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                             ),
                           ],
                         ),
-                        child: Icon(
-                          playing ? LucideIcons.pause : (player?.finished ?? false ? LucideIcons.rotateCcw : LucideIcons.play),
-                          size: 32,
-                          color: accent.onPrimary,
-                        ),
+                        child: Icon(playing ? LucideIcons.pause : (finished ? LucideIcons.rotateCcw : LucideIcons.play), size: 32, color: accent.onPrimary),
                       ),
                     ),
                   ),
@@ -480,6 +707,10 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     }
     return -1;
   }
+
+  /// Whether the line at [index] answers a turn from memory (the step right before it asks for it).
+  static bool _asked(AudioLesson lesson, int index) =>
+      index > 0 && lesson.steps[index - 1].kind == AudioStepKind.yourTurn && lesson.steps[index - 1].fromMemory;
 }
 
 class _SectionTab extends ConsumerWidget {
@@ -506,17 +737,29 @@ class _SectionTab extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 12, fontWeight: active ? FontWeight.w800 : FontWeight.w600, color: active ? accent.primaryText : colors.textMuted),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (done) ...[Icon(LucideIcons.check, size: 12, color: colors.success), const SizedBox(width: 3)],
+                  Flexible(
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                        color: active ? accent.primaryText : (done ? colors.textSecondary : colors.textMuted),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 6),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                height: 4,
-                decoration: BoxDecoration(color: active ? accent.primary : (done ? colors.success : colors.border), borderRadius: BorderRadius.circular(2)),
+                height: 3,
+                decoration: BoxDecoration(color: active ? accent.primary : Colors.transparent, borderRadius: BorderRadius.circular(2)),
               ),
             ],
           ),
@@ -527,15 +770,26 @@ class _SectionTab extends ConsumerWidget {
 }
 
 /// What is being said now: a line (big, with its meaning and who says it), the narration, or the learner's turn
-/// with its countdown.
+/// with its countdown — the phrase itself hidden when it is asked from memory.
 class _NowPlaying extends ConsumerWidget {
-  const _NowPlaying({required this.plan, required this.step, required this.playing, required this.waited, required this.finished, this.speak});
+  const _NowPlaying({
+    required this.track,
+    required this.step,
+    required this.origin,
+    required this.playing,
+    required this.waited,
+    required this.finished,
+    this.speak,
+  });
 
   /// The turn waits for the learner to say the phrase: the step's index, the takes so far, and what each take came to.
   final ({int index, int tries, ValueChanged<TakeOutcome> onTake})? speak;
 
-  final MissionLearnPlan plan;
+  final CourseTrackInfo track;
   final AudioStep step;
+
+  /// The mission the line comes from: its meaning, and what a checked take is checked against.
+  final MissionLearnPlan? origin;
   final bool playing;
   final double waited;
   final bool finished;
@@ -547,8 +801,8 @@ class _NowPlaying extends ConsumerWidget {
     final accent = appState.accent;
     final l10n = context.l10n;
     final card = BoxDecoration(
-      color: colors.surface.withValues(alpha: 0.92),
-      borderRadius: BorderRadius.circular(20),
+      color: colors.surface.withValues(alpha: 0.93),
+      borderRadius: BorderRadius.circular(22),
       border: Border.all(color: colors.border),
     );
     Widget content;
@@ -562,10 +816,7 @@ class _NowPlaying extends ConsumerWidget {
             color: accent.primaryText,
           ).withMotion(context, (a) => a.scale(begin: const Offset(0.4, 0.4), curve: Curves.elasticOut, duration: 700.ms)),
           const SizedBox(height: 8),
-          Text(
-            l10n.audioFinished,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: colors.textPrimary),
-          ),
+          Text(l10n.audioFinished, style: displayStyle(size: 22, color: colors.textPrimary)),
         ],
       );
     } else {
@@ -588,6 +839,7 @@ class _NowPlaying extends ConsumerWidget {
         case AudioStepKind.say || AudioStepKind.yourTurn:
           final line = step.expression!;
           final turn = step.kind == AudioStepKind.yourTurn;
+          final meaning = origin?.meaningOf(line) ?? '';
           content = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -600,9 +852,11 @@ class _NowPlaying extends ConsumerWidget {
                       child: CircularProgressIndicator(value: waited, strokeWidth: 3, color: accent.primary, backgroundColor: colors.border),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      l10n.audioYourTurn,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent.primaryText),
+                    Flexible(
+                      child: Text(
+                        step.fromMemory ? l10n.audioYourTurnRecall : l10n.audioYourTurn,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent.primaryText),
+                      ),
                     ),
                   ],
                 )
@@ -610,27 +864,41 @@ class _NowPlaying extends ConsumerWidget {
                 Text(
                   line.byLearner ? '${step.speaker} (${l10n.audioYou})' : step.speaker!,
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: colors.textMuted),
+                )
+              else if (line.byLearner && step.section == AudioSection.rolePlay)
+                Text(
+                  l10n.audioYou,
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: accent.primaryText),
                 ),
               const SizedBox(height: 8),
-              Opacity(
-                opacity: turn ? 0.7 : 1,
-                child: TargetText(expression: line, track: plan.track, fontSize: 26, textAlign: TextAlign.center),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                plan.meaningOf(line),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, color: colors.textSecondary),
-              ),
+              // From memory: the meaning is the question; the phrase shows once it is said.
+              if (turn && step.fromMemory)
+                Text(
+                  meaning,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, height: 1.3, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                )
+              else ...[
+                Opacity(
+                  opacity: turn ? 0.7 : 1,
+                  child: TargetText(expression: line, track: track, fontSize: 26, textAlign: TextAlign.center),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  meaning,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, color: colors.textSecondary),
+                ),
+              ],
               if (playing && !turn) ...[const SizedBox(height: 10), _Equalizer(color: accent.primary)],
               if (turn && speak != null) ...[
                 const SizedBox(height: 12),
                 RecordTake(
                   key: ValueKey('turn-${speak!.index}'),
-                  voiceLocale: plan.voiceLocale,
+                  voiceLocale: track.voiceLocale,
                   centered: true,
                   autoFeedback: false,
-                  check: SpeechTarget(expressionId: line.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                  check: origin == null ? null : SpeechTarget(expressionId: line.id, chapterKey: origin!.mission.chapterKey, missionKey: origin!.mission.key),
                   onTake: speak!.onTake,
                 ),
                 const SizedBox(height: 6),
@@ -698,11 +966,14 @@ class _Equalizer extends StatelessWidget {
 }
 
 class _TranscriptLine extends ConsumerWidget {
-  const _TranscriptLine({super.key, required this.plan, required this.step, required this.current, required this.onTap});
+  const _TranscriptLine({super.key, required this.track, required this.step, required this.current, required this.hidden, required this.onTap});
 
-  final MissionLearnPlan plan;
+  final CourseTrackInfo track;
   final AudioStep step;
   final bool current;
+
+  /// The phrase is still to be found from memory: only its meaning is written.
+  final bool hidden;
   final VoidCallback? onTap;
 
   @override
@@ -711,13 +982,14 @@ class _TranscriptLine extends ConsumerWidget {
     final colors = appState.colors;
     final accent = appState.accent;
     final line = step.expression!;
+    final meaning = step.origin?.shortMeaningOf(line) ?? '';
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
       child: Material(
         color: current ? accent.primarySoft : Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(14),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
           onTap: onTap,
           child: Container(
             constraints: const BoxConstraints(minHeight: 48),
@@ -725,19 +997,28 @@ class _TranscriptLine extends ConsumerWidget {
             child: Row(
               children: [
                 Icon(
-                  step.section == AudioSection.phraseByPhrase ? LucideIcons.repeat2 : (line.byLearner ? LucideIcons.user : LucideIcons.messageCircle),
+                  switch (step.section) {
+                    AudioSection.phraseByPhrase => LucideIcons.repeat2,
+                    AudioSection.recall => LucideIcons.brain,
+                    AudioSection.conversation || AudioSection.rolePlay => line.byLearner ? LucideIcons.user : LucideIcons.messageCircle,
+                  },
                   size: 15,
                   color: current ? accent.primaryText : colors.textMuted,
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TargetText(expression: line, track: plan.track, fontSize: 15.5),
-                      Text(plan.shortMeaningOf(line), style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
-                    ],
-                  ),
+                  child: hidden
+                      ? Text(
+                          meaning,
+                          style: TextStyle(fontSize: 14.5, height: 1.3, fontStyle: FontStyle.italic, color: colors.textMuted),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TargetText(expression: line, track: track, fontSize: 15.5),
+                            Text(meaning, style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
+                          ],
+                        ),
                 ),
               ],
             ),

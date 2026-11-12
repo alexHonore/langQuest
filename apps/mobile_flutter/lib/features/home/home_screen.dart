@@ -8,8 +8,10 @@ import '../../core/content/content_bundle.dart' show Course;
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/glass.dart';
+import '../../core/theme/typography.dart';
 import '../../l10n/l10n.dart';
 import '../course_switcher/course_switcher_sheet.dart';
+import '../games/game_pool.dart';
 import '../learn/learn_logic.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
@@ -42,14 +44,14 @@ class HomeScreen extends ConsumerWidget {
         children: [
           // Ambient lantern bloom (U2 Night Market), tinted by the course.
           Positioned(
-            top: -100,
-            left: -80,
-            child: _Bloom(color: accent.lantern[0].withValues(alpha: appState.isDark ? 0.18 : 0.10), size: 320),
+            top: -140,
+            left: -120,
+            child: LanternBloom(color: accent.lantern[0].withValues(alpha: appState.isDark ? 0.30 : 0.16), size: 420),
           ),
           Positioned(
-            top: 240,
-            right: -100,
-            child: _Bloom(color: accent.lantern[1].withValues(alpha: appState.isDark ? 0.14 : 0.08), size: 280),
+            top: 260,
+            right: -160,
+            child: LanternBloom(color: accent.lantern[1].withValues(alpha: appState.isDark ? 0.22 : 0.12), size: 400),
           ),
           SafeArea(
             bottom: false,
@@ -63,6 +65,8 @@ class HomeScreen extends ConsumerWidget {
                   const SizedBox(height: 14),
                   _ReviewCard(due: appState.dueCards(now).length, nextDue: cards.map((c) => c.due).reduce((a, b) => a.isBefore(b) ? a : b), now: now),
                 ],
+                // The games, once there is enough to play with (the phrases of a first Learn stop).
+                if (ref.watch(gamesAvailableProvider)) ...[const SizedBox(height: 14), _PlayCard(phrases: ref.watch(gamePoolProvider).length)],
               ],
             ),
           ),
@@ -70,21 +74,6 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
-}
-
-class _Bloom extends StatelessWidget {
-  final Color color;
-  final double size;
-  const _Bloom({required this.color, required this.size});
-
-  @override
-  Widget build(BuildContext context) => IgnorePointer(
-    child: Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-    ),
-  );
 }
 
 class _TopBar extends ConsumerWidget {
@@ -243,19 +232,16 @@ class _NextMissionCard extends ConsumerWidget {
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
-                                '${l10n.homeNextMission.toUpperCase()} · ${l10n.missionLabel(index + 1)}',
+                                '${l10n.homeNextMission} · ${l10n.missionLabel(index + 1)}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, letterSpacing: 1.0, color: accent.primaryText),
+                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          title,
-                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: colors.textPrimary),
-                        ),
+                        Text(title, style: displayStyle(size: 21, color: colors.textPrimary)),
                         if (mission.sceneNoteIn(course.source) case final note?) ...[
                           const SizedBox(height: 4),
                           Text(
@@ -368,6 +354,54 @@ class _ReviewCard extends ConsumerWidget {
               ),
             ),
             if (due > 0) Icon(LucideIcons.chevronRight, size: 18, color: colors.textMuted),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The way to the mini-games: the phrases already taught, another way.
+class _PlayCard extends ConsumerWidget {
+  final int phrases;
+  const _PlayCard({required this.phrases});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final l10n = context.l10n;
+    final tint = appState.accent.lantern[1];
+    return Semantics(
+      button: true,
+      label: '${l10n.gamesTitle}. ${l10n.homeGamesBody(phrases)}',
+      excludeSemantics: true,
+      child: GlassContainer(
+        level: GlassLevel.level2,
+        radius: 18,
+        padding: const EdgeInsets.all(14),
+        onTap: () => context.push('/play'),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(9),
+              decoration: BoxDecoration(color: tint.withValues(alpha: 0.16), shape: BoxShape.circle),
+              child: Icon(LucideIcons.gamepad2, size: 18, color: tint),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.gamesTitle,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                  ),
+                  Text(l10n.homeGamesBody(phrases), style: TextStyle(fontSize: 12.5, color: colors.textSecondary)),
+                ],
+              ),
+            ),
+            Icon(LucideIcons.chevronRight, size: 18, color: colors.textMuted),
           ],
         ),
       ),

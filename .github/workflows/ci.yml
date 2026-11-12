@@ -97,7 +97,7 @@ jobs:
         with: { node-version: 24 }
       # The Flutter tests run on the Dart VM; only the compiled web app shows what dart2js does (it once broke
       # recording while every VM test passed). Playwright as pinned in pnpm-lock.yaml.
-      - name: Browser smoke (first run, a lesson, record yourself with a fake microphone, display settings, course files fetched)
+      - name: Browser smoke (first run, a lesson, record yourself with a fake microphone, practice pairs, games door, display settings, course files fetched)
         run: |
           mkdir -p "$RUNNER_TEMP/smoke" && cp apps/mobile_flutter/tool/web_smoke.cjs "$RUNNER_TEMP/smoke/"
           cd "$RUNNER_TEMP/smoke" && npm init -y > /dev/null && npm install --no-audit --no-fund playwright@1.64.1 > /dev/null

@@ -14,6 +14,13 @@ class AnimatedSceneWidget extends StatefulWidget {
   /// Localized scene name for the corner badge (defaults to the English scene title).
   final String? title;
 
+  /// The corner badge with the scene's name (off for a thumbnail).
+  final bool showTitle;
+
+  /// The scene's slow loop of life, and the parallax under a finger. Off for a thumbnail: a still picture.
+  final bool animate;
+  final double radius;
+
   const AnimatedSceneWidget({
     super.key,
     required this.sceneId,
@@ -23,6 +30,9 @@ class AnimatedSceneWidget extends StatefulWidget {
     this.width,
     this.child,
     this.showTimeToggle = true,
+    this.showTitle = true,
+    this.animate = true,
+    this.radius = 20,
   });
 
   @override
@@ -42,6 +52,8 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
     _ambientController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 4000),
+      // A still scene is drawn a little into its loop, where its lights are on.
+      value: widget.animate ? 0 : 0.3,
     );
   }
 
@@ -49,7 +61,7 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (context.reduceMotion) {
+    if (context.reduceMotion || !widget.animate) {
       _ambientController.stop();
     } else if (!_ambientController.isAnimating) {
       _ambientController.repeat();
@@ -82,10 +94,10 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
     final sceneDef = SceneDefinition.get(widget.sceneId);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(widget.radius),
       child: GestureDetector(
-        onPanUpdate: _handlePanUpdate,
-        onPanEnd: _handlePanEnd,
+        onPanUpdate: widget.animate ? _handlePanUpdate : null,
+        onPanEnd: widget.animate ? _handlePanEnd : null,
         child: SizedBox(
           height: widget.height,
           width: widget.width ?? double.infinity,
@@ -108,41 +120,42 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
               ),
 
               // 2. Scene Title Badge
-              Positioned(
-                top: 12,
-                left: 14,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: const Color(0xB30B0913),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0x33FFFFFF)),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        _variant == SceneVariant.evening
-                            ? Icons.nights_stay_rounded
-                            : Icons.wb_sunny_rounded,
-                        size: 13,
-                        color: _variant == SceneVariant.evening
-                            ? const Color(0xFFFFB547)
-                            : const Color(0xFFFFD15C),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        widget.title ?? sceneDef.title,
-                        style: const TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+              if (widget.showTitle)
+                Positioned(
+                  top: 12,
+                  left: 14,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xB30B0913),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0x33FFFFFF)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _variant == SceneVariant.evening
+                              ? Icons.nights_stay_rounded
+                              : Icons.wb_sunny_rounded,
+                          size: 13,
+                          color: _variant == SceneVariant.evening
+                              ? const Color(0xFFFFB547)
+                              : const Color(0xFFFFD15C),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 6),
+                        Text(
+                          widget.title ?? sceneDef.title,
+                          style: const TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
               // 3. Time-of-day Day/Night Toggle
               if (widget.showTimeToggle)

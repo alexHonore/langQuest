@@ -77,7 +77,7 @@
       }
     }
   },
-  "courseIncludesLearn": "Before each mission: a scene, phrase cards and two mini-games",
+  "courseIncludesLearn": "Before each mission: a scene, phrase cards and a practice session",
   "courseIncludesReview": "Spaced review of the phrases you use",
   "courseIncludesVoice": "Lines read by your phone's synthetic voice, when it has one for this language",
   "courseMissingTitle": "What this course does not have yet",
@@ -138,7 +138,6 @@
     }
   },
   "streakPaused": "Streak paused. Resume whenever you like.",
-  "pathwayTitle": "Your pathway",
   "chapterLabel": "Chapter {index}",
   "@chapterLabel": {
     "placeholders": {
@@ -190,7 +189,7 @@
       }
     }
   },
-  "pathPractiseSubtitle": "Match the pairs, build a sentence",
+  "pathPractiseSubtitle": "Pairs, listening, sentences to build",
   "pathPractisePairsOnly": "Match the pairs",
   "pathMissionSubtitle": "{count, plural, =1{1 exchange} other{{count} exchanges}} with {name}",
   "@pathMissionSubtitle": {
@@ -263,7 +262,6 @@
   "pairsPrompt": "Match each phrase with its meaning",
   "pairsDone": "All matched!",
   "pairsNextRound": "Next round",
-  "pairsBuildSentence": "Build a sentence",
   "matchedSemantics": "{label}, matched",
   "@matchedSemantics": {
     "placeholders": {
@@ -701,7 +699,7 @@
   "listenSlowlyAiVoiceSemantics": "Listen slowly (AI voice)",
   "tabAudio": "Audio",
   "audioLibraryTitle": "Audio lessons",
-  "audioLibraryBody": "One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.",
+  "audioLibraryBody": "Each lesson goes four ways: you listen, you repeat, you recall from memory, then you take your part in the conversation.",
   "audioReadByAi": "Read by an AI voice",
   "audioReadByDevice": "Read by your device’s voice",
   "audioLessonMeta": "{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min",
@@ -726,11 +724,9 @@
     }
   },
   "audioPhrasesIntro": "Now phrase by phrase. Listen, then say it out loud.",
-  "audioAgainIntro": "Once more, the whole conversation.",
   "audioOutro": "That’s the end of the lesson. Well done!",
-  "audioSectionConversation": "The conversation",
-  "audioSectionPhrases": "Phrase by phrase",
-  "audioSectionAgain": "Once more",
+  "audioSectionConversation": "Listen",
+  "audioSectionPhrases": "Repeat",
   "audioYourTurn": "Your turn: say it",
   "audioPlay": "Play",
   "audioPause": "Pause",
@@ -1084,7 +1080,6 @@
   "practiceReadPrompt": "What does it mean?",
   "practiceReversePrompt": "Which one says this?",
   "practiceGapPrompt": "Complete the sentence",
-  "practiceTryAgain": "Not this one. Try another.",
   "practiceRight": "That’s it!",
   "practiceNext": "Continue",
   "practiceGapSemantics": "missing word",
@@ -1103,5 +1098,298 @@
         "type": "String"
       }
     }
-  }
+  },
+  "practiceHearPrompt": "Listen. Which one did you hear?",
+  "practiceTrueFalsePrompt": "Is this what it means?",
+  "practiceYes": "Yes",
+  "practiceNo": "No",
+  "practiceBuildByEarPrompt": "Listen, then build what you heard",
+  "practiceTypePrompt": "Write this phrase",
+  "practiceTypeHint": "Type here",
+  "practiceShowAnswer": "Show the answer",
+  "practiceWrong": "Not quite",
+  "practiceComesBack": "It comes back at the end.",
+  "practiceEarlier": "From an earlier mission",
+  "practiceOnceMore": "Once more",
+  "practiceAccents": "Right. Mind the accents.",
+  "practiceTypo": "Right, with one small slip: check the spelling.",
+  "practiceDoneTitle": "Practice done",
+  "practiceDoneAllRight": "Everything right the first time.",
+  "practiceDoneScore": "{right} of {total} right the first time",
+  "@practiceDoneScore": {
+    "placeholders": {
+      "right": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "practiceRevisitTitle": "Worth another look",
+  "chapterProgress": "{done} of {total} missions done",
+  "@chapterProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "missionDone": "Completed",
+  "phrasesCount": "{count, plural, =1{1 phrase} other{{count} phrases}}",
+  "@phrasesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "missionOf": "Mission {index} of {total}",
+  "@missionOf": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pathMoreWays": "More ways to practise",
+  "pathAudioLesson": "Audio lesson",
+  "pathPlayGames": "Play the mini-games",
+  "literalLabel": "Word for word",
+  "pronunciationLabel": "Pronunciation",
+  "audioMixesTitle": "Mixes",
+  "audioMixLabel": "Mix",
+  "audioMixRecallTitle": "Recall workout",
+  "audioMixRecallBody": "{count, plural, =1{1 phrase you have learned, asked from memory} other{{count} phrases you have learned, asked from memory}}",
+  "@audioMixRecallBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "audioMixConversationsTitle": "Every conversation",
+  "audioMixConversationsBody": "{count, plural, =1{1 conversation, just to listen} other{{count} conversations back to back, just to listen}}",
+  "@audioMixConversationsBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "audioAboutMinutes": "About {minutes} min",
+  "@audioAboutMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "audioTimeLeft": "about {minutes} min left",
+  "@audioTimeLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "audioSectionRecall": "Recall",
+  "audioSectionRolePlay": "Your part",
+  "audioRecallIntro": "Now from memory. You hear a meaning: say the phrase before the voice does.",
+  "audioRolePlayIntro": "Now take your part in the conversation. Say your lines out loud, then listen to check.",
+  "audioSayCue": "Say: {meaning}",
+  "@audioSayCue": {
+    "placeholders": {
+      "meaning": {
+        "type": "String"
+      }
+    }
+  },
+  "audioMixConversationsIntro": "Every conversation of the course, one after the other. Just listen.",
+  "audioMixRecallIntro": "From memory, the phrases you have learned. Say each one before the voice does.",
+  "audioYourTurnRecall": "Your turn: say it from memory",
+  "gamesTitle": "Mini-games",
+  "gamesBody": "{count, plural, =1{Another way to meet the phrase you have learned.} other{Another way to meet the {count} phrases you have learned. Every mission adds more.}}",
+  "@gamesBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamesBody": "{count, plural, =1{Play with 1 phrase you know} other{Play with the {count} phrases you know}}",
+  "@homeGamesBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gamesNeedPhrases": "The games play with phrases you have learned. Finish the Learn step of a mission to open them.",
+  "gameMemoryName": "Lantern pairs",
+  "gameMemoryPitch": "Each phrase and its meaning hide under the lanterns. Find the pairs.",
+  "gameMemoryHint": "Turn two lanterns: a phrase and its meaning stay lit.",
+  "gameMemoryHidden": "Lantern {index}, not turned",
+  "@gameMemoryHidden": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "gameMemoryResult": "{count, plural, =1{All the pairs in 1 move} other{All the pairs in {count} moves}}",
+  "@gameMemoryResult": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameMemoryDetail": "{count, plural, =1{1 phrase found with its meaning.} other{{count} phrases found with their meaning.}}",
+  "@gameMemoryDetail": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameMovesSemantics": "{count, plural, =1{1 move} other{{count} moves}}",
+  "@gameMovesSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameQuickName": "Quick fire",
+  "gameQuickPitch": "A phrase, a meaning: yes or no? As many as you can before time runs out.",
+  "gameQuickRules": "You see a phrase and a meaning. Is it what the phrase means? Answer as many as you can in {seconds} seconds. A wrong answer shows the right meaning.",
+  "@gameQuickRules": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "gameQuickResult": "{count, plural, =0{No right answer this time} =1{1 right answer} other{{count} right answers}}",
+  "@gameQuickResult": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameQuickDetail": "Out of {answered} answered. Longest run without a mistake: {streak}.",
+  "@gameQuickDetail": {
+    "placeholders": {
+      "answered": {
+        "type": "int"
+      },
+      "streak": {
+        "type": "int"
+      }
+    }
+  },
+  "gameQuickMeans": "It means: {meaning}",
+  "@gameQuickMeans": {
+    "placeholders": {
+      "meaning": {
+        "type": "String"
+      }
+    }
+  },
+  "gameRightSemantics": "{count, plural, =1{1 right answer} other{{count} right answers}}",
+  "@gameRightSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameSecondsLeft": "{count, plural, =1{1 second left} other{{count} seconds left}}",
+  "@gameSecondsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameStreak": "{count} in a row",
+  "@gameStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameEarName": "By ear",
+  "gameEarPitch": "A phrase is said. Find it among the written ones.",
+  "gameEarResult": "{right} of {total} caught by ear",
+  "@gameEarResult": {
+    "placeholders": {
+      "right": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gameDashName": "Sentence dash",
+  "gameDashPitch": "Put the words of each sentence back in order, against the clock.",
+  "gameDashRules": "You get a meaning and the words of its sentence, mixed with one that does not belong. Put them in order. The clock runs until the last sentence is right.",
+  "gameDashResult": "{count, plural, =1{1 sentence in {time}} other{{count} sentences in {time}}}",
+  "@gameDashResult": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "gameTimeSemantics": "Time: {time}",
+  "@gameTimeSemantics": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "gameBestMoves": "{count, plural, =1{Your record: 1 move} other{Your record: {count} moves}}",
+  "@gameBestMoves": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameBestRight": "{count, plural, =1{Your record: 1 right answer} other{Your record: {count} right answers}}",
+  "@gameBestRight": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameBestTime": "Your record: {time}",
+  "@gameBestTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "gameStart": "Start",
+  "gamePlayAgain": "Play again",
+  "gameBackToGames": "Back to the games",
+  "gameNewRecord": "New record",
+  "courseIncludesGames": "Mini-games with the phrases you have learned"
 }

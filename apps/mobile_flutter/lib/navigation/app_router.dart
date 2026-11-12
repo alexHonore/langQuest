@@ -13,6 +13,8 @@ import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/catalog/course_detail_screen.dart';
+import '../features/games/game_screens.dart';
+import '../features/games/games_hub_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/learn/cards_screen.dart';
 import '../features/learn/mission_path_screen.dart';
@@ -104,7 +106,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
       page('/talk/:character', (s) => CallScreen(characterId: s.pathParameters['character']!)),
       page('/calls/:id', (s) => CallRecordScreen(recordId: s.pathParameters['id']!)),
+      // The chapter's mixes (every conversation back to back, a recall of what was learned) before a mission's lesson.
+      page('/audio/mix/:kind', (s) => AudioLessonScreen.mix(kind: s.pathParameters['kind']!)),
       page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
+      // Mini-games: the phrases already taught, another way.
+      page('/play', (_) => const GamesHubScreen()),
+      page('/play/memory', (_) => const MemoryGameScreen()),
+      page('/play/quick', (_) => const QuickGameScreen()),
+      page('/play/ear', (_) => const EarGameScreen()),
+      page('/play/dash', (_) => const DashGameScreen()),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),

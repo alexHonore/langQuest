@@ -55,9 +55,24 @@ void main() {
       '/mission/es_greet_and_introduce',
       '/call/es_greet_and_introduce',
       '/review',
+      // The mini-games (playable once a Learn stop is done) and a game that cannot be played here (no voice).
+      '/play',
+      '/play/memory',
+      '/play/quick',
+      '/play/dash',
+      '/play/ear',
     ]) {
       await check(route);
     }
+    // Inside a game: the board of Quick fire (its two answers), and a practice question with its answers.
+    container.read(appRouterProvider).go('/play/quick');
+    await t.pumpAndSettle();
+    await t.tap(find.text('Start'));
+    await t.pump(const Duration(milliseconds: 300));
+    await expectLater(t, meetsGuideline(labeledTapTargetGuideline), reason: 'Quick fire, playing');
+    await expectLater(t, meetsGuideline(androidTapTargetGuideline), reason: 'Quick fire, playing');
+    container.read(appRouterProvider).go('/');
+    await t.pump(const Duration(seconds: 1));
     semantics.dispose();
   });
 }
