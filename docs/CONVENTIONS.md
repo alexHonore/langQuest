@@ -111,7 +111,7 @@ Rules:
 - Append-only ledgers (`xp_ledger`, `device_sync_events`) with unique idempotency keys.
 - Migrations are plain SQL files `supabase/migrations/<timestamp>_<name>.sql`; seeds in `supabase/seed/*.sql`
   and typed seed scripts in `packages/db/src/seed`.
-- Local dev: `pnpm supabase start` (Docker). Hosted: `supabase link` + `supabase db push`.
+- Local dev: `pnpm supabase start` (Docker). Hosted: self-hosted Supabase on Infra Tayoo (instance `languest`), `pnpm db:migrate` (= `infra-tayoo db push`). Never create or link a Supabase cloud project.
 
 ## 5. AI conventions (`packages/ai`)
 - All LLM text calls go through `TextReasoner.generateStructured(task, languageContext, prompt, schema)` backed by

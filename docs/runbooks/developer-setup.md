@@ -60,11 +60,11 @@ template but not read by any package in this checkout (documented so nobody assu
 
 | Variable | Scope | Meaning | Read in |
 |---|---|---|---|
-| `SUPABASE_URL` | server | Supabase project URL (`http://127.0.0.1:54321` locally) | `apps/api/src/env.ts`, `apps/jobs/src/config.ts`, `scripts/src/lib/db.ts`, `packages/db` local-stack detection |
+| `SUPABASE_URL` | server | Supabase API URL: `https://sb-languest.tayoo.app` (Infra Tayoo), `http://127.0.0.1:54321` locally | `apps/api/src/env.ts`, `apps/jobs/src/config.ts`, `scripts/src/lib/db.ts`, `packages/db` local-stack detection |
 | `SUPABASE_ANON_KEY` | public (used server-side too) | anon/publishable key; the API pairs it with the learner JWT so RLS stays in force | `apps/api/src/env.ts` |
 | `SUPABASE_SERVICE_ROLE_KEY` | **server only** | service role for server-validated writes (XP, observations, audit, queue RPCs) and `scripts --apply` | `apps/api/src/env.ts`, `apps/jobs/src/config.ts`, `scripts/src/lib/db.ts` |
-| `SUPABASE_PROJECT_REF` | cli | `pnpm supabase link --project-ref` for a hosted project | not read by code |
-| `SUPABASE_ACCESS_TOKEN` | cli | Supabase management token for the CLI (local shell only) | not read by code |
+| `INFRA_TAYOO_URL` | cli | Infra Tayoo instance URL (`https://ops.tayoo.app/api/v1/instances/languest`) for the `infra-tayoo` CLI and MCP server | not read by app code |
+| `INFRA_TAYOO_KEY` | cli, **secret** | Infra Tayoo instance key (migrations, types, read-only SQL, logs, app env/deploy). Never print, log or commit it | not read by app code |
 | `SUPABASE_JWT_SECRET` | server | legacy HS256 verification (the local stack signs HS256; hosted ES256 projects are verified through JWKS instead) | `apps/api/src/env.ts`; tests use `SUPABASE_LOCAL_JWT_SECRET` |
 | `CLOUDFLARE_ACCOUNT_ID` | server/cli | account id for wrangler and the optional Queues pull consumer | `apps/jobs/src/queue/cloudflare-queues.ts`, wrangler |
 | `CLOUDFLARE_API_TOKEN` | server/cli | scoped token (Workers Scripts:Edit, R2:Edit, Queues:Edit) | `apps/jobs` (Queues backend), wrangler |
@@ -272,9 +272,9 @@ Three jobs on push to `main` and on every pull request (`concurrency: ci-${ref}`
 Not in CI (by design): Playwright e2e, live provider tests, mobile native builds, the load run (`tests/load`, documented as
 "never run in CI").
 
-## 11. Deploy order (once R2 + hosted Supabase exist)
+## 11. Deploy order (once R2 exists; Supabase is the Infra Tayoo `languest` instance)
 
-See `provisioning.md` "Deploy order": `supabase link` + `pnpm db:migrate` (= `supabase db push`) → `wrangler secret put …`
+See `provisioning.md` "Deploy order": `pnpm db:migrate` (= `infra-tayoo db push`) + `seed-curriculum -- --apply` → `wrangler secret put …`
 and `npx wrangler deploy --env production` from `apps/api` → admin on any Node host with the three `NEXT_PUBLIC_*` values →
 `eas build` for mobile → run `apps/jobs` on demand where ffmpeg is available.
 
@@ -305,7 +305,7 @@ and `npx wrangler deploy --env production` from `apps/api` → admin on any Node
 
 | Blocked | Why | Owner action |
 |---|---|---|
-| Hosted Supabase | org at the 2-free-project limit (`provisioning.md`) | pause/delete a project or upgrade to Pro, then `supabase link` + `db push` |
+| Hosted first admin | the Infra Tayoo instance `languest` has the schema and curriculum but no `super_admin` yet | sign up the owner account, then insert the first `super_admin` with the service-role key (`infra-tayoo keys --secret`, `database.md` §6) |
 | Cloudflare R2 | not enabled on the account (`10042`) | enable R2 (payment method), create `langquest-media` + `langquest-public`, create an R2 API token, set Worker secrets |
 | Cloudflare Queues | Workers Paid plan | optional; keep `JOBS_BACKEND=postgres` |
 | Azure Speech | no credentials | optional; only tracks on the 33-locale list get numeric pronunciation scores (ADR-006) |

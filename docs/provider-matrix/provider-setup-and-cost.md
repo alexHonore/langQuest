@@ -10,7 +10,7 @@ table refreshes from `GET /api/v1/models`._
 | Provider | Role in LangQuest | Required? | State (2026-10-14) |
 |---|---|---|---|
 | OpenRouter | all LLM text tasks, STT, TTS (single gateway, `packages/ai`) | yes | key valid, $50/month key budget |
-| Supabase | Postgres 17, Auth, RLS, RPC job queue (`packages/db`, `supabase/`) | yes | **local Docker only**; hosted project not created (org at the 2-free-project limit) |
+| Supabase | Postgres 17, Auth, RLS, RPC job queue (`packages/db`, `supabase/`) | yes | self-hosted on Infra Tayoo, instance `languest` (https://sb-languest.tayoo.app): migrations and curriculum seed applied 2026-11-10; local Docker for development |
 | Cloudflare Workers | `apps/api` Hono Worker `langquest-api` | yes | account OK, `workers.dev` subdomain `langquest-nsh`; free plan |
 | Cloudflare R2 | master/derived/public media, manifests, TTS cache | yes for media | **not enabled** (`10042`) |
 | Cloudflare Queues | optional job wake-up signal (`JOBS_BACKEND=cloudflare_queues`) | no | not created (needs Workers Paid) |
@@ -61,13 +61,13 @@ table refreshes from `GET /api/v1/models`._
 
 ### 2.2 Supabase
 
-- **Setup (hosted):** free the org slot or upgrade (`provisioning.md`) → create project `langquest` (Postgres 17) →
-  `pnpm supabase login` → `pnpm supabase link --project-ref <ref>` → `pnpm db:migrate` (`supabase db push`; migration 080
-  seeds the catalog) → insert the first `super_admin` into `public.user_roles` with the service role → optionally
-  `pnpm supabase gen types typescript --linked`. Local: `pnpm supabase start` (`../runbooks/database.md`).
+- **Setup (hosted):** self-hosted Supabase on Infra Tayoo (https://ops.tayoo.app), instance `languest`, never Supabase
+  cloud. `infra-tayoo link` → `pnpm db:migrate` (`infra-tayoo db push`; migration 080 seeds the catalog) →
+  `seed-curriculum -- --apply` → insert the first `super_admin` into `public.user_roles` with the service role →
+  `pnpm db:types`. Local: `pnpm supabase start` (`../runbooks/database.md`).
 - **Secrets:** `SUPABASE_URL`, `SUPABASE_ANON_KEY` (public), `SUPABASE_SERVICE_ROLE_KEY` (server only),
-  `SUPABASE_JWT_SECRET` (legacy HS256 only; hosted ES256 projects use JWKS), CLI-only `SUPABASE_PROJECT_REF`,
-  `SUPABASE_ACCESS_TOKEN`.
+  `SUPABASE_JWT_SECRET` (legacy HS256 only; hosted ES256 projects use JWKS), CLI-only `INFRA_TAYOO_URL`,
+  `INFRA_TAYOO_KEY` (secret).
 - **Read in code:** `apps/api/src/env.ts` + `middleware/auth.ts` (JWT verification, RLS-forwarded client, ADR-003),
   `packages/db` client factories (`createUserClient` / `createServiceClient` / `createAnonClient`), `apps/jobs/src/config.ts`,
   `scripts/src/lib/db.ts`, `apps/admin/src/lib/env.ts` (`NEXT_PUBLIC_*`), `apps/mobile/src/config/env.ts` (`EXPO_PUBLIC_*`).

@@ -320,44 +320,67 @@ describe('restorable snapshots and the review-flag publish gate', () => {
       expect(latestRevision(h, 'audio_lessons', lesson.id)).toMatchObject({ revision: 1, diff: { patch: { tags: ['keep', 'editor-tag', 'souk'] } }, snapshot: restorable('audio_lessons', lesson) });
     });
 
-    it('with expectedRevision, a lesson written after the check is a 412: no re-read, nothing decided, no override stored', async () => {
+    it('with expectedRevision, a lesson already past that revision is a 412 with nothing decided and no override stored', async () => {
+      const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'metadata_needed', tags: ['keep'] })]) as [DbRow];
+      expect((await h.call(`/v1/admin/audio/lessons/${String(lesson.id)}`, { method: 'PATCH', token: editor, body: { expectedRevision: 0, topic: 'market' } })).json.data.revision).toBe(1);
+      const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string, { kind: 'tags', suggestion: { tags: ['souk'] } })]) as [DbRow];
+      const body = { decision: 'approve', expectedRevision: 0, overrideSuggestion: { tags: ['souk', 'cafe'] }, idempotencyKey: 'decide-key-0003' };
+      const refused = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body });
+      expect(refused.status, JSON.stringify(refused.json)).toBe(412);
+      expect(refused.json.error).toMatchObject({ code: 'precondition_failed', details: { currentRevision: 1 } });
+      expect(h.db.writes('asset_suggestions')).toHaveLength(0);
+      expect(suggestion).toMatchObject({ review_status: 'review_needed', suggestion: { tags: ['souk'] } });
+      expect(h.db.writes('audio_lessons')).toHaveLength(1); // the setup PATCH only
+
+      const retried = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body: { ...body, expectedRevision: 1, idempotencyKey: 'decide-key-0004' } });
+      expect(retried.status, JSON.stringify(retried.json)).toBe(200);
+      expect(retried.json.data).toMatchObject({ applied: true, revision: { entityTable: 'audio_lessons', entityId: lesson.id, revision: 2 } });
+      expect(lesson.tags).toEqual(['keep', 'souk', 'cafe']);
+      expect(suggestion).toMatchObject({ review_status: 'approved', suggestion: { tags: ['souk', 'cafe'] } });
+      expect(latestRevision(h, 'audio_lessons', lesson.id)).toMatchObject({ revision: 2, diff: { suggestionApplied: suggestion.id }, snapshot: restorable('audio_lessons', lesson) });
+    });
+
+    it('with expectedRevision, a lesson written after the check: the decision (with its override) stands, nothing is written over the revision the editor saw', async () => {
       const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'metadata_needed', tags: ['keep'] })]) as [DbRow];
       expect((await h.call(`/v1/admin/audio/lessons/${String(lesson.id)}`, { method: 'PATCH', token: editor, body: { expectedRevision: 0, topic: 'market' } })).json.data.revision).toBe(1);
       const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string, { kind: 'tags', suggestion: { tags: ['souk'] } })]) as [DbRow];
       interleaveBefore(h, (method, target) => method === 'PATCH' && target === 'audio_lessons', () => {
         Object.assign(lesson, { tags: ['keep', 'editor-tag'], updated_at: FOREIGN_WRITE_AT });
       });
-      const body = { decision: 'approve', expectedRevision: 1, overrideSuggestion: { tags: ['souk', 'cafe'] }, idempotencyKey: 'decide-key-0003' };
-      const refused = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body });
-      expect(refused.status, JSON.stringify(refused.json)).toBe(412);
-      // Revision 2 was claimed for the apply, then voided by revision 3 when the conditional write found a changed row.
-      expect(refused.json.error).toMatchObject({ code: 'precondition_failed', details: { currentRevision: 3 } });
+      const body = { decision: 'approve', expectedRevision: 1, overrideSuggestion: { tags: ['souk', 'cafe'] }, idempotencyKey: 'decide-key-0005' };
+      const decided = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body });
+      expect(decided.status, JSON.stringify(decided.json)).toBe(200);
+      expect(decided.json.data).toMatchObject({ applied: false, revision: null, replayed: false, suggestion: { reviewStatus: 'approved', suggestion: { tags: ['souk', 'cafe'] } } });
+      // Decide, then apply: the decision and the override landed in ONE conditional UPDATE before the lesson was touched.
+      const decisions = h.db.writes('asset_suggestions');
+      expect(decisions).toHaveLength(1);
+      expect(decisions[0]!.body).toMatchObject({ review_status: 'approved', suggestion: { tags: ['souk', 'cafe'] } });
+      expect(decodeURIComponent(decisions[0]!.query)).toContain('review_status=in.(draft,review_needed,in_review)');
+      expect(suggestion).toMatchObject({ review_status: 'approved', reviewer_id: EDITOR, suggestion: { tags: ['souk', 'cafe'] } });
+      // The apply was held to revision 1: its conditional write found a changed row, so nothing was written, no re-read,
+      // and the claimed revision 2 was voided by revision 3.
       expect(lesson.tags).toEqual(['keep', 'editor-tag']);
       expect(h.db.writes('audio_lessons')).toHaveLength(2); // the setup PATCH, then the one refused conditional write
-      expect(h.db.writes('asset_suggestions')).toHaveLength(0);
-      expect(suggestion).toMatchObject({ review_status: 'review_needed', suggestion: { tags: ['souk'] } });
       expect(latestRevision(h, 'audio_lessons', lesson.id)).toMatchObject({ revision: 3, diff: { voidsRevision: 2 }, snapshot: restorable('audio_lessons', lesson) });
-
-      const retried = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body: { ...body, expectedRevision: 3, idempotencyKey: 'decide-key-0004' } });
-      expect(retried.status, JSON.stringify(retried.json)).toBe(200);
-      expect(retried.json.data).toMatchObject({ applied: true, revision: { entityTable: 'audio_lessons', entityId: lesson.id, revision: 4 } });
-      expect(lesson.tags).toEqual(['keep', 'editor-tag', 'souk', 'cafe']);
-      expect(suggestion).toMatchObject({ review_status: 'approved', suggestion: { tags: ['souk', 'cafe'] } });
-      expect(latestRevision(h, 'audio_lessons', lesson.id)).toMatchObject({ revision: 4, diff: { suggestionApplied: suggestion.id }, snapshot: restorable('audio_lessons', lesson) });
+      // Sending the same decision again is a replay of what is stored; it does not apply anything either.
+      const again = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body: { ...body, expectedRevision: 3, idempotencyKey: 'decide-key-0006' } });
+      expect(again.status, JSON.stringify(again.json)).toBe(200);
+      expect(again.json.data).toMatchObject({ applied: false, revision: null, replayed: true });
+      expect(lesson.tags).toEqual(['keep', 'editor-tag']);
     });
 
-    it('with expectedRevision, a revision another editor recorded after the check is a 412 and the lesson is not written', async () => {
+    it('with expectedRevision, a revision another editor recorded after the check: the decision stands and the lesson is not written', async () => {
       const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'metadata_needed', level: null })]) as [DbRow];
       const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string)]) as [DbRow];
       interleaveBefore(h, (method, target) => method === 'POST' && target === 'content_revisions', () => {
         h.db.rows('content_revisions').push({ id: crypto.randomUUID(), entity_table: 'audio_lessons', entity_id: lesson.id, revision: 1, diff: { by: 'another editor' }, snapshot: null, editor_id: EDITOR2, note: null, created_at: NOW() });
       });
-      const res = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body: { decision: 'approve', expectedRevision: 0, idempotencyKey: 'decide-key-0005' } });
-      expect(res.status, JSON.stringify(res.json)).toBe(412);
-      expect(res.json.error.details).toEqual({ currentRevision: 1 });
+      const res = await h.call(`/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`, { token: editor, body: { decision: 'approve', expectedRevision: 0, idempotencyKey: 'decide-key-0007' } });
+      expect(res.status, JSON.stringify(res.json)).toBe(200);
+      expect(res.json.data).toMatchObject({ applied: false, revision: null, suggestion: { reviewStatus: 'approved' } });
       expect(lesson.level).toBeNull();
       expect(h.db.writes('audio_lessons')).toHaveLength(0);
-      expect(suggestion.review_status).toBe('review_needed');
+      expect(suggestion.review_status).toBe('approved');
     });
 
     it('bulk approval applies each suggestion with its own restorable revision', async () => {

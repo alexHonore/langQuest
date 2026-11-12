@@ -4,8 +4,10 @@
  * 1. The publish override (`overrideReviewFlags` / `overrideReason`) is validated by the contract's
  *    `ContentPublishRequestSchema` itself, and the diversity flag the gate reads is the contract's constant.
  * 2. Two editors deciding the same asset suggestion at the same moment: the decision is a conditional UPDATE
- *    (pending status in the filter), so exactly one lands and the other is a 409 carrying the stored status. An
- *    editor's payload override is conditional the same way, so it never rewrites a suggestion decided since.
+ *    (pending status in the filter) that also carries the editor's payload override, so exactly one lands, an override
+ *    is only ever stored with its own decision, and the lesson is written only after the decision landed. The other
+ *    editor gets a replay when they asked for the same outcome (same status and, for an approval, the same payload) and
+ *    a 409 carrying the stored status otherwise.
  * 3. Speakers are deliberately not restorable (a consent record): revisions carry `snapshot: null`, rollback is
  *    refused, and the PATCH `expectedRevision` guard is atomic (two editors at the same revision: one 412).
  * 4. The Studio Model Test synthesize and transcribe probes are ledgered as staff spend, like the prompt probe, so the
@@ -171,6 +173,82 @@ describe('asset suggestion decisions race', () => {
     expect(updates.some((u) => JSON.stringify(u.body).includes('advanced'))).toBe(true);
     await h.flush();
     expect(auditsOf(h, 'asset_suggestion.decide', suggestion.id)).toEqual([expect.objectContaining({ actor_id: EDITOR2 })]);
+  });
+
+  it.each([
+    ['approve', 'approved'],
+    ['reject', 'rejected'],
+  ] as const)('two editors who both %s at the same moment: one decision lands, the other is a replay with nothing applied twice', async (decision, status) => {
+    h = routeHarness({ roles: ROLES, media: true });
+    const [first, second] = [await h.token(EDITOR), await h.token(EDITOR2)];
+    const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'review_needed', level: null })]) as [DbRow];
+    const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string)]) as [DbRow];
+    const path = `/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`;
+    let winner: Awaited<ReturnType<RouteHarness['call']>> | null = null;
+    interleaveBefore(h, (method, target) => method === 'PATCH' && target === 'asset_suggestions', async () => {
+      winner = await h.call(path, { token: second, body: { decision, idempotencyKey: `same-${decision}-second` } });
+    });
+    const replayed = await h.call(path, { token: first, body: { decision, idempotencyKey: `same-${decision}-first` } });
+
+    expect(winner!.status, JSON.stringify(winner!.json)).toBe(200);
+    expect(winner!.json.data).toMatchObject({ suggestion: { reviewStatus: status, reviewerId: EDITOR2 }, applied: decision === 'approve', replayed: false });
+    expect(replayed.status, JSON.stringify(replayed.json)).toBe(200);
+    expect(replayed.json.data).toMatchObject({ suggestion: { reviewStatus: status, reviewerId: EDITOR2 }, applied: false, revision: null, replayed: true });
+    expect(suggestion).toMatchObject({ review_status: status, reviewer_id: EDITOR2 });
+    expect(lesson.level).toBe(decision === 'approve' ? 'beginner' : null);
+    expect(revisionsOf(h, 'audio_lessons', lesson.id)).toHaveLength(decision === 'approve' ? 1 : 0);
+    await h.flush();
+    expect(auditsOf(h, 'asset_suggestion.decide', suggestion.id)).toEqual([expect.objectContaining({ actor_id: EDITOR2 })]);
+  });
+
+  it('a plain approval that loses to an override approval is a 409: the override is stored with its own decision and applied once, by its editor', async () => {
+    h = routeHarness({ roles: ROLES, media: true });
+    const [first, second] = [await h.token(EDITOR), await h.token(EDITOR2)];
+    const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'review_needed', level: null })]) as [DbRow];
+    const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string)]) as [DbRow];
+    const path = `/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`;
+    // The first editor read the row as pending (payload `beginner`); the second editor's override approval runs whole
+    // before the first editor's UPDATE reaches the database.
+    let winner: Awaited<ReturnType<RouteHarness['call']>> | null = null;
+    interleaveBefore(h, (method, target) => method === 'PATCH' && target === 'asset_suggestions', async () => {
+      winner = await h.call(path, { token: second, body: { decision: 'approve', overrideSuggestion: { value: 'advanced' }, idempotencyKey: 'override-wins-second' } });
+    });
+    const loser = await h.call(path, { token: first, body: { decision: 'approve', idempotencyKey: 'override-wins-first' } });
+
+    expect(winner!.status, JSON.stringify(winner!.json)).toBe(200);
+    expect(winner!.json.data).toMatchObject({ suggestion: { reviewStatus: 'approved', reviewerId: EDITOR2, suggestion: { value: 'advanced' } }, applied: true, replayed: false });
+    // Same status, different payload: the first editor approved `beginner`, which is not what was approved. Not a replay.
+    expect(loser.status, JSON.stringify(loser.json)).toBe(409);
+    expect(loser.json.error).toMatchObject({ code: 'conflict', message: 'Suggestion was already approved', details: { reviewStatus: 'approved' } });
+    expect(lesson.level).toBe('advanced');
+    expect(revisionsOf(h, 'audio_lessons', lesson.id)).toHaveLength(1);
+    // The override never had a write of its own: one conditional UPDATE per editor, the winner's carrying status + payload.
+    const updates = h.db.writes('asset_suggestions').filter((w) => w.method === 'PATCH');
+    expect(updates).toHaveLength(2);
+    for (const u of updates) expect(decodeURIComponent(u.query)).toContain('review_status=in.(draft,review_needed,in_review)');
+    expect(updates.filter((u) => JSON.stringify(u.body).includes('advanced'))).toEqual([expect.objectContaining({ body: expect.objectContaining({ review_status: 'approved', suggestion: { value: 'advanced' } }) })]);
+  });
+
+  it('with expectedRevision, an approval that loses the decision to a rejection never touches the lesson (decide, then apply)', async () => {
+    h = routeHarness({ roles: ROLES, media: true });
+    const [first, second] = [await h.token(EDITOR), await h.token(EDITOR2)];
+    const [lesson] = h.db.seed('audio_lessons', [audioLessonRow({ state: 'review_needed', level: null })]) as [DbRow];
+    const [suggestion] = h.db.seed('asset_suggestions', [suggestionRow(lesson.id as string)]) as [DbRow];
+    const path = `/v1/admin/asset-suggestions/${String(suggestion.id)}/decide`;
+    let rejected: Awaited<ReturnType<RouteHarness['call']>> | null = null;
+    interleaveBefore(h, (method, target) => method === 'PATCH' && target === 'asset_suggestions', async () => {
+      rejected = await h.call(path, { token: second, body: { decision: 'reject', note: 'wrong level', idempotencyKey: 'guarded-race-second' } });
+    });
+    const approved = await h.call(path, { token: first, body: { decision: 'approve', expectedRevision: 0, idempotencyKey: 'guarded-race-first' } });
+
+    expect(rejected!.status, JSON.stringify(rejected!.json)).toBe(200);
+    expect(approved.status, JSON.stringify(approved.json)).toBe(409);
+    expect(approved.json.error).toMatchObject({ code: 'conflict', details: { reviewStatus: 'rejected' } });
+    // Never "rejected + applied": the lesson write comes after the decision, and this decision did not land.
+    expect(suggestion).toMatchObject({ review_status: 'rejected', reviewer_id: EDITOR2 });
+    expect(lesson.level).toBeNull();
+    expect(h.db.writes('audio_lessons')).toHaveLength(0);
+    expect(revisionsOf(h, 'audio_lessons', lesson.id)).toEqual([]);
   });
 });
 

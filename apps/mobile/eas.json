@@ -29,7 +29,8 @@
       "channel": "preview",
       "android": { "buildType": "apk" },
       "env": {
-        "APP_ENV": "preview"
+        "APP_ENV": "preview",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://sb-languest.tayoo.app"
       }
     },
     "production": {
@@ -39,7 +40,8 @@
       "autoIncrement": true,
       "android": { "buildType": "app-bundle" },
       "env": {
-        "APP_ENV": "production"
+        "APP_ENV": "production",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://sb-languest.tayoo.app"
       }
     }
   },
