@@ -27397,6 +27397,10 @@
    "file": "assets/audio/lines/swahili-orus-2ff59af811856df9.mp3",
    "voice": "swahili-orus"
   },
+  "swahili_ch1:swahili_ask_directions:where_is": {
+   "file": "assets/audio/lines/swahili-puck-2ec20d240e1c65c1.mp3",
+   "voice": "swahili-puck"
+  },
   "swahili_ch1:swahili_buy_ice_cream:asks_two": {
    "file": "assets/audio/lines/swahili-aoede-3fa40624212c4094.mp3",
    "voice": "swahili-aoede"
@@ -27412,6 +27416,10 @@
   "swahili_ch1:swahili_buy_ice_cream:okay": {
    "file": "assets/audio/lines/swahili-puck-822af0517f290e0f.mp3",
    "voice": "swahili-puck"
+  },
+  "swahili_ch1:swahili_buy_ice_cream:picks": {
+   "file": "assets/audio/lines/swahili-aoede-f7abe290eef97346.mp3",
+   "voice": "swahili-aoede"
   },
   "swahili_ch1:swahili_buy_ice_cream:refuse_permission_variant_13": {
    "file": "assets/audio/lines/swahili-puck-618c0854685ffb14.mp3",
@@ -27636,6 +27644,526 @@
   "swahili_ch1:swahili_take_taxi:where_to": {
    "file": "assets/audio/lines/swahili-orus-d252a6cb49808671.mp3",
    "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:card": {
+   "file": "assets/audio/lines/swahili-puck-33417a91c39b3f32.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:last_stop": {
+   "file": "assets/audio/lines/swahili-aoede-62f7ed1c816fb53e.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:return_please": {
+   "file": "assets/audio/lines/swahili-puck-53313b8d2f0eec4e.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:single_or_return": {
+   "file": "assets/audio/lines/swahili-aoede-27ce0650c9a15ced.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:ticket": {
+   "file": "assets/audio/lines/swahili-puck-79a1a201f581f3b9.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:time": {
+   "file": "assets/audio/lines/swahili-aoede-e2a74fae09ebcd64.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:total": {
+   "file": "assets/audio/lines/swahili-aoede-ba0338cfb48a3c70.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:two": {
+   "file": "assets/audio/lines/swahili-puck-986244228603e9d9.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:want_two_tickets": {
+   "file": "assets/audio/lines/swahili-puck-9e8e7a18a4c80bd9.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:when": {
+   "file": "assets/audio/lines/swahili-puck-8362e5019a65576c.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_buy_train_ticket:which_stop": {
+   "file": "assets/audio/lines/swahili-puck-ce415dd846f13a01.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:calm": {
+   "file": "assets/audio/lines/swahili-orus-e1f94dace4cb793c.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:help": {
+   "file": "assets/audio/lines/swahili-puck-88838e5b502d96e9.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:need_doctor": {
+   "file": "assets/audio/lines/swahili-puck-8d3ed5a4fe672610.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:pain": {
+   "file": "assets/audio/lines/swahili-puck-3ddb2d9bcb5d1d91.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:pharmacy": {
+   "file": "assets/audio/lines/swahili-puck-412c31f086a8d3a2.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:pharmacy_near": {
+   "file": "assets/audio/lines/swahili-orus-89c0152b84c45de1.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:type": {
+   "file": "assets/audio/lines/swahili-puck-b36fbf72b3598b2d.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:understood": {
+   "file": "assets/audio/lines/swahili-puck-b221cad356b47778.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_emergency_ask_help:what_happened": {
+   "file": "assets/audio/lines/swahili-orus-6b12b4b35eabe0b3.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:accept": {
+   "file": "assets/audio/lines/swahili-puck-d9b39b65eeba7134.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:confirm": {
+   "file": "assets/audio/lines/swahili-puck-c501b65efb8a1847.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:decline": {
+   "file": "assets/audio/lines/swahili-puck-011c7649daf140ce.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:go_fort_jesus": {
+   "file": "assets/audio/lines/swahili-puck-5617a5c05c3255c3.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:ill_come": {
+   "file": "assets/audio/lines/swahili-puck-072824928866faea.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:madafu_after": {
+   "file": "assets/audio/lines/swahili-orus-840efff75a872743.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:match_saturday": {
+   "file": "assets/audio/lines/swahili-orus-38ed5d99b85f2086.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:other_time": {
+   "file": "assets/audio/lines/swahili-puck-b4f0b31539960c24.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:suggest": {
+   "file": "assets/audio/lines/swahili-puck-eabf6254b2ffc39f.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:sunday_ok": {
+   "file": "assets/audio/lines/swahili-orus-8fc3791d1feeb716.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_make_weekend_plans:when": {
+   "file": "assets/audio/lines/swahili-puck-a1b2b45bfcd3200f.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:bill": {
+   "file": "assets/audio/lines/swahili-puck-2e014c9d883b1d66.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:delicious": {
+   "file": "assets/audio/lines/swahili-puck-bc8e47c3019b0f9a.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:dish_of_day": {
+   "file": "assets/audio/lines/swahili-orus-7924ab1da93fc0a1.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:have_table": {
+   "file": "assets/audio/lines/swahili-puck-ae7a8633940f0854.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:ingredients": {
+   "file": "assets/audio/lines/swahili-puck-1aeca9f8fe7fba03.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:not_spicy": {
+   "file": "assets/audio/lines/swahili-orus-2fa1ac49b1b914d3.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:order": {
+   "file": "assets/audio/lines/swahili-puck-13112d7f13e13ee1.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:recommend": {
+   "file": "assets/audio/lines/swahili-puck-81b50e8c61624d94.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:right_away": {
+   "file": "assets/audio/lines/swahili-orus-f0749efdefd3b38c.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:table": {
+   "file": "assets/audio/lines/swahili-puck-60a08bde833b99f7.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/swahili-orus-0b35130f4248fda6.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch2:swahili_restaurant_order_meal:would_like_pilau": {
+   "file": "assets/audio/lines/swahili-puck-c311f2a1f73f98dc.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:can_i_help": {
+   "file": "assets/audio/lines/swahili-aoede-ee7ec47469711d8b.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:card": {
+   "file": "assets/audio/lines/swahili-puck-9aa3c6d98e0a076c.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:here_is_large": {
+   "file": "assets/audio/lines/swahili-aoede-6195daadef454423.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:just_looking": {
+   "file": "assets/audio/lines/swahili-puck-de5177351dfa842f.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:other_colour": {
+   "file": "assets/audio/lines/swahili-puck-c36636a7501fc1c1.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:price": {
+   "file": "assets/audio/lines/swahili-puck-82b33f3b4f2f1c3f.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:price_is": {
+   "file": "assets/audio/lines/swahili-aoede-47f567dc8638340b.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:take_it": {
+   "file": "assets/audio/lines/swahili-puck-143e20dc43077a19.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:try_this": {
+   "file": "assets/audio/lines/swahili-aoede-e5eb2149f803857d.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:variant": {
+   "file": "assets/audio/lines/swahili-puck-7151fb39ad97b46c.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:want": {
+   "file": "assets/audio/lines/swahili-puck-387942003209b250.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_shop_for_clothes:want_kikoi": {
+   "file": "assets/audio/lines/swahili-puck-f30f73c84554184e.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:and_you": {
+   "file": "assets/audio/lines/swahili-aoede-c2dd82245e134125.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_talk_about_family:ask_family": {
+   "file": "assets/audio/lines/swahili-puck-d9a5fe0d17ed1f4e.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:come_in": {
+   "file": "assets/audio/lines/swahili-aoede-2c846f06f38c8130.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_talk_about_family:compliment_reply": {
+   "file": "assets/audio/lines/swahili-puck-03d223d6a043b51b.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:delicious": {
+   "file": "assets/audio/lines/swahili-puck-ef4b9fb7356fef88.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:dont_know": {
+   "file": "assets/audio/lines/swahili-puck-0e30f6acb601a906.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:how_long": {
+   "file": "assets/audio/lines/swahili-aoede-420080530d2a5c72.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch2:swahili_talk_about_family:my_family": {
+   "file": "assets/audio/lines/swahili-puck-dad0f4b86ecccdab.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:where_parents": {
+   "file": "assets/audio/lines/swahili-puck-5c4783f225621b5d.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch2:swahili_talk_about_family:you_speak_well": {
+   "file": "assets/audio/lines/swahili-aoede-52ab7644584440a7.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_ask_for_advice:by_matatu": {
+   "file": "assets/audio/lines/swahili-orus-d25ffd1a4af11db7.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_ask_for_advice:excuse_me": {
+   "file": "assets/audio/lines/swahili-puck-f4e514540ce10c7f.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:hours": {
+   "file": "assets/audio/lines/swahili-puck-30b738abbc7f5167.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:how_to_get": {
+   "file": "assets/audio/lines/swahili-puck-4309f2e2967b64c3.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:is_it_far": {
+   "file": "assets/audio/lines/swahili-puck-bce4261d9e94084e.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:jumba_la_mtwana": {
+   "file": "assets/audio/lines/swahili-orus-980da4924caf8fe8.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_ask_for_advice:matatu_there": {
+   "file": "assets/audio/lines/swahili-puck-2ca78006bb044ffe.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:opening_hours": {
+   "file": "assets/audio/lines/swahili-orus-c881c9f5513f7864.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_ask_for_advice:reason": {
+   "file": "assets/audio/lines/swahili-orus-d9fb44359fa94bf3.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_ask_for_advice:recommend": {
+   "file": "assets/audio/lines/swahili-puck-0d8d0591bc8b7ffd.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_ask_for_advice:thanks": {
+   "file": "assets/audio/lines/swahili-puck-6b1415d899a2e0b1.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:feeling": {
+   "file": "assets/audio/lines/swahili-puck-2bf102dedad674fa.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:happy_today": {
+   "file": "assets/audio/lines/swahili-puck-9d5374b54ca96771.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:job": {
+   "file": "assets/audio/lines/swahili-puck-32d13139bad8f8fd.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:like_your_job": {
+   "file": "assets/audio/lines/swahili-puck-3fda0185d5e59e56.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:routine": {
+   "file": "assets/audio/lines/swahili-puck-708b97ffe3166e29.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:time": {
+   "file": "assets/audio/lines/swahili-puck-e4feeb407b019f77.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_describe_your_day:what_time_up": {
+   "file": "assets/audio/lines/swahili-aoede-a700a95134d18d7e.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_describe_your_day:which_department": {
+   "file": "assets/audio/lines/swahili-aoede-92eaeecadad594ce.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_describe_your_day:why_early": {
+   "file": "assets/audio/lines/swahili-aoede-5b3500537e88fb03.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_describe_your_day:you_look_tired": {
+   "file": "assets/audio/lines/swahili-aoede-a1316238fa14b3ef.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_friendly_debate:agree": {
+   "file": "assets/audio/lines/swahili-puck-3bfa02bfc75eb5e1.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:because": {
+   "file": "assets/audio/lines/swahili-puck-0c91c8753806e3e8.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:coffee_is_better": {
+   "file": "assets/audio/lines/swahili-orus-203ff9964dcc12e7.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_friendly_debate:disagree": {
+   "file": "assets/audio/lines/swahili-puck-d4ce8887dfa62dd7.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:kashata": {
+   "file": "assets/audio/lines/swahili-orus-ab9a0270d14c14ef.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_friendly_debate:not_how_i_see_it": {
+   "file": "assets/audio/lines/swahili-puck-1a1a08a49cc3d6a6.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:opinion": {
+   "file": "assets/audio/lines/swahili-puck-13d5ca7c6508a50a.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:still_love": {
+   "file": "assets/audio/lines/swahili-puck-d11667d106e06f15.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:too_much_sugar": {
+   "file": "assets/audio/lines/swahili-orus-96c1e8f7aadeea64.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_friendly_debate:what_do_you_think": {
+   "file": "assets/audio/lines/swahili-puck-c944a48c40bb0b08.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_friendly_debate:why_so": {
+   "file": "assets/audio/lines/swahili-orus-8f9a537e163d605d.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:and_you": {
+   "file": "assets/audio/lines/swahili-puck-867ea56fd4a85ac5.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:cooking": {
+   "file": "assets/audio/lines/swahili-puck-1417f1b01aac3c1b.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:dancing": {
+   "file": "assets/audio/lines/swahili-aoede-8b8e829408b4aa19.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:dislike": {
+   "file": "assets/audio/lines/swahili-puck-93a0daa045ae9ceb.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:films_or_books": {
+   "file": "assets/audio/lines/swahili-aoede-5102287938606d25.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:free_time": {
+   "file": "assets/audio/lines/swahili-puck-0de42407f1dae280.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:like": {
+   "file": "assets/audio/lines/swahili-puck-37d9bec444b32825.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:me_too": {
+   "file": "assets/audio/lines/swahili-aoede-487c627086b49065.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:prefer": {
+   "file": "assets/audio/lines/swahili-puck-d133ac50eb540ac0.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:together": {
+   "file": "assets/audio/lines/swahili-puck-75502fc271c52e35.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_hobbies:weekend_question": {
+   "file": "assets/audio/lines/swahili-aoede-bebc68bc9232a992.mp3",
+   "voice": "swahili-aoede"
+  },
+  "swahili_ch3:swahili_talk_about_work:before": {
+   "file": "assets/audio/lines/swahili-orus-3499da5130cf20d4.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_talk_about_work:clarify": {
+   "file": "assets/audio/lines/swahili-puck-6ef014b268280448.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:explain": {
+   "file": "assets/audio/lines/swahili-orus-5a02c783d23548a6.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_talk_about_work:greet": {
+   "file": "assets/audio/lines/swahili-orus-085405d2cade3820.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_talk_about_work:intro": {
+   "file": "assets/audio/lines/swahili-puck-016be893232e84ae.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:job": {
+   "file": "assets/audio/lines/swahili-puck-c8cfc3fb3f06e979.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:meaning": {
+   "file": "assets/audio/lines/swahili-puck-af20b60a0088eae0.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:meeting": {
+   "file": "assets/audio/lines/swahili-orus-cd39f996e87ac2fc.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_talk_about_work:permission": {
+   "file": "assets/audio/lines/swahili-puck-2df8b6b179e85341.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:pleased": {
+   "file": "assets/audio/lines/swahili-puck-c824780124dfc178.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_talk_about_work:that_word": {
+   "file": "assets/audio/lines/swahili-puck-0114f26e8a96156d.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:day_before": {
+   "file": "assets/audio/lines/swahili-puck-79e7c19b7b8d3cd0.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:first_price": {
+   "file": "assets/audio/lines/swahili-puck-1b3bf9127efd9605.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:how_much_in_the_end": {
+   "file": "assets/audio/lines/swahili-orus-6c0f08e3e827e30b.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_tell_a_story:how_to_say": {
+   "file": "assets/audio/lines/swahili-puck-1a025d3545260830.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:i_mean": {
+   "file": "assets/audio/lines/swahili-puck-d2fd076835cae0a9.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:jackfruit": {
+   "file": "assets/audio/lines/swahili-orus-957910f06b1659c3.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_tell_a_story:story": {
+   "file": "assets/audio/lines/swahili-puck-ad8c2b7fe95bb521.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:two_jackfruits": {
+   "file": "assets/audio/lines/swahili-puck-f2eb651d38feca71.mp3",
+   "voice": "swahili-puck"
+  },
+  "swahili_ch3:swahili_tell_a_story:what_else": {
+   "file": "assets/audio/lines/swahili-orus-c6528086a53ba1cd.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_tell_a_story:where_were_you": {
+   "file": "assets/audio/lines/swahili-orus-ce4a8391aa416416.mp3",
+   "voice": "swahili-orus"
+  },
+  "swahili_ch3:swahili_tell_a_story:yesterday": {
+   "file": "assets/audio/lines/swahili-puck-5d623a162d105cd3.mp3",
+   "voice": "swahili-puck"
   },
   "swedish_ch1:swedish_ask_directions:ask_repeat_variant_11": {
    "file": "assets/audio/lines/swedish-puck-1b6ff99846f4dccf.mp3",
