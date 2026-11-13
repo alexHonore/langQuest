@@ -133,6 +133,8 @@ class BundledNarration {
 /// The recorded narration of (track, instruction language), read when the course is active; empty when the course
 /// has none yet (the server's AI narrator, signed in, or nothing).
 final bundledNarrationProvider = FutureProvider.autoDispose.family<BundledNarration, (String, String)>((ref, course) async {
+  // Only a narration the course's voices file lists: no request for a file that does not exist.
+  if (!ref.watch(contentBundleProvider.select((b) => b.voices.hasNarration(course.$1, course.$2)))) return BundledNarration.empty;
   final read = ref.read(contentBundleProvider.notifier).read;
   if (read == null) return BundledNarration.empty;
   try {

@@ -239,7 +239,10 @@ export function buildVoiceFiles(root: string): Record<string, string> {
     if (Object.keys(lines).length === 0) continue;
     const used = new Set(Object.values(lines).map((l) => l.voice));
     const voices = Object.fromEntries(Object.entries(allVoices.voices).filter(([id]) => used.has(id)));
-    files[voicesFileOf(track.id)] = `${JSON.stringify({ schemaVersion: 1, generatedBy: 'scripts/src/export-flutter-content.ts (from voices.json)', synthetic: true, courseTrackId: track.id, voices, lines }, null, 2)}\n`;
+    // The instruction languages whose narration is recorded for this course (`synthesize-narration`): the app reads
+    // `narration/<lang>/<track>.json` only for these, so it never asks for a file that does not exist.
+    const narration = ['en', 'fr'].filter((lang) => fileExists(resolve(root, BUNDLE_DIR, 'narration', lang, `${track.id}.json`)));
+    files[voicesFileOf(track.id)] = `${JSON.stringify({ schemaVersion: 1, generatedBy: 'scripts/src/export-flutter-content.ts (from voices.json)', synthetic: true, courseTrackId: track.id, voices, lines, ...(narration.length ? { narration } : {}) }, null, 2)}\n`;
   }
   return files;
 }

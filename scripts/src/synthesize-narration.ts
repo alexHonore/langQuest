@@ -26,6 +26,8 @@ import { flagBool, flagNumber, flagString, isDirectRun, runCli, type CliIo, type
 import { repoRoot, writeTextFileSync } from './lib/io';
 import type { BundleVoice } from './lib/bundle-voices';
 import { clipName, googlePace, listen, Providers, SECOND_LISTENER_MODEL, synthesize } from './synthesize-bundle-audio';
+import { buildVoiceFiles } from './export-flutter-content';
+import { BUNDLE_DIR } from './lib/flutter-bundle';
 
 export const NARRATION_DIR = 'apps/mobile_flutter/assets/audio/narration';
 export const NARRATION_MAPS_DIR = 'apps/mobile_flutter/assets/content/narration';
@@ -181,6 +183,8 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
     }
   }
   if (!onlyTrack && !onlySource && existsSync(dir)) for (const f of readdirSync(dir)) if (f.endsWith('.mp3') && !used.has(f)) rmSync(resolve(dir, f));
+  // Each course's voices file says which of its narrations exist (the app reads only those).
+  for (const [name, text] of Object.entries(buildVoiceFiles(root))) writeTextFileSync(resolve(root, BUNDLE_DIR, name), text);
   io.log(`${mapped} of ${total} sentences recorded; a course's narration is published once all of its sentences are${failed ? `; ${failed} failed` : ''}`);
   return failed ? 1 : 0;
 }
