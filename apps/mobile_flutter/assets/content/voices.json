@@ -9093,6 +9093,794 @@
    "file": "assets/audio/lines/en-us-orus-ed7628aeddb112f6.mp3",
    "voice": "en-us-orus"
   },
+  "english_ch2:en_buy_train_ticket:card": {
+   "file": "assets/audio/lines/en-us-puck-d05cf8b4377fa0ed.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:last_stop": {
+   "file": "assets/audio/lines/en-us-orus-6c950c5f542678e4.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_buy_train_ticket:one_way_or_round": {
+   "file": "assets/audio/lines/en-us-orus-59f07368bfd612b2.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_buy_train_ticket:pay_cash": {
+   "file": "assets/audio/lines/en-us-puck-f8bb0ee9b0b8d53b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:round_trip": {
+   "file": "assets/audio/lines/en-us-puck-3871c3a899c848f7.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:ticket": {
+   "file": "assets/audio/lines/en-us-puck-1629ec7cd627b144.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:time": {
+   "file": "assets/audio/lines/en-us-orus-b46f2436197e9acd.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_buy_train_ticket:total": {
+   "file": "assets/audio/lines/en-us-orus-1d4b97f308eeb4ea.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_buy_train_ticket:two": {
+   "file": "assets/audio/lines/en-us-puck-ccdcddbe70fd294a.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:when": {
+   "file": "assets/audio/lines/en-us-puck-44659f1031bab040.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_buy_train_ticket:which_stop": {
+   "file": "assets/audio/lines/en-us-puck-b23876b8c94992b0.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:call_911": {
+   "file": "assets/audio/lines/en-us-aoede-574f0ab09e0cdd51.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_emergency_ask_help:call_help": {
+   "file": "assets/audio/lines/en-us-puck-cf3e7ea965875e24.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:help": {
+   "file": "assets/audio/lines/en-us-puck-fe6bd3b735714776.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:need_doctor": {
+   "file": "assets/audio/lines/en-us-puck-c9e51ffa8d98aa8d.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:pain": {
+   "file": "assets/audio/lines/en-us-puck-738e78b6af35c009.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:pharmacy": {
+   "file": "assets/audio/lines/en-us-puck-2ba076d1d1350645.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:pharmacy_near": {
+   "file": "assets/audio/lines/en-us-aoede-0e9dca02c04cca59.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_emergency_ask_help:type": {
+   "file": "assets/audio/lines/en-us-puck-e692e2d30791480f.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:understood": {
+   "file": "assets/audio/lines/en-us-puck-3e95285a4d703f2f.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_emergency_ask_help:what_happened": {
+   "file": "assets/audio/lines/en-us-aoede-a0ea67ff76d188d0.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_make_weekend_plans:accept": {
+   "file": "assets/audio/lines/en-us-puck-23da9165405d4504.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:after": {
+   "file": "assets/audio/lines/en-us-aoede-f7b51916bd5d691d.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_make_weekend_plans:confirm": {
+   "file": "assets/audio/lines/en-us-puck-0eb61d60ac3916b7.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:decline": {
+   "file": "assets/audio/lines/en-us-puck-f04235b1ae66a92b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:invite": {
+   "file": "assets/audio/lines/en-us-aoede-44bf2b1d63bac7b9.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_make_weekend_plans:love_to_but": {
+   "file": "assets/audio/lines/en-us-puck-b7f4b2dc6fb25a12.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:movies": {
+   "file": "assets/audio/lines/en-us-puck-07cbe1f471a72dfd.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:other_time": {
+   "file": "assets/audio/lines/en-us-puck-347deb6c96e2dc1d.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:suggest": {
+   "file": "assets/audio/lines/en-us-puck-8fef6c2763d015f7.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_make_weekend_plans:sunday_ok": {
+   "file": "assets/audio/lines/en-us-aoede-ef17a2c98327d752.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_make_weekend_plans:when": {
+   "file": "assets/audio/lines/en-us-puck-3b587c2fb1ddfaf1.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:bill": {
+   "file": "assets/audio/lines/en-us-puck-c7b42acb94b80b12.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:check_in": {
+   "file": "assets/audio/lines/en-us-orus-9f34901d9d673d66.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_restaurant_order_meal:delicious": {
+   "file": "assets/audio/lines/en-us-puck-697e0c7961002780.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:dish_of_day": {
+   "file": "assets/audio/lines/en-us-orus-0c3ce607409cf922.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_restaurant_order_meal:get_burger": {
+   "file": "assets/audio/lines/en-us-puck-b9017675418f4643.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:have_table": {
+   "file": "assets/audio/lines/en-us-puck-54677499440bd50e.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:ingredients": {
+   "file": "assets/audio/lines/en-us-puck-77218c0753b138e3.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:no_pork": {
+   "file": "assets/audio/lines/en-us-orus-72fe2ab7a589e8d4.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_restaurant_order_meal:order": {
+   "file": "assets/audio/lines/en-us-puck-63b4c209fc6032cf.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:recommend": {
+   "file": "assets/audio/lines/en-us-puck-65cd1d53cec41d81.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:table": {
+   "file": "assets/audio/lines/en-us-puck-5379e4a8b046c782.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/en-us-orus-adf1eab7832fcaa2.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch2:en_shop_for_clothes:can_i_help": {
+   "file": "assets/audio/lines/en-us-aoede-e93af7534de35a5e.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_shop_for_clothes:card": {
+   "file": "assets/audio/lines/en-us-puck-e8d564ee269c1d9b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:here_is_large": {
+   "file": "assets/audio/lines/en-us-aoede-ab82863758e3fb3b.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_shop_for_clothes:just_looking": {
+   "file": "assets/audio/lines/en-us-puck-a68dca8172945662.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:other_color": {
+   "file": "assets/audio/lines/en-us-puck-333892801e0c5fba.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:price": {
+   "file": "assets/audio/lines/en-us-puck-81711edf2e3adbea.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:price_is": {
+   "file": "assets/audio/lines/en-us-aoede-8a78274ce39904a3.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_shop_for_clothes:take_it": {
+   "file": "assets/audio/lines/en-us-puck-8f44a341af6b6cf2.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:this_is_medium": {
+   "file": "assets/audio/lines/en-us-aoede-7cd1c460ef06769d.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_shop_for_clothes:variant": {
+   "file": "assets/audio/lines/en-us-puck-924e1f73b1c6e8ce.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_shop_for_clothes:want": {
+   "file": "assets/audio/lines/en-us-puck-c6403cd863dd7a37.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:and_you": {
+   "file": "assets/audio/lines/en-us-aoede-82173b1aeaf761ce.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_talk_about_family:ask_family": {
+   "file": "assets/audio/lines/en-us-puck-6a3d500929177dbc.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:come_in": {
+   "file": "assets/audio/lines/en-us-aoede-16c27b45b1cb6b50.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_talk_about_family:compliment_reply": {
+   "file": "assets/audio/lines/en-us-puck-af24e695ac7e7582.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:delicious": {
+   "file": "assets/audio/lines/en-us-puck-e89455a41d90383e.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:dont_know": {
+   "file": "assets/audio/lines/en-us-puck-c475346f398efa61.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:english_great": {
+   "file": "assets/audio/lines/en-us-aoede-72f600e0cb7a5ff7.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_talk_about_family:how_long": {
+   "file": "assets/audio/lines/en-us-aoede-9c39d9c495958406.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch2:en_talk_about_family:my_family": {
+   "file": "assets/audio/lines/en-us-puck-a5b24999b3331363.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:only_child": {
+   "file": "assets/audio/lines/en-us-puck-7590a881642f3f27.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch2:en_talk_about_family:pie_amazing": {
+   "file": "assets/audio/lines/en-us-puck-552e6d929cafdc9f.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:bus": {
+   "file": "assets/audio/lines/en-us-orus-413d01ac744713b7.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_ask_for_advice:excuse_me": {
+   "file": "assets/audio/lines/en-us-puck-87220b5df4767383.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:hours": {
+   "file": "assets/audio/lines/en-us-puck-3b2985c9c0f61dcd.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:how_to_get": {
+   "file": "assets/audio/lines/en-us-puck-85556c3afed8284b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:is_it_far": {
+   "file": "assets/audio/lines/en-us-puck-6a0e0fc2a1660c8a.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:jazz_club": {
+   "file": "assets/audio/lines/en-us-orus-5eb0e767d9a615d4.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_ask_for_advice:locals": {
+   "file": "assets/audio/lines/en-us-orus-e9eb6f06930549ac.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_ask_for_advice:not_mondays": {
+   "file": "assets/audio/lines/en-us-orus-458ade4830fdabbb.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_ask_for_advice:recommend": {
+   "file": "assets/audio/lines/en-us-puck-844b72d3820ede22.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:thanks": {
+   "file": "assets/audio/lines/en-us-puck-b8b156ed5a392da6.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:weekend_tips": {
+   "file": "assets/audio/lines/en-us-puck-9864f6b2b559aa9c.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_ask_for_advice:why": {
+   "file": "assets/audio/lines/en-us-puck-0f2ebfde4162c88a.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:beat": {
+   "file": "assets/audio/lines/en-us-puck-a1db5748f145d87b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:feeling": {
+   "file": "assets/audio/lines/en-us-puck-392a51ca1191777a.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:first_week": {
+   "file": "assets/audio/lines/en-us-orus-dc6cef4e7b669e9a.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_describe_your_day:get_up": {
+   "file": "assets/audio/lines/en-us-orus-01d8aeb3b0a793d0.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_describe_your_day:job": {
+   "file": "assets/audio/lines/en-us-puck-4e9b08520f4d81b2.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:routine": {
+   "file": "assets/audio/lines/en-us-puck-f5b9560c05b51ea4.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:sleep_in": {
+   "file": "assets/audio/lines/en-us-puck-a52075a9c94db11c.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:time": {
+   "file": "assets/audio/lines/en-us-puck-128f02e9e57002ea.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_describe_your_day:weekend": {
+   "file": "assets/audio/lines/en-us-orus-a7284ae94f151785.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_describe_your_day:what_job": {
+   "file": "assets/audio/lines/en-us-orus-6763295f3ab02aed.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_friendly_debate:agree": {
+   "file": "assets/audio/lines/en-us-puck-23220b78c7a5e099.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:because": {
+   "file": "assets/audio/lines/en-us-puck-41efa74294338ffa.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:disagree": {
+   "file": "assets/audio/lines/en-us-puck-de3f3afb9a379679.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:in_my_opinion": {
+   "file": "assets/audio/lines/en-us-puck-e5be374ff2ca5816.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:opinion": {
+   "file": "assets/audio/lines/en-us-puck-cd13b9d1da6d7cf5.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:rent": {
+   "file": "assets/audio/lines/en-us-orus-1fb23c3af741f021.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_friendly_debate:suburbs": {
+   "file": "assets/audio/lines/en-us-orus-45a42533c0cf6099.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_friendly_debate:what_do_you_think": {
+   "file": "assets/audio/lines/en-us-puck-37b060d8a7bf62a2.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_friendly_debate:why": {
+   "file": "assets/audio/lines/en-us-orus-618a580b12e22b25.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_friendly_debate:you_win": {
+   "file": "assets/audio/lines/en-us-orus-6c6e6f3d4e159edb.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch3:en_talk_about_hobbies:and_you": {
+   "file": "assets/audio/lines/en-us-puck-50d2c1aa83dae2d4.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:better_than": {
+   "file": "assets/audio/lines/en-us-puck-a5b02447b43f2af8.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:books": {
+   "file": "assets/audio/lines/en-us-aoede-680a6b8c67e1ce2d.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_hobbies:dislike": {
+   "file": "assets/audio/lines/en-us-puck-2fd8123d5c1fec1a.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:free_time": {
+   "file": "assets/audio/lines/en-us-puck-cbca3c80d8697b41.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:like": {
+   "file": "assets/audio/lines/en-us-puck-6c845cbc1542faba.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:me_too": {
+   "file": "assets/audio/lines/en-us-aoede-6da45d1bf1f7fa04.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_hobbies:movies_or_books": {
+   "file": "assets/audio/lines/en-us-aoede-c9cb30edc91a25e1.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_hobbies:prefer": {
+   "file": "assets/audio/lines/en-us-puck-e742efc747cd5663.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:together": {
+   "file": "assets/audio/lines/en-us-puck-e6552b5743d7084f.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_hobbies:weekends": {
+   "file": "assets/audio/lines/en-us-aoede-2f158dec4eb2f323.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_work:clarify": {
+   "file": "assets/audio/lines/en-us-puck-9e54fdf7a8ef8b33.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:explain": {
+   "file": "assets/audio/lines/en-us-aoede-1f7816f060e675f8.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_work:front_or_back": {
+   "file": "assets/audio/lines/en-us-aoede-e507ac86c5a3f7f6.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_work:intro": {
+   "file": "assets/audio/lines/en-us-puck-893dd9bad336fac8.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:job": {
+   "file": "assets/audio/lines/en-us-puck-41c9b6c7faa3e720.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:meaning": {
+   "file": "assets/audio/lines/en-us-puck-e38cee20dcc99146.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:new_developer": {
+   "file": "assets/audio/lines/en-us-puck-b99e9e852cf5c1ba.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:permission": {
+   "file": "assets/audio/lines/en-us-puck-85508eee546eecdb.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:pleased": {
+   "file": "assets/audio/lines/en-us-puck-32feebd1b8cf6efb.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_talk_about_work:touch_base": {
+   "file": "assets/audio/lines/en-us-aoede-2345afc3e9e7dbdc.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_talk_about_work:welcome": {
+   "file": "assets/audio/lines/en-us-aoede-5cd038a1e70ed1de.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_tell_a_story:how_to_say": {
+   "file": "assets/audio/lines/en-us-puck-f5b5416d7ba4f369.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:i_mean": {
+   "file": "assets/audio/lines/en-us-puck-b3715477d49a7da9.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:kind_lady": {
+   "file": "assets/audio/lines/en-us-puck-9cd3d31762b31779.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:next_time": {
+   "file": "assets/audio/lines/en-us-puck-8afbcf5ac761ad30.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:shortcut": {
+   "file": "assets/audio/lines/en-us-aoede-9c2ad2fbfd0e9135.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_tell_a_story:story": {
+   "file": "assets/audio/lines/en-us-puck-8febc4ba97c447ed.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:what_did_she_say": {
+   "file": "assets/audio/lines/en-us-aoede-951ccf73e09ea6c2.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_tell_a_story:what_happened": {
+   "file": "assets/audio/lines/en-us-aoede-7721adcfee965a05.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_tell_a_story:what_time": {
+   "file": "assets/audio/lines/en-us-aoede-82ab0cded7021e15.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch3:en_tell_a_story:whats_the_word": {
+   "file": "assets/audio/lines/en-us-puck-f713bc9d09241706.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch3:en_tell_a_story:yesterday": {
+   "file": "assets/audio/lines/en-us-puck-0624ce4444fc3e64.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:big_fan": {
+   "file": "assets/audio/lines/en-us-puck-32d1536815c7f5dc.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:days": {
+   "file": "assets/audio/lines/en-us-orus-2849c97e33548a79.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_join_a_club:hours": {
+   "file": "assets/audio/lines/en-us-puck-5765cde691101deb.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:just_watch": {
+   "file": "assets/audio/lines/en-us-puck-b96eb191b0d5de44.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:like": {
+   "file": "assets/audio/lines/en-us-puck-5822dfbf70efd927.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:of_course": {
+   "file": "assets/audio/lines/en-us-orus-74569881b399bec3.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_join_a_club:price": {
+   "file": "assets/audio/lines/en-us-puck-4b5c72d7de65192e.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:saturday_game": {
+   "file": "assets/audio/lines/en-us-orus-9f4bcb03552434e5.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_join_a_club:season": {
+   "file": "assets/audio/lines/en-us-orus-4c2f4821fde05cc0.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_join_a_club:see_you": {
+   "file": "assets/audio/lines/en-us-puck-c6f62664286e2390.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_join_a_club:try": {
+   "file": "assets/audio/lines/en-us-puck-22aafd7b3a9374f5.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:all_set": {
+   "file": "assets/audio/lines/en-us-aoede-359e744e898fc96f.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_lost_luggage:carousel": {
+   "file": "assets/audio/lines/en-us-puck-84923adbc6e18f5b.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:deliver_to": {
+   "file": "assets/audio/lines/en-us-puck-e2cfec29a545ef14.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:excuse_me": {
+   "file": "assets/audio/lines/en-us-puck-4a83d76c150ce90f.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:flight": {
+   "file": "assets/audio/lines/en-us-puck-5484596bf8175624.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:lost": {
+   "file": "assets/audio/lines/en-us-puck-bcd02966b0774bd1.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:still_in_paris": {
+   "file": "assets/audio/lines/en-us-aoede-09c6f52aa7e5a48d.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_lost_luggage:thanks": {
+   "file": "assets/audio/lines/en-us-puck-e2465ffa917eabd0.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_lost_luggage:tomorrow": {
+   "file": "assets/audio/lines/en-us-aoede-7c5c9a940cc6d1dc.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_lost_luggage:what_can_i_do": {
+   "file": "assets/audio/lines/en-us-aoede-0a683f5b94d0b61c.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_lost_luggage:when_back": {
+   "file": "assets/audio/lines/en-us-puck-da8a6553d02d03a1.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:cheaper": {
+   "file": "assets/audio/lines/en-us-puck-3917ac714239d65d.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:delay": {
+   "file": "assets/audio/lines/en-us-aoede-120cc418b997ad65.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_post_a_parcel:destination": {
+   "file": "assets/audio/lines/en-us-puck-233f3cdf630a477c.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:how_long": {
+   "file": "assets/audio/lines/en-us-puck-c63b23e5f753d5b4.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:options": {
+   "file": "assets/audio/lines/en-us-aoede-cd9c88a97c779ec3.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_post_a_parcel:pay": {
+   "file": "assets/audio/lines/en-us-puck-3555c976cc97d501.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:price": {
+   "file": "assets/audio/lines/en-us-puck-8c21401bcfcb625e.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:scale": {
+   "file": "assets/audio/lines/en-us-aoede-79179cac545138fa.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_post_a_parcel:send": {
+   "file": "assets/audio/lines/en-us-puck-5d0b17410f16111e.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:send_to_france": {
+   "file": "assets/audio/lines/en-us-puck-07d803a0a95e7507.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_post_a_parcel:where_to": {
+   "file": "assets/audio/lines/en-us-aoede-2c8ba6dc28ff1e87.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_rent_a_flat:come_in": {
+   "file": "assets/audio/lines/en-us-orus-18d52aa84f5c0f9b.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_rent_a_flat:deposit": {
+   "file": "assets/audio/lines/en-us-puck-2d2e0176e64ffa48.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:drums": {
+   "file": "assets/audio/lines/en-us-orus-37abeeddef089591.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_rent_a_flat:is_it_far": {
+   "file": "assets/audio/lines/en-us-puck-c2b6729a6536e5ac.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:near": {
+   "file": "assets/audio/lines/en-us-orus-c57f731471645b09.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_rent_a_flat:opinion": {
+   "file": "assets/audio/lines/en-us-puck-00b6872e7afb9aac.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:price": {
+   "file": "assets/audio/lines/en-us-orus-eabae870a2832cc1.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_rent_a_flat:rent": {
+   "file": "assets/audio/lines/en-us-puck-a3d0b052438f7203.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:take_it": {
+   "file": "assets/audio/lines/en-us-puck-4ad4c66933b3becf.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:when_free": {
+   "file": "assets/audio/lines/en-us-puck-6bdf48e75ae18b0c.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_rent_a_flat:where_is": {
+   "file": "assets/audio/lines/en-us-puck-ea45883454e8abe6.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:bought_when": {
+   "file": "assets/audio/lines/en-us-puck-dae2c0a5406d88d8.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:broken": {
+   "file": "assets/audio/lines/en-us-puck-f9877401984295fa.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:can_i_help": {
+   "file": "assets/audio/lines/en-us-orus-637e9eca07106a0f.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_return_an_item:exchange": {
+   "file": "assets/audio/lines/en-us-puck-2e09e97f25cc8006.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:just_exchange": {
+   "file": "assets/audio/lines/en-us-puck-033cfa078678bdcb.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:left_side": {
+   "file": "assets/audio/lines/en-us-puck-cdece23c6e69921c.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:new_pair": {
+   "file": "assets/audio/lines/en-us-orus-006f74fb0b80d815.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_return_an_item:no_problem": {
+   "file": "assets/audio/lines/en-us-puck-0048e7dc2aac5955.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_return_an_item:refund": {
+   "file": "assets/audio/lines/en-us-orus-50ca14adcc2aa3b6.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_return_an_item:sorry": {
+   "file": "assets/audio/lines/en-us-orus-15abc8a5158aaa1a.mp3",
+   "voice": "en-us-orus"
+  },
+  "english_ch4:en_return_an_item:thanks": {
+   "file": "assets/audio/lines/en-us-puck-9c035e07212104e4.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:check": {
+   "file": "assets/audio/lines/en-us-aoede-d3131309f61a1c03.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_see_the_doctor:diagnosis": {
+   "file": "assets/audio/lines/en-us-aoede-4cfd06bc3d307cf5.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_see_the_doctor:hello": {
+   "file": "assets/audio/lines/en-us-puck-30d6ced8f0edee47.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:pain": {
+   "file": "assets/audio/lines/en-us-puck-0d716311d17d8135.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:question": {
+   "file": "assets/audio/lines/en-us-puck-5f1f82be236745e3.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:since": {
+   "file": "assets/audio/lines/en-us-puck-dda375ff0cd69ca8.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:since_when": {
+   "file": "assets/audio/lines/en-us-aoede-5a8a4d2316d49ee6.mp3",
+   "voice": "en-us-aoede"
+  },
+  "english_ch4:en_see_the_doctor:swallow": {
+   "file": "assets/audio/lines/en-us-puck-465de08f4cd69208.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:thanks": {
+   "file": "assets/audio/lines/en-us-puck-903e3f604d5f01bb.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:understood": {
+   "file": "assets/audio/lines/en-us-puck-d837298d9a05dbed.mp3",
+   "voice": "en-us-puck"
+  },
+  "english_ch4:en_see_the_doctor:what_brings_you": {
+   "file": "assets/audio/lines/en-us-aoede-1cb55abc66c53adb.mp3",
+   "voice": "en-us-aoede"
+  },
   "es_es_ch1_arrival_madrid:es_ask_directions:donde_esta_estacion": {
    "file": "assets/audio/lines/es-es-puck-4aced43b7d3470e7.mp3",
    "voice": "es-es-puck"
