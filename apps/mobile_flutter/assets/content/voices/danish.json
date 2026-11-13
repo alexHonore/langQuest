@@ -305,6 +305,798 @@
     "danish_ch1:danish_take_taxi:where_to": {
       "file": "assets/audio/lines/danish-orus-0e31b7c84f6222e9.mp3",
       "voice": "danish-orus"
+    },
+    "danish_ch2:danish_buy_train_ticket:card": {
+      "file": "assets/audio/lines/danish-puck-68b70b13b8e7a604.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:how_many": {
+      "file": "assets/audio/lines/danish-aoede-df618580ad3a8d00.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_buy_train_ticket:last_stop": {
+      "file": "assets/audio/lines/danish-aoede-3cd4b3d3a4943c31.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/danish-puck-eed61e726b5308b4.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:time": {
+      "file": "assets/audio/lines/danish-aoede-3321864233712a0d.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_buy_train_ticket:total": {
+      "file": "assets/audio/lines/danish-aoede-86b009d312d4db96.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_buy_train_ticket:two": {
+      "file": "assets/audio/lines/danish-puck-0f9c08a6c7116dea.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:two_tickets": {
+      "file": "assets/audio/lines/danish-puck-5ea139fd107a14f9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:when": {
+      "file": "assets/audio/lines/danish-puck-0124c06f45279321.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/danish-puck-eed80a65e84002fa.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_buy_train_ticket:would_like_tickets": {
+      "file": "assets/audio/lines/danish-puck-9c7c95dc7aecfec2.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:ambulance": {
+      "file": "assets/audio/lines/danish-orus-ac0a502992e968b9.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_emergency_ask_help:excuse_help": {
+      "file": "assets/audio/lines/danish-puck-f2fdeda7f7f2a3bf.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:help": {
+      "file": "assets/audio/lines/danish-puck-5ae1de59190e5369.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:need_doctor": {
+      "file": "assets/audio/lines/danish-puck-f770fba2bdee92fc.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/danish-puck-30d21b6cd0376cfe.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:pharmacy": {
+      "file": "assets/audio/lines/danish-puck-2a4239d4af4cd97a.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/danish-orus-4a292a15be51e7c6.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_emergency_ask_help:type": {
+      "file": "assets/audio/lines/danish-puck-219982d527478ff0.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/danish-puck-0bfba95dafe4051d.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/danish-orus-615299ed35a0e469.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/danish-puck-ae5b3e6290e299f7.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:amager_beach": {
+      "file": "assets/audio/lines/danish-puck-fc2163d222072c3d.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/danish-puck-2d242e9c149fc56a.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:cycle_there": {
+      "file": "assets/audio/lines/danish-orus-acba6e9277d04f5e.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/danish-puck-2f3beccfe53cb73b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:gladly": {
+      "file": "assets/audio/lines/danish-puck-f2b2464ef3a9a176.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:harbour_saturday": {
+      "file": "assets/audio/lines/danish-orus-ef131ace71a80d1f.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/danish-puck-9160c338456ca3b9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/danish-puck-3ce5a53545c27096.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/danish-orus-09047d4613ca7998.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_make_weekend_plans:when": {
+      "file": "assets/audio/lines/danish-puck-403570e444690879.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/danish-puck-ca714f4e7d81e5c4.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/danish-puck-6c31ac3e36d26f5c.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:dish_of_day": {
+      "file": "assets/audio/lines/danish-orus-9853ec2041e886f1.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_restaurant_order_meal:have_table": {
+      "file": "assets/audio/lines/danish-puck-a821fc8604efa878.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/danish-puck-92bc720585231829.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/danish-puck-05c5fbd11a8a7e60.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/danish-puck-bd4aae5f4aa30733.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:right_away": {
+      "file": "assets/audio/lines/danish-orus-0b2fd8e2eb5fac81.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_restaurant_order_meal:sauce_answer": {
+      "file": "assets/audio/lines/danish-orus-71b0312d74635b7e.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/danish-puck-4a91e2859728e090.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:want_meatballs": {
+      "file": "assets/audio/lines/danish-puck-f95fa735bc25cf21.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/danish-orus-e00296fadcebbecf.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch2:danish_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/danish-aoede-3d867cb8012c465a.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_shop_for_clothes:card": {
+      "file": "assets/audio/lines/danish-puck-8e1e079089fea931.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/danish-puck-1c80f3a418ee27d2.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/danish-puck-d79bfa6331483e0f.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:price": {
+      "file": "assets/audio/lines/danish-puck-ff050f276e4e0384.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/danish-aoede-997577908e018201.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_shop_for_clothes:sold_out": {
+      "file": "assets/audio/lines/danish-aoede-f9b59212a3823cbf.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/danish-puck-9fb1931b329f3444.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:try_this": {
+      "file": "assets/audio/lines/danish-aoede-623389e7076382b6.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/danish-puck-5cba4c284ac28796.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_shop_for_clothes:want": {
+      "file": "assets/audio/lines/danish-puck-eb95f77564208cd5.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:and_you": {
+      "file": "assets/audio/lines/danish-aoede-a79dbab8f9358036.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_talk_about_family:ask_family": {
+      "file": "assets/audio/lines/danish-puck-1773902b229f1f8d.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:come_in": {
+      "file": "assets/audio/lines/danish-aoede-73403ccc41e616fc.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/danish-puck-08cf43f533db7d77.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:delicious": {
+      "file": "assets/audio/lines/danish-puck-7aabd688cd5914c6.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:dont_know": {
+      "file": "assets/audio/lines/danish-puck-b95e32ef52340187.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:my_family": {
+      "file": "assets/audio/lines/danish-puck-7a001c93589f2269.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:only_child": {
+      "file": "assets/audio/lines/danish-puck-1ca0a4800963ac54.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch2:danish_talk_about_family:parents_visit": {
+      "file": "assets/audio/lines/danish-aoede-c0e8de9f5eec524d.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch2:danish_talk_about_family:you_speak_well": {
+      "file": "assets/audio/lines/danish-aoede-4762b818d963842f.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_ask_for_advice:bike_or_metro": {
+      "file": "assets/audio/lines/danish-orus-693b38d256ee12e4.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_ask_for_advice:cemetery": {
+      "file": "assets/audio/lines/danish-orus-7ec9bbb05a2706de.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_ask_for_advice:closing_time": {
+      "file": "assets/audio/lines/danish-orus-323dc6d904fdde13.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_ask_for_advice:excuse_me": {
+      "file": "assets/audio/lines/danish-puck-8a10515ef4704488.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:good_tip": {
+      "file": "assets/audio/lines/danish-puck-629bdaab75bd8d99.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:hours": {
+      "file": "assets/audio/lines/danish-puck-29d6068f6ff1d246.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:how_to_get": {
+      "file": "assets/audio/lines/danish-puck-878d2b2bbd4d29a1.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:is_it_far": {
+      "file": "assets/audio/lines/danish-puck-11de507714ca95ac.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:reason": {
+      "file": "assets/audio/lines/danish-orus-77c6a2d40b7329f4.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_ask_for_advice:recommend": {
+      "file": "assets/audio/lines/danish-puck-07263f69ca746557.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:thanks": {
+      "file": "assets/audio/lines/danish-puck-93c48301a7aa74b9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_ask_for_advice:why": {
+      "file": "assets/audio/lines/danish-puck-6b6dfb78346c7776.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:exhausted": {
+      "file": "assets/audio/lines/danish-puck-1d9c0c39c055449b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:feeling": {
+      "file": "assets/audio/lines/danish-puck-e1745ac385f29b5c.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:job": {
+      "file": "assets/audio/lines/danish-puck-0c969cff2b6e8700.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:malmo": {
+      "file": "assets/audio/lines/danish-puck-2792b88abfa1d682.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:not_a_morning_person": {
+      "file": "assets/audio/lines/danish-puck-bdc53c8315649c91.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:routine": {
+      "file": "assets/audio/lines/danish-puck-edeeb9c24bb19df8.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:time": {
+      "file": "assets/audio/lines/danish-puck-27b7c79969c6fea8.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_describe_your_day:weekend_plans": {
+      "file": "assets/audio/lines/danish-aoede-86e353071388c0e6.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_describe_your_day:what_job": {
+      "file": "assets/audio/lines/danish-aoede-13d47bf040d154bd.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_describe_your_day:when_up": {
+      "file": "assets/audio/lines/danish-aoede-cc9c2aa1e2fcec16.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_describe_your_day:you_look_tired": {
+      "file": "assets/audio/lines/danish-aoede-f5cbc41a18db5cbe.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_friendly_debate:agree": {
+      "file": "assets/audio/lines/danish-puck-2bafe786d7186d03.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:because": {
+      "file": "assets/audio/lines/danish-puck-ff5de98dad6bdb16.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:cheaper": {
+      "file": "assets/audio/lines/danish-orus-5b2117cbb1ddcc2e.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_friendly_debate:countryside_dream": {
+      "file": "assets/audio/lines/danish-orus-185b1ae1555dc2a8.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_friendly_debate:disagree": {
+      "file": "assets/audio/lines/danish-puck-ed64dfaa808aa304.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:good_idea": {
+      "file": "assets/audio/lines/danish-orus-fdfd08c99b99cd21.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_friendly_debate:not_agree": {
+      "file": "assets/audio/lines/danish-puck-2004f5db26952a2b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:opinion": {
+      "file": "assets/audio/lines/danish-puck-4098409cb93dbe12.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:settled": {
+      "file": "assets/audio/lines/danish-puck-1d566bd6f6f0de94.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:what_do_you_think": {
+      "file": "assets/audio/lines/danish-puck-ee6291c5fed3dad4.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_friendly_debate:why": {
+      "file": "assets/audio/lines/danish-orus-c32df89fc7273918.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_talk_about_hobbies:and_you": {
+      "file": "assets/audio/lines/danish-puck-b543381b4fc8dd7b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:books_or_series": {
+      "file": "assets/audio/lines/danish-aoede-25085d29eac486ab.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_talk_about_hobbies:dislike": {
+      "file": "assets/audio/lines/danish-puck-3e93be967e1cd92d.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:free_time": {
+      "file": "assets/audio/lines/danish-puck-65dbbeeacd388271.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:free_time_q": {
+      "file": "assets/audio/lines/danish-aoede-9aacb357a31439c2.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_talk_about_hobbies:like": {
+      "file": "assets/audio/lines/danish-puck-830ec44537e38fcb.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:not_my_thing": {
+      "file": "assets/audio/lines/danish-puck-a7282c710dd234e9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:prefer": {
+      "file": "assets/audio/lines/danish-puck-0a4b4e6486b27640.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:read_them_all": {
+      "file": "assets/audio/lines/danish-aoede-be2457f15dbdb869.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_talk_about_hobbies:together": {
+      "file": "assets/audio/lines/danish-puck-be46d12455795866.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_hobbies:winter_swim": {
+      "file": "assets/audio/lines/danish-aoede-4361a26fb637ee06.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_talk_about_work:before": {
+      "file": "assets/audio/lines/danish-orus-052b9e8a5ce2d462.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_talk_about_work:clarify": {
+      "file": "assets/audio/lines/danish-puck-654a7a07fc1f13e0.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:intro": {
+      "file": "assets/audio/lines/danish-puck-f882248ce2b82d59.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:job": {
+      "file": "assets/audio/lines/danish-puck-4bc253e7467b861f.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:meaning": {
+      "file": "assets/audio/lines/danish-puck-d9c89a3b4be469e5.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:mus": {
+      "file": "assets/audio/lines/danish-orus-80805a64d958f82b.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_talk_about_work:mus_explained": {
+      "file": "assets/audio/lines/danish-orus-19dae88ecfd8f7ee.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_talk_about_work:permission": {
+      "file": "assets/audio/lines/danish-puck-43ddcb2909b8fa36.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:pleased": {
+      "file": "assets/audio/lines/danish-puck-3bd3b250d600b778.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:stand_for": {
+      "file": "assets/audio/lines/danish-puck-e08f56088b5b29b9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_talk_about_work:welcome": {
+      "file": "assets/audio/lines/danish-orus-2770c96676367aa0.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch3:danish_tell_a_story:far_away": {
+      "file": "assets/audio/lines/danish-aoede-785b87e32167ec11.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_tell_a_story:how_to_say": {
+      "file": "assets/audio/lines/danish-puck-fd37c46209a540a8.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_tell_a_story:i_mean": {
+      "file": "assets/audio/lines/danish-puck-68f5b677a6ba5aa9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_tell_a_story:pump": {
+      "file": "assets/audio/lines/danish-puck-33a835d745d2076d.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_tell_a_story:puncture": {
+      "file": "assets/audio/lines/danish-aoede-40c394004bd97c99.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_tell_a_story:story": {
+      "file": "assets/audio/lines/danish-puck-6056bceffc605ea0.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_tell_a_story:what_happened": {
+      "file": "assets/audio/lines/danish-aoede-ad41eeaa8e8516c3.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_tell_a_story:where_were_you": {
+      "file": "assets/audio/lines/danish-aoede-952480dd040d2c77.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch3:danish_tell_a_story:wrong_place": {
+      "file": "assets/audio/lines/danish-puck-a8c644d361e41e87.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch3:danish_tell_a_story:yesterday": {
+      "file": "assets/audio/lines/danish-puck-e802527baa4e19ec.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:come_try": {
+      "file": "assets/audio/lines/danish-puck-b43d6bb161f13585.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:fee": {
+      "file": "assets/audio/lines/danish-aoede-c1dbe88bc2f219cd.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_join_a_club:five_km": {
+      "file": "assets/audio/lines/danish-puck-c7e56f76d7895e1c.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:hours": {
+      "file": "assets/audio/lines/danish-puck-c6f35b60e605e669.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:like": {
+      "file": "assets/audio/lines/danish-puck-4fe8c1c008ed52e9.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:new_here": {
+      "file": "assets/audio/lines/danish-aoede-8d773412fa4c6691.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_join_a_club:of_course": {
+      "file": "assets/audio/lines/danish-aoede-751bcb154d6f2bc1.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_join_a_club:price": {
+      "file": "assets/audio/lines/danish-puck-0eb9ca6e1035acd1.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:schedule": {
+      "file": "assets/audio/lines/danish-aoede-228913f85e73d64c.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_join_a_club:see_you": {
+      "file": "assets/audio/lines/danish-puck-2b8aaf441f47b438.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_join_a_club:try": {
+      "file": "assets/audio/lines/danish-puck-1f590299178fc899.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:deliver_to": {
+      "file": "assets/audio/lines/danish-puck-d2e3f54e2c8023fd.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:excuse_me": {
+      "file": "assets/audio/lines/danish-puck-4b5266ca94e3a168.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:flight": {
+      "file": "assets/audio/lines/danish-puck-1f53c252cc3ad322.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:lost": {
+      "file": "assets/audio/lines/danish-puck-2201628741e8a14b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:luggage_missing": {
+      "file": "assets/audio/lines/danish-puck-e7aba994fcd53f95.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:still_in_paris": {
+      "file": "assets/audio/lines/danish-orus-429c61b493606bea.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_lost_luggage:thanks": {
+      "file": "assets/audio/lines/danish-puck-d90b48e0cdcdc40a.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:tomorrow": {
+      "file": "assets/audio/lines/danish-orus-7a763af4d46e5bdb.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_lost_luggage:what_is_it": {
+      "file": "assets/audio/lines/danish-orus-f39ec7a3a41055cf.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_lost_luggage:when_back": {
+      "file": "assets/audio/lines/danish-puck-441679c1842b05b5.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_lost_luggage:which_flight": {
+      "file": "assets/audio/lines/danish-orus-92663782db549bf3.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_post_a_parcel:arrive_when": {
+      "file": "assets/audio/lines/danish-puck-6cf20cf36fda70f5.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:cost": {
+      "file": "assets/audio/lines/danish-orus-4e2cf38bceaa6556.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_post_a_parcel:days": {
+      "file": "assets/audio/lines/danish-orus-659253e2cdb6482b.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_post_a_parcel:destination": {
+      "file": "assets/audio/lines/danish-puck-a0bf6fe7a88c9a2a.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:how_long": {
+      "file": "assets/audio/lines/danish-puck-aa67d1f6b0112211.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:how_pay": {
+      "file": "assets/audio/lines/danish-orus-ffdb78e6a1b718d5.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_post_a_parcel:pay": {
+      "file": "assets/audio/lines/danish-puck-a3bad505b1c4f83b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:price": {
+      "file": "assets/audio/lines/danish-puck-50ecc3cb4670b740.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:regular": {
+      "file": "assets/audio/lines/danish-puck-eba789a942a64a18.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:send": {
+      "file": "assets/audio/lines/danish-puck-a9314f2a99dbe155.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_post_a_parcel:where_to": {
+      "file": "assets/audio/lines/danish-orus-46c238e472a58bf0.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_rent_a_flat:courtyard": {
+      "file": "assets/audio/lines/danish-aoede-5d69e3a2777490d1.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_rent_a_flat:deposit": {
+      "file": "assets/audio/lines/danish-puck-ff0a77719ff23582.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:drums": {
+      "file": "assets/audio/lines/danish-aoede-a6501ded94433a88.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_rent_a_flat:first_of_month": {
+      "file": "assets/audio/lines/danish-aoede-1b2cbbdaae018cdd.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_rent_a_flat:is_it_far": {
+      "file": "assets/audio/lines/danish-puck-bddc7be4aa4bba48.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:no_matter": {
+      "file": "assets/audio/lines/danish-puck-bd9490f032217ef4.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:opinion": {
+      "file": "assets/audio/lines/danish-puck-ec4016853b443263.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:price": {
+      "file": "assets/audio/lines/danish-aoede-51c993eb0e53c753.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_rent_a_flat:rent": {
+      "file": "assets/audio/lines/danish-puck-546335f8eeb1fd13.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:take_it": {
+      "file": "assets/audio/lines/danish-puck-6b546bdec43f275b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:when_free": {
+      "file": "assets/audio/lines/danish-puck-02d1c7472f9c19a5.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_rent_a_flat:where_is": {
+      "file": "assets/audio/lines/danish-puck-ee58a2d91c69f88c.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:bought_when": {
+      "file": "assets/audio/lines/danish-puck-a5d72722c180ba8b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:broken": {
+      "file": "assets/audio/lines/danish-puck-c997ca2137325c78.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:exchange": {
+      "file": "assets/audio/lines/danish-puck-aaaf96c0647d6f39.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:gone_broken": {
+      "file": "assets/audio/lines/danish-puck-b903e04d2ea98ea4.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:here_you_are": {
+      "file": "assets/audio/lines/danish-aoede-e5a02bce0d7d16a8.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_return_an_item:new_one": {
+      "file": "assets/audio/lines/danish-puck-6135a3726b74ac95.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:no_problem": {
+      "file": "assets/audio/lines/danish-puck-b67a9c0266689bfd.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:refund": {
+      "file": "assets/audio/lines/danish-aoede-a866b438e2a95b30.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_return_an_item:sorry": {
+      "file": "assets/audio/lines/danish-aoede-1b96e5e38bfb4af8.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_return_an_item:thanks": {
+      "file": "assets/audio/lines/danish-puck-44bf13fd4ad87df0.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_return_an_item:when_bought": {
+      "file": "assets/audio/lines/danish-aoede-c363014faed77ff6.mp3",
+      "voice": "danish-aoede"
+    },
+    "danish_ch4:danish_see_the_doctor:check": {
+      "file": "assets/audio/lines/danish-orus-e9c6041cfcbb4747.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_see_the_doctor:diagnosis": {
+      "file": "assets/audio/lines/danish-orus-a211fd6dc92dcebb.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_see_the_doctor:hello": {
+      "file": "assets/audio/lines/danish-puck-d61c632234523202.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:how_long": {
+      "file": "assets/audio/lines/danish-orus-00cec9cf252aaef7.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_see_the_doctor:pain": {
+      "file": "assets/audio/lines/danish-puck-07fffbd364a02240.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:question": {
+      "file": "assets/audio/lines/danish-puck-4745bc0bf4aaccfb.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:since": {
+      "file": "assets/audio/lines/danish-puck-3dcfcd11692a466b.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:sit_down": {
+      "file": "assets/audio/lines/danish-orus-0327d8c4a0e01677.mp3",
+      "voice": "danish-orus"
+    },
+    "danish_ch4:danish_see_the_doctor:swallow": {
+      "file": "assets/audio/lines/danish-puck-bb86befc3b42c7a7.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:thanks": {
+      "file": "assets/audio/lines/danish-puck-7da738c5a2e11a7f.mp3",
+      "voice": "danish-puck"
+    },
+    "danish_ch4:danish_see_the_doctor:understood": {
+      "file": "assets/audio/lines/danish-puck-7fa9d95c6b1d18a1.mp3",
+      "voice": "danish-puck"
     }
   }
 }
