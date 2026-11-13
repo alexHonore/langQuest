@@ -55,7 +55,7 @@ export const spec: CliSpec = {
   examples: ['synthesize-bundle-audio -- --dry-run', 'synthesize-bundle-audio -- --track spanish-spain --limit 3'],
 };
 
-interface Line {
+export interface Line {
   expressionId: string;
   trackId: string;
   text: string;
@@ -200,7 +200,7 @@ export function listenPrompt(text: string): string {
   ].join('\n');
 }
 
-async function listen(file: string, text: string, providers: Providers, model: string = LISTENER_MODEL): Promise<{ ok: boolean; note: string }> {
+export async function listen(file: string, text: string, providers: Providers, model: string = LISTENER_MODEL): Promise<{ ok: boolean; note: string }> {
   const audio = readFileSync(file).toString('base64');
   const content = await providers.call(
     async () => {
@@ -235,7 +235,7 @@ async function listen(file: string, text: string, providers: Providers, model: s
   }
 }
 
-async function synthesize(line: Line, out: string, providers: Providers): Promise<void> {
+export async function synthesize(line: Pick<Line, 'text' | 'voice'>, out: string, providers: Providers): Promise<void> {
   const v = line.voice;
   const viaOpenRouter = async (): Promise<{ bytes: Buffer; rate: string; format: 'pcm' | 'mp3' }> => {
     const res = await fetch(`${OPENROUTER_API}/audio/speech`, {

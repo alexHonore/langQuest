@@ -20,7 +20,7 @@ describe('publish-content', () => {
   it('publishes the clips under their own names, and everything for good (the index aside)', () => {
     const clips = objects.filter((o) => o.name.startsWith('audio/'));
     expect(clips.length).toBeGreaterThan(2000);
-    expect(clips.every((o) => /^audio\/(lines|tatoeba)\/[^/]+\.mp3$/.test(o.name) && o.contentType === 'audio/mpeg')).toBe(true);
+    expect(clips.every((o) => /^audio\/(lines|tatoeba|narration)\/[^/]+\.mp3$/.test(o.name) && o.contentType === 'audio/mpeg')).toBe(true);
     expect(objects.every((o) => o.cacheControl === IMMUTABLE)).toBe(true);
     expect(new Set(objects.map((o) => o.name)).size).toBe(objects.length);
     const doc = JSON.parse(indexDocument(index, new Date('2026-11-12T00:00:00Z'))) as { schemaVersion: number; files: Record<string, string> };

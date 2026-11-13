@@ -20,10 +20,11 @@ import { memoryIo, runCli } from './lib/cli';
 import * as seedLanguages from './seed-languages';
 import * as synthesizeBundleAudio from './synthesize-bundle-audio';
 import * as publishContent from './publish-content';
+import * as synthesizeNarration from './synthesize-narration';
 import * as validateCoverage from './validate-course-coverage';
 
 const FIX = resolve(__dirname, 'fixtures');
-const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples, synthesizeBundleAudio, publishContent, importFactoryChapters];
+const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples, synthesizeBundleAudio, publishContent, importFactoryChapters, synthesizeNarration];
 
 describe('every CLI', () => {
   it('prints --help with usage, flags and --dry-run', async () => {
