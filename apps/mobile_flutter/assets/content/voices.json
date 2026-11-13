@@ -21261,6 +21261,14 @@
    "file": "assets/audio/lines/portuguese-brazilian-puck-d3a695591ebd420e.mp3",
    "voice": "portuguese-brazilian-puck"
   },
+  "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:thanks": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-c55faaa78d13df3f.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:fine": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-9fd748850d262cc8.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
   "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:goodbye": {
    "file": "assets/audio/lines/portuguese-brazilian-puck-2c53a6cbefc158af.mp3",
    "voice": "portuguese-brazilian-puck"
@@ -21303,6 +21311,10 @@
   },
   "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:deal": {
    "file": "assets/audio/lines/portuguese-brazilian-puck-c96e47af4d2538cf.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:expensive": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-fda6b781dd4fa56b.mp3",
    "voice": "portuguese-brazilian-puck"
   },
   "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:greet_hello_variant_8": {
@@ -21381,8 +21393,20 @@
    "file": "assets/audio/lines/portuguese-brazilian-puck-7c4fc4baf86e3ebc.mp3",
    "voice": "portuguese-brazilian-puck"
   },
+  "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:change": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-5402949f6c53897e.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:destination": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-20201fe29267f53f.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
   "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:fare": {
    "file": "assets/audio/lines/portuguese-brazilian-puck-5582f3e3b407d304.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:hail": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a75bfd8725652266.mp3",
    "voice": "portuguese-brazilian-puck"
   },
   "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:hail_taxi_variant_9": {
@@ -21393,9 +21417,809 @@
    "file": "assets/audio/lines/portuguese-brazilian-puck-ecead8e99e4466ae.mp3",
    "voice": "portuguese-brazilian-puck"
   },
+  "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:say_stop_here_variant_11": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-0f516a66fd51cf85.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
   "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:stop": {
    "file": "assets/audio/lines/portuguese-brazilian-puck-d1233ef36121b123.mp3",
    "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:where_to": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-76ba09a2654d6dda.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:card": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ec133889493ed4bd.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:credit_or_debit": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-47010105342cdbd7.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:debit": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-edf773f1696763cc.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:economy": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-3c98ba7c71bd5c44.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:last_stop": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-a14753616782a852.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:ticket": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-87079a0a9cb919f6.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:time": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-64db35bd54b1ad50.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:two": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-aeba6215abd4147a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:when": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-50f7aa9bde55e466.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:which_class": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-072951b546ecfd50.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:which_stop": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-4c5697ff2e8f3f2e.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_buy_train_ticket:would_like_ticket": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-7bf236e0c1a515ab.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:calm_samu": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-05a089ab0560942b.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:help": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ef00d351c25cde0d.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:nearest_hospital": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-2b0f46611ad58462.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:pain": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-74fbc5152c188fb5.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:pharmacy": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-0bf00da22123b9fb.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:pharmacy_near": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-73831079cab93f02.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:socorro": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-36bba18c5f6eafe7.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:type": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-572e30cbf663da5c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:understood": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-8c3090ed1f611a40.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_emergency_ask_help:what_happened": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-4d140c7bc486ee41.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:accept": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a5ad896f44312be9.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:bora": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-30af73294b2a84ab.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:boteco_friday": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-9bd02a266f3d6fb6.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:coffee_after": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-3a0b96ff667001f6.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:confirm": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-fecf3545b5f167e3.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:decline": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-67b808f4874a09c6.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:other_time": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-0e18aabb57c4dae2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:pampulha": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ba4397d21ba742c2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:saturday_ok": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-aea46a060bad1f0d.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:suggest": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-e1a3e810a66dc424.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_make_weekend_plans:when": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a1234c0b2dd98165.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:bill": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-333438cf1190b93e.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:delicious": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-82659f90a9189944.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:did_you_like": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-98004f2e9226e28c.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:for_me_chicken": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-26eae4b5000698dd.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:house_dish": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-def28017854b15c7.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:ingredients": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a3280b4d6629f55d.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:order": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-6080b225e9b71d96.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:pepper_aside": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-e25f533753031d62.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:recommend": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-66c6536e0a9635f2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:table": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a9f1d521f210968e.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-539ecb67a8a15866.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:can_i_help": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-dbb178aa0785338d.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:card": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-b6619f3a7122aaab.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:feel_free": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-6dd90779ea092466.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:fitting_room": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-af290a173df7e5e3.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:just_looking": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-fded66ef18f04da2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:other_colour": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-8e7740ff1f207762.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:pix": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d31d9a36daf4ae8c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:price": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-206e2e87fac17678.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:price_is": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-31e866b34019dcee.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:take_it": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-1b2e2ded2171a4bc.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:variant": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-38f672c899141a4a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_shop_for_clothes:want": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-b24447cc1c1b5de6.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:and_you": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-74f3f5de7b1f0c08.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:ask_family": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-00f695d04ffd9654.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:compliment_reply": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-2268f42571df82b7.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:delicious": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-94659845074af059.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:dont_know": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-f0a355359c076862.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:eat_more": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-6c6ce74ecda79ec2.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:four_of_us": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-83933fef9445bfcb.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:how_long": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-993ab0413c2e0077.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:my_family": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-4702122551f29b94.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch2:portuguese_brazilian_talk_about_family:you_speak_well": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-5122263728c35874.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:closed_monday": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-e51796bd793441a7.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:excuse_me": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-f562de17537e2d84.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:hours": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ba523605defcc20f.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:how_to_get": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-b0e261bd77b92d59.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:is_it_far": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-9ad79e6789cea085.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:mangabeiras": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-665a81fed2500734.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:recommend": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-319484a47a959dbc.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:thanks": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-dcca3fbb1e6addf9.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:twenty_minutes": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-5f4364effef26d00.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:view": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-f3a5abc63e3b53fc.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:which_place": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-10fbdc85baedcdf3.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_ask_for_advice:why": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-9b1acab5f3faf385.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:feeling": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-0d6fcd9d6b7ac582.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:feeling_great": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-40d78df511811c91.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:job": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-75cae7b23dd31090.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:routine": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-643695c3c35b9d5c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:sleep_in": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-1a2d1cd3574cf742.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:sleepy": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-a4b167eb8017f18c.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:time": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-37dc75c9abda070c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:weekend": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-2cde7a56ac8326ef.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:what_do_you_do": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-68940a3c74c3ab5b.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_describe_your_day:what_time": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-5386288770f0082b.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:agree": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a7090d17f2f8d3e0.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:because": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-9c7741331a3351e6.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:cheaper": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-1a954a4edbd2e26e.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:countryside": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-d36f1232c4fbf191.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:disagree": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-480185c584a8158d.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:opinion": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d895911c4c31a140.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:pao_de_queijo": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-d5c95545c81b772e.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:what_do_you_think": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-4ea7f08bd3dd40e2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:why": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-74bb59b103844221.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_friendly_debate:youre_right": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-de27a350db74e503.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:and_you": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d5c55c0c068018b0.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:dislike": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-565c835bdfd86c25.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:film_or_book": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-6841018f5d412bfb.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:free_time": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-b4e3c273508dafc8.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:free_time_q": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-67cf9c47f1aae0ce.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:like": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ee11ae54ecfecac1.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:like_cooking": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d8f1c66bced75b1f.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:prefer": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-e8c9f48381f09d19.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:sofa": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-f0154e08079e25a4.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:together": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-9a4d4ae5684958f3.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_hobbies:too_tired": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-a3cd6839ba3b02cf.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:badge": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-58f7f0751eb88759.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:clarify": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-f2cc279b78b74e4c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:explain": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-8c437abe9d475891.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:how_so": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-63016489f9a6b90a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:intro": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-52c1a39d4d30e6e9.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:job": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ebb60f823354b277.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:meaning": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-683c8c29377f8507.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:permission": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-389c30867eaaa167.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:pleased": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ffe2bab7bce442cf.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:small_task": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-be3975e215377e0b.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_talk_about_work:welcome": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-d0ab6236c3beaf8c.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:bus_stop": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-4d398b8d6e42e3c9.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:how_to_say": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-fa25bff8c91a4646.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:i_mean": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-cb198d989821e159.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:kind_lady": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ab789bbdaec55b82.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:right_bus": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ba4f549a64b5b09c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:she_said": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-c6fe5ef6930cb758.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:story": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-02df8c5cde7c00e2.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:what_she_said": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-b6cfb36d48fd6860.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:where_were_you": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-674490c990380fce.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:who_helped": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-27d0fbe6ef505165.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:wrong_bus": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-77c81fef5fc40a0f.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch3:portuguese_brazilian_tell_a_story:yesterday": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-13bc295168d35f87.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:about_five": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-7bf11f5da3033211.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:first_month_free": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-9a308d03408bf894.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:hours": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-0c23b8c50c73fe61.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:like": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-178005d4e5730f5c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:looking_for": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-8b1c63c61f1079d4.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:of_course": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-047cac9d742fa218.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:price": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-4156ffc2fb2fd5a5.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:see_you": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-022699818cbceb11.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:try": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-76cb0b54ccec016c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:try_first": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-acd3aede15a04494.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_join_a_club:tue_thu": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-19ae571b5c62f6fc.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:blue_suitcase": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-287381a93e4b6ef8.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:deliver_to": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-09a43f35a7aba855.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:excuse_me": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-a8113ee25bd7346b.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:flight": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d21ea17baf1c8833.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:lost": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-c2cfb27a9230b409.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:still_there": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-b894923d428de91e.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:thanks": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-80fc5d53d511842a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:tomorrow": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-e22a0f6994f6d74f.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:whats_the_problem": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-cf4d76da02d5e902.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:when_back": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d7136b61b5e48265.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_lost_luggage:which_flight": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-51b7669105db81ab.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:destination": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-98c7d92b388553c3.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:economy_then": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-4153a60f23607c88.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:express_or_economy": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-307971c63018af43.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:how_long": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-05025f2f91c6783c.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:pay": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-58ad84e8b45faf18.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:pix": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-f9afeb17498c8d55.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:price": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-d2a8e4793ccba2de.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:prices": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-f23a8d0d0cdd5fc6.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:send": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-e4c3c13fbd444601.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:where_to": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-dcf4575587a4e446.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_post_a_parcel:working_days": {
+   "file": "assets/audio/lines/portuguese-brazilian-orus-862be16239bf636c.mp3",
+   "voice": "portuguese-brazilian-orus"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:deal": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ef5d66b97b9a6bbf.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:first_of_month": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-cf6bb6a2e1a29e8d.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:is_it_far": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-b836fdd1a4461f4a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:no_lift": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-3fb00d1358f8e388.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:noisy_neighbour": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-1157ca7bfcdeb50f.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:opinion": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-1e16243d8e5238d8.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:price": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-4c55d16be4ed1cdc.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:rent": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-be09c564543e6fcb.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:take_it": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-5b181234a7587f63.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:when_free": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-346a644122e7519a.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_rent_a_flat:where_is": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-72b25a30d4ac0e75.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:bought_when": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-e1ea74f91e9e0230.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:broken": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-aab072135b58c641.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:can_i_help": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-2fd51b668eeffff0.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:exchange": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-c21514de70cfd95b.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:no_problem": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-2ced838105f1e843.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:one_side": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-86f2d29eb641fe65.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:or_refund": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-c804eabec6fbea79.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:receipt": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-c174ae00707d4f48.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:same_again": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-7ed66ffb5db09fc4.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:sorry": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-0ada731505236789.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_return_an_item:thanks": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-7a6f35560c68308b.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:advice": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-fc2e73bc643d229a.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:check": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-f4d6e20a40458126.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:hello": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ba7d6a26265ec7a1.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:hurts_to_swallow": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-fc99b1ace3ee75f4.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:pain": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-6d42409a8981f00d.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:question": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-2efaa56e148b44c0.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:since": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-814e817217cb52f8.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:since_when": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-9d6376e268becbde.mp3",
+   "voice": "portuguese-brazilian-aoede"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:thanks": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-02dfaeeda99d42e5.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:understood": {
+   "file": "assets/audio/lines/portuguese-brazilian-puck-ed1f10e0fafcf067.mp3",
+   "voice": "portuguese-brazilian-puck"
+  },
+  "portuguese_brazilian_ch4:portuguese_brazilian_see_the_doctor:whats_wrong": {
+   "file": "assets/audio/lines/portuguese-brazilian-aoede-daf0886c8021c48d.mp3",
+   "voice": "portuguese-brazilian-aoede"
   },
   "portuguese_european_ch1:portuguese_european_ask_directions:ask_repeat_variant_11": {
    "file": "assets/audio/lines/portuguese-european-puck-8aca4d8fb07c9f5c.mp3",
