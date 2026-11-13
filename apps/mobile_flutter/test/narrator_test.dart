@@ -41,11 +41,6 @@ class RecordingNarrator implements Narrator {
   void stop() => stops++;
 }
 
-class _Fallback extends RecordingNarrator {
-  @override
-  bool get ai => false;
-}
-
 const course = ServerCourse(enrollmentId: 'enr-1', targetVarietyId: 'es-ES', speechCheck: true);
 
 http.Response _json(int status, Object body) => http.Response(jsonEncode(body), status, headers: {'content-type': 'application/json; charset=utf-8'});
@@ -88,7 +83,7 @@ void main() {
       expect(narrator.ai, isTrue);
     });
 
-    test('without a narrator voice on the server, the device narrates (and the server is not asked again)', () async {
+    test('without a narrator voice on the server, nothing is narrated: never the device\'s synthetic voice (and the server is not asked again)', () async {
       var calls = 0;
       final client = MockClient((request) async {
         calls++;
@@ -97,17 +92,14 @@ void main() {
           'error': {'code': 'capability_unsupported', 'message': 'No narrator voice'},
         });
       });
-      final fallback = _Fallback();
       final player = FakeClipPlayer(instant: true);
       final narrator = ServerNarrator(
         api: LangQuestApi(baseUrl: 'https://api.test', accessToken: () async => 't', client: client),
         course: course,
         player: player,
-        fallback: fallback,
       );
       await narrator.say('At the café.');
       await narrator.say('Pepa says');
-      expect(fallback.said, ['At the café.', 'Pepa says']);
       expect(calls, 1);
       expect(player.played, isEmpty);
       expect(narrator.ai, isFalse);
@@ -136,6 +128,14 @@ void main() {
       await saying;
       expect(player.played, isEmpty);
     });
+  });
+
+  test('signed out, nothing narrates: the device\'s synthetic voice is never the narrator', () async {
+    final container = await testContainer();
+    addTearDown(container.dispose);
+    container.read(appStateProvider.notifier).enroll('arabic-moroccan', 'fr');
+    expect(container.read(narratorProvider), isNull);
+    expect(await container.read(narrationAvailableProvider.future), isFalse, reason: 'no read-aloud button either');
   });
 
   test('narration is in the course\'s instruction language (never another one), and the setting is kept', () {

@@ -29,38 +29,15 @@ abstract class Narrator {
   void stop();
 }
 
-/// The device's voice for the instruction language (any region: `en` → `en-US`), when it has one.
-class DeviceNarrator implements Narrator {
-  DeviceNarrator({required this.speech, required this.language});
-
-  final SpeechService speech;
-  final String language;
-
-  @override
-  bool get ai => false;
-
-  @override
-  Future<void> say(String text) async {
-    final locale = await speech.voiceForLanguage(language);
-    if (locale != null) await speech.speak(text, locale: locale);
-  }
-
-  @override
-  void prepare(String text) {}
-
-  @override
-  void stop() => unawaited(speech.stop());
-}
-
 /// The server's AI narrator (`POST /v1/speech/narrate`, in the enrollment's instruction language). Each clip is
-/// fetched once per session and kept in memory. Where the server cannot narrate, the device's voice does.
+/// fetched once per session and kept in memory. Where the server cannot narrate, nothing is said: the device's
+/// synthetic voice is never used for narration (the learner reads the text instead).
 class ServerNarrator implements Narrator {
-  ServerNarrator({required this.api, required this.course, required this.player, this.fallback});
+  ServerNarrator({required this.api, required this.course, required this.player});
 
   final LangQuestApi api;
   final ServerCourse course;
   final ClipPlayer player;
-  final Narrator? fallback;
   final _clips = <String, Future<String?>>{};
   bool _unsupported = false;
 
@@ -94,8 +71,8 @@ class ServerNarrator implements Narrator {
         durationMs: (audio['durationMs'] as num?)?.toInt(),
       );
     } on ApiException catch (e) {
-      // No narrator voice on this deployment or for this language (501), or a server without the route (404): the
-      // device narrates from now on.
+      // No narrator voice on this deployment or for this language (501), or a server without the route (404): nothing
+      // is narrated from now on.
       if (e.status == 501 || e.status == 404) _unsupported = true;
       return null;
     }
@@ -112,11 +89,7 @@ class ServerNarrator implements Narrator {
     player.stop();
     final url = await _clip(text);
     if (generation != _generation) return;
-    if (url != null) {
-      await player.play(url);
-    } else {
-      await fallback?.say(text);
-    }
+    if (url != null) await player.play(url);
   }
 
   @override
@@ -126,20 +99,20 @@ class ServerNarrator implements Narrator {
   }
 }
 
-/// The narrator for the active course: the server's AI voice when signed in on a course it voices, else the device's
-/// voice for the instruction language. Null without a course.
+/// The narrator for the active course: the server's AI voice when signed in on a course it voices. Null otherwise (no
+/// course, signed out, or no AI voice): the device's synthetic voice never narrates, it sounds robotic next to the
+/// course's natural clips.
 final narratorProvider = Provider<Narrator?>((ref) {
   final active = ref.watch(appStateProvider.select((s) => s.activeCourse));
   if (active == null) return null;
   final speech = ref.watch(speechServiceProvider);
-  final device = DeviceNarrator(speech: speech, language: active.source);
   final api = ref.watch(apiProvider);
   final makePlayer = ref.watch(clipPlayerFactoryProvider);
   final course = ref.watch(accountProvider).serverCourse(active.id);
   final offer = ref.watch(serverOffersProvider(active.source)).asData?.value[active.track.id];
-  if (api == null || makePlayer == null || course == null || offer == null || !offer.aiVoice) return device;
+  if (api == null || makePlayer == null || course == null || offer == null || !offer.aiVoice) return null;
   final player = makePlayer();
-  final narrator = ServerNarrator(api: api, course: course, player: player, fallback: device);
+  final narrator = ServerNarrator(api: api, course: course, player: player);
   // Whatever stops the course's voice (a new line, a recording starting) stops the narrator too.
   speech.addStopListener(narrator.stop);
   ref.onDispose(() {
@@ -169,12 +142,11 @@ AppLocalizations? narrationWords(String source) {
   return (narrator: narrator, words: words);
 }
 
-/// Whether exercises can be read aloud for the active course here: the AI narrator, or a device voice for the
-/// instruction language, and the app's words in it (the read-aloud button exists only then).
+/// Whether exercises can be read aloud for the active course here: the AI narrator and the app's words in the
+/// instruction language (the read-aloud button exists only then).
 final narrationAvailableProvider = FutureProvider.autoDispose<bool>((ref) async {
   final source = ref.watch(appStateProvider.select((s) => s.activeCourse?.source));
   final narrator = ref.watch(narratorProvider);
   if (source == null || narrator == null || narrationWords(source) == null) return false;
-  if (narrator.ai) return true;
-  return await ref.read(speechServiceProvider).voiceForLanguage(source) != null;
+  return narrator.ai;
 });
