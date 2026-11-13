@@ -4,6 +4,10 @@
   "synthetic": true,
   "courseTrackId": "greek",
   "voices": {
+    "greek-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard Modern Greek as spoken in Athens)"
+    },
     "greek-orus": {
       "model": "google/gemini-3.8-flash-tts",
       "label": "Orus (Gemini TTS, instructed standard Modern Greek as spoken in Athens)"
@@ -282,6 +286,10 @@
       "file": "assets/audio/lines/greek-puck-e62f8143aea83ec6.mp3",
       "voice": "greek-puck"
     },
+    "greek_ch1:greek_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/greek-aoede-94637cef425a08c0.mp3",
+      "voice": "greek-aoede"
+    },
     "greek_ch1:greek_meet_neighbour:where_from_q": {
       "file": "assets/audio/lines/greek-puck-4c10aecf21682f02.mp3",
       "voice": "greek-puck"
@@ -325,6 +333,162 @@
     "greek_ch1:greek_take_taxi:where_to": {
       "file": "assets/audio/lines/greek-orus-682b339c923b33ec.mp3",
       "voice": "greek-orus"
+    },
+    "greek_ch2:greek_buy_train_ticket:card": {
+      "file": "assets/audio/lines/greek-puck-baf8e38088e23c35.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:last_stop": {
+      "file": "assets/audio/lines/greek-aoede-ede99de3017e98b5.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_buy_train_ticket:return_please": {
+      "file": "assets/audio/lines/greek-puck-e0d53518b7d2aab7.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:single_or_return": {
+      "file": "assets/audio/lines/greek-aoede-322918d5f4bbf81d.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/greek-puck-c32924594e803911.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:time": {
+      "file": "assets/audio/lines/greek-aoede-4277d364333980d6.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_buy_train_ticket:total": {
+      "file": "assets/audio/lines/greek-aoede-c39e4e98fad64306.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_buy_train_ticket:two": {
+      "file": "assets/audio/lines/greek-puck-28696d84eb8bc917.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:when": {
+      "file": "assets/audio/lines/greek-puck-618f19955bc5c73d.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/greek-puck-6c13867b99a6a984.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_buy_train_ticket:would_like_ticket": {
+      "file": "assets/audio/lines/greek-puck-13171cbb06379339.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_emergency_ask_help:dont_worry": {
+      "file": "assets/audio/lines/greek-orus-47a563d9fadb22d6.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_emergency_ask_help:help": {
+      "file": "assets/audio/lines/greek-puck-8b486d8739f6776a.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/greek-puck-12af41094dbd7e46.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_emergency_ask_help:type": {
+      "file": "assets/audio/lines/greek-puck-dee27b3c6284a3d0.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/greek-orus-69cbac04f494bcd8.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/greek-puck-92b427a38ca7b941.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/greek-puck-a1730344ab44b879.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:dish_of_day": {
+      "file": "assets/audio/lines/greek-orus-b0746beb65b8f1b7.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_restaurant_order_meal:have_table": {
+      "file": "assets/audio/lines/greek-puck-ed3c9f725db597ff.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/greek-puck-78f7c7d121e6e777.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:no_nuts": {
+      "file": "assets/audio/lines/greek-orus-964d8f5245b39aa3.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/greek-puck-f4ecd72f7a61f32c.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/greek-puck-7212729be781693e.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:right_away": {
+      "file": "assets/audio/lines/greek-orus-2254c5dfab332a14.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/greek-puck-5a6f57999d81cb51.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:take_salad": {
+      "file": "assets/audio/lines/greek-puck-1ccdddbb736b2b92.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/greek-orus-ae465c31564bd913.mp3",
+      "voice": "greek-orus"
+    },
+    "greek_ch2:greek_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/greek-aoede-82e8c38b4fb0ba81.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_shop_for_clothes:card": {
+      "file": "assets/audio/lines/greek-puck-5ee38e32f18c9282.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:here_is_42": {
+      "file": "assets/audio/lines/greek-aoede-956c028bf3b1b507.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/greek-puck-2e887fe74f034f80.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/greek-puck-621b99647b8da921.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:price": {
+      "file": "assets/audio/lines/greek-puck-f64aab3ec175d4ed.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/greek-aoede-f256697b3337cbf9.mp3",
+      "voice": "greek-aoede"
+    },
+    "greek_ch2:greek_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/greek-puck-b8ff147270870b95.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/greek-puck-295fdddc4b1bc27e.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:want": {
+      "file": "assets/audio/lines/greek-puck-99e1d72a9976acf3.mp3",
+      "voice": "greek-puck"
+    },
+    "greek_ch2:greek_shop_for_clothes:what_size": {
+      "file": "assets/audio/lines/greek-aoede-919530db8527d73b.mp3",
+      "voice": "greek-aoede"
     }
   }
 }
