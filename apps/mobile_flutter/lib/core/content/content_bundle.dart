@@ -220,7 +220,7 @@ class ContentBundle {
       skills: skills,
       roles: roles,
       examples: examples,
-      voices: voices.without(own),
+      voices: voices.without(own, trackId: trackId),
     );
   }
 

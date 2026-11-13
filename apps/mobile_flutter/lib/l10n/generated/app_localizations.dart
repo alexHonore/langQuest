@@ -2627,7 +2627,7 @@ abstract class AppLocalizations {
   /// No description provided for @readAloudSettingBody.
   ///
   /// In en, this message translates to:
-  /// **'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.'**
+  /// **'As each exercise appears: its context and question in your language, read by a natural AI voice, then the phrase in the course\'s voice.'**
   String get readAloudSettingBody;
 
   /// No description provided for @realExamplesButton.

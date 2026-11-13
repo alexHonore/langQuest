@@ -19,7 +19,8 @@ self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim()));
 
 // A course the learner left: its kept content goes (only what the learner selected stays on the device).
-const courseFile = (url, track) => new RegExp(`/content/(chapters|voices)/${track.replace(/[^a-z-]/g, '')}(\\.[0-9a-f]+)?\\.json$`).test(new URL(url).pathname);
+const courseFile = (url, track) =>
+  new RegExp(`/content/(chapters|voices|narration/[a-z]+)/${track.replace(/[^a-z-]/g, '')}(\\.[0-9a-f]+)?\\.json$`).test(new URL(url).pathname);
 
 async function forgetCourse(track) {
   const cache = await caches.open(CACHE);

@@ -15,7 +15,6 @@ import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_store.dart';
-import '../../core/services/speech_service.dart';
 import '../../core/content/content_bundle.dart' show Course;
 import '../../core/content/content_models.dart';
 import '../../core/theme/typography.dart';
@@ -452,11 +451,11 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
   Future<AudioLessonPlayer?> _make(Course course) async {
     final voice = await ref.read(lineVoiceProvider(course.track.voiceLocale).future);
     if (!voice.available || !mounted) return null;
-    // The narration in the course's instruction language (the AI narrator signed in, else the device's voice for it).
+    // The narration in the course's instruction language: the AI narrator (signed in), else none (never the device's
+    // synthetic voice).
     final narrator = ref.read(narratorProvider);
     final words = narrationWords(course.source) ?? context.l10n;
-    final narrates = narrator != null && (narrator.ai || await ref.read(speechServiceProvider).voiceForLanguage(course.source) != null);
-    if (!mounted) return null;
+    final narrates = narrator != null && narrator.ai;
     final lesson = _lesson(ref.read, words);
     if (lesson == null) return null;
     final player =

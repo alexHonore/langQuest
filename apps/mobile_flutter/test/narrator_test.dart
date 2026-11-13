@@ -12,7 +12,10 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
 import 'package:langquest_mobile/core/backend/narrator.dart';
+import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
+import 'package:langquest_mobile/core/content/content_bundle.dart';
+import 'package:langquest_mobile/core/content/content_source.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/learner_state.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
@@ -39,11 +42,6 @@ class RecordingNarrator implements Narrator {
 
   @override
   void stop() => stops++;
-}
-
-class _Fallback extends RecordingNarrator {
-  @override
-  bool get ai => false;
 }
 
 const course = ServerCourse(enrollmentId: 'enr-1', targetVarietyId: 'es-ES', speechCheck: true);
@@ -88,7 +86,7 @@ void main() {
       expect(narrator.ai, isTrue);
     });
 
-    test('without a narrator voice on the server, the device narrates (and the server is not asked again)', () async {
+    test('without a narrator voice on the server, nothing is narrated: never the device\'s synthetic voice (and the server is not asked again)', () async {
       var calls = 0;
       final client = MockClient((request) async {
         calls++;
@@ -97,17 +95,14 @@ void main() {
           'error': {'code': 'capability_unsupported', 'message': 'No narrator voice'},
         });
       });
-      final fallback = _Fallback();
       final player = FakeClipPlayer(instant: true);
       final narrator = ServerNarrator(
         api: LangQuestApi(baseUrl: 'https://api.test', accessToken: () async => 't', client: client),
         course: course,
         player: player,
-        fallback: fallback,
       );
       await narrator.say('At the café.');
       await narrator.say('Pepa says');
-      expect(fallback.said, ['At the café.', 'Pepa says']);
       expect(calls, 1);
       expect(player.played, isEmpty);
       expect(narrator.ai, isFalse);
@@ -135,6 +130,85 @@ void main() {
       narrator.stop();
       await saying;
       expect(player.played, isEmpty);
+    });
+  });
+
+  group('the recorded narration', () {
+    const location = 'https://bucket.test/c/';
+    const recorded = BundledNarration({'At the café.': 'assets/audio/narration/narrator-en-sulafat-0123456789abcdef.mp3'});
+
+    test('a recorded sentence plays its clip from the content bucket; another goes to the server\'s AI narrator', () async {
+      final player = FakeClipPlayer(instant: true);
+      final server = RecordingNarrator();
+      final narrator = BundledNarrator(narration: recorded, player: player, location: ContentLocation(Uri.parse(location)), server: server);
+      await narrator.say('At the café.');
+      await narrator.say('Pepa says');
+      expect(player.played, ['${location}audio/narration/narrator-en-sulafat-0123456789abcdef.mp3']);
+      expect(server.said, ['Pepa says']);
+      expect(narrator.ai, isTrue);
+    });
+
+    test('signed out, a sentence not recorded is not said at all (never by the device\'s synthetic voice)', () async {
+      final player = FakeClipPlayer(instant: true);
+      final narrator = BundledNarrator(narration: recorded, player: player, location: ContentLocation(Uri.parse(location)));
+      await narrator.say('Pepa says');
+      expect(player.played, isEmpty);
+    });
+
+    test('the narration file maps each sentence to its clip', () {
+      final parsed = BundledNarration.parse('{"schemaVersion":1,"clips":{"Comment dit-on « Merci » ?":"assets/audio/narration/x.mp3"}}');
+      expect(parsed.clipOf('Comment dit-on « Merci » ?'), 'assets/audio/narration/x.mp3');
+      expect(parsed.clipOf('Autre chose'), isNull);
+      expect(BundledNarration.asset('arabic-moroccan', 'fr'), 'assets/content/narration/fr/arabic-moroccan.json');
+      expect(() => BundledNarration.parse('{"schemaVersion":2}'), throwsFormatException);
+    });
+
+    Future<(ProviderContainer, List<String>)> signedOut({required bool withRecording}) async {
+      final asked = <String>[];
+      Future<String> read(String path) async {
+        asked.add(path);
+        if (path == BundledNarration.asset('arabic-moroccan', 'fr')) {
+          return '{"schemaVersion":1,"clips":{"Anas dit":"assets/audio/narration/narrator-fr-sulafat-a5e8b0b029f886e3.mp3"}}';
+        }
+        final text = await readTestAsset(path);
+        // The course's voices file says which narrations are recorded.
+        if (path == ContentBundle.voicesOf('arabic-moroccan')) {
+          final json = (jsonDecode(text) as Map).cast<String, Object?>();
+          if (withRecording) {
+            json['narration'] = ['fr'];
+          } else {
+            json.remove('narration');
+          }
+          return jsonEncode(json);
+        }
+        return text;
+      }
+
+      final container = ProviderContainer(
+        overrides: [
+          ...await testOverrides(content: await ContentBundle.load(read), read: read),
+          clipPlayerFactoryProvider.overrideWithValue(() => FakeClipPlayer(instant: true)),
+        ],
+      );
+      addTearDown(container.dispose);
+      container.read(appStateProvider.notifier).enroll('arabic-moroccan', 'fr');
+      await container.read(contentBundleProvider.notifier).loadCourse('arabic-moroccan');
+      container.listen(narratorProvider, (_, _) {});
+      await container.read(bundledNarrationProvider(('arabic-moroccan', 'fr')).future);
+      return (container, asked);
+    }
+
+    test('signed out with the course\'s narration recorded, the recorded narrator reads exercises aloud', () async {
+      final (container, _) = await signedOut(withRecording: true);
+      expect(container.read(narratorProvider), isA<BundledNarrator>());
+      expect(await container.read(narrationAvailableProvider.future), isTrue);
+    });
+
+    test('signed out without a recording, nothing narrates: the device\'s synthetic voice is never the narrator', () async {
+      final (container, asked) = await signedOut(withRecording: false);
+      expect(asked, isNot(contains(BundledNarration.asset('arabic-moroccan', 'fr'))), reason: 'a narration not listed is never asked for');
+      expect(container.read(narratorProvider), isNull);
+      expect(await container.read(narrationAvailableProvider.future), isFalse, reason: 'no read-aloud button either');
     });
   });
 

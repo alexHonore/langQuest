@@ -1435,7 +1435,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get readAloudSettingBody =>
-      'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.';
+      'As each exercise appears: its context and question in your language, read by a natural AI voice, then the phrase in the course\'s voice.';
 
   @override
   String get realExamplesButton => 'Real examples';

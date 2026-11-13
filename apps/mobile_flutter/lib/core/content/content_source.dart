@@ -105,16 +105,18 @@ class ContentSource {
     }
   }
 
-  /// Forgets what was kept of [trackId] (its chapters and voices): the learner left the course.
+  /// Forgets what was kept of [trackId] (its chapters, voices and narration): the learner left the course.
   Future<void> forgetCourse(String trackId) {
     forgetCourseInServiceWorker(trackId);
     return cache.removeWhere((name) => isCourseFile(name, trackId));
   }
 
-  /// Whether the object [name] (`content/chapters/<track>.json` or `content/chapters/<track>.<hash>.json`) is one of
-  /// [trackId]'s own files.
+  /// Whether the object [name] (`content/chapters/<track>.json` or `content/chapters/<track>.<hash>.json`, likewise
+  /// under `voices/` and `narration/<lang>/`) is one of [trackId]'s own files.
   static bool isCourseFile(String name, String trackId) {
-    for (final dir in const ['content/chapters/', 'content/voices/']) {
+    // The course's recorded narration is one file per instruction language: `content/narration/<lang>/<track>.json`.
+    final narration = RegExp(r'^content/narration/[a-z]+/').firstMatch(name)?.group(0);
+    for (final dir in ['content/chapters/', 'content/voices/', ?narration]) {
       if (!name.startsWith(dir)) continue;
       final file = name.substring(dir.length);
       return file == '$trackId.json' || (file.startsWith('$trackId.') && RegExp(r'^\.[0-9a-f]{8,}\.json$').hasMatch(file.substring(trackId.length)));

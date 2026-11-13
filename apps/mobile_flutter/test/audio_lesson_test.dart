@@ -328,20 +328,19 @@ void main() {
     expect(find.textContaining('min left'), findsOneWidget);
     await t.tap(find.bySemanticsLabel('Play'));
     await t.pump(const Duration(milliseconds: 300));
-    expect(device.said.first.$1, '$title. Listen to the conversation.');
     // On to the third part: the phrases asked from memory.
     for (var i = 0; i < 400 && !find.text('Your turn: say it from memory').evaluate().isNotEmpty; i++) {
       await t.pump(const Duration(milliseconds: 500));
     }
     expect(find.text('Your turn: say it from memory'), findsOneWidget);
-    expect(device.said.map((s) => s.$1), contains('Now from memory. You hear a meaning: say the phrase before the voice does.'));
     // Through to the end (turns included): the lesson is listened.
     for (var i = 0; i < 800 && !find.text('Lesson finished').evaluate().isNotEmpty; i++) {
       await t.pump(const Duration(milliseconds: 500));
     }
     expect(find.text('Lesson finished'), findsOneWidget);
     expect(container.read(audioListenedProvider)['spanish-spain|en'], {'es_cafe_order_drink'});
-    expect(device.said.map((s) => s.$1), contains('Now take your part in the conversation. Say your lines out loud, then listen to check.'));
+    // Signed out there is no AI narrator: the device's synthetic voice never narrates, it only says the course's lines.
+    expect(device.said.map((s) => s.$2).toSet(), {'es-ES'}, reason: 'never an English narration in the device voice');
   });
 
   testWidgets('the Audio tab offers the mixes: every conversation at once; the recall once a mission is learned', (t) async {
@@ -372,7 +371,7 @@ void main() {
     expect(find.text('Listen'), findsNothing, reason: 'a mix has one part: no tabs');
     await t.tap(find.bySemanticsLabel('Play'));
     await t.pump(const Duration(milliseconds: 300));
-    expect(device.said.first.$1, 'From memory, the phrases you have learned. Say each one before the voice does.');
+    expect(device.said.map((s) => s.$2).toSet(), isNot(contains('en-US')), reason: 'no narration in the device voice');
     // The first phrase asked: its meaning as the question, the phrase itself not written yet.
     final plan = planOf('es_greet_and_introduce');
     final asked = buildRecallMix([plan], narration, title: '').steps.firstWhere((s) => s.kind == AudioStepKind.yourTurn).expression!;

@@ -1452,7 +1452,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get readAloudSettingBody =>
-      'À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit.';
+      'À chaque exercice : son contexte et sa question dans votre langue, lus par une voix IA naturelle, puis la phrase avec la voix du cours.';
 
   @override
   String get realExamplesButton => 'Exemples réels';
