@@ -230,6 +230,10 @@
       "file": "assets/audio/lines/swedish-puck-67a71bf9f1d3245e.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch1:swedish_market_ask_price:offer_lower_price_variant_10": {
+      "file": "assets/audio/lines/swedish-puck-39d07d4b6ce1cfa7.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch1:swedish_market_ask_price:price": {
       "file": "assets/audio/lines/swedish-aoede-c4c9ed7e80a72046.mp3",
       "voice": "swedish-aoede"
@@ -370,6 +374,10 @@
       "file": "assets/audio/lines/swedish-orus-56209f9ae8769a12.mp3",
       "voice": "swedish-orus"
     },
+    "swedish_ch2:swedish_emergency_ask_help:excuse_help": {
+      "file": "assets/audio/lines/swedish-puck-541b79f736073753.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch2:swedish_emergency_ask_help:help": {
       "file": "assets/audio/lines/swedish-puck-0b8ea25f3496c5d2.mp3",
       "voice": "swedish-puck"
@@ -386,8 +394,16 @@
       "file": "assets/audio/lines/swedish-puck-1a8e6e4763b8989e.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch2:swedish_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/swedish-orus-4ded88915f897265.mp3",
+      "voice": "swedish-orus"
+    },
     "swedish_ch2:swedish_emergency_ask_help:type": {
       "file": "assets/audio/lines/swedish-puck-6ddff7c87929a405.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch2:swedish_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/swedish-puck-b921f02f1c5c7fd2.mp3",
       "voice": "swedish-puck"
     },
     "swedish_ch2:swedish_emergency_ask_help:what_happened": {
@@ -534,6 +550,10 @@
       "file": "assets/audio/lines/swedish-puck-903ff83dd87eb408.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch2:swedish_talk_about_family:and_you": {
+      "file": "assets/audio/lines/swedish-aoede-3424ef7a7ebc226e.mp3",
+      "voice": "swedish-aoede"
+    },
     "swedish_ch2:swedish_talk_about_family:ask_family": {
       "file": "assets/audio/lines/swedish-puck-4321a64389feaf3e.mp3",
       "voice": "swedish-puck"
@@ -541,6 +561,14 @@
     "swedish_ch2:swedish_talk_about_family:come_in": {
       "file": "assets/audio/lines/swedish-aoede-9d5dca7869fbe0c1.mp3",
       "voice": "swedish-aoede"
+    },
+    "swedish_ch2:swedish_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/swedish-puck-c4b9f7a6913850ea.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch2:swedish_talk_about_family:delicious": {
+      "file": "assets/audio/lines/swedish-puck-1aa324fe472bd0a7.mp3",
+      "voice": "swedish-puck"
     },
     "swedish_ch2:swedish_talk_about_family:dont_know": {
       "file": "assets/audio/lines/swedish-puck-6d94ef464ca02f56.mp3",
@@ -673,6 +701,10 @@
     "swedish_ch3:swedish_friendly_debate:healthier": {
       "file": "assets/audio/lines/swedish-aoede-121427c3612cbd3d.mp3",
       "voice": "swedish-aoede"
+    },
+    "swedish_ch3:swedish_friendly_debate:not_sure": {
+      "file": "assets/audio/lines/swedish-puck-9e4974990d02d5df.mp3",
+      "voice": "swedish-puck"
     },
     "swedish_ch3:swedish_friendly_debate:opinion": {
       "file": "assets/audio/lines/swedish-puck-fad075284226f74c.mp3",
@@ -914,6 +946,38 @@
       "file": "assets/audio/lines/swedish-orus-91d6e15f9d37177f.mp3",
       "voice": "swedish-orus"
     },
+    "swedish_ch4:swedish_post_a_parcel:cost": {
+      "file": "assets/audio/lines/swedish-orus-7326a03c70b13d3e.mp3",
+      "voice": "swedish-orus"
+    },
+    "swedish_ch4:swedish_post_a_parcel:customs": {
+      "file": "assets/audio/lines/swedish-orus-00462498f5f68365.mp3",
+      "voice": "swedish-orus"
+    },
+    "swedish_ch4:swedish_post_a_parcel:destination": {
+      "file": "assets/audio/lines/swedish-puck-26189c49b49d6c78.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_post_a_parcel:fill_in": {
+      "file": "assets/audio/lines/swedish-puck-3a296c9716af5bc2.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_post_a_parcel:how_long": {
+      "file": "assets/audio/lines/swedish-puck-961891e8b73a45af.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_post_a_parcel:pay": {
+      "file": "assets/audio/lines/swedish-puck-aa2b7f2bc04d9070.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_post_a_parcel:price": {
+      "file": "assets/audio/lines/swedish-puck-e6ba2245d5b2f43e.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_post_a_parcel:send": {
+      "file": "assets/audio/lines/swedish-puck-79e471695e970e9e.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch4:swedish_post_a_parcel:weeks": {
       "file": "assets/audio/lines/swedish-orus-23fc1d55c9156332.mp3",
       "voice": "swedish-orus"
@@ -922,12 +986,28 @@
       "file": "assets/audio/lines/swedish-puck-d26e69e5560b8826.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch4:swedish_post_a_parcel:where_to": {
+      "file": "assets/audio/lines/swedish-orus-879e0b6ba6a708e8.mp3",
+      "voice": "swedish-orus"
+    },
     "swedish_ch4:swedish_rent_a_flat:basement": {
       "file": "assets/audio/lines/swedish-aoede-6d89e9607c090ac0.mp3",
       "voice": "swedish-aoede"
     },
+    "swedish_ch4:swedish_rent_a_flat:from_first": {
+      "file": "assets/audio/lines/swedish-aoede-02b12892dfb70743.mp3",
+      "voice": "swedish-aoede"
+    },
+    "swedish_ch4:swedish_rent_a_flat:included": {
+      "file": "assets/audio/lines/swedish-puck-0f197ebb3b7f253e.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch4:swedish_rent_a_flat:is_it_far": {
       "file": "assets/audio/lines/swedish-puck-c875ecbaf3d36bb2.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_rent_a_flat:music": {
+      "file": "assets/audio/lines/swedish-puck-2a633c683128e030.mp3",
       "voice": "swedish-puck"
     },
     "swedish_ch4:swedish_rent_a_flat:opinion": {
@@ -946,16 +1026,48 @@
       "file": "assets/audio/lines/swedish-puck-9ac0c2a8fcd23be1.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch4:swedish_rent_a_flat:take_it": {
+      "file": "assets/audio/lines/swedish-puck-afa443c4b6f813b1.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_rent_a_flat:when_free": {
+      "file": "assets/audio/lines/swedish-puck-4a0cf360e9299da5.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch4:swedish_rent_a_flat:where_is": {
       "file": "assets/audio/lines/swedish-puck-0ae10d5881acc392.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_return_an_item:bought_when": {
+      "file": "assets/audio/lines/swedish-puck-c40c5e7eb140da3b.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_return_an_item:broken": {
+      "file": "assets/audio/lines/swedish-puck-a48192fca062809d.mp3",
       "voice": "swedish-puck"
     },
     "swedish_ch4:swedish_return_an_item:broken_var": {
       "file": "assets/audio/lines/swedish-puck-294f1bae8d9d95e7.mp3",
       "voice": "swedish-puck"
     },
+    "swedish_ch4:swedish_return_an_item:exchange": {
+      "file": "assets/audio/lines/swedish-puck-b4eee87dd2f331e2.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_return_an_item:new_pair": {
+      "file": "assets/audio/lines/swedish-puck-4d7bb967f5c5bbfb.mp3",
+      "voice": "swedish-puck"
+    },
+    "swedish_ch4:swedish_return_an_item:no_problem": {
+      "file": "assets/audio/lines/swedish-puck-1c55b8913627252f.mp3",
+      "voice": "swedish-puck"
+    },
     "swedish_ch4:swedish_return_an_item:refund": {
       "file": "assets/audio/lines/swedish-aoede-9b0a04c64cf95e1e.mp3",
+      "voice": "swedish-aoede"
+    },
+    "swedish_ch4:swedish_return_an_item:sorry": {
+      "file": "assets/audio/lines/swedish-aoede-d98d3bf51a459775.mp3",
       "voice": "swedish-aoede"
     },
     "swedish_ch4:swedish_return_an_item:tested": {

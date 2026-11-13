@@ -430,8 +430,40 @@
       "file": "assets/audio/lines/ukrainian-orus-47db544057baad2c.mp3",
       "voice": "ukrainian-orus"
     },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/ukrainian-puck-abdd38a99fbffecc.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:cinema": {
+      "file": "assets/audio/lines/ukrainian-puck-b9f419540e2bfc6d.mp3",
+      "voice": "ukrainian-puck"
+    },
     "ukrainian_ch2:ukrainian_make_weekend_plans:coffee_after": {
       "file": "assets/audio/lines/ukrainian-orus-e73c42344eb4e8fb.mp3",
+      "voice": "ukrainian-orus"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/ukrainian-puck-8d13f8597f53ab98.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/ukrainian-puck-a7e6b927596229ea.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:football_saturday": {
+      "file": "assets/audio/lines/ukrainian-orus-7534e337f5066605.mp3",
+      "voice": "ukrainian-orus"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/ukrainian-puck-d7d5d8a8a81e8b69.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/ukrainian-puck-2b00abde5c493e83.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/ukrainian-orus-230449079c53b989.mp3",
       "voice": "ukrainian-orus"
     },
     "ukrainian_ch2:ukrainian_make_weekend_plans:when": {
@@ -445,6 +477,10 @@
     "ukrainian_ch2:ukrainian_restaurant_order_meal:delicious": {
       "file": "assets/audio/lines/ukrainian-puck-034530321fbbcd7c.mp3",
       "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch2:ukrainian_restaurant_order_meal:fillings": {
+      "file": "assets/audio/lines/ukrainian-orus-fa8804e41b12d5b6.mp3",
+      "voice": "ukrainian-orus"
     },
     "ukrainian_ch2:ukrainian_restaurant_order_meal:ill_take_borscht": {
       "file": "assets/audio/lines/ukrainian-puck-7839a7bb020cb265.mp3",
@@ -648,6 +684,10 @@
     },
     "ukrainian_ch3:ukrainian_describe_your_day:when_leave": {
       "file": "assets/audio/lines/ukrainian-aoede-9e926bf9c5eed44b.mp3",
+      "voice": "ukrainian-aoede"
+    },
+    "ukrainian_ch3:ukrainian_describe_your_day:who_are_you": {
+      "file": "assets/audio/lines/ukrainian-aoede-1c82c59b39e607b6.mp3",
       "voice": "ukrainian-aoede"
     },
     "ukrainian_ch3:ukrainian_describe_your_day:why_so_early": {
@@ -1058,6 +1098,10 @@
       "file": "assets/audio/lines/ukrainian-puck-3044ddd9ecdf27e5.mp3",
       "voice": "ukrainian-puck"
     },
+    "ukrainian_ch4:ukrainian_see_the_doctor:pain": {
+      "file": "assets/audio/lines/ukrainian-puck-1b8e81623deae69a.mp3",
+      "voice": "ukrainian-puck"
+    },
     "ukrainian_ch4:ukrainian_see_the_doctor:question": {
       "file": "assets/audio/lines/ukrainian-puck-1c3faa9a0bf8359d.mp3",
       "voice": "ukrainian-puck"
@@ -1066,12 +1110,20 @@
       "file": "assets/audio/lines/ukrainian-puck-b053d1383a10db6f.mp3",
       "voice": "ukrainian-puck"
     },
+    "ukrainian_ch4:ukrainian_see_the_doctor:since_when": {
+      "file": "assets/audio/lines/ukrainian-orus-17bde981434e686d.mp3",
+      "voice": "ukrainian-orus"
+    },
     "ukrainian_ch4:ukrainian_see_the_doctor:swallow": {
       "file": "assets/audio/lines/ukrainian-puck-40c522c2c126837a.mp3",
       "voice": "ukrainian-puck"
     },
     "ukrainian_ch4:ukrainian_see_the_doctor:thanks": {
       "file": "assets/audio/lines/ukrainian-puck-bacc55e396f26243.mp3",
+      "voice": "ukrainian-puck"
+    },
+    "ukrainian_ch4:ukrainian_see_the_doctor:understood": {
+      "file": "assets/audio/lines/ukrainian-puck-e78caa17c0fd2020.mp3",
       "voice": "ukrainian-puck"
     }
   }
