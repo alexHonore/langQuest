@@ -12,7 +12,8 @@
  * Each is read once by the instruction language's narrator voice (a calm, warm teacher; not one of the course voices),
  * loudness-normalised and saved as `apps/mobile_flutter/assets/audio/narration/<voice>-<hash>.mp3`, then checked by the
  * same listening check as the course lines (`synthesize-bundle-audio`). `assets/content/narration/<lang>/<track>.json`
- * maps each sentence of a course to its clip: the app reads the active course's.
+ * maps each sentence of a course to its clip: the app reads the active course's. A course's map is written only once
+ * every one of its sentences is recorded (half a narration, some sentences said and others not, sounds broken).
  *
  * Google's Gemini API first, OpenRouter when Google fails (as `synthesize-bundle-audio`). Existing clips are kept; a
  * clip no sentence uses any more is removed after a full run.
@@ -171,7 +172,8 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
       mapped += Object.keys(clips).length;
       total += texts.length;
       const out = resolve(root, NARRATION_MAPS_DIR, source, `${track}.json`);
-      if (Object.keys(clips).length === 0) {
+      // Only a whole course is published: half a narration (some sentences said, others not) sounds broken.
+      if (Object.keys(clips).length < new Set(texts).size) {
         rmSync(out, { force: true });
         continue;
       }
@@ -179,7 +181,7 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
     }
   }
   if (!onlyTrack && !onlySource && existsSync(dir)) for (const f of readdirSync(dir)) if (f.endsWith('.mp3') && !used.has(f)) rmSync(resolve(dir, f));
-  io.log(`narration maps written: ${mapped} of ${total} sentences recorded${failed ? `, ${failed} failed` : ''}`);
+  io.log(`${mapped} of ${total} sentences recorded; a course's narration is published once all of its sentences are${failed ? `; ${failed} failed` : ''}`);
   return failed ? 1 : 0;
 }
 
