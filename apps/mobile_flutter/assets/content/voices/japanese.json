@@ -110,6 +110,10 @@
       "file": "assets/audio/lines/ja-puck-d4b76f00efe68c18.mp3",
       "voice": "ja-puck"
     },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:watashi_wa_desu": {
+      "file": "assets/audio/lines/ja-puck-f5ffa459dbaba79b.mp3",
+      "voice": "ja-puck"
+    },
     "ja_ch1_arrival_tokyo:ja_take_taxi:arigatou_taxi": {
       "file": "assets/audio/lines/ja-puck-f2078273632126bd.mp3",
       "voice": "ja-puck"
@@ -133,6 +137,766 @@
     "ja_ch1_arrival_tokyo:ja_take_taxi:toukyou_eki_made": {
       "file": "assets/audio/lines/ja-puck-79b0ce30f36cb44d.mp3",
       "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:card": {
+      "file": "assets/audio/lines/ja-puck-a224114c189c0c81.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:card_ok": {
+      "file": "assets/audio/lines/ja-charon-1b541911535190fb.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_buy_train_ticket:last_stop": {
+      "file": "assets/audio/lines/ja-charon-c7d4be3d1541620c.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_buy_train_ticket:one_adult": {
+      "file": "assets/audio/lines/ja-puck-70c8c2f24929587c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:return_please": {
+      "file": "assets/audio/lines/ja-puck-476d24999d7a535d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:single_or_return": {
+      "file": "assets/audio/lines/ja-charon-63fedecdcd3d95a1.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/ja-puck-a28445d3b3ef7773.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:time": {
+      "file": "assets/audio/lines/ja-charon-987ce078ccba8ef2.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_buy_train_ticket:two": {
+      "file": "assets/audio/lines/ja-puck-8e40274ba28ca95d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:when": {
+      "file": "assets/audio/lines/ja-puck-3ccbd8245ef5ce9d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/ja-puck-5aa9027bebfcf303.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:ambulance": {
+      "file": "assets/audio/lines/ja-kore-1d0fb4b7ef55b23d.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_emergency_ask_help:help": {
+      "file": "assets/audio/lines/ja-puck-5e25b8d915cdd3de.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:hospital": {
+      "file": "assets/audio/lines/ja-puck-c2853dc739562f28.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:no_ambulance": {
+      "file": "assets/audio/lines/ja-puck-63949d86dfe7c7b8.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/ja-puck-790802a95ec20f84.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:pharmacy": {
+      "file": "assets/audio/lines/ja-puck-a55247d566b2f669.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/ja-kore-d4ae21e534727767.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_emergency_ask_help:type": {
+      "file": "assets/audio/lines/ja-puck-db0d9570fc9934da.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/ja-puck-79d1b5b8b277659b.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/ja-kore-094e308e09866693.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/ja-puck-7fd28a90c374cac7.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/ja-puck-6361831a826c6294.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/ja-puck-16e18f3c8696b691.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:eat_after": {
+      "file": "assets/audio/lines/ja-charon-223879bac75e4365.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_make_weekend_plans:karaoke": {
+      "file": "assets/audio/lines/ja-puck-698c38e134e00c4d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/ja-puck-66910e41ef59b680.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:saturday": {
+      "file": "assets/audio/lines/ja-charon-f782f0c6998feb9b.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/ja-puck-cef5447eb0275b7a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/ja-charon-d531f8cfd2e8d373.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_make_weekend_plans:when": {
+      "file": "assets/audio/lines/ja-puck-d2b8cfa4b6592b6f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/ja-puck-aee5001e0355df5c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:can_we_come_in": {
+      "file": "assets/audio/lines/ja-puck-d450bb92ec9c644f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/ja-puck-3cdea35382916791.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:house_dish": {
+      "file": "assets/audio/lines/ja-charon-a74ec42b13929330.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/ja-puck-a6da35bf09ea20a9.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:no_meat": {
+      "file": "assets/audio/lines/ja-charon-8bd5745e8baf4956.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/ja-puck-e35fa666804b7b8a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/ja-puck-e1ce1caca28cfec1.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/ja-puck-19d1d87e28dda5b5.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:this_way": {
+      "file": "assets/audio/lines/ja-charon-fe2efc59e9f51e05.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:two_soba": {
+      "file": "assets/audio/lines/ja-puck-ec56448bf1735466.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/ja-charon-463f296ff626eb87.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch2:ja_shop_for_clothes:card": {
+      "file": "assets/audio/lines/ja-puck-452bd2c2af86448a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:go_ahead": {
+      "file": "assets/audio/lines/ja-kore-b74753173000f03b.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_shop_for_clothes:how_about_this": {
+      "file": "assets/audio/lines/ja-kore-9107397b7c742806.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/ja-puck-b5643020ff4d826a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:looking_for": {
+      "file": "assets/audio/lines/ja-kore-3024ebbd841b2784.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/ja-puck-7da5308a2cf457ef.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:price": {
+      "file": "assets/audio/lines/ja-puck-b9dca1face5d6baf.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/ja-kore-3960eea3ea53a138.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/ja-puck-128d97d3bf85acee.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:try_on": {
+      "file": "assets/audio/lines/ja-puck-c6e9ce8b76c8aa5f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/ja-puck-c196de5588ed690c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_shop_for_clothes:want": {
+      "file": "assets/audio/lines/ja-puck-44df2ede5f6bce0d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:and_you": {
+      "file": "assets/audio/lines/ja-kore-3c141cb815da35e1.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_talk_about_family:ask_family": {
+      "file": "assets/audio/lines/ja-puck-fa5e1577e1076d87.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/ja-puck-49e74e4eaa3da4c7.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:delicious": {
+      "file": "assets/audio/lines/ja-puck-74ccc5e9b113ebfd.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:dont_know": {
+      "file": "assets/audio/lines/ja-puck-8c79c34732edac34.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:eat_up": {
+      "file": "assets/audio/lines/ja-kore-a2a79d67b0c7aaae.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_talk_about_family:how_long": {
+      "file": "assets/audio/lines/ja-kore-336f458d7905e773.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_talk_about_family:itadakimasu": {
+      "file": "assets/audio/lines/ja-puck-fba99f6f8b901615.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:japanese_good": {
+      "file": "assets/audio/lines/ja-kore-996ea6ce3fe209ba.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch2:ja_talk_about_family:my_family": {
+      "file": "assets/audio/lines/ja-puck-3231d95f62c131ba.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch2:ja_talk_about_family:only_child": {
+      "file": "assets/audio/lines/ja-puck-2082b128488c0a59.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:excuse_me": {
+      "file": "assets/audio/lines/ja-puck-e7b19861bbb71d08.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:hours": {
+      "file": "assets/audio/lines/ja-puck-4c9d727da1443a3a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:how_to_get": {
+      "file": "assets/audio/lines/ja-puck-87beab833e511b71.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:is_it_far": {
+      "file": "assets/audio/lines/ja-puck-9d39f3d3549286aa.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:locals_place": {
+      "file": "assets/audio/lines/ja-puck-2e7c2f9eb09b2e35.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:nezu": {
+      "file": "assets/audio/lines/ja-charon-f66b75308964917f.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_ask_for_advice:reason": {
+      "file": "assets/audio/lines/ja-charon-b4c944305db77acf.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_ask_for_advice:recommend": {
+      "file": "assets/audio/lines/ja-puck-b9c1dde4cbd9a093.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:thanks": {
+      "file": "assets/audio/lines/ja-puck-a015698e51975081.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_ask_for_advice:the_way": {
+      "file": "assets/audio/lines/ja-charon-1a0f51d1c6d2f452.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_ask_for_advice:until_five": {
+      "file": "assets/audio/lines/ja-charon-9fef6b60e610fa9f.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_ask_for_advice:why": {
+      "file": "assets/audio/lines/ja-puck-57616189526a21b0.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:and_then": {
+      "file": "assets/audio/lines/ja-kore-791d0c1789d9f9a6.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_describe_your_day:busy": {
+      "file": "assets/audio/lines/ja-kore-7d7ab06fff1af99a.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_describe_your_day:feeling": {
+      "file": "assets/audio/lines/ja-puck-6f26b24d9c6e14b2.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:job": {
+      "file": "assets/audio/lines/ja-puck-7f2c90ec5de09b03.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:long_weekend": {
+      "file": "assets/audio/lines/ja-puck-61ac8e14857209ae.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:routine": {
+      "file": "assets/audio/lines/ja-puck-a208fc2de2fd9b68.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:time": {
+      "file": "assets/audio/lines/ja-puck-a8b56b3bc99128cc.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:weekdays_seven": {
+      "file": "assets/audio/lines/ja-puck-fbaa5983487ae982.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_describe_your_day:what_time": {
+      "file": "assets/audio/lines/ja-kore-bba85bb621ef8823.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_describe_your_day:which_team": {
+      "file": "assets/audio/lines/ja-kore-75e36dd153cc7869.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_friendly_debate:agree": {
+      "file": "assets/audio/lines/ja-puck-ceae9f2491bd4da3.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:because": {
+      "file": "assets/audio/lines/ja-puck-290191e2fcffa2b2.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:countryside": {
+      "file": "assets/audio/lines/ja-charon-b86bbb53d6f64e7c.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_friendly_debate:disagree": {
+      "file": "assets/audio/lines/ja-puck-bc4120cd39eb8bba.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:opinion": {
+      "file": "assets/audio/lines/ja-puck-3be467803631e62c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:rent": {
+      "file": "assets/audio/lines/ja-charon-a184e399215b6fb7.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_friendly_debate:thats_true": {
+      "file": "assets/audio/lines/ja-puck-28c629d4376fe5e3.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:tokyo_is_fun": {
+      "file": "assets/audio/lines/ja-puck-2060eb8faa3cae39.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:too_many_people": {
+      "file": "assets/audio/lines/ja-charon-ef2d4c9abc2ef5e9.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_friendly_debate:what_do_you_think": {
+      "file": "assets/audio/lines/ja-puck-4319f3b18cbac9eb.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_friendly_debate:why_so": {
+      "file": "assets/audio/lines/ja-charon-ca1f6e31289cdc98.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:and_you": {
+      "file": "assets/audio/lines/ja-puck-245d4dbdb118dc76.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:dislike": {
+      "file": "assets/audio/lines/ja-puck-9f069a9e62f8ca52.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:films_or_books": {
+      "file": "assets/audio/lines/ja-kore-773dc57eb199f1c9.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:free_time": {
+      "file": "assets/audio/lines/ja-puck-097ebc34cbfcc54c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:gym": {
+      "file": "assets/audio/lines/ja-kore-1ee5d712c9c4f5ec.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:like": {
+      "file": "assets/audio/lines/ja-puck-d109b8dd67246741.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:me_too_running": {
+      "file": "assets/audio/lines/ja-kore-a67ba5ff5abb8d4e.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:not_good_with_crowds": {
+      "file": "assets/audio/lines/ja-puck-d5735b876593b216.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:prefer": {
+      "file": "assets/audio/lines/ja-puck-a0921f1e5d5e692c.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:together": {
+      "file": "assets/audio/lines/ja-puck-9df247aacab2124b.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_hobbies:weekends": {
+      "file": "assets/audio/lines/ja-kore-887c0f973893db87.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_talk_about_work:clarify": {
+      "file": "assets/audio/lines/ja-puck-263ae17ffbf327e3.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:explain": {
+      "file": "assets/audio/lines/ja-charon-9d276c46e88ee6aa.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_talk_about_work:from_now_on": {
+      "file": "assets/audio/lines/ja-puck-48a4d2470bcfa93d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:intro": {
+      "file": "assets/audio/lines/ja-puck-faf96d11a597d067.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:job": {
+      "file": "assets/audio/lines/ja-puck-4fce5a894648d6c7.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:meaning": {
+      "file": "assets/audio/lines/ja-puck-f808d051fd13ea79.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:permission": {
+      "file": "assets/audio/lines/ja-puck-e8869706be2817e9.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:pleased": {
+      "file": "assets/audio/lines/ja-puck-be0e87084f9f34b9.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_talk_about_work:read_this": {
+      "file": "assets/audio/lines/ja-charon-392c8fcd1dc64ece.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_talk_about_work:resched": {
+      "file": "assets/audio/lines/ja-charon-f3b83069574a54bc.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_talk_about_work:welcome": {
+      "file": "assets/audio/lines/ja-charon-13736e7a19ebf2f3.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch3:ja_tell_a_story:day_before": {
+      "file": "assets/audio/lines/ja-puck-ade1c6ff3a057e22.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:her_words": {
+      "file": "assets/audio/lines/ja-puck-4ef5f94e3bf76a6f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:how_to_say": {
+      "file": "assets/audio/lines/ja-puck-2188cb78037805fe.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:huge_station": {
+      "file": "assets/audio/lines/ja-kore-f0388bd2b637ed4a.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_tell_a_story:i_mean": {
+      "file": "assets/audio/lines/ja-puck-f152ac8618886e7f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:kind_lady": {
+      "file": "assets/audio/lines/ja-puck-00940b7713852f86.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:mayou": {
+      "file": "assets/audio/lines/ja-kore-228fe6f37c28c6bf.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_tell_a_story:story": {
+      "file": "assets/audio/lines/ja-puck-d75a07431a20e400.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:what_happened": {
+      "file": "assets/audio/lines/ja-kore-e82689378aeb9539.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch3:ja_tell_a_story:yesterday": {
+      "file": "assets/audio/lines/ja-puck-ac907de0386bb8e4.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch3:ja_tell_a_story:you_look_tired": {
+      "file": "assets/audio/lines/ja-kore-47eb900e8ca61753.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_join_a_club:come_to_watch": {
+      "file": "assets/audio/lines/ja-kore-6e4e33f0bc865d16.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_join_a_club:free_month": {
+      "file": "assets/audio/lines/ja-kore-5569be8018b3d2f1.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_join_a_club:hours": {
+      "file": "assets/audio/lines/ja-puck-e147a194e8f890d1.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:like": {
+      "file": "assets/audio/lines/ja-puck-0039fb572d46ae72.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:of_course": {
+      "file": "assets/audio/lines/ja-kore-9f36d376358e3b39.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_join_a_club:price": {
+      "file": "assets/audio/lines/ja-puck-2c67153491018ef2.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:schedule": {
+      "file": "assets/audio/lines/ja-kore-5140bf6c25c72314.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_join_a_club:see_you": {
+      "file": "assets/audio/lines/ja-puck-49135e772d615779.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:ten_km": {
+      "file": "assets/audio/lines/ja-puck-0e0ad369b1ae99d3.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:trial": {
+      "file": "assets/audio/lines/ja-puck-430c9bd4f6d8778d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_join_a_club:try": {
+      "file": "assets/audio/lines/ja-puck-d6dea0dfbbec5ea8.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_lost_luggage:excuse_me": {
+      "file": "assets/audio/lines/ja-puck-949ce96eb5993311.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_lost_luggage:how_can_i_help": {
+      "file": "assets/audio/lines/ja-charon-bf586cbcb271e084.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_lost_luggage:lost": {
+      "file": "assets/audio/lines/ja-puck-4c898566f2ba4591.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:airmail_fine": {
+      "file": "assets/audio/lines/ja-puck-d9542d0c1507e638.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:airmail_price": {
+      "file": "assets/audio/lines/ja-charon-6323f3fff91f9d65.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_post_a_parcel:destination": {
+      "file": "assets/audio/lines/ja-puck-f8c9e21c29b8f598.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:how_long": {
+      "file": "assets/audio/lines/ja-puck-654d3b7d3d5cca3a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:one_week": {
+      "file": "assets/audio/lines/ja-charon-f99d0886199fba65.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_post_a_parcel:pay": {
+      "file": "assets/audio/lines/ja-puck-65c96fe0c88ef633.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:price": {
+      "file": "assets/audio/lines/ja-puck-048009b49d471c65.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:send": {
+      "file": "assets/audio/lines/ja-puck-c3a4a76f0db6034b.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:when_arrive": {
+      "file": "assets/audio/lines/ja-puck-f5720034edf9fec0.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_post_a_parcel:where_to": {
+      "file": "assets/audio/lines/ja-charon-b78617dccfb09767.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_rent_a_flat:bins": {
+      "file": "assets/audio/lines/ja-kore-1ba5fe90e45f9b8e.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_rent_a_flat:come_in": {
+      "file": "assets/audio/lines/ja-kore-f050524e1c92ca01.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_rent_a_flat:deposit": {
+      "file": "assets/audio/lines/ja-puck-b131510fe5adb9b0.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:eight_minutes": {
+      "file": "assets/audio/lines/ja-kore-e8d6d6a764c9efec.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_rent_a_flat:is_it_far": {
+      "file": "assets/audio/lines/ja-puck-49005c70ed0cc4fc.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:opinion": {
+      "file": "assets/audio/lines/ja-puck-a3d38531d87abc83.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:price": {
+      "file": "assets/audio/lines/ja-kore-8f6bb02e0d0b58d1.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_rent_a_flat:rent": {
+      "file": "assets/audio/lines/ja-puck-6ce9664de707e2f1.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:small_but_clean": {
+      "file": "assets/audio/lines/ja-puck-9361483ebcbe99bc.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:take_it": {
+      "file": "assets/audio/lines/ja-puck-ffd64c3a196073e0.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:when_free": {
+      "file": "assets/audio/lines/ja-puck-690cda9dcf17215f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_rent_a_flat:where_is": {
+      "file": "assets/audio/lines/ja-puck-5b57e5e42b52a524.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:bought_when": {
+      "file": "assets/audio/lines/ja-puck-0b3ccc771d7de318.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:broken": {
+      "file": "assets/audio/lines/ja-puck-1262327e2625eb80.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:exchange": {
+      "file": "assets/audio/lines/ja-puck-61ae174906176a3a.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:may_i_help": {
+      "file": "assets/audio/lines/ja-kore-10e380f8981d2334.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_return_an_item:no_problem": {
+      "file": "assets/audio/lines/ja-puck-e38c8092a29f79e0.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:options": {
+      "file": "assets/audio/lines/ja-kore-a6618ac496722638.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_return_an_item:refund": {
+      "file": "assets/audio/lines/ja-puck-eb256077a1cf511f.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:sorry": {
+      "file": "assets/audio/lines/ja-kore-1701f00e0c294917.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_return_an_item:thanks": {
+      "file": "assets/audio/lines/ja-puck-e55d717e2b46a5e7.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_return_an_item:when_bought": {
+      "file": "assets/audio/lines/ja-kore-bc0ee6a749e53982.mp3",
+      "voice": "ja-kore"
+    },
+    "japanese_ch4:ja_return_an_item:wont_turn_on": {
+      "file": "assets/audio/lines/ja-puck-b80c41fd180fb7d1.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:check": {
+      "file": "assets/audio/lines/ja-charon-6d749313106798af.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_see_the_doctor:cough": {
+      "file": "assets/audio/lines/ja-puck-e09e9afe3c23c1ce.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:hello": {
+      "file": "assets/audio/lines/ja-puck-24fe3130238e0a81.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:pain": {
+      "file": "assets/audio/lines/ja-puck-4d2b1361bd492238.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:question": {
+      "file": "assets/audio/lines/ja-puck-a1d51ab56853459d.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:since": {
+      "file": "assets/audio/lines/ja-puck-a80aa22934a39cce.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:since_when": {
+      "file": "assets/audio/lines/ja-charon-4e6753073d23c387.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_see_the_doctor:thanks": {
+      "file": "assets/audio/lines/ja-puck-4510e0ba247887e8.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:understood": {
+      "file": "assets/audio/lines/ja-puck-ebd436f77c052ee6.mp3",
+      "voice": "ja-puck"
+    },
+    "japanese_ch4:ja_see_the_doctor:what_brings_you": {
+      "file": "assets/audio/lines/ja-charon-550a52416b9d67df.mp3",
+      "voice": "ja-charon"
+    },
+    "japanese_ch4:ja_see_the_doctor:within_30": {
+      "file": "assets/audio/lines/ja-charon-1b706e03dbcf6d0a.mp3",
+      "voice": "ja-charon"
     }
   }
 }
