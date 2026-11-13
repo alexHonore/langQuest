@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
 import 'package:langquest_mobile/core/backend/server_voice.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/speech_service.dart';
@@ -17,6 +18,7 @@ import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/main.dart';
 import 'package:langquest_mobile/navigation/app_router.dart';
 
+import 'call_fakes.dart';
 import 'support.dart';
 
 /// A device with voices for Spain Spanish and English; what is said is recorded, and each utterance ends at once.
@@ -297,7 +299,13 @@ void main() {
     t.view.physicalSize = const Size(390 * 3, 844 * 3);
     t.view.devicePixelRatio = 3;
     addTearDown(t.view.reset);
-    await t.pumpWidget(ProviderScope(overrides: [...await testOverrides(), speechServiceProvider.overrideWithValue(device)], child: const LangQuestApp()));
+    final clips = FakeClipPlayer(instant: true);
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [...await testOverrides(), speechServiceProvider.overrideWithValue(device), clipPlayerFactoryProvider.overrideWithValue(() => clips)],
+        child: const LangQuestApp(),
+      ),
+    );
     final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
     container.read(appStateProvider.notifier)
       ..setReduceMotion(true)
@@ -306,13 +314,13 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await t.pump(const Duration(milliseconds: 100));
     }
-    expect(find.text('Audio'), findsOneWidget, reason: 'the device has a Spain Spanish voice');
+    expect(find.text('Audio'), findsOneWidget, reason: 'the course\'s lines are recorded by AI voices');
     await t.tap(find.text('Audio'));
     for (var i = 0; i < 10; i++) {
       await t.pump(const Duration(milliseconds: 100));
     }
     expect(find.text('Audio lessons'), findsOneWidget);
-    expect(find.text('Read by your device’s voice'), findsOneWidget);
+    expect(find.text('Read by an AI voice'), findsOneWidget);
     // A mission with a character to answer: its lesson has the four parts.
     final plan = planOf('es_cafe_order_drink');
     final title = plan.mission.titleIn('en')!;
@@ -339,8 +347,9 @@ void main() {
     }
     expect(find.text('Lesson finished'), findsOneWidget);
     expect(container.read(audioListenedProvider)['spanish-spain|en'], {'es_cafe_order_drink'});
-    // Signed out there is no AI narrator: the device's synthetic voice never narrates, it only says the course's lines.
-    expect(device.said.map((s) => s.$2).toSet(), {'es-ES'}, reason: 'never an English narration in the device voice');
+    // The course's recorded clips play; the device's synthetic voice says nothing (no line, no narration).
+    expect(clips.played, isNotEmpty);
+    expect(device.said, isEmpty, reason: 'the device\'s voice is never used');
   });
 
   testWidgets('the Audio tab offers the mixes: every conversation at once; the recall once a mission is learned', (t) async {
@@ -348,7 +357,13 @@ void main() {
     t.view.physicalSize = const Size(390 * 3, 844 * 3);
     t.view.devicePixelRatio = 3;
     addTearDown(t.view.reset);
-    await t.pumpWidget(ProviderScope(overrides: [...await testOverrides(), speechServiceProvider.overrideWithValue(device)], child: const LangQuestApp()));
+    final clips = FakeClipPlayer(instant: true);
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [...await testOverrides(), speechServiceProvider.overrideWithValue(device), clipPlayerFactoryProvider.overrideWithValue(() => clips)],
+        child: const LangQuestApp(),
+      ),
+    );
     final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
     final notifier = container.read(appStateProvider.notifier)
       ..setReduceMotion(true)
@@ -357,7 +372,7 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Mixes'), findsOneWidget);
     expect(find.text('Every conversation'), findsOneWidget);
-    // Every chapter: the device has a voice for the course, so every conversation can be heard.
+    // Every chapter's lines are recorded, so every conversation can be heard.
     expect(find.text('24 conversations back to back, just to listen'), findsOneWidget);
     expect(find.text('Recall workout'), findsNothing, reason: 'nothing learned yet (visible means usable)');
 
@@ -371,7 +386,7 @@ void main() {
     expect(find.text('Listen'), findsNothing, reason: 'a mix has one part: no tabs');
     await t.tap(find.bySemanticsLabel('Play'));
     await t.pump(const Duration(milliseconds: 300));
-    expect(device.said.map((s) => s.$2).toSet(), isNot(contains('en-US')), reason: 'no narration in the device voice');
+    expect(device.said, isEmpty, reason: 'the device\'s voice is never used');
     // The first phrase asked: its meaning as the question, the phrase itself not written yet.
     final plan = planOf('es_greet_and_introduce');
     final asked = buildRecallMix([plan], narration, title: '').steps.firstWhere((s) => s.kind == AudioStepKind.yourTurn).expression!;
