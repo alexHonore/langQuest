@@ -23565,6 +23565,10 @@
    "file": "assets/audio/lines/romanian-puck-95c0f9e3207c50e5.mp3",
    "voice": "romanian-puck"
   },
+  "romanian_ch1:romanian_meet_neighbour:welcome": {
+   "file": "assets/audio/lines/romanian-aoede-6805ad62a92db391.mp3",
+   "voice": "romanian-aoede"
+  },
   "romanian_ch1:romanian_meet_neighbour:where_from_q": {
    "file": "assets/audio/lines/romanian-puck-a7d8dded96002458.mp3",
    "voice": "romanian-puck"
@@ -23601,6 +23605,10 @@
    "file": "assets/audio/lines/romanian-puck-f15afa37a8e5f660.mp3",
    "voice": "romanian-puck"
   },
+  "romanian_ch1:romanian_take_taxi:state_destination_variant_10": {
+   "file": "assets/audio/lines/romanian-puck-79b1a53d50fd1c82.mp3",
+   "voice": "romanian-puck"
+  },
   "romanian_ch1:romanian_take_taxi:stop": {
    "file": "assets/audio/lines/romanian-puck-be6415aa55ef53a7.mp3",
    "voice": "romanian-puck"
@@ -23608,6 +23616,794 @@
   "romanian_ch1:romanian_take_taxi:where_to": {
    "file": "assets/audio/lines/romanian-orus-415fb18f5cb88597.mp3",
    "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:card": {
+   "file": "assets/audio/lines/romanian-puck-875e8678975f144f.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:last_stop": {
+   "file": "assets/audio/lines/romanian-aoede-1931cada58c78943.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:return_please": {
+   "file": "assets/audio/lines/romanian-puck-19e22fb7c811d777.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:single_or_return": {
+   "file": "assets/audio/lines/romanian-aoede-3af255bf9e63926c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:ticket": {
+   "file": "assets/audio/lines/romanian-puck-3b781d0ee7513142.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:time": {
+   "file": "assets/audio/lines/romanian-aoede-fa525e8cb7939ed7.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:total": {
+   "file": "assets/audio/lines/romanian-aoede-7cd337411f49d27c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:two": {
+   "file": "assets/audio/lines/romanian-puck-6cbb4d992af15e98.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:when": {
+   "file": "assets/audio/lines/romanian-puck-73eaa543f0a3b1a8.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:which_stop": {
+   "file": "assets/audio/lines/romanian-puck-14d52e9e67386552.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_buy_train_ticket:would_like_ticket": {
+   "file": "assets/audio/lines/romanian-puck-254fafa56c0ea365.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:call_ambulance": {
+   "file": "assets/audio/lines/romanian-puck-65754cc4405f1a4a.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:dont_worry": {
+   "file": "assets/audio/lines/romanian-orus-d6e48f5b321b14d8.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:help": {
+   "file": "assets/audio/lines/romanian-puck-639b3186300b3931.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:need_doctor": {
+   "file": "assets/audio/lines/romanian-puck-215dcaf00527891c.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:pain": {
+   "file": "assets/audio/lines/romanian-puck-1d56bcc5912066a8.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:pharmacy": {
+   "file": "assets/audio/lines/romanian-puck-c50baa264a047db6.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:pharmacy_near": {
+   "file": "assets/audio/lines/romanian-orus-c92029eb165d00f5.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:type": {
+   "file": "assets/audio/lines/romanian-puck-de60f4504f102cc0.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:understood": {
+   "file": "assets/audio/lines/romanian-puck-d863033ac03492ab.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_emergency_ask_help:what_happened": {
+   "file": "assets/audio/lines/romanian-orus-91488754e991d5bd.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:accept": {
+   "file": "assets/audio/lines/romanian-puck-4b6bb40b77c0a889.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:beer_after": {
+   "file": "assets/audio/lines/romanian-orus-7c46f6ef4bb1a506.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:confirm": {
+   "file": "assets/audio/lines/romanian-puck-f2d0d7c421cb9c07.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:decline": {
+   "file": "assets/audio/lines/romanian-puck-55eeeb71428ab302.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:go_to_match": {
+   "file": "assets/audio/lines/romanian-puck-93e77e73ee10c747.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:other_time": {
+   "file": "assets/audio/lines/romanian-puck-d535be4031d10f6a.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:out_on_saturday": {
+   "file": "assets/audio/lines/romanian-orus-ef1af928330fea27.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:suggest": {
+   "file": "assets/audio/lines/romanian-puck-f0f34e72e7830dc7.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:sunday_ok": {
+   "file": "assets/audio/lines/romanian-orus-519715476e7b7f76.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:when": {
+   "file": "assets/audio/lines/romanian-puck-3bfc81196777f3a0.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_make_weekend_plans:working_saturday": {
+   "file": "assets/audio/lines/romanian-puck-4a548e5ff7819aba.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:bill": {
+   "file": "assets/audio/lines/romanian-puck-a5fda17d68bf192b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:delicious": {
+   "file": "assets/audio/lines/romanian-puck-59ef8e0cf902d9a3.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:free_table": {
+   "file": "assets/audio/lines/romanian-puck-1dca8ed446e11de2.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:house_speciality": {
+   "file": "assets/audio/lines/romanian-orus-144af2979ba09466.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:ingredients": {
+   "file": "assets/audio/lines/romanian-puck-4152167fdf9c6a49.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:no_nuts": {
+   "file": "assets/audio/lines/romanian-orus-29f2accebcb36577.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:order": {
+   "file": "assets/audio/lines/romanian-puck-ce62959bbb89a271.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:recommend": {
+   "file": "assets/audio/lines/romanian-puck-92cb675cea9b9ee8.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:right_away": {
+   "file": "assets/audio/lines/romanian-orus-2ad9085799e92094.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:table": {
+   "file": "assets/audio/lines/romanian-puck-7e6667c9a1d9594b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:take_sarmale": {
+   "file": "assets/audio/lines/romanian-puck-0cb6b298383d38a8.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/romanian-orus-a4704ad595d0f4de.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:can_i_help": {
+   "file": "assets/audio/lines/romanian-aoede-2cdc6bd79883ae1f.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:card": {
+   "file": "assets/audio/lines/romanian-puck-3d5eb04b9c33dd4d.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:here_is_large": {
+   "file": "assets/audio/lines/romanian-aoede-b8dd6a9583cadcc6.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:just_looking": {
+   "file": "assets/audio/lines/romanian-puck-f8bad79990a09a30.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:other_colour": {
+   "file": "assets/audio/lines/romanian-puck-67658811b326fdd1.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:price": {
+   "file": "assets/audio/lines/romanian-puck-d90a5b2a336fb4d0.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:price_is": {
+   "file": "assets/audio/lines/romanian-aoede-a7a9619a3a1f87a2.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:take_it": {
+   "file": "assets/audio/lines/romanian-puck-5458d8cc8d1f6e2c.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:variant": {
+   "file": "assets/audio/lines/romanian-puck-e4c570a5dd5ccd02.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:want": {
+   "file": "assets/audio/lines/romanian-puck-175e41efe58919d2.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_shop_for_clothes:what_size": {
+   "file": "assets/audio/lines/romanian-aoede-657cd87428c11ca7.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_talk_about_family:all_tasty": {
+   "file": "assets/audio/lines/romanian-puck-dc3506d2043b5ff0.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:and_you": {
+   "file": "assets/audio/lines/romanian-aoede-a9df8b7200aae466.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_talk_about_family:ask_family": {
+   "file": "assets/audio/lines/romanian-puck-a2251454b220412a.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:come_in": {
+   "file": "assets/audio/lines/romanian-aoede-afa71b539ecb40a9.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_talk_about_family:compliment_reply": {
+   "file": "assets/audio/lines/romanian-puck-4e36ef3d0ab48f06.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:delicious": {
+   "file": "assets/audio/lines/romanian-puck-f78e276c41967a68.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:dont_know": {
+   "file": "assets/audio/lines/romanian-puck-2d40f5467bc345cc.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:five_of_us": {
+   "file": "assets/audio/lines/romanian-puck-104b9b8aaf8adbcc.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:how_long": {
+   "file": "assets/audio/lines/romanian-aoede-c176b9ef5017fbae.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch2:romanian_talk_about_family:my_family": {
+   "file": "assets/audio/lines/romanian-puck-e9a38077f2e7e517.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch2:romanian_talk_about_family:you_speak_well": {
+   "file": "assets/audio/lines/romanian-aoede-d23676a5a2da47d7.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_ask_for_advice:closed_mondays": {
+   "file": "assets/audio/lines/romanian-orus-9f808191eb537ffd.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_ask_for_advice:ethnographic_park": {
+   "file": "assets/audio/lines/romanian-orus-dfb6ba9242e39637.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_ask_for_advice:excuse_me": {
+   "file": "assets/audio/lines/romanian-puck-8dbf576fa18d824e.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:hours": {
+   "file": "assets/audio/lines/romanian-puck-a3a7c1d1ae0fe8c3.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:how_to_get": {
+   "file": "assets/audio/lines/romanian-puck-72e8af5c22be35c3.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:is_it_far": {
+   "file": "assets/audio/lines/romanian-puck-9a493e25a07ac6a7.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:old_houses": {
+   "file": "assets/audio/lines/romanian-orus-9e94d94718b8a993.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_ask_for_advice:recommend": {
+   "file": "assets/audio/lines/romanian-puck-60afe4dbd886910b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:thanks": {
+   "file": "assets/audio/lines/romanian-puck-54b0fe094522a918.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:three_km": {
+   "file": "assets/audio/lines/romanian-orus-74dc97dbfa84f3ca.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_ask_for_advice:what_to_see": {
+   "file": "assets/audio/lines/romanian-puck-d22f9c9a09b27134.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_ask_for_advice:why": {
+   "file": "assets/audio/lines/romanian-puck-65a792a3096f32fc.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:and_you": {
+   "file": "assets/audio/lines/romanian-puck-ca53da63f53819b6.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:cant_wait": {
+   "file": "assets/audio/lines/romanian-puck-ca6addc900b6a85c.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:feeling": {
+   "file": "assets/audio/lines/romanian-puck-62651282a49047fd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:job": {
+   "file": "assets/audio/lines/romanian-puck-e46f80586cafbfcf.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:not_sleepy": {
+   "file": "assets/audio/lines/romanian-aoede-6b93176710cf6907.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_describe_your_day:routine": {
+   "file": "assets/audio/lines/romanian-puck-2b1313bdf565d3f6.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:so_early": {
+   "file": "assets/audio/lines/romanian-aoede-45059505f4ef703c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_describe_your_day:time": {
+   "file": "assets/audio/lines/romanian-puck-e8357c5b8357d6cd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_describe_your_day:what_do_you_do": {
+   "file": "assets/audio/lines/romanian-aoede-129058fbbcd81887.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_describe_your_day:what_time": {
+   "file": "assets/audio/lines/romanian-aoede-ccf640a5dfc2708c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_friendly_debate:agree": {
+   "file": "assets/audio/lines/romanian-puck-ff6b33180d6b9ed3.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:because": {
+   "file": "assets/audio/lines/romanian-puck-b1a765a49123aa77.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:city_then": {
+   "file": "assets/audio/lines/romanian-puck-04f7b7f3eeed09e9.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:disagree": {
+   "file": "assets/audio/lines/romanian-puck-f4903a9c6de631d9.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:fresh_air": {
+   "file": "assets/audio/lines/romanian-orus-e11d6bddac62080d.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_friendly_debate:move_to_village": {
+   "file": "assets/audio/lines/romanian-orus-37b27c119bf7584b.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_friendly_debate:opinion": {
+   "file": "assets/audio/lines/romanian-puck-74c2b92d8efe3b68.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:rents": {
+   "file": "assets/audio/lines/romanian-orus-a567b2d2acb404e9.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_friendly_debate:so_right": {
+   "file": "assets/audio/lines/romanian-puck-d1c77799e95a3238.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_friendly_debate:traffic": {
+   "file": "assets/audio/lines/romanian-orus-c4a5db818b9ccf5e.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_friendly_debate:what_do_you_think": {
+   "file": "assets/audio/lines/romanian-puck-59f73d0df44b8cd6.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:and_you": {
+   "file": "assets/audio/lines/romanian-puck-e2de33434911efcb.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:dislike": {
+   "file": "assets/audio/lines/romanian-puck-7d61a163764c2010.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:films_for_me": {
+   "file": "assets/audio/lines/romanian-aoede-3ae487f7a690a499.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:films_or_books": {
+   "file": "assets/audio/lines/romanian-aoede-694c705cfa486e47.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:free_time": {
+   "file": "assets/audio/lines/romanian-puck-a47c9c390a56a730.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:like": {
+   "file": "assets/audio/lines/romanian-puck-ec4e301e0cd07af7.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:love_swimming": {
+   "file": "assets/audio/lines/romanian-puck-16a297934b9496bd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:prefer": {
+   "file": "assets/audio/lines/romanian-puck-e7328c6b5be08c36.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:running": {
+   "file": "assets/audio/lines/romanian-aoede-e5d700ad16196719.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:together": {
+   "file": "assets/audio/lines/romanian-puck-18b5822ebdc327ac.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_hobbies:your_weekends": {
+   "file": "assets/audio/lines/romanian-aoede-9b7d633faa54aecc.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_talk_about_work:clarify": {
+   "file": "assets/audio/lines/romanian-puck-33ff8495bdca4acb.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:intro": {
+   "file": "assets/audio/lines/romanian-puck-81982c198d1b1506.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:job": {
+   "file": "assets/audio/lines/romanian-puck-adeba286c06c2983.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:lets_say_tu": {
+   "file": "assets/audio/lines/romanian-orus-3c277536f66e86be.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_talk_about_work:meaning": {
+   "file": "assets/audio/lines/romanian-puck-adb0d82e39fcecb7.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:means_meeting": {
+   "file": "assets/audio/lines/romanian-orus-f72f0d217f50ca53.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_talk_about_work:monday_meeting": {
+   "file": "assets/audio/lines/romanian-orus-95cc2b6b014ca9c0.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_talk_about_work:permission": {
+   "file": "assets/audio/lines/romanian-puck-8d946f4e13752562.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:pleased": {
+   "file": "assets/audio/lines/romanian-puck-3d13189c5eec084b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_talk_about_work:welcome": {
+   "file": "assets/audio/lines/romanian-orus-220cf133b3bebf4b.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch3:romanian_talk_about_work:what_does_it_mean": {
+   "file": "assets/audio/lines/romanian-puck-172777eaace9bf0f.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:blocks": {
+   "file": "assets/audio/lines/romanian-aoede-0f7407367b1366fe.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_tell_a_story:home_in_the_end": {
+   "file": "assets/audio/lines/romanian-aoede-fc21acb8029a4531.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_tell_a_story:how_come": {
+   "file": "assets/audio/lines/romanian-aoede-25f61a6321982946.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_tell_a_story:how_to_say": {
+   "file": "assets/audio/lines/romanian-puck-c0d7841e7dad0e93.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:i_mean": {
+   "file": "assets/audio/lines/romanian-puck-198a1cf7486278cd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:old_lady": {
+   "file": "assets/audio/lines/romanian-puck-ee6d49714c0a91cb.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:story": {
+   "file": "assets/audio/lines/romanian-puck-7a8823395f6e797e.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:two_hours": {
+   "file": "assets/audio/lines/romanian-puck-b8f993094cbbaadc.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:what_am_i_saying": {
+   "file": "assets/audio/lines/romanian-puck-b244316c3c8e15b1.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch3:romanian_tell_a_story:what_happened": {
+   "file": "assets/audio/lines/romanian-aoede-4ffb80c2cdaf6153.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch3:romanian_tell_a_story:yesterday": {
+   "file": "assets/audio/lines/romanian-puck-264bd489fe454262.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:hours": {
+   "file": "assets/audio/lines/romanian-puck-e86631c35a1da70e.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:like": {
+   "file": "assets/audio/lines/romanian-puck-b6004a7e4b633725.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:monthly_fee": {
+   "file": "assets/audio/lines/romanian-puck-02abbbdc8c687ec1.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:of_course": {
+   "file": "assets/audio/lines/romanian-orus-2a5037659e740a58.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch4:romanian_join_a_club:price": {
+   "file": "assets/audio/lines/romanian-puck-d97b4a4c62d7b42c.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:see_you": {
+   "file": "assets/audio/lines/romanian-puck-2c31a2d6dc94b0cf.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:signing_up": {
+   "file": "assets/audio/lines/romanian-orus-3ade69f6b1719c64.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch4:romanian_join_a_club:try": {
+   "file": "assets/audio/lines/romanian-puck-6ee3d61780eec2bc.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_join_a_club:tue_thu": {
+   "file": "assets/audio/lines/romanian-orus-51d97b410fc2b813.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch4:romanian_join_a_club:two_hundred": {
+   "file": "assets/audio/lines/romanian-orus-caab69355cda4523.mp3",
+   "voice": "romanian-orus"
+  },
+  "romanian_ch4:romanian_lost_luggage:deliver_to": {
+   "file": "assets/audio/lines/romanian-puck-e1a2adab7063dd03.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:excuse_me": {
+   "file": "assets/audio/lines/romanian-puck-1225154042f4a8b4.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:flight": {
+   "file": "assets/audio/lines/romanian-puck-daddfb20c4f11391.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:lost": {
+   "file": "assets/audio/lines/romanian-puck-2114c9a37a6c4fde.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:luggage_lost": {
+   "file": "assets/audio/lines/romanian-puck-e6af14f17a3d1291.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:still_in_munich": {
+   "file": "assets/audio/lines/romanian-aoede-6a0951cf1956232b.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_lost_luggage:thanks": {
+   "file": "assets/audio/lines/romanian-puck-73f502b10c3c5739.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:tomorrow": {
+   "file": "assets/audio/lines/romanian-aoede-8815c40473b8131d.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_lost_luggage:what_happened": {
+   "file": "assets/audio/lines/romanian-aoede-719361ca18fdb1e1.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_lost_luggage:when_back": {
+   "file": "assets/audio/lines/romanian-puck-ddb313f15a34a30e.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_lost_luggage:which_flight": {
+   "file": "assets/audio/lines/romanian-aoede-d9a5a57e914c09c8.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_post_a_parcel:destination": {
+   "file": "assets/audio/lines/romanian-puck-9febcbe901286063.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:how_long": {
+   "file": "assets/audio/lines/romanian-puck-f6958713d548f0bd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:no_hurry": {
+   "file": "assets/audio/lines/romanian-puck-ef17e1df1142182c.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:parcel_for_canada": {
+   "file": "assets/audio/lines/romanian-puck-54370120d5a03f93.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:pay": {
+   "file": "assets/audio/lines/romanian-puck-5360dc2355acd396.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:price": {
+   "file": "assets/audio/lines/romanian-puck-e27f59c57bf0df97.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:send": {
+   "file": "assets/audio/lines/romanian-puck-a1ef5a9214d6274f.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_post_a_parcel:total": {
+   "file": "assets/audio/lines/romanian-aoede-0affe504779391e1.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_post_a_parcel:two_options": {
+   "file": "assets/audio/lines/romanian-aoede-07fcc27240b5d9ec.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_post_a_parcel:two_weeks": {
+   "file": "assets/audio/lines/romanian-aoede-2e35f33a5548b529.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_post_a_parcel:where_to": {
+   "file": "assets/audio/lines/romanian-aoede-b13d30592e8ed36d.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_rent_a_flat:come_in": {
+   "file": "assets/audio/lines/romanian-aoede-460572e53a90f935.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_rent_a_flat:first_of_month": {
+   "file": "assets/audio/lines/romanian-aoede-a95310cdcc9ae43b.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_rent_a_flat:is_it_far": {
+   "file": "assets/audio/lines/romanian-puck-6246ea3b81d42d17.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:opinion": {
+   "file": "assets/audio/lines/romanian-puck-07e089e61dcac4df.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:price": {
+   "file": "assets/audio/lines/romanian-aoede-45397e56d520cb19.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_rent_a_flat:rent": {
+   "file": "assets/audio/lines/romanian-puck-42e8eaa0b4ba55f2.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:shake_on_it": {
+   "file": "assets/audio/lines/romanian-puck-1703cc6922228f4e.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:stop_outside": {
+   "file": "assets/audio/lines/romanian-aoede-0df35b97b375d24c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_rent_a_flat:take_it": {
+   "file": "assets/audio/lines/romanian-puck-f43b945b12dbfd16.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:when_free": {
+   "file": "assets/audio/lines/romanian-puck-f1a86dfe85aa6981.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_rent_a_flat:where_is": {
+   "file": "assets/audio/lines/romanian-puck-03ac8b95b66e4599.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:bought_when": {
+   "file": "assets/audio/lines/romanian-puck-9f7ca524edba4b09.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:broken": {
+   "file": "assets/audio/lines/romanian-puck-198550097fe49fa2.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:doesnt_work": {
+   "file": "assets/audio/lines/romanian-puck-fcdc1d54d7ab23bf.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:exchange": {
+   "file": "assets/audio/lines/romanian-puck-e18bebc3071a3879.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:go_ahead": {
+   "file": "assets/audio/lines/romanian-aoede-c14534ccced1a229.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_return_an_item:money_back": {
+   "file": "assets/audio/lines/romanian-puck-d3ab55c353d32796.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:no_problem": {
+   "file": "assets/audio/lines/romanian-puck-41505b3f965c9f3b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:right_away": {
+   "file": "assets/audio/lines/romanian-aoede-19b1e6874083d38c.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_return_an_item:sorry": {
+   "file": "assets/audio/lines/romanian-aoede-32403e2c96771001.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_return_an_item:thanks": {
+   "file": "assets/audio/lines/romanian-puck-1ff96925d0e88613.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_return_an_item:when_bought": {
+   "file": "assets/audio/lines/romanian-aoede-ff4636fd8218cadb.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_see_the_doctor:a_cold": {
+   "file": "assets/audio/lines/romanian-aoede-e8969cd3289353de.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_see_the_doctor:check": {
+   "file": "assets/audio/lines/romanian-aoede-a0f84acba72d15b9.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_see_the_doctor:cough": {
+   "file": "assets/audio/lines/romanian-puck-28a6eb68a38a5262.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:hello": {
+   "file": "assets/audio/lines/romanian-puck-fe3678ca6e6c506b.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:pain": {
+   "file": "assets/audio/lines/romanian-puck-1f120c66d012e073.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:question": {
+   "file": "assets/audio/lines/romanian-puck-ecd161f5bf1cacbd.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:since": {
+   "file": "assets/audio/lines/romanian-puck-2a1a53e671e0db2a.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:since_when": {
+   "file": "assets/audio/lines/romanian-aoede-87d6e405f0a55845.mp3",
+   "voice": "romanian-aoede"
+  },
+  "romanian_ch4:romanian_see_the_doctor:thanks": {
+   "file": "assets/audio/lines/romanian-puck-f74e1fc5995669c8.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:understood": {
+   "file": "assets/audio/lines/romanian-puck-c63e33e43542afd4.mp3",
+   "voice": "romanian-puck"
+  },
+  "romanian_ch4:romanian_see_the_doctor:what_brings_you": {
+   "file": "assets/audio/lines/romanian-aoede-2dbb0341f334cdce.mp3",
+   "voice": "romanian-aoede"
   },
   "russian_ch1:russian_ask_directions:ask_is_it_far_variant_8": {
    "file": "assets/audio/lines/russian-puck-ea95b04d6cfcf056.mp3",
