@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
 import 'package:langquest_mobile/core/audio/take_recorder.dart';
 import 'package:langquest_mobile/core/backend/pronunciation_coach.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
@@ -16,6 +17,7 @@ import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/l10n/l10n.dart';
 
 import 'recording_fakes.dart';
+import 'call_fakes.dart';
 import 'support.dart';
 
 /// The device voice, without a synthesizer: every locale has a voice; stops are counted.
@@ -59,6 +61,7 @@ void main() {
       ValueChanged<SpeechVerdict>? onVerdict,
       BrowserKind browser = BrowserKind.other,
       PronunciationCoach? coach,
+      bool clips = true,
     }) async {
       made = [];
       speech = FakeSpeech();
@@ -67,6 +70,8 @@ void main() {
           overrides: [
             ...await testOverrides(device: device),
             speechServiceProvider.overrideWithValue(speech),
+            // The reference voice: the course's recorded clips (the device's voice is never used).
+            clipPlayerFactoryProvider.overrideWithValue(clips ? () => FakeClipPlayer(instant: true) : null),
             speechCheckerProvider.overrideWithValue(checker),
             browserKindProvider.overrideWithValue(browser),
             pronunciationCoachProvider.overrideWithValue(coach),
@@ -292,7 +297,7 @@ void main() {
 
     testWidgets('without a reference voice there is nothing to name in the comparison hint', (tester) async {
       recorders = [FakeRecorder(take: FakeTake())];
-      await pump(tester, voiceLocale: null);
+      await pump(tester, voiceLocale: null, clips: false);
       await tap(tester, 'Record yourself');
       await tap(tester, 'Stop recording');
       expect(find.text('My voice'), findsOneWidget);

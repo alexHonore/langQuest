@@ -148,8 +148,8 @@ final bundledVoiceProvider = Provider<BundledVoice?>((ref) {
 });
 
 /// How a line is voiced on this device for the active course: its bundled AI clip first (any learner); else the
-/// server's AI voice (signed in, on a course it voices); else the device's own voice for the exact variety; else
-/// none (listen controls are then not shown).
+/// server's AI voice (signed in, on a course it voices); else none (listen controls are then not shown). The app never
+/// picks [LineVoiceSource.device] ([lineVoiceProvider]); it is kept for tests of the players.
 enum LineVoiceSource { device, server, bundled, none }
 
 @immutable
@@ -206,17 +206,16 @@ class LineVoice {
   }
 }
 
-/// The voice for lines of the course whose device locale is [locale] (the course's `voiceLocale`, null for a
-/// dialect with no device voice). The bundled AI clips come first (natural voices, any learner, offline too); then
-/// the server's AI voice (signed in; fetched once per line and cached on the server); the device's voice last.
-/// Auto-disposed: a screen opened later asks the device again.
+/// The voice for lines of the course whose device locale is [locale]: the bundled AI clips first (natural voices, any
+/// learner, offline too), then the server's AI voice (signed in; fetched once per line and cached on the server). Never
+/// the device's synthesizer: it sounds robotic next to the natural voices, so a line no AI voice can say has no listen
+/// control. ([LineVoiceSource.device] remains for tests of the players.)
+/// Auto-disposed: a screen opened later asks again.
 final lineVoiceProvider = FutureProvider.autoDispose.family<LineVoice, String?>((ref, locale) async {
   final speech = ref.watch(speechServiceProvider);
   final server = ref.watch(serverVoiceProvider);
   final bundled = ref.watch(bundledVoiceProvider);
-  final device = locale != null && await ref.watch(voiceAvailableProvider(locale).future);
-  if (server != null) return LineVoice(source: LineVoiceSource.server, server: server, bundled: bundled, locale: device ? locale : null, speech: speech);
-  if (device) return LineVoice(source: LineVoiceSource.device, bundled: bundled, locale: locale, speech: speech);
+  if (server != null) return LineVoice(source: LineVoiceSource.server, server: server, bundled: bundled, speech: speech);
   if (bundled != null) return LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: speech);
   return LineVoice(source: LineVoiceSource.none, speech: speech);
 });

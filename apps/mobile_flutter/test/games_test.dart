@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
+import 'package:langquest_mobile/core/content/content_source.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/learner_state.dart';
 import 'package:langquest_mobile/core/services/learner_store.dart';
@@ -18,6 +20,7 @@ import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/main.dart';
 import 'package:langquest_mobile/navigation/app_router.dart';
 
+import 'call_fakes.dart';
 import 'support.dart';
 
 const courseId = 'spanish-spain|en';
@@ -65,6 +68,7 @@ Future<ProviderContainer> openApp(
   List<String> learned = const [firstMission],
   String route = '/',
   SpeechService? device,
+  FakeClipPlayer? clips,
   TestClock? clock,
 }) async {
   t.view.physicalSize = const Size(390 * 3, 844 * 3);
@@ -75,6 +79,7 @@ Future<ProviderContainer> openApp(
       overrides: [
         ...await testOverrides(clock: clock),
         if (device != null) speechServiceProvider.overrideWithValue(device),
+        if (clips != null) clipPlayerFactoryProvider.overrideWithValue(() => clips),
       ],
       child: const LangQuestApp(),
     ),
@@ -360,8 +365,13 @@ void main() {
       expect(find.text('This mission is not part of your current course.'), findsOneWidget);
     });
 
-    testWidgets('a voice adds By ear', (t) async {
+    testWidgets('the device\'s own voice does not add By ear: it is never used, it sounds robotic', (t) async {
       await openApp(t, learned: const [firstMission, secondMission], route: '/play', device: SpeakingDevice());
+      expect(find.text('By ear'), findsNothing);
+    });
+
+    testWidgets('the recorded AI voices add By ear', (t) async {
+      await openApp(t, learned: const [firstMission, secondMission], route: '/play', clips: FakeClipPlayer(instant: true));
       for (final game in ['Lantern pairs', 'Quick fire', 'By ear', 'Sentence dash']) {
         expect(find.text(game), findsOneWidget, reason: game);
       }
@@ -565,11 +575,12 @@ void main() {
     });
 
     testWidgets('By ear: the phrase is said, found among the written ones, and its meaning shown', (t) async {
-      final device = SpeakingDevice();
-      final container = await openApp(t, route: '/play/ear', device: device);
+      final clips = FakeClipPlayer(instant: true);
+      final container = await openApp(t, route: '/play/ear', clips: clips);
       final pool = container.read(gamePoolProvider);
       final questions = earQuestions(pool: [for (final p in pool) p.item], audible: [for (final p in pool) p.item], seed: '$courseId/ear/0');
-      expect(device.said.last, questions.first.item.text, reason: 'said as the question opens');
+      final clip = testBundle.voices.clipOf(questions.first.item.id)!;
+      expect(clips.played.last, ContentLocation(Uri.parse('assets/')).clip(clip).toString(), reason: 'its recorded clip, as the question opens');
       for (final (i, q) in questions.indexed) {
         expect(find.text('Listen. Which one did you hear?'), findsOneWidget);
         // The first is missed on purpose.
