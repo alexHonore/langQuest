@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/backend/narrator.dart';
 import 'core/backend/account.dart';
 import 'core/backend/auth_gateway.dart';
 import 'core/backend/backend_config.dart';
@@ -98,6 +99,8 @@ class LangQuestApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
     final appState = ref.watch(appStateProvider);
+    // The active course's recorded narration is read as soon as the course is active, not when a lesson first speaks.
+    ref.listen(narratorProvider, (_, _) {});
     final colors = appState.colors;
     final accent = appState.accent;
 

@@ -74,7 +74,9 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   }
 
   /// The card's question read aloud ("How do you say “…”?"), when exercises are read aloud or the learner asks.
-  void _announce({bool asked = false}) {
+  Future<void> _announce({bool asked = false}) async {
+    await narrationReady(ref);
+    if (!mounted) return;
     final current = _current;
     final read = readAloudFor(ref, asked: asked);
     if (current == null || read == null || !mounted) return;

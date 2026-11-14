@@ -79,6 +79,8 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final token = ++_utterance;
     ref.read(narratorProvider)?.stop();
     // Read aloud: the scene's context before its first line, and "Your line — say it out loud" before the learner's.
+    await narrationReady(ref);
+    if (!mounted || token != _utterance) return;
     final read = readAloudFor(ref);
     if (read != null) {
       final note = _index == 0 ? plan.mission.sceneNoteIn(plan.source) : null;

@@ -453,6 +453,8 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     if (!voice.available || !mounted) return null;
     // The narration in the course's instruction language: the AI narrator (signed in), else none (never the device's
     // synthetic voice).
+    await narrationReady(ref);
+    if (!mounted) return null;
     final narrator = ref.read(narratorProvider);
     final words = narrationWords(course.source) ?? context.l10n;
     final narrates = narrator != null && narrator.ai;

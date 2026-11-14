@@ -130,6 +130,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     bool live() => mounted && token == _utterance && _phase == _Phase.exchange && !_answered;
     final exchange = plan.exchanges[_exchange];
     final cue = exchange.cue;
+    await narrationReady(ref);
+    if (!live()) return;
     final read = readAloudFor(ref, asked: asked);
     final note = _exchange == 0 ? plan.mission.sceneNoteIn(plan.source) : null;
     if (read != null) {
