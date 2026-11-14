@@ -216,6 +216,19 @@ final narratorProvider = Provider<Narrator?>((ref) {
   return narrator;
 });
 
+/// Waits, briefly, for the active course's recorded narration to be read (it is fetched once the course is active):
+/// a screen that narrates as it opens calls this first, so its first sentence is not skipped while the file loads.
+Future<void> narrationReady(WidgetRef ref, {Duration within = const Duration(seconds: 3)}) async {
+  final course = ref.read(appStateProvider).activeCourse;
+  if (course == null) return;
+  ref.read(narratorProvider); // keeps the narration being read alive (the narrator watches it)
+  try {
+    await ref.read(bundledNarrationProvider((course.track.id, course.source)).future).timeout(within);
+  } catch (_) {
+    // Not there in time (or none): the screen goes on; the server's narrator or nothing.
+  }
+}
+
 /// The app's words in the course's instruction language, for narration (the interface may be in another language);
 /// null when the app has no translation in it (nothing is narrated then, rather than another language).
 AppLocalizations? narrationWords(String source) {
