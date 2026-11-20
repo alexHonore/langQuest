@@ -6,6 +6,7 @@
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
 const { chromium } = require('playwright');
+const { createHash } = require('node:crypto');
 
 const BASE = process.argv[2] || 'http://localhost:8080/';
 
@@ -24,6 +25,10 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     };
   });
   const page = await context.newPage();
+  const scripts = new Map();
+  page.on('response', (response) => {
+    if (response.ok() && response.request().resourceType() === 'script') scripts.set(new URL(response.url()).pathname, response);
+  });
   const errors = [];
   page.on('pageerror', (e) => errors.push(`page error: ${e.message}`));
   page.on('console', (m) => {
@@ -73,6 +78,12 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   await page.evaluate(() => document.querySelector('flt-semantics-placeholder')?.click());
   await page.waitForTimeout(800);
   ok('first frame');
+  for (const stem of ['flutter_bootstrap', 'main.dart']) {
+    const entry = [...scripts].find(([path]) => path.startsWith(`/${stem}.`));
+    if (!entry) throw new Error(`Missing release script: ${stem}`);
+    const hash = createHash('sha256').update(await entry[1].body()).digest('hex').slice(0, 16);
+    if (entry[0] !== `/${stem}.${hash}.js`) throw new Error(`The URL of ${stem} does not identify the bytes the browser loaded`);
+  }
   if (!content.includes('catalog.json')) throw new Error(`the catalog was not fetched (${JSON.stringify(content)})`);
   expectCourseFiles([], 'first visit');
   ok('a first visit fetches the catalog and no course');
