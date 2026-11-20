@@ -83,6 +83,27 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get latinOnlySetting => 'Latin phonetics only';
+
+  @override
+  String get latinOnlyHelp => 'Use Latin pronunciation in place of the original script when a reading is available.';
+
+  @override
+  String get speakerFormTitle => 'Which form do you use?';
+
+  @override
+  String get speakerFormHelp => 'This sets the grammar for phrases you say about yourself.';
+
+  @override
+  String get speakerCourse => 'Default';
+
+  @override
+  String get speakerMale => 'Masculine';
+
+  @override
+  String get speakerFemale => 'Feminine';
+
+  @override
   String get settings => 'Settings';
 
   @override

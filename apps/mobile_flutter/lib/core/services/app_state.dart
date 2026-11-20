@@ -9,6 +9,7 @@ import '../backend/sync_service.dart';
 import '../content/content_source.dart';
 import '../content/content_bundle.dart';
 import '../content/content_models.dart';
+import '../content/speaker_forms.dart';
 import '../learning/srs.dart';
 import '../theme/accents.dart';
 import '../theme/colors.dart';
@@ -96,10 +97,14 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   @override
   AppState build() {
     // A course's chapters arriving (opened, taken or restored) changes the content only; the learner stays as is.
-    ref.listen(contentBundleProvider, (_, content) => state = AppState(content: content, learner: state.learner, deviceLanguage: state.deviceLanguage));
+    ref.listen(
+      contentBundleProvider,
+      (_, content) => state = AppState(content: forSpeaker(content, state.learner.speakerForm), learner: state.learner, deviceLanguage: state.deviceLanguage),
+    );
+    final learner = ref.read(learnerStoreProvider).load();
     return AppState(
-      content: ref.read(contentBundleProvider),
-      learner: ref.read(learnerStoreProvider).load(),
+      content: forSpeaker(ref.read(contentBundleProvider), learner.speakerForm),
+      learner: learner,
       deviceLanguage: ref.watch(deviceLanguageProvider),
     );
   }
@@ -107,7 +112,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   DateTime get _now => ref.read(clockProvider)();
 
   void _update(LearnerState learner) {
-    state = AppState(content: state.content, learner: learner, deviceLanguage: state.deviceLanguage);
+    final content = state.learner.speakerForm == learner.speakerForm ? state.content : forSpeaker(ref.read(contentBundleProvider), learner.speakerForm);
+    state = AppState(content: content, learner: learner, deviceLanguage: state.deviceLanguage);
     ref.read(learnerStoreProvider).save(learner);
   }
 
@@ -131,6 +137,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void setTextScale(double scale) => _update(state.learner.copyWith(textScale: nearestTextScale(scale)));
   void setReduceMotion(bool reduce) => _update(state.learner.copyWith(reduceMotion: reduce));
   void setMascot(bool shown) => _update(state.learner.copyWith(mascot: shown));
+  void setLatinOnly(bool on) => _update(state.learner.copyWith(latinOnly: on));
+  void setSpeakerForm(SpeakerForm form) => _update(state.learner.copyWith(speakerForm: form));
   void setReadAloud(bool on) => _update(state.learner.copyWith(readAloud: on));
 
   /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course. Its
@@ -309,6 +317,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         reduceMotion: l.reduceMotion,
         mascot: l.mascot,
         readAloud: l.readAloud,
+        speakerForm: l.speakerForm,
+        latinOnly: l.latinOnly,
       ),
     );
     _releaseCoursesLeft();

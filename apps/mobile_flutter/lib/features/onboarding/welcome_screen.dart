@@ -8,6 +8,7 @@ import '../../core/layout/spaced_page.dart';
 import '../../core/services/app_state.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_widgets.dart';
+import '../account/display_settings.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 
@@ -55,6 +56,8 @@ class WelcomeScreen extends ConsumerWidget {
               showSelectedIcon: false,
               onSelectionChanged: (s) => ref.read(appStateProvider.notifier).setUiLanguage(s.first),
             ),
+            const SizedBox(height: 20),
+            const SpeakerFormPicker(),
             const SizedBox(height: 20),
             LearnPrimaryButton(label: l10n.welcomeContinue, icon: LucideIcons.chevronRight, onPressed: () => context.push('/welcome/courses')),
           ],

@@ -41,12 +41,16 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final learnerStore = LearnerStore(prefs);
-  // The content lives in the published bucket, not in the app: the catalog, then the chapters and voices of the
-  // learner's courses only (each course is a file of its own); any other course is read when the learner opens it. The
-  // device keeps what was read for the learner's courses, so the app opens offline afterwards.
-  final source = ContentSource(location: ContentLocation.parse(await loadContentBaseUrl()), cache: await openContentCache());
+  final ContentSource source;
   final ContentBundle content;
   try {
+    final location = ContentLocation.parse(await loadContentBaseUrl());
+    final assetRoot = kIsWeb ? Uri.base.resolve('assets/assets/') : Uri.parse('https://web-languest.tayoo.app/assets/assets/');
+    source = ContentSource(
+      location: location.withAudioRepairs(await rootBundle.loadString('assets/audio/repairs.json'), assetRoot),
+      cache: await openContentCache(),
+      readAsset: rootBundle.loadString,
+    );
     content = await ContentBundle.load(source.read, courses: {for (final e in learnerStore.load().enrollments) e.trackId});
   } catch (e) {
     // A first start without the network (nothing kept yet): say so, and try again.

@@ -88,6 +88,27 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get latinOnlySetting => 'Phonétique latine seule';
+
+  @override
+  String get latinOnlyHelp => 'Afficher la prononciation en lettres latines quand elle est disponible.';
+
+  @override
+  String get speakerFormTitle => 'Quelle forme utilisez-vous ?';
+
+  @override
+  String get speakerFormHelp => 'Ce choix règle les accords des phrases où vous parlez de vous.';
+
+  @override
+  String get speakerCourse => 'Par défaut';
+
+  @override
+  String get speakerMale => 'Masculin';
+
+  @override
+  String get speakerFemale => 'Féminin';
+
+  @override
   String get settings => 'Réglages';
 
   @override

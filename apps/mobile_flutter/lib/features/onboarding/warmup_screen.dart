@@ -53,13 +53,8 @@ class WarmupScreen extends ConsumerWidget {
             ),
             if (phrase != null && plan != null) ...[
               const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: colors.border),
-                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                 child: Column(
                   children: [
                     TargetText(expression: phrase, track: plan.track, fontSize: 26, textAlign: TextAlign.center),

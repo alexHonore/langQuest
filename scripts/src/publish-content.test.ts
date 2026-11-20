@@ -1,3 +1,6 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import audioRepairs from '../../apps/mobile_flutter/assets/audio/repairs.json';
 import { describe, expect, it } from 'vitest';
 import { IMMUTABLE, contentObjectName, indexDocument, planRelease } from './publish-content';
 import { repoRoot } from './lib/io';
@@ -17,10 +20,21 @@ describe('publish-content', () => {
     expect(Object.keys(index).filter((k) => k.startsWith('content/chapters/'))).toHaveLength(30);
   });
 
+  it('publishes the cleaned recording under the hash of its bytes and leaves the previous object out of new releases', () => {
+    const byName = new Map(objects.map((object) => [object.name, object]));
+    for (const [old, repair] of Object.entries(audioRepairs)) {
+      const object = byName.get(`audio/${repair.file}`);
+      expect(object, old).toBeDefined();
+      const digest = createHash('sha256').update(readFileSync(object!.path)).digest('hex');
+      expect(repair.file).toMatch(new RegExp(`\\.${digest.slice(0, 12)}\\.mp3$`));
+      expect(byName.has(`audio/${old}`)).toBe(false);
+    }
+  });
+
   it('publishes the clips under their own names, and everything for good (the index aside)', () => {
     const clips = objects.filter((o) => o.name.startsWith('audio/'));
     expect(clips.length).toBeGreaterThan(2000);
-    expect(clips.every((o) => /^audio\/(lines|tatoeba|narration)\/[^/]+\.mp3$/.test(o.name) && o.contentType === 'audio/mpeg')).toBe(true);
+    expect(clips.every((o) => /^audio\/(?:lines|tatoeba|narration)\/(?:clean\/)?[^/]+\.mp3$/.test(o.name) && o.contentType === 'audio/mpeg')).toBe(true);
     expect(objects.every((o) => o.cacheControl === IMMUTABLE)).toBe(true);
     expect(new Set(objects.map((o) => o.name)).size).toBe(objects.length);
     const doc = JSON.parse(indexDocument(index, new Date('2026-11-12T00:00:00Z'))) as { schemaVersion: number; files: Record<string, string> };

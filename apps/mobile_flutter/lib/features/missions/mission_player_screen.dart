@@ -70,7 +70,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   bool _answeredByVoice = false;
 
   /// The chosen reply has to be said (with a microphone) before the next exchange.
-  final _sayStep = SpeakingStep();
+  bool _saidLine = false;
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -196,7 +196,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   void _nextExchange(MissionLearnPlan plan) {
     _utterance++;
     _speech.stop();
-    _sayStep.reset();
+    _saidLine = false;
     setState(() {
       _selected = null;
       _answered = false;
@@ -339,8 +339,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final cue = exchange.cue;
     final wrong = _selected != null && _selected != exchange.answerIndex;
     final quiet = appState.progress.quietMissions.contains(widget.missionKey);
-    final canAnswerOutLoud = !quiet && ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
-    final waitingForTake = _answered && !_answeredByVoice && !quiet && speakingRequired(ref) && !_sayStep.done;
+    final canAnswerOutLoud =
+        !quiet &&
+        appState.content.referenceFor(exchange.answer.id) != null &&
+        ref.watch(speechCheckerProvider) != null &&
+        ref.watch(takeRecorderFactoryProvider) != null;
+    final waitingForTake = _answered && !_answeredByVoice && !quiet && speakingRequired(ref) && !_saidLine;
 
     // Where the conversation happens, then what was exchanged before, as its thread.
     final thread = <Widget>[
@@ -413,7 +417,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       // Say it: the reply, now the learner's own line in the thread, with its meaning and the voice to copy.
       turn = [
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               _answeredByVoice || quiet ? LucideIcons.circleCheck : LucideIcons.mic,
@@ -430,22 +434,11 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           ],
         ),
         const SizedBox(height: 8),
-        Container(
-          margin: const EdgeInsetsDirectional.only(start: 20),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: accent.primarySoft,
-            borderRadius: const BorderRadiusDirectional.only(
-              topStart: Radius.circular(22),
-              topEnd: Radius.circular(22),
-              bottomStart: Radius.circular(22),
-              bottomEnd: Radius.circular(6),
-            ),
-            border: Border.all(color: accent.primary, width: 1.5),
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           child: Column(
             children: [
-              TargetText(expression: exchange.answer, track: plan.track, fontSize: 24, textAlign: TextAlign.center),
+              TargetText(expression: exchange.answer, track: plan.track, fontSize: 30, textAlign: TextAlign.center),
               const SizedBox(height: 6),
               Text(
                 plan.meaningOf(exchange.answer),
@@ -467,12 +460,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               else if (!_answeredByVoice)
                 RecordTake(
                   key: ValueKey('take-$_exchange'),
+                  onRecordStart: () => setState(() => _saidLine = false),
                   voiceLocale: plan.voiceLocale,
                   centered: true,
                   check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
                   onVerdict: (verdict) => _onVerdict(exchange, verdict),
-                  onTake: (outcome) => setState(() => _sayStep.take(outcome)),
-                  retryCount: _sayStep.tries,
+                  onTake: (_) => setState(() => _saidLine = true),
                   onContinueWithoutRecording: waitingForTake
                       ? () {
                           ref.read(appStateProvider.notifier).setMissionQuiet(widget.missionKey, true);
@@ -480,11 +473,6 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                         }
                       : null,
                 ),
-              MeloWidget(
-                state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
-                courseTrackId: appState.activeTrackId,
-                size: 48,
-              ),
             ],
           ),
         ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).slideX(begin: 0.08, end: 0, duration: 260.ms, curve: Curves.easeOutCubic)),
@@ -498,15 +486,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         ],
         // With a server that checks speech: answer out loud first, the options are the fallback.
         if (canAnswerOutLoud)
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 8, top: 2),
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: accent.primarySoft,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: accent.primary.withValues(alpha: 0.5)),
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
             child: Column(
               children: [
                 Row(
@@ -545,9 +526,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           children: [
             for (var i = 0; i < exchange.options.length; i++)
               OptionTile(
-                semantics: exchange.options[i].romanization == null
-                    ? exchange.options[i].text
-                    : '${exchange.options[i].text}, ${exchange.options[i].romanization}',
+                semantics: exchange.options[i].displayLabel(latinOnly: appState.learner.latinOnly),
                 locale: contentLanguageOf(plan.track),
                 state: _selected == i ? (i == exchange.answerIndex ? OptionState.right : OptionState.wrong) : OptionState.idle,
                 onTap: () => _choose(exchange, i),

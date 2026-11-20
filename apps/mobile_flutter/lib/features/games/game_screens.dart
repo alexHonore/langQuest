@@ -12,7 +12,6 @@ import '../../core/content/content_models.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
-import '../../core/theme/script_fonts.dart';
 import '../../core/theme/typography.dart';
 import '../../l10n/l10n.dart';
 import '../learn/exercise_widgets.dart';
@@ -225,6 +224,8 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
       final shown = matched || open;
       final isPhrase = card.side == MemorySide.phrase;
       final wrong = open && board.mismatch;
+      final expression = _phrases[card.pairId]!.expression;
+      final label = isPhrase ? expression.displayLabel(latinOnly: appState.learner.latinOnly) : card.label;
       final face = shown
           ? Container(
               key: ValueKey('up-$index-$matched-$wrong'),
@@ -244,19 +245,24 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
                   fit: BoxFit.scaleDown,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: box.maxWidth),
-                    child: Text(
-                      card.label,
-                      textAlign: TextAlign.center,
-                      locale: isPhrase ? contentLocaleOf(track) : null,
-                      textDirection: isPhrase && track.rtl ? TextDirection.rtl : null,
-                      style: TextStyle(
-                        fontSize: isPhrase ? 15.5 : 14,
-                        height: 1.2,
-                        fontWeight: FontWeight.w600,
-                        color: matched ? colors.textSecondary : colors.textPrimary,
-                        fontFamilyFallback: isPhrase ? fontFallbackFor(track) : null,
-                      ),
-                    ),
+                    child: isPhrase
+                        ? TargetText(
+                            expression: expression,
+                            track: track,
+                            fontSize: 16,
+                            textAlign: TextAlign.center,
+                            color: matched ? colors.textSecondary : colors.textPrimary,
+                          )
+                        : Text(
+                            card.label,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              height: 1.2,
+                              fontWeight: FontWeight.w600,
+                              color: matched ? colors.textSecondary : colors.textPrimary,
+                            ),
+                          ),
                   ),
                 ),
               ),
@@ -275,7 +281,7 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
       return Semantics(
         button: true,
         enabled: !matched,
-        label: matched ? l10n.matchedSemantics(card.label) : (open ? card.label : l10n.gameMemoryHidden(index + 1)),
+        label: matched ? l10n.matchedSemantics(label) : (open ? label : l10n.gameMemoryHidden(index + 1)),
         excludeSemantics: true,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
@@ -766,7 +772,7 @@ class _EarGameScreenState extends ConsumerState<EarGameScreen> with _GameHost {
                   const SizedBox(height: 18),
                   for (final (i, option) in question.options.indexed)
                     OptionTile(
-                      semantics: option.text,
+                      semantics: _phrases[option.id]!.expression.displayLabel(latinOnly: appState.learner.latinOnly),
                       locale: contentLanguageOf(track),
                       state: optionState(i, picked: picked, answer: question.answerIndex),
                       onTap: picked == null ? () => _pick(question, i) : null,
@@ -931,6 +937,7 @@ class _DashGameScreenState extends ConsumerState<DashGameScreen> with _GameHost 
                     sentence.item.meaning,
                     style: TextStyle(fontSize: 20, height: 1.3, fontWeight: FontWeight.w600, color: colors.textPrimary),
                   ),
+                  NativeTilePrompt(expression: _phrases[sentence.item.id]!.expression, track: appState.activeCourse!.track),
                   const SizedBox(height: 14),
                   Container(
                     width: double.infinity,

@@ -58,6 +58,10 @@ class ContentBundle {
 
   /// The lines read by natural AI voices, bundled (`voices.json`).
   final BundledVoices voices;
+
+  /// Alternative recorded expression, or null for a written-only speaker form.
+  final Map<String, String?> speakerReferences;
+  String? referenceFor(String id) => speakerReferences.containsKey(id) ? speakerReferences[id] : id;
   final Map<String, CourseTrackInfo> _tracksById;
   final Set<String> _loadedTracks;
   final Map<String, Mission> _missionsByKey;
@@ -72,6 +76,7 @@ class ContentBundle {
     this.roles = const {},
     this.examples = RealExamples.empty,
     this.voices = BundledVoices.empty,
+    this.speakerReferences = const {},
   }) : _tracksById = {for (final t in tracks) t.id: t},
        _loadedTracks = {...loadedTracks, for (final c in chapters) c.courseTrackId},
        _missionsByKey = {
@@ -84,6 +89,7 @@ class ContentBundle {
   static const skillsAsset = 'assets/content/skills.json';
   static const castAsset = 'assets/content/cast.json';
   static const examplesAsset = 'assets/content/examples.json';
+
   /// Every course's voices in one file: what `synthesize-bundle-audio` writes. The app reads each course's own
   /// ([voicesOf]), split from it by `export-flutter-content`.
   static const voicesAsset = 'assets/content/voices.json';
@@ -176,10 +182,13 @@ class ContentBundle {
   /// [trackId]'s chapters and voices. A course without voices yet (no clip recorded) has none; its chapters must read.
   static Future<CourseFiles> readCourseFiles(ContentReader read, String trackId) async {
     final chaptersJson = read(chaptersAsset(trackId));
-    final voicesJson = read(voicesOf(trackId)).then<String?>((v) => v, onError: (Object e) {
-      debugPrint('No voices for $trackId: $e');
-      return null;
-    });
+    final voicesJson = read(voicesOf(trackId)).then<String?>(
+      (v) => v,
+      onError: (Object e) {
+        debugPrint('No voices for $trackId: $e');
+        return null;
+      },
+    );
     final course = parseCourse(await chaptersJson);
     if (course.trackId != trackId) throw FormatException('${chaptersAsset(trackId)} holds the chapters of ${course.trackId}');
     final voices = await voicesJson;

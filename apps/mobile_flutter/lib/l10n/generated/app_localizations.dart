@@ -212,6 +212,48 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 mission} other{{count} missions}}'**
   String missionsCount(int count);
 
+  /// No description provided for @latinOnlySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Latin phonetics only'**
+  String get latinOnlySetting;
+
+  /// No description provided for @latinOnlyHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Latin pronunciation in place of the original script when a reading is available.'**
+  String get latinOnlyHelp;
+
+  /// No description provided for @speakerFormTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which form do you use?'**
+  String get speakerFormTitle;
+
+  /// No description provided for @speakerFormHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'This sets the grammar for phrases you say about yourself.'**
+  String get speakerFormHelp;
+
+  /// No description provided for @speakerCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get speakerCourse;
+
+  /// No description provided for @speakerMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Masculine'**
+  String get speakerMale;
+
+  /// No description provided for @speakerFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Feminine'**
+  String get speakerFemale;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
