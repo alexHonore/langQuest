@@ -74,14 +74,9 @@ class _PractiseSayingScreenState extends ConsumerState<PractiseSayingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Container(
+                    Padding(
                       key: ValueKey('phrase-$index'),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: colors.surface,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: colors.border),
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
                       child: Column(
                         children: [
                           TargetText(expression: phrase, track: plan.track, fontSize: 26, textAlign: TextAlign.center),

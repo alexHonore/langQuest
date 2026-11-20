@@ -86,6 +86,16 @@ AudioNarration narrationOf(AppLocalizations l10n) => AudioNarration(
 /// How a provider is read: `ref.watch` while building, `ref.read` anywhere else.
 typedef ProviderReader = T Function<T>(ProviderListenable<T> provider);
 
+/// A written-only speaker variant stays in reading and speaking practice. Audio lessons use the remaining recorded lines.
+final _audioPlanProvider = Provider.autoDispose.family<MissionLearnPlan?, String>((ref, key) {
+  final plan = ref.watch(learnPlanProvider(key));
+  if (plan == null) return null;
+  final content = ref.watch(appStateProvider.select((s) => s.content));
+  final expressions = plan.mission.expressions.where((e) => content.referenceFor(e.id) != null).toList();
+  if (expressions.length == plan.mission.expressions.length) return plan;
+  return buildLearnPlan(mission: plan.mission.withExpressions(expressions), track: plan.track, source: plan.source, character: plan.character);
+});
+
 /// The learn plans of [course]'s missions whose lesson can be heard here, in order ([learnedOnly]: those whose Learn
 /// stop is done).
 List<MissionLearnPlan> coursePlans(ProviderReader read, Course course, {bool learnedOnly = false}) {
@@ -95,13 +105,13 @@ List<MissionLearnPlan> coursePlans(ProviderReader read, Course course, {bool lea
   return [
     for (final mission in course.missions)
       if (!learnedOnly || (stops[mission.key]?.contains(PathStop.learn) ?? false))
-        if (read(learnPlanProvider(mission.key)) case final plan? when planAudible(plan, (id) => voice.canSay(expressionId: id))) plan,
+        if (read(_audioPlanProvider(mission.key)) case final plan? when planAudible(plan, (id) => voice.canSay(expressionId: id))) plan,
   ];
 }
 
 /// Whether [missionKey]'s audio lesson can be heard here.
 final audioLessonAudibleProvider = Provider.autoDispose.family<bool, String>((ref, missionKey) {
-  final plan = ref.watch(learnPlanProvider(missionKey));
+  final plan = ref.watch(_audioPlanProvider(missionKey));
   if (plan == null) return false;
   final voice = ref.watch(lineVoiceNowProvider(plan.voiceLocale));
   return voice != null && planAudible(plan, (id) => voice.canSay(expressionId: id));
@@ -202,7 +212,7 @@ class AudioLibraryScreen extends ConsumerWidget {
           for (final chapter in course.chapters)
             if ([
                   for (final mission in chapter.missions)
-                    if (ref.watch(audioLessonAudibleProvider(mission.key))) ?ref.watch(learnPlanProvider(mission.key)),
+                    if (ref.watch(audioLessonAudibleProvider(mission.key))) ?ref.watch(_audioPlanProvider(mission.key)),
                 ]
                 case final plans when plans.isNotEmpty) ...[
               Padding(
@@ -410,7 +420,6 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
   }
 
   /// The learner's turn in progress: its takes so far (a turn waits for the phrase, as speaking steps do).
-  final _turn = SpeakingStep();
 
   void _onPlayer() {
     if (!mounted) return;
@@ -418,7 +427,6 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     setState(() {});
     if (player.index != _shownIndex) {
       _shownIndex = player.index;
-      _turn.reset();
       // Keep the line being said in view.
       final key = _keys[player.index];
       final target = key?.currentContext;
@@ -430,7 +438,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
   AudioLesson? _lesson(ProviderReader read, AppLocalizations words) {
     final key = widget.missionKey;
     if (key != null) {
-      final plan = read(learnPlanProvider(key));
+      final plan = read(_audioPlanProvider(key));
       return plan == null || !read(audioLessonAudibleProvider(key)) ? null : buildAudioLesson(plan, narrationOf(words));
     }
     final course = read(appStateProvider.select((s) => s.activeCourse));
@@ -618,15 +626,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                             waited: player?.waited ?? 0,
                             finished: finished,
                             // The turn waits for the phrase: a take, checked where the server can.
-                            speak: player != null && player.awaitingSpeech
-                                ? (
-                                    index: index,
-                                    tries: _turn.tries,
-                                    onTake: (TakeOutcome outcome) => setState(() {
-                                      if (_turn.take(outcome)) player.spoke();
-                                    }),
-                                  )
-                                : null,
+                            speak: player != null && player.awaitingSpeech ? (index: index, onTake: (TakeOutcome _) => player.spoke()) : null,
                           ),
                         ),
                         if (finished)
@@ -797,7 +797,7 @@ class _NowPlaying extends ConsumerWidget {
   });
 
   /// The turn waits for the learner to say the phrase: the step's index, the takes so far, and what each take came to.
-  final ({int index, int tries, ValueChanged<TakeOutcome> onTake})? speak;
+  final ({int index, ValueChanged<TakeOutcome> onTake})? speak;
 
   final CourseTrackInfo track;
   final AudioStep step;
@@ -916,7 +916,7 @@ class _NowPlaying extends ConsumerWidget {
                   onTake: speak!.onTake,
                 ),
                 const SizedBox(height: 6),
-                SpeakingHint(tries: speak!.tries),
+                const SpeakingHint(),
               ],
             ],
           );

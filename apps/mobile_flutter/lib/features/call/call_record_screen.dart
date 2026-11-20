@@ -74,6 +74,7 @@ class CallRecordScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appStateProvider);
+    String shownText(CallRecordLine line) => appState.learner.latinOnly && line.transliteration?.isNotEmpty == true ? line.transliteration! : line.text;
     final colors = appState.colors;
     final accent = appState.accent;
     final l10n = context.l10n;
@@ -276,7 +277,7 @@ class CallRecordScreen extends ConsumerWidget {
                           constraints: const BoxConstraints(maxWidth: 300),
                           child: Semantics(
                             container: true,
-                            label: '${line.fromLearner ? l10n.callRecordYou : record.characterName}: ${line.text}',
+                            label: '${line.fromLearner ? l10n.callRecordYou : record.characterName}: ${shownText(line)}',
                             excludeSemantics: true,
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 8),
@@ -290,11 +291,11 @@ class CallRecordScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    line.text,
-                                    textDirection: directionOf(line.text),
+                                    shownText(line),
+                                    textDirection: directionOf(shownText(line)),
                                     style: target(15.5, color: line.fromLearner ? accent.onPrimary : null),
                                   ),
-                                  if (line.transliteration != null && line.transliteration!.isNotEmpty)
+                                  if (!appState.learner.latinOnly && line.transliteration != null && line.transliteration!.isNotEmpty)
                                     Text(
                                       line.transliteration!,
                                       style: TextStyle(fontSize: 12.5, fontStyle: FontStyle.italic, color: colors.textMuted),

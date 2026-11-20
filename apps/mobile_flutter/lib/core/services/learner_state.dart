@@ -213,6 +213,8 @@ class LearnerState {
   /// Exercises are read aloud as they appear: the context and the question in the instruction language, then the
   /// phrase in the course's voice.
   final bool readAloud;
+  final bool latinOnly;
+  final SpeakerForm speakerForm;
   final List<Enrollment> enrollments;
   final String? activeCourseId;
   final Map<String, CourseProgress> courses;
@@ -229,6 +231,8 @@ class LearnerState {
     this.reduceMotion = false,
     this.mascot = true,
     this.readAloud = true,
+    this.latinOnly = false,
+    this.speakerForm = SpeakerForm.course,
     this.enrollments = const [],
     this.activeCourseId,
     this.courses = const {},
@@ -260,6 +264,8 @@ class LearnerState {
     bool? reduceMotion,
     bool? mascot,
     bool? readAloud,
+    bool? latinOnly,
+    SpeakerForm? speakerForm,
     List<Enrollment>? enrollments,
     Object? activeCourseId = _keep,
     Map<String, CourseProgress>? courses,
@@ -273,6 +279,8 @@ class LearnerState {
     reduceMotion: reduceMotion ?? this.reduceMotion,
     mascot: mascot ?? this.mascot,
     readAloud: readAloud ?? this.readAloud,
+    latinOnly: latinOnly ?? this.latinOnly,
+    speakerForm: speakerForm ?? this.speakerForm,
     enrollments: enrollments ?? this.enrollments,
     activeCourseId: identical(activeCourseId, _keep) ? this.activeCourseId : activeCourseId as String?,
     courses: courses ?? this.courses,
@@ -298,6 +306,8 @@ class LearnerState {
     'reduceMotion': reduceMotion,
     'mascot': mascot,
     'readAloud': readAloud,
+    'latinOnly': latinOnly,
+    'speakerForm': speakerForm.name,
     'enrollments': [for (final e in enrollments) e.toJson()],
     'activeCourseId': activeCourseId,
     'courses': {for (final e in courses.entries) e.key: e.value.toJson()},
@@ -324,6 +334,8 @@ class LearnerState {
       reduceMotion: raw['reduceMotion'] == true,
       mascot: raw['mascot'] != false,
       readAloud: raw['readAloud'] != false,
+      latinOnly: raw['latinOnly'] == true,
+      speakerForm: SpeakerForm.values.where((form) => form.name == raw['speakerForm']).firstOrNull ?? SpeakerForm.course,
       enrollments: enrollments,
       activeCourseId: active is String ? active : null,
       courses: {

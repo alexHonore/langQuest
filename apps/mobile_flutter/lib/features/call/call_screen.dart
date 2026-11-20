@@ -1465,23 +1465,25 @@ class _CharacterBubble extends ConsumerWidget {
     final colors = appState.colors;
     final accent = appState.accent;
     final l10n = context.l10n;
+    final latin = appState.learner.latinOnly && line.transliteration?.isNotEmpty == true;
+    final display = latin ? line.transliteration! : line.text!;
     final still = context.reduceMotion;
     final style = TextStyle(fontSize: 18, height: 1.35, fontWeight: FontWeight.w600, color: colors.textPrimary, fontFamilyFallback: fontFallbackFor(track));
     // Arabic or Hebrew runs right to left; the script's own fonts draw it (the bundle's subsets, then the system's).
-    final direction = directionOf(line.text!);
+    final direction = directionOf(display);
     final locale = contentLocaleOf(track);
     final words = speaking && !still
         ? ValueListenableBuilder<double>(
             valueListenable: progress,
             builder: (context, p, _) {
               // The voice and the words advance together (by characters: there are no word timings).
-              final cut = _wordEnd(line.text!, (p * line.text!.length).round());
+              final cut = _wordEnd(display, (p * display.length).round());
               return Text.rich(
                 TextSpan(
                   children: [
-                    TextSpan(text: line.text!.substring(0, cut)),
+                    TextSpan(text: display.substring(0, cut)),
                     TextSpan(
-                      text: line.text!.substring(cut),
+                      text: display.substring(cut),
                       style: TextStyle(color: colors.textMuted),
                     ),
                   ],
@@ -1492,7 +1494,7 @@ class _CharacterBubble extends ConsumerWidget {
               );
             },
           )
-        : Text(line.text!, style: style, textDirection: direction, locale: locale);
+        : Text(display, style: style, textDirection: direction, locale: locale);
     // Help is labelled, so it reads as help and not as the conversation.
     final help = switch (line.respondsTo) {
       'hint' => (LucideIcons.lightbulb, l10n.callHint),
@@ -1542,7 +1544,7 @@ class _CharacterBubble extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       words,
-                      if (line.transliteration != null) ...[
+                      if (!latin && line.transliteration != null) ...[
                         const SizedBox(height: 2),
                         Text(
                           line.transliteration!,

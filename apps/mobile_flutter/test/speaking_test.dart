@@ -134,13 +134,13 @@ void main() {
       semantics.dispose();
     });
 
-    testWidgets('checked: a take not understood asks again; after three tries the learner may move on', (t) async {
+    testWidgets('a checked take unlocks continue and can be redone in place', (t) async {
       final semantics = t.ensureSemantics();
       await openScene(t, checker: FakeChecker([for (var i = 0; i < 3; i++) const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: 'eh')]));
       await tapLabel(t, 'Record yourself');
       await tapLabel(t, 'Stop recording');
-      expect(find.text('I said it'), findsNothing);
-      expect(find.text('Not quite yet: try again (1 of 3)'), findsOneWidget);
+      expect(saidIt(t).onPressed, isNotNull);
+      expect(find.text('Not quite'), findsOneWidget);
       for (var i = 0; i < 2; i++) {
         await tapLabel(t, 'Record again');
         await tapLabel(t, 'Stop recording');

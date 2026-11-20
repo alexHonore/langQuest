@@ -107,6 +107,7 @@ class TargetText extends ConsumerWidget {
     final align = textAlign == TextAlign.center ? CrossAxisAlignment.center : CrossAxisAlignment.start;
     final reading = expression.reading;
     final romanization = expression.romanization;
+    final latin = ref.watch(appStateProvider.select((s) => s.learner.latinOnly)) && romanization != null;
     return Column(
       crossAxisAlignment: align,
       mainAxisSize: MainAxisSize.min,
@@ -114,12 +115,12 @@ class TargetText extends ConsumerWidget {
         Semantics(
           localeForSubtree: contentLanguageOf(track),
           child: Text(
-            expression.text,
+            latin ? romanization : expression.text,
             // Picks the font for characters that differ by language (Japanese kanji are not drawn with Chinese
             // forms on iOS and Android, whatever the interface language).
             locale: contentLocaleOf(track),
             textAlign: textAlign,
-            textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
+            textDirection: !latin && track.rtl ? TextDirection.rtl : TextDirection.ltr,
             style: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.w700,
@@ -129,7 +130,7 @@ class TargetText extends ConsumerWidget {
             ),
           ),
         ),
-        if (reading != null) ...[
+        if (!latin && reading != null) ...[
           const SizedBox(height: 2),
           Semantics(
             localeForSubtree: contentLanguageOf(track),
@@ -141,15 +142,40 @@ class TargetText extends ConsumerWidget {
             ),
           ),
         ],
-        if (romanization != null) ...[
+        if (!latin && romanization != null) ...[
           const SizedBox(height: 2),
           Text(
             romanization,
             textAlign: textAlign,
-            style: TextStyle(fontSize: fontSize * 0.62, fontStyle: FontStyle.italic, color: colors.textMuted),
+            style: TextStyle(fontSize: (fontSize * 0.68).clamp(12.0, double.infinity), fontStyle: FontStyle.italic, color: colors.textMuted),
           ),
         ],
       ],
+    );
+  }
+}
+
+/// Word banks use Latin tokens. Show the matching native sentence alongside them in the dual-script display.
+class NativeTilePrompt extends ConsumerWidget {
+  const NativeTilePrompt({super.key, required this.expression, required this.track, this.gap, this.wordCount});
+  final Expression expression;
+  final CourseTrackInfo track;
+  final int? gap;
+  final int? wordCount;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (expression.romanization == null || ref.watch(appStateProvider.select((s) => s.learner.latinOnly))) return const SizedBox.shrink();
+    final words = expression.text.split(RegExp(r'\s+'));
+    if (gap != null && words.length == wordCount && gap! < words.length) words[gap!] = '…';
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Text(
+        words.join(' '),
+        locale: contentLocaleOf(track),
+        textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, fontFamilyFallback: fontFallbackFor(track)),
+      ),
     );
   }
 }

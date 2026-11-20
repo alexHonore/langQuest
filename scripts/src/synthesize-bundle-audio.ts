@@ -27,6 +27,7 @@
  *
  * Usage: pnpm --filter @langquest/scripts synthesize-bundle-audio [-- --track spanish-spain] [-- --limit 5] [-- --dry-run]
  */
+import audioRepairs from '../../apps/mobile_flutter/assets/audio/repairs.json';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from 'node:fs';
@@ -63,8 +64,14 @@ export interface Line {
 }
 
 /** A clip's file name: the voice and a hash of what it says (so a changed line gets a new clip). */
-export const clipName = (voice: BundleVoice, text: string): string =>
-  `${voice.id}-${createHash('sha256').update(`${voice.model}|${voice.voice}|${voice.instructions ?? ''}|${text}`).digest('hex').slice(0, 16)}.mp3`;
+const repairedNames = new Map(Object.entries(audioRepairs).map(([original, repair]) => [
+  original.slice(original.indexOf('/') + 1), repair.file.slice(repair.file.indexOf('/') + 1),
+]));
+
+export const clipName = (voice: BundleVoice, text: string): string => {
+  const name = `${voice.id}-${createHash('sha256').update(`${voice.model}|${voice.voice}|${voice.instructions ?? ''}|${text}`).digest('hex').slice(0, 16)}.mp3`;
+  return repairedNames.get(name) ?? name;
+};
 
 /** A chapter of the Flutter bundle, as far as the voices need it. */
 export type BundleChapter = {
@@ -195,6 +202,7 @@ export const SECOND_LISTENER_MODEL = 'google/gemini-3.8-flash';
 export function listenPrompt(text: string): string {
   return [
     'First write exactly what you hear in this clip, in its own script, as if you did not know what was expected ("heard").',
+    'Transcribe the entire recording, including any instructions, introduction or repetition. Any extra spoken words make matches false.',
     `Then compare it with the expected words: "${text}".`,
     'Answer with JSON only: {"heard": string, "matches": boolean (true only if the same words are said; ignore punctuation and spelling variants such as kana or kanji), "naturalness": integer 1-10 (10 = indistinguishable from a native human speaker, 1 = obviously robotic), "issues": string}',
   ].join('\n');

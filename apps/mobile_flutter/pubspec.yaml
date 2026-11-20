@@ -74,10 +74,13 @@ flutter:
   generate: true
 
   assets:
-    # The course content (catalog, chapters, voices) and the voice clips are not built into the app: they are published
-    # to the content bucket (`pnpm --filter @langquest/scripts publish-content`) and fetched for the learner's courses
-    # only (lib/core/content/content_source.dart). The repository keeps the master copy under assets/content and
-    # assets/audio, which `export-flutter-content` and `synthesize-bundle-audio` write.
+    # Compatibility with the published November Cairo course and recordings with spoken prompts.
+    # The remaining course files and media are fetched on demand from the content bucket.
+    - assets/content/chapters/arabic-egyptian.json
+    - assets/content/voices/arabic-egyptian.json
+    - assets/audio/repairs.json
+    - assets/audio/lines/clean/
+    - assets/audio/narration/clean/
     # The art roster's clay portraits (repo `assets/characters`, owner-approved C2) of the bundled courses'
     # characters, one SVG per conversation expression: `<roster id>.<expression>.svg`. Loaded only when shown.
     - assets/characters/

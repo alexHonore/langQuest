@@ -29,14 +29,11 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console error: ${m.text()}`);
   });
-  // The repository's own content folder (served here) has no `index.json`: the app asks for it, gets a 404, and reads
-  // the files under their plain names. That 404 is expected; any other is an error.
-  let expected404 = 0;
-  const unexpected404 = [];
-  page.on('response', (r) => {
-    if (r.status() !== 404) return;
-    if (new URL(r.url()).pathname.endsWith('/data/index.json')) expected404 += 1;
-    else unexpected404.push(r.url());
+  // Exercise the public November index that used to hide the new Cairo dialogue after a web release.
+  const cairoAssets = new Set();
+  page.on('response', (response) => {
+    const path = new URL(response.url()).pathname;
+    if (response.ok() && path.startsWith('/assets/assets/content/')) cairoAssets.add(path.slice('/assets/assets/'.length));
   });
   // The content files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order: from the content bucket
   // (named by content, `chapters/<track>.<hash>.json`) or a plain copy of the repository's (CI), so the hash is dropped.
@@ -80,13 +77,15 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   expectCourseFiles([], 'first visit');
   ok('a first visit fetches the catalog and no course');
 
+  await tap('Feminine');
   await tap('Choose a course', { exact: false });
   await scrollTo('Arabic (Egyptian)');
   expectCourseFiles([], 'the course list');
   await tap('Arabic (Egyptian)', { exact: false });
   await tap('Start this course', { exact: false, wait: 1500 });
   expectCourseFiles(['chapters/arabic-egyptian.json'], 'opening and starting Egyptian Arabic');
-  ok('enrolled in Egyptian Arabic, fetching that course only');
+  if (!['content/chapters/arabic-egyptian.json', 'content/voices/arabic-egyptian.json'].every((path) => cairoAssets.has(path))) throw new Error('The Cairo chapters and voices were not loaded together.');
+  ok('opened the current Egyptian Arabic course with the previous public index');
 
   // The first course ends the first run with a warm-up phrase.
   await expectButton('Record yourself');
@@ -107,7 +106,10 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     live: window.__streams.flatMap((s) => s.getTracks()).filter((t) => t.readyState !== 'ended').length,
   }));
   if (mic.streams !== 1 || mic.live !== 0) throw new Error(`the microphone was not released after the take (${JSON.stringify(mic)})`);
-  ok('record yourself: a take is recorded, plays back, and the microphone is released');
+  await tap('Record again', { wait: 1100 });
+  await tap('Stop recording', { wait: 600 });
+  await expectButton('Play your recording');
+  ok('recorded, played and redid a take with the same control');
   await tap('I said it');
   await tap('Close');
   await expectButton('Resume lesson');
@@ -122,11 +124,11 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     location.hash = '#/learn/arabic_egyptian_greet_and_introduce/practice';
   });
   await page.waitForTimeout(2000);
-  await expectButton('صباح الخير');
+  await expectButton('صباح الخير, sabah el-kheir');
   await expectButton('Bonjour.');
-  await tap('صباح الخير', { wait: 400 });
+  await tap('صباح الخير, sabah el-kheir', { wait: 400 });
   await tap('Bonjour.', { wait: 900 });
-  await expectButton('صباح الخير, matched');
+  await expectButton('صباح الخير, sabah el-kheir, matched');
   ok('the practice session starts with French meanings, and a pair matches');
   await page.evaluate(() => {
     location.hash = '#/play';
@@ -166,11 +168,7 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   ok('a reload opens Home with the French course and its saved lesson');
 
   await browser.close();
-  // The browser logs each 404 as a console error, without its address: drop as many as the expected ones.
-  let toDrop = expected404;
-  const real = errors.filter((e) => !(toDrop > 0 && /status of 404/.test(e) && toDrop-- > 0));
-  if (unexpected404.length) real.push(...unexpected404.map((u) => `404: ${u}`));
-  if (real.length) throw new Error(`${real.length} page error(s):\n  ${real.join('\n  ')}`);
+  if (errors.length) throw new Error(`${errors.length} page error(s):\n  ${errors.join('\n  ')}`);
   ok('no page errors');
 })().catch((e) => {
   console.error(`not ok - ${e.message}`);

@@ -399,7 +399,9 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
           const SizedBox(height: 18),
           for (var i = 0; i < q.options.length; i++)
             OptionTile(
-              semantics: byMeaning ? plan.shortMeaningOf(q.options[i]) : q.options[i].text,
+              semantics: byMeaning
+                  ? plan.shortMeaningOf(q.options[i])
+                  : q.options[i].displayLabel(latinOnly: ref.watch(appStateProvider.select((s) => s.learner.latinOnly))),
               locale: byMeaning ? null : contentLanguageOf(plan.track),
               state: optionState(i, picked: _picked, answer: q.answerIndex),
               onTap: _picked != null
@@ -520,6 +522,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
           ExercisePrompt(text: l10n.practiceGapPrompt, mood: _mood, tag: tag.tag, tagIcon: tag.icon),
           const SizedBox(height: 12),
           Text(plan.shortMeaningOf(gap.expression), style: TextStyle(fontSize: 16.5, height: 1.3, color: colors.textSecondary)),
+          NativeTilePrompt(expression: gap.expression, track: plan.track, gap: answered ? null : gap.gap, wordCount: gap.words.length),
           const SizedBox(height: 14),
           Container(
             width: double.infinity,
@@ -590,7 +593,8 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
     final colors = appState.colors;
     final accent = appState.accent;
     final l10n = context.l10n;
-    final romanizationById = {for (final e in plan.pairPhrases) e.id: e.romanization};
+    final phrasesById = {for (final e in plan.pairPhrases) e.id: e};
+    final latinOnly = ref.watch(appStateProvider.select((s) => s.learner.latinOnly));
     // A card is as tall as its text needs at the learner's text size, and never taller than its share of the screen.
     final cardHeight = MediaQuery.textScalerOf(context).scale(84).clamp(84.0, 190.0);
 
@@ -613,7 +617,8 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
           : selected
           ? accent.primarySoft
           : (isPhrase ? colors.elevated : colors.surface);
-      final romanization = isPhrase ? romanizationById[c.pairId] : null;
+      final expression = isPhrase ? phrasesById[c.pairId] : null;
+      final label = expression?.displayLabel(latinOnly: latinOnly) ?? c.label;
       return Flexible(
         child: SizedBox(
           height: cardHeight,
@@ -622,7 +627,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
             child: Semantics(
               button: true,
               selected: selected,
-              label: matched ? l10n.matchedSemantics(c.label) : c.label,
+              label: matched ? l10n.matchedSemantics(label) : label,
               excludeSemantics: true,
               child: InkWell(
                 borderRadius: BorderRadius.circular(18),
@@ -643,28 +648,24 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
                       fit: BoxFit.scaleDown,
                       child: ConstrainedBox(
                         constraints: BoxConstraints(maxWidth: box.maxWidth),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              c.label,
-                              textAlign: TextAlign.center,
-                              textDirection: isPhrase && plan.track.rtl ? TextDirection.rtl : null,
-                              style: TextStyle(
-                                fontSize: isPhrase ? 17 : 15,
-                                height: 1.25,
-                                fontWeight: FontWeight.w600,
-                                color: matched ? colors.textMuted : colors.textPrimary,
-                              ),
-                            ),
-                            if (romanization != null)
-                              Text(
-                                romanization,
+                        child: expression != null
+                            ? TargetText(
+                                expression: expression,
+                                track: plan.track,
+                                fontSize: 17,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: colors.textMuted),
+                                color: matched ? colors.textMuted : colors.textPrimary,
+                              )
+                            : Text(
+                                c.label,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1.25,
+                                  fontWeight: FontWeight.w600,
+                                  color: matched ? colors.textMuted : colors.textPrimary,
+                                ),
                               ),
-                          ],
-                        ),
                       ),
                     ),
                   ),
@@ -737,6 +738,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
             BigListen(expression: challenge.expression, locale: plan.voiceLocale)
           else
             Text(plan.shortMeaningOf(challenge.expression), style: TextStyle(fontSize: 17, height: 1.3, color: colors.textSecondary)),
+          if (!step.byEar || solved) NativeTilePrompt(expression: challenge.expression, track: plan.track),
           const SizedBox(height: 14),
           Container(
             width: double.infinity,

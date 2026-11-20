@@ -450,6 +450,35 @@ void main() {
       expect(container.read(appStateProvider).stopsDone(secondMission), contains(PathStop.play));
     });
 
+    testWidgets('a revealed Darija lantern follows the script setting, including its accessible label', (t) async {
+      final semantics = t.ensureSemantics();
+      final container = await openApp(t, learned: []);
+      const mission = 'ary_greet_and_introduce';
+      final state = container.read(appStateProvider.notifier)
+        ..enroll('arabic-moroccan', 'fr')
+        ..completeStop(mission, PathStop.learn);
+      container.read(appRouterProvider).go('/play/memory');
+      await settle(t);
+      final pool = container.read(gamePoolProvider);
+      const seed = 'arabic-moroccan|fr/memory/0';
+      final board = MemoryState.start([for (final phrase in seededShuffle(pool, seed).take(6)) phrase.item], seed);
+      final lane = board.cards.indexWhere((card) => card.side == MemorySide.phrase);
+      final phrase = pool.singleWhere((p) => p.item.id == board.cards[lane].pairId).expression;
+      final hidden = find.bySemanticsLabel('Lantern ${lane + 1}, not turned');
+      await t.ensureVisible(hidden);
+      await t.tap(hidden);
+      await settle(t);
+      expect(find.text(phrase.text), findsOneWidget);
+      expect(find.text(phrase.romanization!), findsOneWidget);
+      expect(find.bySemanticsLabel(phrase.displayLabel(latinOnly: false)), findsOneWidget);
+      state.setLatinOnly(true);
+      await settle(t);
+      expect(find.text(phrase.text), findsNothing);
+      expect(find.text(phrase.romanization!), findsOneWidget);
+      expect(find.bySemanticsLabel(phrase.romanization!), findsOneWidget);
+      semantics.dispose();
+    });
+
     testWidgets('Lantern pairs: cards that do not go together turn back; every pair found ends the round with its record and XP', (t) async {
       final semantics = t.ensureSemantics();
       final container = await openApp(t, route: '/play/memory');
