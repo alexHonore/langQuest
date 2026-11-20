@@ -37,6 +37,8 @@ RUN flutter build web --release --no-web-resources-cdn --no-wasm-dry-run
 # The web engine downloads every font in the manifest at start-up: drop the icon package's unused weight variants
 # (about 1.4 MB of a first visit). The tool refuses if the app ever imports one of their libraries.
 RUN dart tool/prune_web_fonts.dart build/web
+# Returning learners can have the previous JavaScript and icon fonts in the browser's HTTP cache.
+RUN dart tool/version_web_assets.dart build/web
 
 FROM caddy:2.11-alpine
 COPY apps/mobile_flutter/deploy/Caddyfile /etc/caddy/Caddyfile
