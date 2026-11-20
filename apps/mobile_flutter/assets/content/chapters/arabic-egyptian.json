@@ -123,9 +123,15 @@
             "fr": "Rencontrer une voisine au Caire"
           },
           "sceneNotes": {
-            "en": "It's morning on your street in Cairo, and a friendly neighbour who is in a hurry stops for a quick hello and may ask where you live.",
-            "fr": "Il est tôt le matin dans votre rue au Caire, et une voisine sympathique, pressée, s'arrête pour vous saluer rapidement et peut-être vous demander où vous habitez."
+            "fr": "Dans votre rue au Caire, Mona vous salue et vous demande ce que vous faites ici.",
+            "en": "On your street in Cairo, Mona greets you and asks what you do here."
           },
+          "sceneOrder": [
+            "mona_morning",
+            "fine",
+            "mona_ask_about_work",
+            "work_in_design"
+          ],
           "slots": [
             {
               "slotId": "greeting",
@@ -539,6 +545,111 @@
                 }
               },
               "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:mona_morning",
+              "key": "mona_morning",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "character",
+              "text": "صباح الفل! مالك، شكلك تعبان؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "صباح الفل! مالك، شكلك تعبان؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sabah el-foll! malak, shaklak ta3ban?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Morning! What's up, you look tired?",
+                  "note": "Sabah el-foll, 'morning of jasmine', is a cheerful Cairene good morning. Malak? = what's the matter? To a woman: malek, shaklek ta3bana.",
+                  "literal": "morning-of the-jasmine! what-to-you, look-your tired"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Qu'est-ce qui se passe, tu as l'air fatigué ?",
+                  "note": "« Sabah el-foll », « matin de jasmin » : un bonjour cairote plein d'entrain. « Malak ? » = qu'est-ce que tu as ? À une femme : malek, shaklek ta3bana.",
+                  "literal": "matin-du jasmin ! quoi-à-toi, allure-ta fatigué"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:mona_ask_about_work",
+              "key": "mona_ask_about_work",
+              "intentKey": "ask_occupation",
+              "slotId": null,
+              "speaker": "character",
+              "text": "وإنت بتشتغل إيه بالظبط هنا؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وإنت بتشتغل إيه بالظبط هنا؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "we enta beteshtaghal eih bez-zabt hena?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what exactly do you do here?",
+                  "note": "Beteshtaghal = you work (to a woman: beteshtaghali). Bez-zabt = exactly.",
+                  "literal": "and you you-work what exactly here"
+                },
+                "fr": {
+                  "meaning": "Et toi, tu fais quoi exactement ici ?",
+                  "note": "« Beteshtaghal » = tu travailles (à une femme : beteshtaghali). « Bez-zabt » = exactement.",
+                  "literal": "et toi tu-travailles quoi exactement ici"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:work_in_design",
+              "key": "work_in_design",
+              "intentKey": "describe_occupation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "باشتغل في قسم التصميم من شهر.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "باشتغل في قسم التصميم من شهر."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bashtaghal fi 2esm et-tasmeem min shahr."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I've been working in the design department for a month.",
+                  "note": "Min + a length of time = for, since: min shahr, for a month. The line is the same for a woman.",
+                  "literal": "I-work in department-of the-design from month"
+                },
+                "fr": {
+                  "meaning": "Je travaille au service design depuis un mois.",
+                  "note": "« Min » + durée = depuis : min shahr, depuis un mois, avec le présent comme en français. La phrase est la même pour une femme.",
+                  "literal": "je-travaille dans service-de le-design depuis mois"
+                }
+              },
+              "register": "neutral",
               "codeSwitchNote": null,
               "pronunciationNote": null
             }

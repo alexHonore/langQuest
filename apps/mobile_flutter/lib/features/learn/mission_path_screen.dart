@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/learner_state.dart';
 import '../../core/theme/typography.dart';
 import '../audio/audio_screens.dart';
 import '../call/call_screen.dart';
@@ -27,8 +28,8 @@ class MissionPathScreen extends ConsumerWidget {
   final String missionKey;
   const MissionPathScreen({super.key, required this.missionKey});
 
-  static String routeFor(String missionKey, PathStop stop) => switch (stop) {
-    PathStop.learn => '/learn/$missionKey/scene',
+  static String routeFor(String missionKey, PathStop stop, {LessonCheckpoint? checkpoint}) => switch (stop) {
+    PathStop.learn => checkpoint?.activity == LessonActivity.cards ? '/learn/$missionKey/cards' : '/learn/$missionKey/scene',
     PathStop.practise => '/learn/$missionKey/practice',
     PathStop.play => '/learn/$missionKey/play',
     PathStop.mission => '/mission/$missionKey',
@@ -48,23 +49,37 @@ class MissionPathScreen extends ConsumerWidget {
     final game = ref.watch(missionGameProvider(missionKey));
     final done = appState.stopsDone(missionKey);
     final canPractiseSaying = ref.watch(takeRecorderFactoryProvider) != null;
-    final next = nextStop(stops, done);
+    final resume = appState.progress.latestCheckpoint(missionKey, stops);
+    final next = resume?.stop ?? nextStop(stops, done);
     final title = plan.mission.titleIn(plan.source) ?? '';
     final sceneId = sceneIdForMission(plan.mission);
     final course = appState.activeCourse;
     final number = course == null ? 0 : course.indexOfMission(missionKey) + 1;
     final lockedTalk = call == null && ref.watch(callsNeedAccountProvider);
     final learned = done.contains(PathStop.learn) && plan.phrases.isNotEmpty;
+    final hasDialogue = plan.sceneLines.any((line) => !line.byLearner);
+
+    void open(PathStop stop) => context.push(routeFor(missionKey, stop, checkpoint: appState.checkpoint(missionKey, stop)));
 
     ({String title, String subtitle, IconData icon}) describe(PathStop stop) => switch (stop) {
-      PathStop.learn => (title: l10n.stopLearn, subtitle: l10n.pathLearnSubtitle(plan.characterName, plan.phrases.length), icon: LucideIcons.bookOpen),
+      PathStop.learn => (
+        title: l10n.stopLearn,
+        subtitle: hasDialogue ? l10n.pathLearnSubtitle(plan.characterName, plan.phrases.length) : l10n.pathLearnPhrases(plan.phrases.length),
+        icon: LucideIcons.bookOpen,
+      ),
       PathStop.practise => (
         title: l10n.stopPractise,
         subtitle: plan.pairPhrases.length < 3 ? l10n.pathPractisePairsOnly : l10n.pathPractiseSubtitle,
         icon: LucideIcons.dumbbell,
       ),
       PathStop.play => (title: l10n.stopPlay, subtitle: game == null ? '' : l10n.pathPlaySubtitle(gameName(l10n, game)), icon: LucideIcons.gamepad2),
-      PathStop.mission => (title: l10n.stopMission, subtitle: l10n.pathMissionSubtitle(plan.exchanges.length, plan.characterName), icon: LucideIcons.flag),
+      PathStop.mission => (
+        title: l10n.stopMission,
+        subtitle: plan.exchanges.any((exchange) => exchange.cue != null)
+            ? l10n.pathMissionSubtitle(plan.exchanges.length, plan.characterName)
+            : l10n.pathPractiseReplies(plan.exchanges.length),
+        icon: LucideIcons.flag,
+      ),
       PathStop.talk => (
         title: l10n.stopTalk,
         subtitle: call != null && call.voiceConversation && canPractiseSaying ? l10n.pathTalkSubtitle : l10n.pathTalkSubtitleText,
@@ -75,7 +90,8 @@ class MissionPathScreen extends ConsumerWidget {
     // The other ways to work on this mission's phrases, each only where it can be used.
     final extras = <({IconData icon, String label, String route})>[
       if (canPractiseSaying && learned) (icon: LucideIcons.mic, label: l10n.practiseSayingEntry, route: '/speak/$missionKey'),
-      if (learned && ref.watch(audioLessonAudibleProvider(missionKey))) (icon: LucideIcons.headphones, label: l10n.pathAudioLesson, route: '/audio/$missionKey'),
+      if (learned && ref.watch(audioLessonAudibleProvider(missionKey)))
+        (icon: LucideIcons.headphones, label: l10n.pathAudioLesson, route: '/audio/$missionKey'),
     ];
 
     return Scaffold(
@@ -135,7 +151,7 @@ class MissionPathScreen extends ConsumerWidget {
                         isNext: stops[i] == next,
                         isFirst: i == 0,
                         isLast: i == stops.length - 1 && !lockedTalk,
-                        onTap: () => context.push(routeFor(missionKey, stops[i])),
+                        onTap: () => open(stops[i]),
                       ),
                     // Signed out on a course with live calls: the Talk stop, locked, opens the account (sign up is free).
                     if (lockedTalk)
@@ -181,9 +197,11 @@ class MissionPathScreen extends ConsumerWidget {
                       ],
                     )
                   : LearnPrimaryButton(
-                      label: done.isEmpty ? l10n.pathStartStop(describe(next).title) : l10n.pathContinueStop(describe(next).title),
+                      label: resume != null
+                          ? l10n.resumeLesson
+                          : (done.isEmpty ? l10n.pathStartStop(describe(next).title) : l10n.pathContinueStop(describe(next).title)),
                       icon: LucideIcons.chevronRight,
-                      onPressed: () => context.push(routeFor(missionKey, next)),
+                      onPressed: () => open(next),
                     ),
             ),
           ],

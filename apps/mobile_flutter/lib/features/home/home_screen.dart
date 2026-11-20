@@ -94,7 +94,7 @@ class _TopBar extends ConsumerWidget {
             alignment: AlignmentDirectional.centerStart,
             child: Semantics(
               button: true,
-              label: '${l10n.switchCourse}: ${course.track.name(appState.uiLanguage)}',
+              label: '${l10n.switchCourse}: ${course.track.name(appState.uiLanguage)}, ${l10n.fromLanguage(course.source)}',
               excludeSemantics: true,
               child: GlassContainer(
                 level: GlassLevel.level2,
@@ -113,11 +113,23 @@ class _TopBar extends ConsumerWidget {
                     ),
                     const SizedBox(width: 8),
                     Flexible(
-                      child: Text(
-                        course.track.name(appState.uiLanguage),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            course.track.name(appState.uiLanguage),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                          ),
+                          Text(
+                            l10n.fromLanguage(course.source),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -185,86 +197,87 @@ class _NextMissionCard extends ConsumerWidget {
     if (plan == null) return const SizedBox.shrink();
     final stops = stopsOfPlan(plan);
     final done = appState.stopsDone(mission.key);
-    final nextStopValue = nextStop(stops, done) ?? PathStop.mission;
+    final checkpoint = appState.progress.latestCheckpoint(mission.key, stops);
+    final nextStopValue = checkpoint?.stop ?? nextStop(stops, done) ?? PathStop.mission;
     final index = course.indexOfMission(mission.key);
     final sceneId = sceneIdForMission(mission);
     final title = mission.titleIn(course.source) ?? '';
-    void open() => context.push('/path/${mission.key}');
 
-    return Semantics(
-      button: true,
-      label: '${l10n.homeNextMission}. $title. ${l10n.homeNextStop(stopLabel(l10n, nextStopValue))}',
-      excludeSemantics: true,
-      child: GestureDetector(
-        onTap: open,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: accent.primary.withValues(alpha: 0.6), width: 1.5),
+        boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: appState.isDark ? 0.30 : 0.16), blurRadius: 24, spreadRadius: 2)],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(23),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: accent.primary.withValues(alpha: 0.6), width: 1.5),
-            boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: appState.isDark ? 0.30 : 0.16), blurRadius: 24, spreadRadius: 2)],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(23),
-            child: Container(
-              color: colors.elevated,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AnimatedSceneWidget(
-                    sceneId: sceneId,
-                    title: sceneTitle(l10n, sceneId),
-                    height: 150,
-                    showTimeToggle: false,
-                    child: Positioned(
-                      right: 10,
-                      bottom: 4,
-                      child: MeloWidget(state: MeloState.welcome, courseTrackId: appState.activeTrackId, size: 64),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          color: colors.elevated,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AnimatedSceneWidget(
+                sceneId: sceneId,
+                title: sceneTitle(l10n, sceneId),
+                height: 150,
+                showTimeToggle: false,
+                child: Positioned(
+                  right: 10,
+                  bottom: 4,
+                  child: MeloWidget(state: MeloState.welcome, courseTrackId: appState.activeTrackId, size: 64),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Icon(LucideIcons.sparkles, size: 14, color: accent.primaryText),
-                            const SizedBox(width: 6),
-                            Expanded(
-                              child: Text(
-                                '${l10n.homeNextMission} · ${l10n.missionLabel(index + 1)}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Text(title, style: displayStyle(size: 21, color: colors.textPrimary)),
-                        if (mission.sceneNoteIn(course.source) case final note?) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            note,
-                            maxLines: 2,
+                        Icon(LucideIcons.sparkles, size: 14, color: accent.primaryText),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            '${l10n.homeNextMission} · ${l10n.missionLabel(index + 1)}',
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary),
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
                           ),
-                        ],
-                        const SizedBox(height: 12),
-                        StopDots(stops: stops, done: done),
-                        const SizedBox(height: 14),
-                        LearnPrimaryButton(
-                          label: done.isEmpty ? l10n.pathStartStop(stopLabel(l10n, nextStopValue)) : l10n.pathContinueStop(stopLabel(l10n, nextStopValue)),
-                          icon: LucideIcons.play,
-                          onPressed: open,
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text(title, style: displayStyle(size: 21, color: colors.textPrimary)),
+                    if (mission.sceneNoteIn(course.source) case final note?) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        note,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    StopDots(stops: stops, done: done, next: nextStopValue),
+                    const SizedBox(height: 14),
+                    LearnPrimaryButton(
+                      label: checkpoint != null
+                          ? l10n.resumeLesson
+                          : (done.isEmpty ? l10n.pathStartStop(stopLabel(l10n, nextStopValue)) : l10n.pathContinueStop(stopLabel(l10n, nextStopValue))),
+                      icon: LucideIcons.play,
+                      onPressed: () => context.push(MissionPathScreen.routeFor(mission.key, nextStopValue, checkpoint: checkpoint)),
+                    ),
+                    Center(
+                      child: TextButton.icon(
+                        onPressed: () => context.push('/path/${mission.key}'),
+                        icon: const Icon(LucideIcons.list, size: 16),
+                        label: Text(l10n.homeViewMission),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

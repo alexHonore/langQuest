@@ -138,6 +138,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
     if (next.finished) {
       ref.read(appStateProvider.notifier).completeStop(widget.missionKey, PathStop.practise);
     } else {
+      ref.read(appStateProvider.notifier).saveCheckpoint(widget.missionKey, next.checkpoint);
       _enter(plan);
     }
   }
@@ -188,15 +189,19 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
 
     // The session is built once, as the screen opens, with what can be said here (questions by ear need it).
     if (_progress == null) {
-      _progress = PracticeProgress.start(
+      _progress = PracticeProgress.resume(
         buildPracticeSession(
           plan,
           earlier: _earlierPlans(),
           canHear: (e) => voice?.canSay(expressionId: e.id) ?? false,
         ),
+        ref.read(appStateProvider).checkpoint(widget.missionKey, PathStop.practise),
       );
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _enter(plan);
+        if (!mounted) return;
+        final progress = _progress!;
+        if (!progress.finished) ref.read(appStateProvider.notifier).saveCheckpoint(widget.missionKey, progress.checkpoint);
+        _enter(plan);
       });
     }
     final progress = _progress!;

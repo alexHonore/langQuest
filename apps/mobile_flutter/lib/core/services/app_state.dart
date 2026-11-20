@@ -60,6 +60,8 @@ class AppState {
 
   Set<PathStop> stopsDone(String missionKey) => progress.stopsDone(missionKey);
 
+  LessonCheckpoint? checkpoint(String missionKey, PathStop stop) => progress.checkpoint(missionKey, stop);
+
   /// A mission opens once the one before it is completed (the first is always open).
   bool isUnlocked(Course course, String missionKey) {
     final i = course.indexOfMission(missionKey);
@@ -206,7 +208,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         if (e.courseId != courseId) e,
     ];
     final courses = {...learner.courses}..remove(courseId);
-    final active = learner.activeCourseId == courseId ? (enrollments.isEmpty ? null : enrollments.first.courseId) : learner.activeCourseId;
+    final fallback = enrollments.where((e) => e.source == preferredInstructionLanguage).firstOrNull ?? enrollments.firstOrNull;
+    final active = learner.activeCourseId == courseId ? fallback?.courseId : learner.activeCourseId;
     _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
     _releaseCoursesLeft();
   }
@@ -222,6 +225,21 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
       content.unloadCourse(track.id);
       unawaited(source?.forgetCourse(track.id));
     }
+  }
+
+  /// Save the next step of an unfinished activity in the active course.
+  void saveCheckpoint(String missionKey, LessonCheckpoint checkpoint) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0) return;
+    final progress = state.progress;
+    if (progress.stopsDone(missionKey).contains(checkpoint.stop)) return;
+    _update(state.learner.withCourse(course.id, progress.withCheckpoint(missionKey, checkpoint)));
+  }
+
+  void setMissionQuiet(String missionKey, bool quiet) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0 || state.progress.quietMissions.contains(missionKey) == quiet) return;
+    _update(state.learner.withCourse(course.id, state.progress.withQuietMission(missionKey, quiet)));
   }
 
   /// Mark a Learn, Practise or Play stop of [missionKey] done in the active course (+5 XP the first time).

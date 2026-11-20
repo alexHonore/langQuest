@@ -62,7 +62,7 @@
   "switchCourse": "Switch course",
   "welcomeTitle": "Learn a language by using it",
   "welcomeBody": "Real situations and real dialects, taught before you are tested. Free: no subscriptions, credits or paywalls.",
-  "welcomeLanguageLabel": "App and explanations in",
+  "welcomeLanguageLabel": "App language",
   "welcomeContinue": "Choose a course",
   "pickCourseTitle": "What do you want to learn?",
   "pickCourseReady": "Ready to start",
@@ -102,6 +102,8 @@
     }
   },
   "homeNextMission": "Next mission",
+  "homeViewMission": "View mission",
+  "resumeLesson": "Resume lesson",
   "homeNextStop": "Next: {stop}",
   "@homeNextStop": {
     "placeholders": {
@@ -209,6 +211,18 @@
       "stop": {
         "type": "String"
       }
+    }
+  },
+  "pathLearnPhrases": "Learn {count, plural, =1{1 phrase} other{{count} phrases}}",
+  "@pathLearnPhrases": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "pathPractiseReplies": "{count, plural, =1{1 reply to practise} other{{count} replies to practise}}",
+  "@pathPractiseReplies": {
+    "placeholders": {
+      "count": {"type": "int"}
     }
   },
   "pathContinueStop": "Continue: {stop}",
@@ -699,7 +713,7 @@
   "listenSlowlyAiVoiceSemantics": "Listen slowly (AI voice)",
   "tabAudio": "Audio",
   "audioLibraryTitle": "Audio lessons",
-  "audioLibraryBody": "Each lesson goes four ways: you listen, you repeat, you recall from memory, then you take your part in the conversation.",
+  "audioLibraryBody": "Listen, repeat and recall the phrases from each mission.",
   "audioReadByAi": "Read by an AI voice",
   "audioReadByDevice": "Read by your device’s voice",
   "audioLessonMeta": "{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min",
@@ -737,7 +751,7 @@
   "audioFinished": "Lesson finished",
   "audioPlayAgain": "Play again",
   "audioYou": "You",
-  "courseIncludesAudioLessons": "Audio lessons made from each mission, read by {voice}",
+  "courseIncludesAudioLessons": "Audio lessons read by {voice}",
   "@courseIncludesAudioLessons": {
     "placeholders": {
       "voice": {
@@ -745,7 +759,10 @@
       }
     }
   },
-  "courseVoiceAi": "an AI voice (with a free account)",
+  "courseVoiceAi": "an AI voice",
+  "courseIncludesAiClips": "AI-voiced phrase clips",
+  "courseVoiceWithAccount": "AI-voiced clips for supported missions with a free account",
+  "courseMissingLineAudio": "Audio for the course phrases",
   "courseVoiceDevice": "your device’s voice",
   "courseMissingAudioRecorded": "Audio recorded by native speakers",
   "courseIncludesAiVoiceDialect": "An AI voice for this dialect (with a free account)",
@@ -1004,6 +1021,10 @@
     }
   },
   "recordSignInToCheck": "Have LangQuest check what you said and how it sounded: create a free account",
+  "recordAndCompare": "Record and compare",
+  "continueWithoutRecording": "Continue without recording",
+  "useMicrophone": "Use microphone",
+  "missionYourReply": "Your reply",
   "speakToContinue": "Say it out loud to continue",
   "speakTryAgain": "Not quite yet: try again ({tries} of {max})",
   "@speakTryAgain": {

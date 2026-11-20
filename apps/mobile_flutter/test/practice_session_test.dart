@@ -5,6 +5,7 @@ library;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:langquest_mobile/core/content/content_models.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
+import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/features/learn/practice_session.dart';
 
 import 'support.dart';

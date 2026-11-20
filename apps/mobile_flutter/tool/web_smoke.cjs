@@ -81,24 +81,24 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   ok('a first visit fetches the catalog and no course');
 
   await tap('Choose a course', { exact: false });
-  await scrollTo('Spanish (Spain-Castilian)');
+  await scrollTo('Arabic (Egyptian)');
   expectCourseFiles([], 'the course list');
-  await tap('Spanish (Spain-Castilian)', { exact: false });
+  await tap('Arabic (Egyptian)', { exact: false });
   await tap('Start this course', { exact: false, wait: 1500 });
-  expectCourseFiles(['chapters/spanish-spain.json'], 'opening and starting Spanish');
-  ok('enrolled in Spanish (Spain), fetching that course only');
+  expectCourseFiles(['chapters/arabic-egyptian.json'], 'opening and starting Egyptian Arabic');
+  ok('enrolled in Egyptian Arabic, fetching that course only');
 
   // The first course ends the first run with a warm-up phrase.
   await expectButton('Record yourself');
   await tap('Start learning', { wait: 1500 });
-  ok('the first-run warm-up offers the first phrase, then Home');
+  await expectButton('Next');
+  ok('the first-run warm-up opens straight on the character’s first turn');
 
-  await tap('Next mission', { exact: false, wait: 1500 });
-  await tap('Start: Learn', { exact: false, wait: 1500 });
-  await expectButton('I said it');
-  ok('the scene lesson opens on the learner’s line');
+  await tap('Next');
+  await expectButton('Continue without recording');
+  ok('the scene offers a choice on the learner’s first line');
 
-  await tap('Record yourself', { wait: 1800 });
+  await tap('Record and compare', { wait: 1800 });
   await tap('Stop recording', { wait: 1200 });
   await expectButton('Play your recording');
   await tap('Play your recording', { wait: 600 });
@@ -108,20 +108,26 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   }));
   if (mic.streams !== 1 || mic.live !== 0) throw new Error(`the microphone was not released after the take (${JSON.stringify(mic)})`);
   ok('record yourself: a take is recorded, plays back, and the microphone is released');
+  await tap('I said it');
+  await tap('Close');
+  await expectButton('Resume lesson');
+  await tap('Resume lesson');
+  await expectButton('Next');
+  ok('Home resumes on the next character turn');
 
   // The practice session and the mini-games are built by seeded shuffles (32-bit arithmetic that only the compiled
   // app runs as JavaScript numbers): the session opens on its pairs, each card a button named by its phrase; the
   // games wait for a Learn stop to be done, and say so.
   await page.evaluate(() => {
-    location.hash = '#/learn/es_greet_and_introduce/practice';
+    location.hash = '#/learn/arabic_egyptian_greet_and_introduce/practice';
   });
   await page.waitForTimeout(2000);
-  await expectButton('Hola, buenos días.');
-  await expectButton('Hello, good morning.');
-  await tap('Hola, buenos días.', { wait: 400 });
-  await tap('Hello, good morning.', { wait: 900 });
-  await expectButton('Hola, buenos días., matched');
-  ok('the practice session opens on its pairs, and a pair matches');
+  await expectButton('صباح الخير');
+  await expectButton('Bonjour.');
+  await tap('صباح الخير', { wait: 400 });
+  await tap('Bonjour.', { wait: 900 });
+  await expectButton('صباح الخير, matched');
+  ok('the practice session starts with French meanings, and a pair matches');
   await page.evaluate(() => {
     location.hash = '#/play';
   });
@@ -154,9 +160,10 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   await page.waitForTimeout(1500);
   await page.evaluate(() => document.querySelector('flt-semantics-placeholder')?.click());
   await page.waitForTimeout(800);
-  await button('Next mission', false).waitFor({ timeout: 15000 });
-  expectCourseFiles(['chapters/spanish-spain.json'], 'a reload');
-  ok('a reload fetches the learner\'s course only and opens on Home');
+  await expectButton('Resume lesson');
+  await button('from French', false).waitFor({ timeout: 15000 });
+  expectCourseFiles(['chapters/arabic-egyptian.json'], 'a reload');
+  ok('a reload opens Home with the French course and its saved lesson');
 
   await browser.close();
   // The browser logs each 404 as a console error, without its address: drop as many as the expected ones.

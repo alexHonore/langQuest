@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import 'learn_content.dart';
@@ -25,7 +26,7 @@ class CardsScreen extends ConsumerStatefulWidget {
 }
 
 class _CardsScreenState extends ConsumerState<CardsScreen> {
-  final PageController _pages = PageController();
+  late final PageController _pages;
   int _page = 0;
   late final SpeechService _speech;
 
@@ -33,6 +34,13 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
   void initState() {
     super.initState();
     _speech = ref.read(speechServiceProvider);
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    final saved = ref.read(appStateProvider).checkpoint(widget.missionKey, PathStop.learn);
+    if (plan != null && saved != null && saved.activity == LessonActivity.cards) {
+      final resumed = plan.phrases.indexWhere((phrase) => phrase.id == saved.stepId);
+      if (resumed >= 0) _page = resumed;
+    }
+    _pages = PageController(initialPage: _page, keepPage: false);
   }
 
   @override
@@ -79,6 +87,7 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
                 onPageChanged: (i) {
                   _speech.stop();
                   setState(() => _page = i);
+                  ref.read(appStateProvider.notifier).saveCheckpoint(widget.missionKey, LessonCheckpoint(LessonActivity.cards, plan.phrases[i].id));
                 },
                 itemBuilder: (context, i) {
                   final phrase = plan.phrases[i];

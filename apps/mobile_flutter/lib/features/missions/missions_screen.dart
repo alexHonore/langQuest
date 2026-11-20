@@ -181,6 +181,8 @@ class _MissionRow extends ConsumerWidget {
     final plan = ref.watch(learnPlanProvider(mission.key));
     final stops = plan == null ? const <PathStop>[] : stopsOfPlan(plan);
     final done = appState.stopsDone(mission.key);
+    final checkpoint = isNext ? appState.progress.latestCheckpoint(mission.key, stops) : null;
+    final nextActivity = isNext ? (checkpoint?.stop ?? nextStop(stops, done)) : null;
     final title = mission.titleIn(source) ?? '';
     final sceneId = sceneIdForMission(mission);
     // The lantern hangs level with the middle of a small card, and with the picture of the next mission's.
@@ -188,7 +190,7 @@ class _MissionRow extends ConsumerWidget {
 
     void open() {
       if (unlocked) {
-        context.push('/path/${mission.key}');
+        context.push(nextActivity == null ? '/path/${mission.key}' : MissionPathScreen.routeFor(mission.key, nextActivity, checkpoint: checkpoint));
       } else {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -217,7 +219,7 @@ class _MissionRow extends ConsumerWidget {
 
     final Widget card;
     if (isNext) {
-      final nextStopValue = nextStop(stops, done) ?? PathStop.mission;
+      final nextStopValue = nextActivity ?? PathStop.mission;
       card = Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
@@ -256,7 +258,7 @@ class _MissionRow extends ConsumerWidget {
                           style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary),
                         ),
                       ],
-                      if (stops.isNotEmpty) ...[const SizedBox(height: 10), StopDots(stops: stops, done: done)],
+                      if (stops.isNotEmpty) ...[const SizedBox(height: 10), StopDots(stops: stops, done: done, next: nextActivity)],
                       const SizedBox(height: 12),
                       Align(
                         alignment: AlignmentDirectional.centerStart,
@@ -271,7 +273,11 @@ class _MissionRow extends ConsumerWidget {
                               const SizedBox(width: 8),
                               Flexible(
                                 child: Text(
-                                  done.isEmpty ? l10n.pathStartStop(stopLabel(l10n, nextStopValue)) : l10n.pathContinueStop(stopLabel(l10n, nextStopValue)),
+                                  checkpoint != null
+                                      ? l10n.resumeLesson
+                                      : (done.isEmpty
+                                            ? l10n.pathStartStop(stopLabel(l10n, nextStopValue))
+                                            : l10n.pathContinueStop(stopLabel(l10n, nextStopValue))),
                                   style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, color: accent.onPrimary),
                                 ),
                               ),
@@ -378,14 +384,15 @@ class _MissionRow extends ConsumerWidget {
 class StopDots extends ConsumerWidget {
   final List<PathStop> stops;
   final Set<PathStop> done;
-  const StopDots({super.key, required this.stops, required this.done});
+  final PathStop? next;
+  const StopDots({super.key, required this.stops, required this.done, this.next});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final l10n = context.l10n;
-    final next = nextStop(stops, done);
+    final next = this.next ?? nextStop(stops, done);
     return ExcludeSemantics(
       child: Wrap(
         spacing: 12,

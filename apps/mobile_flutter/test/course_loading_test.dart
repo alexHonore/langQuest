@@ -81,12 +81,7 @@ void main() {
     test('without a course: the catalog and the shared files only; every course is offered from the catalog', () async {
       final reader = LoggingReader();
       final bundle = await ContentBundle.load(reader.call);
-      expect(reader.reads.toSet(), {
-        ContentBundle.catalogAsset,
-        ContentBundle.skillsAsset,
-        ContentBundle.castAsset,
-        ContentBundle.examplesAsset,
-      });
+      expect(reader.reads.toSet(), {ContentBundle.catalogAsset, ContentBundle.skillsAsset, ContentBundle.castAsset, ContentBundle.examplesAsset});
       expect(bundle.chapters, isEmpty);
       expect([for (final t in bundle.availableFrom('en')) t.id], [for (final t in testBundle.availableFrom('en')) t.id]);
       expect([for (final t in bundle.availableFrom('fr')) t.id], [for (final t in testBundle.availableFrom('fr')) t.id]);
@@ -198,8 +193,9 @@ void main() {
       await tapText(t, 'Choose a course');
       // The mission counts come from the catalog (chapters 1 to 4: 7 + 6 + 6 + 6).
       expect(find.textContaining('25 missions'), findsWidgets);
-      final courses = find.byType(Scrollable).first;
-      await t.scrollUntilVisible(find.text('Spanish (Spain-Castilian)'), 300, scrollable: courses);
+      await tapText(t, 'English');
+      await t.enterText(find.byType(TextField), 'Spain');
+      await settle(t);
       expect(find.textContaining('24 missions'), findsWidgets);
       expect(reader.chapterReads, isEmpty);
 

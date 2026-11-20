@@ -9,7 +9,8 @@ library;
 enum Speaker { learner, character }
 
 /// The instruction languages this app's interface is translated into (CONVENTIONS §2.2: no mixed-language UI).
-const supportedInstructionLanguages = ['en', 'fr'];
+const preferredInstructionLanguage = 'fr';
+const supportedInstructionLanguages = [preferredInstructionLanguage, 'en'];
 
 String _str(Object? v) => v is String ? v : '';
 String? _strOrNull(Object? v) => v is String && v.isNotEmpty ? v : null;
@@ -164,6 +165,7 @@ class Mission {
   final Map<String, String> titles;
   final Map<String, String> sceneNotes;
   final List<Expression> expressions;
+  final List<String> sceneOrder;
 
   const Mission({
     required this.key,
@@ -176,6 +178,7 @@ class Mission {
     required this.titles,
     required this.sceneNotes,
     required this.expressions,
+    this.sceneOrder = const [],
   });
 
   factory Mission.fromJson(Map<String, Object?> json, String chapterKey) => Mission(
@@ -189,6 +192,7 @@ class Mission {
     titles: _strMap(json['titles']),
     sceneNotes: _strMap(json['sceneNotes']),
     expressions: [for (final e in (json['expressions'] as List? ?? const [])) Expression.fromJson((e as Map).cast<String, Object?>())],
+    sceneOrder: _strList(json['sceneOrder']),
   );
 
   /// Title in [language]; null when the chapter has no overlay for it (never another language's title).
