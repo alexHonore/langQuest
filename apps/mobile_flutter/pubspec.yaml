@@ -74,7 +74,7 @@ flutter:
   generate: true
 
   assets:
-    # Compatibility with the published November Cairo course and recordings with spoken prompts.
+    # Compatibility with the published November Cairo course and recordings with spoken prompts or noisy endings.
     # The remaining course files and media are fetched on demand from the content bucket.
     - assets/content/chapters/arabic-egyptian.json
     - assets/content/voices/arabic-egyptian.json

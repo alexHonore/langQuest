@@ -28,7 +28,7 @@
  * Usage: pnpm --filter @langquest/scripts synthesize-bundle-audio [-- --track spanish-spain] [-- --limit 5] [-- --dry-run]
  */
 import audioRepairs from '../../apps/mobile_flutter/assets/audio/repairs.json';
-import { execFileSync } from 'node:child_process';
+import { encodeRecordedSpeech } from './lib/recorded-speech';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -266,10 +266,7 @@ export async function synthesize(line: Pick<Line, 'text' | 'voice'>, out: string
     return { bytes: Buffer.from(part.inlineData.data, 'base64'), rate: /rate=(\d+)/.exec(part.inlineData.mimeType ?? '')?.[1] ?? '24000', format: 'pcm' };
   };
   const { bytes, rate, format } = await providers.call(viaGoogle, viaOpenRouter);
-  // Mono MP3 at a speech bitrate, loudness-normalised so every voice plays at the same level.
-  const input = format === 'pcm' ? ['-f', 's16le', '-ar', rate, '-ac', '1', '-i', 'pipe:0'] : ['-i', 'pipe:0'];
-  // A short lead-in and tail of silence: browsers can swallow the first syllable of a clip that starts at once.
-  execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...input, '-af', 'adelay=120,apad=pad_dur=0.25,loudnorm=I=-18:TP=-2:LRA=11', '-ac', '1', '-ar', '24000', '-b:a', '48k', out], { input: bytes });
+  encodeRecordedSpeech(bytes, format, rate, out);
 }
 
 export async function main(args: ParsedArgs, io: CliIo): Promise<number> {

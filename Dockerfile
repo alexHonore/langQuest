@@ -39,9 +39,11 @@ RUN flutter build web --release --no-web-resources-cdn --no-wasm-dry-run
 RUN dart tool/prune_web_fonts.dart build/web
 # Returning learners can have the previous JavaScript and icon fonts in the browser's HTTP cache.
 RUN dart tool/version_web_assets.dart build/web
+RUN dart tool/recording_redirects.dart > /tmp/recordings.caddy
 
 FROM caddy:2.11-alpine
 COPY apps/mobile_flutter/deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /tmp/recordings.caddy /etc/caddy/redirects/recordings.caddy
 COPY --from=build /src/build/web /srv
 COPY apps/mobile_flutter/deploy/config.json /srv/config.json
 # The Infra Tayoo hosted app health-checks 0.0.0.0:8080 and sets no PORT.

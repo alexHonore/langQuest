@@ -37,6 +37,9 @@ class ContentLocation {
       final path = 'audio/${entry.value['file']}';
       final asset = assetRoot.resolve(path);
       clips['audio/${entry.key}'] = asset;
+      for (final previous in entry.value['previousFiles'] as List? ?? const []) {
+        clips['audio/$previous'] = asset;
+      }
       clips[path] = asset;
     }
     return ContentLocation(base, repairedClips: clips);
