@@ -57,7 +57,7 @@ class CourseSwitcherSheet extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 4),
-            for (final e in appState.learner.enrollments)
+            for (final e in appState.learner.enrollmentsInInstructionOrder)
               Builder(
                 builder: (context) {
                   final track = appState.content.track(e.trackId);

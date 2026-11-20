@@ -10,6 +10,7 @@ import { AUTHORED_CHAPTERS } from './authored/index';
 import { ENGLISH_CHAPTER_1 } from './english';
 import { JAPANESE_CHAPTER_1 } from './japanese';
 import { GENERATED_CHAPTERS } from './generated';
+import { withEgyptianGreetingDialogue } from './arabic-egyptian-greeting';
 import { buildAllPlannedSkeletons } from './skeletons';
 import { SPANISH_SPAIN_CHAPTER_1 } from './spanish-spain';
 import type { SeedChapter } from './types';
@@ -21,7 +22,11 @@ export const HAND_AUTHORED_CHAPTERS: readonly SeedChapter[] = [ARABIC_MOROCCAN_C
  * Every draft chapter (never published as reviewed: all are `review_needed` AI drafts): chapter 1 of every course
  * (hand-authored, then generated), then chapters 2, 3 and 4 (authored). A course's chapters come in story order.
  */
-export const DRAFT_CHAPTERS: readonly SeedChapter[] = [...HAND_AUTHORED_CHAPTERS, ...GENERATED_CHAPTERS, ...AUTHORED_CHAPTERS];
+export const DRAFT_CHAPTERS: readonly SeedChapter[] = [
+  ...HAND_AUTHORED_CHAPTERS,
+  ...GENERATED_CHAPTERS.map((chapter) => withEgyptianGreetingDialogue(chapter, AUTHORED_CHAPTERS)),
+  ...AUTHORED_CHAPTERS,
+];
 
 /** Missions the default story arc plans in its chapters 1 to [chapterIndex]: what a course's drafts are measured against. */
 export function arcMissionsThrough(chapterIndex: number): number {

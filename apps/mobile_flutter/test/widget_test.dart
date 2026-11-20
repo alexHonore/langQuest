@@ -57,7 +57,7 @@ void main() {
     expect(redirectFor('/review', hasEnrollment: true), isNull);
   });
 
-  testWidgets('first run: welcome → courses ready in English → disclosure → enrolled Home', (t) async {
+  testWidgets('first run: search French-taught courses, review the offer and start learning', (t) async {
     usePhone(t);
     await t.pumpWidget(await testApp());
     await settle(t);
@@ -66,13 +66,11 @@ void main() {
     await tapText(t, 'Choose a course');
     expect(find.text('What do you want to learn?'), findsOneWidget);
     expect(find.text('Arabic (Moroccan)'), findsOneWidget);
-    // Every course has a chapter from English now (the list is long: scroll to the ones further down).
-    final courses = find.byType(Scrollable).first;
-    for (final name in ['Chinese (Mandarin)', 'Japanese', 'Russian', 'Spanish (Spain-Castilian)']) {
-      await t.scrollUntilVisible(find.text(name), 300, scrollable: courses);
-      expect(find.text(name), findsOneWidget, reason: name);
-    }
-    expect(find.text('English'), findsNothing, reason: 'English is taught from French and Russian only');
+    expect(t.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, 'French')).selected, isTrue);
+    await t.enterText(find.byType(TextField), 'espagne');
+    await settle(t);
+    expect(find.text('Spanish (Spain-Castilian)'), findsOneWidget);
+    expect(find.text('Spanish (Latin American)'), findsNothing);
 
     await tapText(t, 'Spanish (Spain-Castilian)');
     expect(find.text('What this course includes'), findsOneWidget);
@@ -81,13 +79,16 @@ void main() {
     expect(find.textContaining('Native-speaker review'), findsOneWidget);
 
     await tapText(t, 'Start this course');
-    expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'spanish-spain|en');
+    expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'spanish-spain|fr');
     // The first run ends with a warm-up: the course's first phrase, unscored.
     expect(find.text('Try your first phrase'), findsOneWidget);
     expect(find.text('Hola, buenos días.'), findsOneWidget);
-    expect(find.text('Hello, good morning.'), findsOneWidget);
+    expect(find.text('Bonjour.'), findsOneWidget);
     await tapText(t, 'Start learning');
-    expect(find.text('Greet and introduce yourself'), findsWidgets);
+    expect(find.text('Learn · Saluer et se présenter'), findsOneWidget);
+    await t.tap(find.byTooltip('Close'));
+    await settle(t);
+    expect(find.text('from French'), findsOneWidget);
     expect(find.text('Start: Learn'), findsOneWidget);
     // Only tabs backed by something real: no Audio, no Speak.
     expect(find.text('Home'), findsOneWidget);
@@ -113,21 +114,31 @@ void main() {
       final mission = testBundle.mission('es_greet_and_introduce')!;
       final plan = buildLearnPlan(mission: mission, track: testBundle.track('spanish-spain')!, source: 'en', character: testBundle.characterOf(mission));
 
-      await tapText(t, 'Start: Learn'); // Home card
+      Future<void> resumeFromHome() async {
+        await t.tap(find.byTooltip('Close'));
+        await settle(t);
+        await tapText(t, 'Resume lesson');
+      }
+
+      await tapText(t, 'View mission');
       expect(find.text('Lucía'), findsWidgets, reason: 'the mission character is on the path');
-      await tapText(t, 'Start: Learn'); // path primary action
+      await t.tap(find.byTooltip('Back'));
+      await settle(t);
+      await tapText(t, 'Start: Learn');
 
       // L1 scene: every line is shown with its meaning; the learner shadows their own lines.
-      for (final line in plan.sceneLines) {
+      for (final (i, line) in plan.sceneLines.indexed) {
         expect(find.text(line.expression.text), findsOneWidget);
         expect(find.text(plan.meaningOf(line.expression)), findsOneWidget);
         await tapText(t, line.byLearner ? 'I said it' : (line == plan.sceneLines.last ? 'Learn the phrases' : 'Next'));
+        if (i == 0) await resumeFromHome();
       }
 
       // L3 cards.
       for (var i = 0; i < plan.phrases.length; i++) {
         expect(find.text(plan.phrases[i].text), findsOneWidget);
         await tapText(t, i == plan.phrases.length - 1 ? 'Practise' : 'Next phrase');
+        if (i == 0) await resumeFromHome();
       }
       expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn});
 
@@ -199,6 +210,7 @@ void main() {
 
       for (final step in steps) {
         await play(step, wrongly: step == missed);
+        if (step == missed) await resumeFromHome();
       }
       // The question missed is asked once more, and says so.
       expect(find.text('Once more'), findsOneWidget);
@@ -231,6 +243,7 @@ void main() {
         await reply(x.answer);
         expect(find.text('Say it out loud'), findsOneWidget);
         await tapText(t, 'I said it');
+        if (i == 0) await resumeFromHome();
         // The exchange joins the thread of the conversation.
         if (i < plan.exchanges.length - 1) expect(find.text(x.answer.text), findsWidgets);
       }
@@ -264,7 +277,7 @@ void main() {
     containerOf(t).read(appRouterProvider).go('/course/japanese');
     await settle(t);
     await tapText(t, 'Start this course');
-    expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'japanese|en');
+    expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'japanese|fr');
     expect(find.text('Try your first phrase'), findsNothing);
     expect(find.text('Start: Learn'), findsOneWidget);
   });
@@ -284,11 +297,10 @@ void main() {
     await tapText(t, 'Ordering at a café');
     expect(find.text('Finish “Greet and introduce yourself” first'), findsOneWidget);
     expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/missions', reason: 'the locked node did not open');
-    // The next mission opens its page: its number in the course, and its steps.
+    // The next mission opens directly at its first activity.
     await t.scrollUntilVisible(find.text('Greet and introduce yourself'), -200, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Greet and introduce yourself');
-    expect(find.text('Mission 1 of 22'), findsOneWidget, reason: 'chapter 1 (4 missions) and chapters 2–4 (6 each)');
-    expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/path/ja_greet_and_introduce');
+    expect(find.text('Learn · Greet and introduce yourself'), findsOneWidget);
   });
 
   testWidgets('French interface, Darija from French: right-to-left script with Arabizi, no voice controls', (t) async {
@@ -298,21 +310,17 @@ void main() {
     expect(find.text('Apprenez une langue en la pratiquant'), findsOneWidget);
     await tapText(t, 'Choisir un cours');
     expect(find.text('Arabe (marocain)'), findsOneWidget);
-    await t.scrollUntilVisible(find.text('Anglais'), 300, scrollable: find.byType(Scrollable).first);
-    expect(find.text('Anglais'), findsOneWidget);
-    expect(find.text('Français'), findsNothing, reason: 'French is taught from English only');
-    await t.scrollUntilVisible(find.text('Arabe (marocain)'), -300, scrollable: find.byType(Scrollable).first);
+    expect(t.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, 'français')).selected, isTrue);
+    await t.enterText(find.byType(TextField), 'marocain');
+    await settle(t);
     await tapText(t, 'Arabe (marocain)');
-    await t.scrollUntilVisible(find.textContaining('Une voix pour ce dialecte'), 200, scrollable: find.byType(Scrollable).first);
+    await t.scrollUntilVisible(find.text('Des extraits audio pour les phrases du cours'), 200, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Commencer ce cours');
     // The warm-up phrase, in French, without voice controls (no Darija voice).
     expect(find.text('Essayez votre première phrase'), findsOneWidget);
     expect(find.text('Écouter'), findsNothing);
     expect(find.text('Dites-la à voix haute. Rien n’est noté ici.'), findsOneWidget, reason: 'no "listen" without a voice');
     await tapText(t, 'Commencer à apprendre');
-    expect(find.text('Commencer : Apprendre'), findsOneWidget);
-    await tapText(t, 'Commencer : Apprendre');
-    await tapText(t, 'Commencer : Apprendre');
 
     final salam = find.text('السلام عليكم');
     expect(salam, findsOneWidget);

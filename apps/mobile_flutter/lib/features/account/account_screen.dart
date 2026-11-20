@@ -113,7 +113,7 @@ class AccountScreen extends ConsumerWidget {
             section(l10n.display),
             const DisplaySettings(),
             section(l10n.yourCourses),
-            for (final e in appState.learner.enrollments)
+            for (final e in appState.learner.enrollmentsInInstructionOrder)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: GlassContainer(

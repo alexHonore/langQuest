@@ -10,12 +10,14 @@ import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import '../scenes/animated_scene.dart';
 import 'learn_content.dart';
+import 'learn_logic.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
 import 'record_take.dart';
@@ -50,7 +52,16 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   void initState() {
     super.initState();
     _speech = ref.read(speechServiceProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _speakCurrent());
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    final saved = ref.read(appStateProvider).checkpoint(widget.missionKey, PathStop.learn);
+    if (plan != null && saved != null && saved.activity == LessonActivity.scene) {
+      final resumed = plan.sceneLines.indexWhere((line) => line.expression.id == saved.stepId);
+      if (resumed >= 0) _index = resumed;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _speakCurrent();
+    });
+    if (_index > 0) _followThread();
   }
 
   @override
@@ -100,14 +111,19 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   }
 
   void _next(MissionLearnPlan plan) {
+    final save = ref.read(appStateProvider.notifier);
     if (_index < plan.sceneLines.length - 1) {
       _step.reset();
       setState(() => _index++);
+      save.saveCheckpoint(widget.missionKey, LessonCheckpoint(LessonActivity.scene, plan.sceneLines[_index].expression.id));
       _followThread();
       _speakCurrent();
     } else {
       _utterance++;
       _speech.stop();
+      if (plan.phrases.firstOrNull case final phrase?) {
+        save.saveCheckpoint(widget.missionKey, LessonCheckpoint(LessonActivity.cards, phrase.id));
+      }
       context.pushReplacement('/learn/${widget.missionKey}/cards');
     }
   }
@@ -128,8 +144,8 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final sceneId = sceneIdForMission(plan.mission);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
-    // The learner's line waits for a take (understood where the server checks), unless speaking is paused.
-    final waiting = learnerTurn && speakingRequired(ref) && !_step.done;
+    final quiet = appState.progress.quietMissions.contains(widget.missionKey);
+    final waiting = learnerTurn && !quiet && speakingRequired(ref) && !_step.done;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -242,12 +258,22 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                           ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
                           if (learnerTurn) ...[
                             const SizedBox(height: 8),
-                            RecordTake(
-                              key: ValueKey('take-$index'),
-                              voiceLocale: plan.voiceLocale,
-                              check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                              onTake: (outcome) => setState(() => _step.take(outcome)),
-                            ),
+                            if (quiet)
+                              ResumeRecordingButton(missionKey: widget.missionKey)
+                            else
+                              RecordTake(
+                                key: ValueKey('take-$index'),
+                                voiceLocale: plan.voiceLocale,
+                                check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                                onTake: (outcome) => setState(() => _step.take(outcome)),
+                                retryCount: _step.tries,
+                                onContinueWithoutRecording: waiting
+                                    ? () {
+                                        ref.read(appStateProvider.notifier).setMissionQuiet(widget.missionKey, true);
+                                        _next(plan);
+                                      }
+                                    : null,
+                              ),
                           ],
                         ],
                       ),
@@ -260,24 +286,15 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (waiting)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: SpeakingHint(tries: _step.tries),
-                    ),
-                  LearnPrimaryButton(
-                    label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
-                    icon: LucideIcons.chevronRight,
-                    onPressed: waiting ? null : () => _next(plan),
-                  ),
-                ],
+            if (!waiting)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                child: LearnPrimaryButton(
+                  label: learnerTurn && !quiet ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
+                  icon: LucideIcons.chevronRight,
+                  onPressed: () => _next(plan),
+                ),
               ),
-            ),
           ],
         ),
       ),

@@ -65,14 +65,10 @@ class AudioListened extends Notifier<Map<String, Set<String>>> {
 
 final audioListenedProvider = NotifierProvider<AudioListened, Map<String, Set<String>>>(AudioListened.new);
 
-/// Whether the active course's lessons can be heard here (its bundled clips, a device voice for it, or the server's AI
-/// voice): the Audio tab exists only then (visible means usable). The bundled clips count at once, so the tab does not
-/// wait for the device to list its own voices.
+/// Show Audio when the active course contains a playable lesson.
 final audioLessonsAvailableProvider = Provider.autoDispose<bool>((ref) {
-  final locale = ref.watch(appStateProvider.select((s) => s.activeCourse?.track.voiceLocale));
-  final course = ref.watch(appStateProvider.select((s) => s.activeCourse?.id));
-  if (course == null) return false;
-  return ref.watch(lineVoiceNowProvider(locale))?.available ?? false;
+  final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  return course != null && coursePlans(ref.watch, course).isNotEmpty;
 });
 
 AudioNarration narrationOf(AppLocalizations l10n) => AudioNarration(
@@ -90,31 +86,25 @@ AudioNarration narrationOf(AppLocalizations l10n) => AudioNarration(
 /// How a provider is read: `ref.watch` while building, `ref.read` anywhere else.
 typedef ProviderReader = T Function<T>(ProviderListenable<T> provider);
 
-/// Whether [plan]'s lesson can be heard with [voice]: every line of it can be said here. A chapter whose lines have
-/// no recorded clip yet is heard only where the device (or the server) has a voice for the course; elsewhere its
-/// lessons are not offered (visible means usable).
-bool planAudible(MissionLearnPlan plan, LineVoice? voice) =>
-    voice != null &&
-    voice.available &&
-    plan.sceneLines.every((l) => voice.canSay(expressionId: l.expression.id)) &&
-    plan.phrases.every((e) => voice.canSay(expressionId: e.id));
-
 /// The learn plans of [course]'s missions whose lesson can be heard here, in order ([learnedOnly]: those whose Learn
 /// stop is done).
 List<MissionLearnPlan> coursePlans(ProviderReader read, Course course, {bool learnedOnly = false}) {
   final stops = read(appStateProvider.select((s) => s.progress.stops));
   final voice = read(lineVoiceNowProvider(course.track.voiceLocale));
+  if (voice == null) return const [];
   return [
     for (final mission in course.missions)
       if (!learnedOnly || (stops[mission.key]?.contains(PathStop.learn) ?? false))
-        if (read(learnPlanProvider(mission.key)) case final plan? when planAudible(plan, voice)) plan,
+        if (read(learnPlanProvider(mission.key)) case final plan? when planAudible(plan, (id) => voice.canSay(expressionId: id))) plan,
   ];
 }
 
 /// Whether [missionKey]'s audio lesson can be heard here.
 final audioLessonAudibleProvider = Provider.autoDispose.family<bool, String>((ref, missionKey) {
   final plan = ref.watch(learnPlanProvider(missionKey));
-  return plan != null && planAudible(plan, ref.watch(lineVoiceNowProvider(plan.voiceLocale)));
+  if (plan == null) return false;
+  final voice = ref.watch(lineVoiceNowProvider(plan.voiceLocale));
+  return voice != null && planAudible(plan, (id) => voice.canSay(expressionId: id));
 });
 
 /// A mix of [course], narrated with [words]; null when there is nothing to make it from (a recall before anything

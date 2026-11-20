@@ -153,7 +153,7 @@ void main() {
   group('learn plans built from the real draft curriculum', () {
     final plans = allPlans().toList();
 
-    test('the bundle teaches every course from English and French (French from English, English from French)', () {
+    test('the bundle offers French first for courses taught from both languages', () {
       for (final track in testBundle.tracks) {
         final sources = testBundle.sourcesFor(track.id);
         if (track.id == 'english') {
@@ -161,13 +161,26 @@ void main() {
         } else if (track.id == 'french') {
           expect(sources, ['en']);
         } else {
-          expect(sources, ['en', 'fr'], reason: track.id);
+          expect(sources, ['fr', 'en'], reason: track.id);
         }
       }
       expect(testBundle.tracks, hasLength(30));
       // Chapter 1: Darija 7 + Spanish 6 + Japanese 4 (each from en and fr), English 4 (fr), French 7 (en), 25 more
       // courses × 7 (en, fr). Chapters 2–4: 6 missions each in every course, English from fr, French from en, 28 from both.
       expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2 + 3 * (6 + 6 + 28 * 6 * 2));
+    });
+
+    test('the Cairo starter lets French learners reply to two voiced character turns', () {
+      final plan = plans.firstWhere((p) => p.mission.key == 'arabic_egyptian_greet_and_introduce' && p.source == 'fr');
+      expect(plan.characterName, 'Mona');
+      expect(plan.exchanges, hasLength(2));
+      for (final exchange in plan.exchanges) {
+        final cue = exchange.cue!;
+        expect(cue.byLearner, isFalse);
+        expect(plan.meaningOf(cue), isNotEmpty);
+        expect(testBundle.voices.clipOf(cue.id), isNotNull);
+      }
+      expect(plan.meaningOf(plan.exchanges.first.answer), 'Grâce à Dieu, ça va bien.');
     });
 
     test('every plan has a scene with a line to shadow, cards, pairs and exchanges', () {

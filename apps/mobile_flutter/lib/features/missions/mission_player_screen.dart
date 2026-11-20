@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,12 +16,13 @@ import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
-import '../../core/theme/typography.dart';
 import '../../core/services/learner_state.dart';
+import '../../core/theme/typography.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../learn/exercise_widgets.dart';
 import '../learn/learn_content.dart';
+import '../learn/learn_logic.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
 import '../learn/record_take.dart';
@@ -49,6 +51,7 @@ class MissionPlayerScreen extends ConsumerStatefulWidget {
 }
 
 class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
+  static const _recapStep = 'recap';
   _Phase _phase = _Phase.exchange;
   int _exchange = 0;
   int? _selected;
@@ -79,11 +82,34 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   void initState() {
     super.initState();
     _speech = ref.read(speechServiceProvider);
-    _wasCompleted = ref.read(appStateProvider).progress.isMissionCompleted(widget.missionKey);
+    final appState = ref.read(appStateProvider);
+    _wasCompleted = appState.progress.isMissionCompleted(widget.missionKey);
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    final saved = appState.checkpoint(widget.missionKey, PathStop.mission);
+    if (plan != null && saved != null && saved.activity == LessonActivity.mission) _resume(plan, saved);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       ref.read(appStateProvider.notifier).missionOpened(widget.missionKey);
-      _introduce();
+      if (plan != null && plan.exchanges.isNotEmpty) _saveCheckpoint(plan);
+      if (_phase == _Phase.exchange) _introduce();
     });
+    if (_exchange > 0) _followThread();
+  }
+
+  void _resume(MissionLearnPlan plan, LessonCheckpoint saved) {
+    final exchanges = plan.exchanges;
+    final count = saved.completedSteps.length;
+    if (count == 0 || count > exchanges.length) return;
+    final nextId = count == exchanges.length ? _recapStep : exchanges[count].answer.id;
+    final completed = [for (final exchange in exchanges.take(count)) exchange.answer.id];
+    if (saved.stepId != nextId || !listEquals(saved.completedSteps, completed)) return;
+
+    _exchange = count == exchanges.length ? count - 1 : count;
+    if (count == exchanges.length) _phase = _Phase.recap;
+    for (final id in completed) {
+      if (saved.firstTry[id] case final correct?) _firstTry[id] = correct;
+      if (saved.spoken[id] case final understood?) _spoken[id] = understood;
+    }
   }
 
   @override
@@ -183,8 +209,26 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         _phase = _Phase.recap;
       }
     });
+    _saveCheckpoint(plan);
     _followThread();
     if (_phase == _Phase.exchange) _introduce();
+  }
+
+  void _saveCheckpoint(MissionLearnPlan plan) {
+    final atRecap = _phase == _Phase.recap;
+    final completed = [for (final exchange in plan.exchanges.take(atRecap ? plan.exchanges.length : _exchange)) exchange.answer.id];
+    ref
+        .read(appStateProvider.notifier)
+        .saveCheckpoint(
+          widget.missionKey,
+          LessonCheckpoint(
+            LessonActivity.mission,
+            atRecap ? _recapStep : plan.exchanges[_exchange].answer.id,
+            completedSteps: completed,
+            firstTry: Map.of(_firstTry),
+            spoken: Map.of(_spoken),
+          ),
+        );
   }
 
   /// The learner answered out loud before choosing: understood is the right reply given unaided (first try, good);
@@ -294,9 +338,9 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final l10n = context.l10n;
     final cue = exchange.cue;
     final wrong = _selected != null && _selected != exchange.answerIndex;
-    final canAnswerOutLoud = ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
-    // Said out loud already (understood), or waits for a take of the chosen reply.
-    final waitingForTake = _answered && !_answeredByVoice && speakingRequired(ref) && !_sayStep.done;
+    final quiet = appState.progress.quietMissions.contains(widget.missionKey);
+    final canAnswerOutLoud = !quiet && ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
+    final waitingForTake = _answered && !_answeredByVoice && !quiet && speakingRequired(ref) && !_sayStep.done;
 
     // Where the conversation happens, then what was exchanged before, as its thread.
     final thread = <Widget>[
@@ -371,11 +415,15 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Icon(_answeredByVoice ? LucideIcons.circleCheck : LucideIcons.mic, size: 16, color: _answeredByVoice ? colors.success : accent.primaryText),
+            Icon(
+              _answeredByVoice || quiet ? LucideIcons.circleCheck : LucideIcons.mic,
+              size: 16,
+              color: _answeredByVoice ? colors.success : accent.primaryText,
+            ),
             const SizedBox(width: 6),
             Flexible(
               child: Text(
-                _answeredByVoice ? l10n.missionAnsweredOutLoud : l10n.missionSayIt,
+                _answeredByVoice ? l10n.missionAnsweredOutLoud : (quiet ? l10n.missionYourReply : l10n.missionSayIt),
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _answeredByVoice ? colors.success : accent.primaryText),
               ),
             ),
@@ -414,6 +462,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 13.5, color: colors.textSecondary),
                 )
+              else if (quiet)
+                ResumeRecordingButton(missionKey: widget.missionKey)
               else if (!_answeredByVoice)
                 RecordTake(
                   key: ValueKey('take-$_exchange'),
@@ -422,6 +472,13 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
                   onVerdict: (verdict) => _onVerdict(exchange, verdict),
                   onTake: (outcome) => setState(() => _sayStep.take(outcome)),
+                  retryCount: _sayStep.tries,
+                  onContinueWithoutRecording: waitingForTake
+                      ? () {
+                          ref.read(appStateProvider.notifier).setMissionQuiet(widget.missionKey, true);
+                          _nextExchange(plan);
+                        }
+                      : null,
                 ),
               MeloWidget(
                 state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
@@ -516,23 +573,13 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [...thread, prompt, ...turn]),
           ),
         ),
-        if (_answered)
+        if (_answered && !waitingForTake)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (waitingForTake)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: SpeakingHint(tries: _sayStep.tries),
-                  ),
-                LearnPrimaryButton(
-                  label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
-                  icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
-                  onPressed: waitingForTake ? null : () => _nextExchange(plan),
-                ),
-              ],
+            child: LearnPrimaryButton(
+              label: _answeredByVoice || quiet ? l10n.next : l10n.sceneISaidIt,
+              icon: _answeredByVoice || quiet ? LucideIcons.chevronRight : LucideIcons.check,
+              onPressed: () => _nextExchange(plan),
             ),
           ),
       ],

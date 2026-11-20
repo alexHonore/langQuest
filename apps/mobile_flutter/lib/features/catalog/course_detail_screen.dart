@@ -5,14 +5,16 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/backend/account.dart';
+import '../../core/backend/server_voice.dart';
+import '../../core/audio/clip_player_provider.dart';
 import '../../core/content/course_loading.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
-import '../../core/services/speech_service.dart';
 import '../../core/theme/accents.dart';
 import '../../core/theme/glass.dart';
 import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
+import '../learn/learn_content.dart';
 import '../learn/learn_widgets.dart';
 
 /// One course before enrolling (CONVENTIONS §8 disclosure): what it includes from the chosen instruction
@@ -22,7 +24,8 @@ import '../learn/learn_widgets.dart';
 /// (`GET /v1/courses`); offline, those stay under "not yet".
 class CourseDetailScreen extends ConsumerStatefulWidget {
   final String trackId;
-  const CourseDetailScreen({super.key, required this.trackId});
+  final String? initialSource;
+  const CourseDetailScreen({super.key, required this.trackId, this.initialSource});
 
   @override
   ConsumerState<CourseDetailScreen> createState() => _CourseDetailScreenState();
@@ -41,7 +44,8 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final ui = appState.uiLanguage;
     final accent = CourseAccent.forTrack(track, isDark: appState.isDark);
     final sources = appState.content.sourcesFor(track.id);
-    final source = _source != null && sources.contains(_source) ? _source! : defaultSourceFor(sources, ui);
+    final selected = _source ?? widget.initialSource;
+    final source = sources.contains(selected) ? selected : sources.firstOrNull;
     // Null while the course's chapters are being read (shown by CourseLoading below) and for a planned course.
     final course = source == null ? null : appState.content.course(track.id, source);
     final enrolled = source != null && appState.learner.isEnrolled(track.id, source);
@@ -52,12 +56,16 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final phraseIds = {for (final m in course?.missions ?? const <Mission>[]) ...m.expressions.map((e) => e.id)};
     final realExamples = appState.content.examples;
     final attested = phraseIds.where((id) => realExamples.of(id)?.attested != null).length;
-    // A dialect without a device voice (Darija): the server's recognizer and voices are rated "limited" for it too.
     final dialect = track.voiceLocale == null;
-    final aiVoice = offer?.aiVoice ?? false;
-    final deviceVoice = ref.watch(voiceAvailableProvider(track.voiceLocale)).asData?.value ?? false;
-    // Audio lessons are made on the device from each mission; they need a voice to read them.
-    final audioLessons = deviceVoice || aiVoice;
+    final bundled = ref.watch(bundledVoiceProvider);
+    final aiVoiceWithAccount = ref.watch(clipPlayerFactoryProvider) != null && (offer?.aiVoice ?? false);
+    final hasClips = bundled != null && phraseIds.any(bundled.has);
+    final hasAudioLessons =
+        hasClips &&
+        course!.missions.any(
+          (mission) =>
+              planAudible(buildLearnPlan(mission: mission, track: track, source: course.source, character: appState.content.characterOf(mission)), bundled.has),
+        );
 
     Widget bullet(IconData icon, Color color, String text) => Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -190,14 +198,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
                             bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
                             bullet(LucideIcons.gamepad2, colors.success, l10n.courseIncludesGames),
-                            if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
-                            if (dialect && aiVoice) bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiVoiceDialect),
-                            if (audioLessons)
-                              bullet(
-                                LucideIcons.headphones,
-                                colors.success,
-                                l10n.courseIncludesAudioLessons(deviceVoice ? l10n.courseVoiceDevice : l10n.courseVoiceAi),
-                              ),
+                            if (hasAudioLessons)
+                              bullet(LucideIcons.headphones, colors.success, l10n.courseIncludesAudioLessons(l10n.courseVoiceAi))
+                            else if (hasClips)
+                              bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiClips),
+                            if (!hasAudioLessons && aiVoiceWithAccount) bullet(LucideIcons.audioLines, colors.success, l10n.courseVoiceWithAccount),
                             if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
                             if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
                             if (attested > 0) bullet(LucideIcons.badgeCheck, colors.success, l10n.courseIncludesRealExamples(attested, phraseIds.length)),
@@ -218,12 +223,12 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             ),
                             const SizedBox(height: 12),
                             if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
-                            if (dialect && (liveCalls || spokenCheck || aiVoice))
+                            if (dialect && (liveCalls || spokenCheck || aiVoiceWithAccount))
                               bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
-                            if (dialect && !aiVoice) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
+                            if (!hasClips && !aiVoiceWithAccount) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingLineAudio),
                             if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
                             bullet(LucideIcons.minus, colors.textMuted, spokenCheck ? l10n.courseMissingPronunciationScore : l10n.courseMissingPronunciation),
-                            bullet(LucideIcons.minus, colors.textMuted, audioLessons ? l10n.courseMissingAudioRecorded : l10n.courseMissingAudio),
+                            bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingAudioRecorded),
                           ],
                         ),
                       ),
@@ -257,7 +262,3 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     );
   }
 }
-
-/// The instruction language preselected for a course: the interface language when the course is taught from it,
-/// else the first one it is taught from (null for a planned course).
-String? defaultSourceFor(List<String> sources, String uiLanguage) => sources.contains(uiLanguage) ? uiLanguage : (sources.isEmpty ? null : sources.first);

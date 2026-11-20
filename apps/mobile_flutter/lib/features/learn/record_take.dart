@@ -91,10 +91,23 @@ class RecordTake extends ConsumerStatefulWidget {
   /// What each take came to (a speaking step moves on with it).
   final ValueChanged<TakeOutcome>? onTake;
 
+  final VoidCallback? onContinueWithoutRecording;
+  final int retryCount;
+
   /// The AI's pronunciation feedback comes by itself after each take (signed in), not only on request.
   final bool autoFeedback;
 
-  const RecordTake({super.key, this.voiceLocale, this.centered = false, this.check, this.onVerdict, this.onTake, this.autoFeedback = true});
+  const RecordTake({
+    super.key,
+    this.voiceLocale,
+    this.centered = false,
+    this.check,
+    this.onVerdict,
+    this.onTake,
+    this.onContinueWithoutRecording,
+    this.retryCount = 0,
+    this.autoFeedback = true,
+  });
 
   /// A take stops by itself after this long: a line takes a few seconds; this ends a forgotten recording.
   static const maxTake = Duration(seconds: 15);
@@ -345,14 +358,19 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     if (ref.watch(takeRecorderFactoryProvider) == null) return const SizedBox.shrink();
     final colors = ref.watch(appStateProvider.select((s) => s.colors));
     final l10n = context.l10n;
-    final voiceLocale = widget.voiceLocale;
-    final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
+    final voice = ref.watch(lineVoiceNowProvider(widget.voiceLocale));
+    final expressionId = widget.check?.expressionId;
+    final hasVoice = expressionId == null ? (voice?.available ?? false) : (voice?.canSay(expressionId: expressionId) ?? false);
     final note = TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted);
     final checker = widget.check == null ? null : ref.watch(speechCheckerProvider);
     final coach = widget.check == null ? null : ref.watch(pronunciationCoachProvider);
     final idleNote = checker == null ? l10n.recordStaysOnDevice : (checker.keepsRecordings ? l10n.recordCheckedKept : l10n.recordChecked);
 
-    final record = AudioChip(icon: LucideIcons.mic, label: l10n.recordYourself, onTap: _state == _Take.starting ? null : _start);
+    final record = AudioChip(
+      icon: LucideIcons.mic,
+      label: hasVoice && widget.onContinueWithoutRecording != null ? l10n.recordAndCompare : l10n.recordYourself,
+      onTap: _state == _Take.starting ? null : _start,
+    );
     final tryAgain = AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordTryAgain, onTap: _start);
 
     final (List<Widget> chips, String? message) = switch (_state) {
@@ -422,8 +440,20 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
           runSpacing: 8,
           alignment: widget.centered ? WrapAlignment.center : WrapAlignment.start,
           crossAxisAlignment: WrapCrossAlignment.center,
-          children: chips,
+          children: [
+            ...chips,
+            if (widget.onContinueWithoutRecording != null && _state != _Take.starting && _state != _Take.recording)
+              AudioChip(
+                icon: LucideIcons.chevronRight,
+                label: l10n.continueWithoutRecording,
+                background: colors.surface,
+                foreground: colors.textPrimary,
+                onTap: widget.onContinueWithoutRecording,
+              ),
+          ],
         ),
+        if (widget.onContinueWithoutRecording != null && widget.retryCount > 0)
+          Semantics(liveRegion: true, child: Text(l10n.speakTryAgain(widget.retryCount, SpeakingStep.maxTries), style: note)),
         // Announced when it changes: recording started, the take is ready, or why there is none.
         Semantics(
           liveRegion: true,
@@ -494,6 +524,22 @@ bool speakingRequiredNow(WidgetRef ref) => ref.read(takeRecorderFactoryProvider)
 bool speakingRequired(WidgetRef ref) {
   ref.watch(speakingPauseProvider);
   return ref.watch(takeRecorderFactoryProvider) != null && !ref.read(speakingPauseProvider.notifier).active;
+}
+
+class ResumeRecordingButton extends ConsumerWidget {
+  const ResumeRecordingButton({super.key, required this.missionKey});
+
+  final String missionKey;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(takeRecorderFactoryProvider) == null) return const SizedBox.shrink();
+    return TextButton.icon(
+      icon: const Icon(LucideIcons.mic, size: 16),
+      label: Text(context.l10n.useMicrophone),
+      onPressed: () => ref.read(appStateProvider.notifier).setMissionQuiet(missionKey, false),
+    );
+  }
 }
 
 /// Under a speaking step's continue button while it waits for the line: what to do, and "Can't speak now".

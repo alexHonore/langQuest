@@ -160,6 +160,7 @@ function missionEntry(chapter: SeedChapter, mission: SeedMission) {
     characterKey: mission.characterKey,
     titles: mission.titles,
     sceneNotes: mission.sceneNotes,
+    ...(mission.sceneOrder ? { sceneOrder: mission.sceneOrder } : {}),
     slots: bp.slots.map((s) => ({ slotId: s.slotId, speaker: s.speaker })),
     expressions: mission.expressions.filter((e) => e.targetText !== null).map((e) => expressionEntry(chapter, mission, e)),
   };

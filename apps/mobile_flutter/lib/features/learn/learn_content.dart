@@ -188,6 +188,12 @@ const _choicesPerKind = 2;
 const _minGapWords = 3;
 const _maxGapWords = 9;
 
+/// An audio lesson is offered when its full scene and phrase practice can be voiced.
+bool planAudible(MissionLearnPlan plan, bool Function(String) canSay) =>
+    (plan.sceneLines.isNotEmpty || plan.phrases.isNotEmpty) &&
+    plan.sceneLines.every((line) => canSay(line.expression.id)) &&
+    plan.phrases.every((phrase) => canSay(phrase.id));
+
 /// [items] keeping only the first of each intent, in order.
 Iterable<Expression> _distinctIntents(Iterable<Expression> items) {
   final seen = <String>{};
@@ -216,12 +222,14 @@ MissionLearnPlan buildLearnPlan({required Mission mission, required CourseTrackI
   String meaning(Expression e) => e.meaningIn(source)?.meaning ?? '';
   final characterName = character?.name ?? '';
 
-  // L1 scene: the dialogue lines (expressions that fill a blueprint slot), in authored slot order.
+  // Use an explicitly written dialogue when present. Older missions use their blueprint-slot lines.
+  final expressions = {for (final expression in mission.expressions) expression.key: expression};
+  final authored = [for (final key in mission.sceneOrder) ?expressions[key]];
   final slotted = [
     for (final e in mission.expressions)
       if (e.slotId != null) e,
   ];
-  final dialogue = slotted.length >= 2 ? slotted : mission.expressions;
+  final dialogue = authored.length >= 2 && authored.length == mission.sceneOrder.length ? authored : (slotted.length >= 2 ? slotted : mission.expressions);
   final sceneLines = [for (final e in dialogue) SceneLine(expression: e, speakerName: e.byLearner ? '' : characterName)];
 
   // L3 cards: every phrase the learner says in this mission (dialogue lines first, then extra variants).

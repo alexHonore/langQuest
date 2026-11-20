@@ -78,6 +78,8 @@ export const SeedMissionSchema = z.object({
   sceneNotes: z.partialRecord(SourceLanguageCodeSchema, z.string().min(1)).default({}),
   characterKey: KeySchema,
   expressions: z.array(SeedExpressionSchema),
+  /** Expression keys in an explicitly authored scene, in speaking order. */
+  sceneOrder: z.array(KeySchema).min(2).optional(),
   /** Per-mission casting overrides (each field set replaces the blueprint default; see `castForMission`). */
   casting: MissionCastingSchema.partial().nullable().default(null),
   /** Explicit `@langquest/ui` roster slug (or uuid) to cast for this mission; must exist in the chapter's variety. */
