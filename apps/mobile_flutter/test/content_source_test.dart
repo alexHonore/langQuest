@@ -85,6 +85,7 @@ void main() {
       final root = Uri.parse('https://app.test/assets/assets/');
       final location = ContentLocation(Uri.parse(base)).withAudioRepairs(manifest, root);
       expect(location.clip('assets/$old'), root.resolve(newKey));
+      expect(location.clip('assets/audio/lines/clean/ary-puck-8555a2b9476e888a.b7756c3134b6.mp3'), root.resolve(newKey));
       expect(location.clip('assets/$newKey'), root.resolve(newKey));
       expect(File('assets/$newKey').existsSync(), isTrue);
       expect(location.clip('assets/audio/lines/other.mp3'), Uri.parse('${base}audio/lines/other.mp3'));

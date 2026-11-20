@@ -94,6 +94,8 @@ jobs:
           curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/voices/arabic-egyptian.json
           repaired=$(node -p "require('./apps/mobile_flutter/assets/audio/repairs.json')['lines/ary-puck-8555a2b9476e888a.mp3'].file")
           curl -fsS -o /dev/null "http://localhost:8080/assets/assets/audio/$repaired"
+          previous=/assets/assets/audio/lines/clean/ary-puck-8555a2b9476e888a.b7756c3134b6.mp3
+          test "$(curl -s -o /dev/null -w '%{redirect_url}' "http://localhost:8080$previous")" = "http://localhost:8080/assets/assets/audio/$repaired"
           curl -fsS -o /dev/null http://localhost:8080/data/content/catalog.json
           curl -fsS -o /dev/null http://localhost:8080/data/content/chapters/spanish-spain.json
           curl -fsS http://localhost:8080/sw.js | grep -q "langquest-v1"   # the offline service worker
