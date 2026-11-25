@@ -164,3 +164,40 @@ class ChoiceState {
 
   bool isWrong(int index) => wrong.contains(index);
 }
+
+const _folds = {
+  'a': 'áàâäãåāăạảấầẩẫậắằẳẵặ',
+  'c': 'çćč',
+  'd': 'đď',
+  'e': 'éèêëēėęěẹẻẽếềểễệɛ',
+  'i': 'íìîïīįịỉĩı',
+  'n': 'ñńň',
+  'o': 'óòôöõøōőọỏốồổỗộơớờởỡợɔ',
+  's': 'śšș',
+  't': 'țť',
+  'u': 'úùûüūůűụủũưứừửữự',
+  'y': 'ýÿỳỵỷỹ',
+  'z': 'źżž',
+  'ae': 'æ',
+  'oe': 'œ',
+  'ss': 'ß',
+  'l': 'ł',
+  'r': 'ř',
+  'g': 'ğ',
+};
+
+final Map<int, String> _foldByRune = {
+  for (final entry in _folds.entries)
+    for (final rune in entry.value.runes) rune: entry.key,
+};
+
+/// [text] in lower case without its accents (`¿Qué tal?` → `¿que tal?`), for a lenient comparison.
+String foldDiacritics(String text) {
+  final out = StringBuffer();
+  for (final rune in text.toLowerCase().runes) {
+    // Combining marks (a decomposed "é" is "e" + U+0301) are dropped.
+    if (rune >= 0x0300 && rune <= 0x036F) continue;
+    out.write(_foldByRune[rune] ?? String.fromCharCode(rune));
+  }
+  return out.toString();
+}

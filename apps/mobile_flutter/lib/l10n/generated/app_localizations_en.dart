@@ -83,6 +83,27 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get latinOnlySetting => 'Latin phonetics only';
+
+  @override
+  String get latinOnlyHelp => 'Use Latin pronunciation in place of the original script when a reading is available.';
+
+  @override
+  String get speakerFormTitle => 'Which form do you use?';
+
+  @override
+  String get speakerFormHelp => 'This sets the grammar for phrases you say about yourself.';
+
+  @override
+  String get speakerCourse => 'Default';
+
+  @override
+  String get speakerMale => 'Masculine';
+
+  @override
+  String get speakerFemale => 'Feminine';
+
+  @override
   String get settings => 'Settings';
 
   @override
@@ -95,7 +116,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeBody => 'Real situations and real dialects, taught before you are tested. Free: no subscriptions, credits or paywalls.';
 
   @override
-  String get welcomeLanguageLabel => 'App and explanations in';
+  String get welcomeLanguageLabel => 'App language';
 
   @override
   String get welcomeContinue => 'Choose a course';
@@ -176,6 +197,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeNextMission => 'Next mission';
+
+  @override
+  String get homeViewMission => 'View mission';
+
+  @override
+  String get resumeLesson => 'Resume lesson';
 
   @override
   String homeNextStop(String stop) {
@@ -270,6 +297,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String pathStartStop(String stop) {
     return 'Start: $stop';
+  }
+
+  @override
+  String pathLearnPhrases(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count phrases', one: '1 phrase');
+    return 'Learn $_temp0';
+  }
+
+  @override
+  String pathPractiseReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count replies to practise', one: '1 reply to practise');
+    return '$_temp0';
   }
 
   @override
@@ -1086,7 +1125,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get audioLibraryTitle => 'Audio lessons';
 
   @override
-  String get audioLibraryBody => 'Each lesson goes four ways: you listen, you repeat, you recall from memory, then you take your part in the conversation.';
+  String get audioLibraryBody => 'Listen, repeat and recall the phrases from each mission.';
 
   @override
   String get audioReadByAi => 'Read by an AI voice';
@@ -1155,11 +1194,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String courseIncludesAudioLessons(String voice) {
-    return 'Audio lessons made from each mission, read by $voice';
+    return 'Audio lessons read by $voice';
   }
 
   @override
-  String get courseVoiceAi => 'an AI voice (with a free account)';
+  String get courseVoiceAi => 'an AI voice';
+
+  @override
+  String get courseIncludesAiClips => 'AI-voiced phrase clips';
+
+  @override
+  String get courseVoiceWithAccount => 'AI-voiced clips for supported missions with a free account';
+
+  @override
+  String get courseMissingLineAudio => 'Audio for the course phrases';
 
   @override
   String get courseVoiceDevice => 'your device’s voice';
@@ -1492,6 +1540,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordSignInToCheck => 'Have LangQuest check what you said and how it sounded: create a free account';
+
+  @override
+  String get recordAndCompare => 'Record and compare';
+
+  @override
+  String get continueWithoutRecording => 'Continue without recording';
+
+  @override
+  String get useMicrophone => 'Use microphone';
+
+  @override
+  String get missionYourReply => 'Your reply';
 
   @override
   String get speakToContinue => 'Say it out loud to continue';

@@ -9,6 +9,7 @@ import '../backend/sync_service.dart';
 import '../content/content_source.dart';
 import '../content/content_bundle.dart';
 import '../content/content_models.dart';
+import '../content/speaker_forms.dart';
 import '../learning/srs.dart';
 import '../theme/accents.dart';
 import '../theme/colors.dart';
@@ -60,6 +61,8 @@ class AppState {
 
   Set<PathStop> stopsDone(String missionKey) => progress.stopsDone(missionKey);
 
+  LessonCheckpoint? checkpoint(String missionKey, PathStop stop) => progress.checkpoint(missionKey, stop);
+
   /// A mission opens once the one before it is completed (the first is always open).
   bool isUnlocked(Course course, String missionKey) {
     final i = course.indexOfMission(missionKey);
@@ -94,10 +97,14 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   @override
   AppState build() {
     // A course's chapters arriving (opened, taken or restored) changes the content only; the learner stays as is.
-    ref.listen(contentBundleProvider, (_, content) => state = AppState(content: content, learner: state.learner, deviceLanguage: state.deviceLanguage));
+    ref.listen(
+      contentBundleProvider,
+      (_, content) => state = AppState(content: forSpeaker(content, state.learner.speakerForm), learner: state.learner, deviceLanguage: state.deviceLanguage),
+    );
+    final learner = ref.read(learnerStoreProvider).load();
     return AppState(
-      content: ref.read(contentBundleProvider),
-      learner: ref.read(learnerStoreProvider).load(),
+      content: forSpeaker(ref.read(contentBundleProvider), learner.speakerForm),
+      learner: learner,
       deviceLanguage: ref.watch(deviceLanguageProvider),
     );
   }
@@ -105,7 +112,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   DateTime get _now => ref.read(clockProvider)();
 
   void _update(LearnerState learner) {
-    state = AppState(content: state.content, learner: learner, deviceLanguage: state.deviceLanguage);
+    final content = state.learner.speakerForm == learner.speakerForm ? state.content : forSpeaker(ref.read(contentBundleProvider), learner.speakerForm);
+    state = AppState(content: content, learner: learner, deviceLanguage: state.deviceLanguage);
     ref.read(learnerStoreProvider).save(learner);
   }
 
@@ -129,6 +137,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void setTextScale(double scale) => _update(state.learner.copyWith(textScale: nearestTextScale(scale)));
   void setReduceMotion(bool reduce) => _update(state.learner.copyWith(reduceMotion: reduce));
   void setMascot(bool shown) => _update(state.learner.copyWith(mascot: shown));
+  void setLatinOnly(bool on) => _update(state.learner.copyWith(latinOnly: on));
+  void setSpeakerForm(SpeakerForm form) => _update(state.learner.copyWith(speakerForm: form));
   void setReadAloud(bool on) => _update(state.learner.copyWith(readAloud: on));
 
   /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course. Its
@@ -206,7 +216,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         if (e.courseId != courseId) e,
     ];
     final courses = {...learner.courses}..remove(courseId);
-    final active = learner.activeCourseId == courseId ? (enrollments.isEmpty ? null : enrollments.first.courseId) : learner.activeCourseId;
+    final fallback = enrollments.where((e) => e.source == preferredInstructionLanguage).firstOrNull ?? enrollments.firstOrNull;
+    final active = learner.activeCourseId == courseId ? fallback?.courseId : learner.activeCourseId;
     _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
     _releaseCoursesLeft();
   }
@@ -222,6 +233,21 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
       content.unloadCourse(track.id);
       unawaited(source?.forgetCourse(track.id));
     }
+  }
+
+  /// Save the next step of an unfinished activity in the active course.
+  void saveCheckpoint(String missionKey, LessonCheckpoint checkpoint) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0) return;
+    final progress = state.progress;
+    if (progress.stopsDone(missionKey).contains(checkpoint.stop)) return;
+    _update(state.learner.withCourse(course.id, progress.withCheckpoint(missionKey, checkpoint)));
+  }
+
+  void setMissionQuiet(String missionKey, bool quiet) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0 || state.progress.quietMissions.contains(missionKey) == quiet) return;
+    _update(state.learner.withCourse(course.id, state.progress.withQuietMission(missionKey, quiet)));
   }
 
   /// Mark a Learn, Practise or Play stop of [missionKey] done in the active course (+5 XP the first time).
@@ -291,6 +317,8 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         reduceMotion: l.reduceMotion,
         mascot: l.mascot,
         readAloud: l.readAloud,
+        speakerForm: l.speakerForm,
+        latinOnly: l.latinOnly,
       ),
     );
     _releaseCoursesLeft();

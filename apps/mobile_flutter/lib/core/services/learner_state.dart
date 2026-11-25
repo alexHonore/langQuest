@@ -4,6 +4,7 @@ library;
 
 import '../../features/learn/learn_logic.dart';
 import '../content/content_bundle.dart';
+import '../content/content_models.dart';
 import '../learning/srs.dart';
 
 /// XP per outcome, from `@langquest/contracts` `XP_AMOUNTS` (XP measures practice, never proficiency).
@@ -42,6 +43,52 @@ class Enrollment {
   }
 }
 
+enum LessonActivity { scene, cards, practise, mission }
+
+/// An activity's next step and the results already committed at earlier step boundaries.
+class LessonCheckpoint {
+  const LessonCheckpoint(this.activity, this.stepId, {this.completedSteps = const [], this.firstTry = const {}, this.spoken = const {}});
+
+  final LessonActivity activity;
+  final String stepId;
+  final List<String> completedSteps;
+  final Map<String, bool> firstTry;
+  final Map<String, bool> spoken;
+
+  PathStop get stop => switch (activity) {
+    LessonActivity.scene || LessonActivity.cards => PathStop.learn,
+    LessonActivity.practise => PathStop.practise,
+    LessonActivity.mission => PathStop.mission,
+  };
+
+  Map<String, Object?> toJson() => {
+    'activity': activity.name,
+    'stepId': stepId,
+    if (completedSteps.isNotEmpty) 'completedSteps': completedSteps,
+    if (firstTry.isNotEmpty) 'firstTry': firstTry,
+    if (spoken.isNotEmpty) 'spoken': spoken,
+  };
+
+  static LessonCheckpoint? fromJson(Object? raw) {
+    if (raw is! Map || raw['stepId'] is! String) return null;
+    final activity = LessonActivity.values.where((value) => value.name == raw['activity']).firstOrNull;
+    if (activity == null) return null;
+    Map<String, bool> results(Object? json) => json is Map
+        ? {
+            for (final entry in json.entries)
+              if (entry.key is String && entry.value is bool) entry.key as String: entry.value as bool,
+          }
+        : const {};
+    return LessonCheckpoint(
+      activity,
+      raw['stepId'] as String,
+      completedSteps: raw['completedSteps'] is List ? (raw['completedSteps'] as List).whereType<String>().toList() : const [],
+      firstTry: results(raw['firstTry']),
+      spoken: results(raw['spoken']),
+    );
+  }
+}
+
 /// Progress inside one course (one enrollment).
 class CourseProgress {
   /// Learn-path stops done, per mission key.
@@ -50,31 +97,70 @@ class CourseProgress {
   /// Review schedule per expression id (created when the learner first uses a phrase in its mission).
   final Map<String, ReviewCard> cards;
 
-  const CourseProgress({this.stops = const {}, this.cards = const {}});
+  final Map<String, LessonCheckpoint> checkpoints;
+
+  /// The learner chose to finish these missions without recording.
+  final Set<String> quietMissions;
+
+  const CourseProgress({this.stops = const {}, this.cards = const {}, this.checkpoints = const {}, this.quietMissions = const {}});
 
   Set<PathStop> stopsDone(String missionKey) => stops[missionKey] ?? const {};
   bool isMissionCompleted(String missionKey) => stopsDone(missionKey).contains(PathStop.mission);
 
-  CourseProgress withStop(String missionKey, PathStop stop) => CourseProgress(
+  LessonCheckpoint? checkpoint(String missionKey, PathStop stop) => checkpoints[_checkpointKey(missionKey, stop)];
+  LessonCheckpoint? latestCheckpoint(String missionKey, List<PathStop> stops) =>
+      checkpoints.entries.where((entry) => stops.contains(entry.value.stop) && entry.key == _checkpointKey(missionKey, entry.value.stop)).lastOrNull?.value;
+
+  static String _checkpointKey(String missionKey, PathStop stop) => '$missionKey/${stop.name}';
+
+  CourseProgress withStop(String missionKey, PathStop stop) => _copyWith(
     stops: {
       ...stops,
       missionKey: {...stopsDone(missionKey), stop},
     },
-    cards: cards,
+    checkpoints: {...checkpoints}..remove(_checkpointKey(missionKey, stop)),
+    quietMissions: stop == PathStop.mission ? ({...quietMissions}..remove(missionKey)) : quietMissions,
   );
-  CourseProgress withCards(Map<String, ReviewCard> updated) => CourseProgress(stops: stops, cards: {...cards, ...updated});
+  CourseProgress withCards(Map<String, ReviewCard> updated) => _copyWith(cards: {...cards, ...updated});
+  CourseProgress withCheckpoint(String missionKey, LessonCheckpoint checkpoint) {
+    final key = _checkpointKey(missionKey, checkpoint.stop);
+    return _copyWith(
+      checkpoints: {...checkpoints}
+        ..remove(key)
+        ..[key] = checkpoint,
+    );
+  }
+
+  CourseProgress withQuietMission(String missionKey, bool quiet) =>
+      _copyWith(quietMissions: quiet ? {...quietMissions, missionKey} : ({...quietMissions}..remove(missionKey)));
+
+  CourseProgress _copyWith({
+    Map<String, Set<PathStop>>? stops,
+    Map<String, ReviewCard>? cards,
+    Map<String, LessonCheckpoint>? checkpoints,
+    Set<String>? quietMissions,
+  }) => CourseProgress(
+    stops: stops ?? this.stops,
+    cards: cards ?? this.cards,
+    checkpoints: checkpoints ?? this.checkpoints,
+    quietMissions: quietMissions ?? this.quietMissions,
+  );
 
   Map<String, Object?> toJson() => {
     'stops': {
       for (final e in stops.entries) e.key: [for (final s in e.value) s.name],
     },
     'cards': {for (final e in cards.entries) e.key: e.value.toJson()},
+    if (checkpoints.isNotEmpty) 'checkpoints': {for (final e in checkpoints.entries) e.key: e.value.toJson()},
+    if (quietMissions.isNotEmpty) 'quietMissions': quietMissions.toList(),
   };
 
   static CourseProgress fromJson(Object? raw) {
     if (raw is! Map) return const CourseProgress();
     final stopsRaw = raw['stops'];
     final cardsRaw = raw['cards'];
+    final checkpointRaw = raw['checkpoints'];
+    final quietRaw = raw['quietMissions'];
     return CourseProgress(
       stops: {
         if (stopsRaw is Map)
@@ -88,6 +174,11 @@ class CourseProgress {
         if (cardsRaw is Map)
           for (final e in cardsRaw.entries) '${e.key}': ?ReviewCard.fromJson(e.value),
       },
+      checkpoints: {
+        if (checkpointRaw is Map)
+          for (final e in checkpointRaw.entries) '${e.key}': ?LessonCheckpoint.fromJson(e.value),
+      },
+      quietMissions: quietRaw is List ? quietRaw.whereType<String>().toSet() : const {},
     );
   }
 }
@@ -122,6 +213,8 @@ class LearnerState {
   /// Exercises are read aloud as they appear: the context and the question in the instruction language, then the
   /// phrase in the course's voice.
   final bool readAloud;
+  final bool latinOnly;
+  final SpeakerForm speakerForm;
   final List<Enrollment> enrollments;
   final String? activeCourseId;
   final Map<String, CourseProgress> courses;
@@ -138,6 +231,8 @@ class LearnerState {
     this.reduceMotion = false,
     this.mascot = true,
     this.readAloud = true,
+    this.latinOnly = false,
+    this.speakerForm = SpeakerForm.course,
     this.enrollments = const [],
     this.activeCourseId,
     this.courses = const {},
@@ -149,7 +244,12 @@ class LearnerState {
     for (final e in enrollments) {
       if (e.courseId == activeCourseId) return e;
     }
-    return enrollments.isEmpty ? null : enrollments.first;
+    return enrollmentsInInstructionOrder.firstOrNull;
+  }
+
+  Iterable<Enrollment> get enrollmentsInInstructionOrder sync* {
+    yield* enrollments.where((course) => course.source == preferredInstructionLanguage);
+    yield* enrollments.where((course) => course.source != preferredInstructionLanguage);
   }
 
   CourseProgress progressOf(String courseId) => courses[courseId] ?? const CourseProgress();
@@ -164,6 +264,8 @@ class LearnerState {
     bool? reduceMotion,
     bool? mascot,
     bool? readAloud,
+    bool? latinOnly,
+    SpeakerForm? speakerForm,
     List<Enrollment>? enrollments,
     Object? activeCourseId = _keep,
     Map<String, CourseProgress>? courses,
@@ -177,6 +279,8 @@ class LearnerState {
     reduceMotion: reduceMotion ?? this.reduceMotion,
     mascot: mascot ?? this.mascot,
     readAloud: readAloud ?? this.readAloud,
+    latinOnly: latinOnly ?? this.latinOnly,
+    speakerForm: speakerForm ?? this.speakerForm,
     enrollments: enrollments ?? this.enrollments,
     activeCourseId: identical(activeCourseId, _keep) ? this.activeCourseId : activeCourseId as String?,
     courses: courses ?? this.courses,
@@ -202,6 +306,8 @@ class LearnerState {
     'reduceMotion': reduceMotion,
     'mascot': mascot,
     'readAloud': readAloud,
+    'latinOnly': latinOnly,
+    'speakerForm': speakerForm.name,
     'enrollments': [for (final e in enrollments) e.toJson()],
     'activeCourseId': activeCourseId,
     'courses': {for (final e in courses.entries) e.key: e.value.toJson()},
@@ -228,6 +334,8 @@ class LearnerState {
       reduceMotion: raw['reduceMotion'] == true,
       mascot: raw['mascot'] != false,
       readAloud: raw['readAloud'] != false,
+      latinOnly: raw['latinOnly'] == true,
+      speakerForm: SpeakerForm.values.where((form) => form.name == raw['speakerForm']).firstOrNull ?? SpeakerForm.course,
       enrollments: enrollments,
       activeCourseId: active is String ? active : null,
       courses: {

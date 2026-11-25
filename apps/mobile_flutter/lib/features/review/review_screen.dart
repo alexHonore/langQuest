@@ -50,7 +50,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     final now = ref.read(clockProvider)();
     final appState = ref.read(appStateProvider);
     final course = appState.activeCourse;
-    final content = ref.read(contentBundleProvider);
+    final content = ref.read(appStateProvider).content;
     // A card whose phrase is no longer in the course content (content update) is skipped, not shown blank.
     _queue = [
       if (course != null)
@@ -70,7 +70,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   _ReviewItem? get _current {
     final course = ref.read(appStateProvider).activeCourse;
     if (course == null || _position >= _queue.length) return null;
-    return _lookup(ref.read(contentBundleProvider), course, _queue[_position]);
+    return _lookup(ref.read(appStateProvider).content, course, _queue[_position]);
   }
 
   /// The card's question read aloud ("How do you say “…”?"), when exercises are read aloud or the learner asks.
@@ -131,10 +131,9 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   Widget build(BuildContext context) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
-    final accent = appState.accent;
     final l10n = context.l10n;
     final course = appState.activeCourse;
-    final content = ref.watch(contentBundleProvider);
+    final content = ref.watch(appStateProvider.select((s) => s.content));
     final remaining = _queue.length - _position;
     final current = remaining > 0 && course != null ? _lookup(content, course, _queue[_position]) : null;
     final checkable = ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
@@ -179,15 +178,9 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                           Expanded(
                             child: AnimatedSwitcher(
                               duration: const Duration(milliseconds: 220),
-                              child: Container(
+                              child: Padding(
                                 key: ValueKey('${_queue[_position]}-$_revealed'),
                                 padding: const EdgeInsets.all(22),
-                                decoration: BoxDecoration(
-                                  color: colors.surface,
-                                  borderRadius: BorderRadius.circular(26),
-                                  border: Border.all(color: _revealed ? accent.primary.withValues(alpha: 0.6) : colors.border, width: _revealed ? 1.5 : 1),
-                                  boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: 0.12), blurRadius: 24, offset: const Offset(0, 8))],
-                                ),
                                 child: Center(
                                   child: SingleChildScrollView(
                                     child: Column(

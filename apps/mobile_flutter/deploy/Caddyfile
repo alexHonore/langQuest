@@ -22,6 +22,7 @@
 	templates /config.json {
 		mime application/json
 	}
+	import /etc/caddy/redirects/*.caddy
 	# The app routes with URL fragments (/#/path), so there is no index.html fallback: a missing file is a 404.
 	file_server
 }

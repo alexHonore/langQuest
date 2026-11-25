@@ -45,28 +45,6 @@ class SpeakingPause extends Notifier<DateTime?> {
 
 final speakingPauseProvider = NotifierProvider<SpeakingPause, DateTime?>(SpeakingPause.new);
 
-/// A speaking step's rule: with a microphone (and not paused), the learner has to say the line before moving on: a
-/// take the server understood, or any real take where nothing can check it, or [maxTries] takes not understood (the
-/// line then goes to review as hard).
-class SpeakingStep {
-  static const maxTries = 3;
-
-  int tries = 0;
-  bool done = false;
-
-  void reset() {
-    tries = 0;
-    done = false;
-  }
-
-  /// Records [outcome]; true when the step is now done.
-  bool take(TakeOutcome outcome) {
-    tries++;
-    done = done || outcome != TakeOutcome.notUnderstood || tries >= maxTries;
-    return done;
-  }
-}
-
 /// Record yourself saying the line, then hear your take next to the reference voice: listen / record / compare
 /// (ADR-006). No score, no level after the take, only the microphone level while recording, and a take whose loudest
 /// moment stays under the server's silence floor is called what it is ("I didn't hear anything").
@@ -90,11 +68,24 @@ class RecordTake extends ConsumerStatefulWidget {
 
   /// What each take came to (a speaking step moves on with it).
   final ValueChanged<TakeOutcome>? onTake;
+  final VoidCallback? onRecordStart;
+
+  final VoidCallback? onContinueWithoutRecording;
 
   /// The AI's pronunciation feedback comes by itself after each take (signed in), not only on request.
   final bool autoFeedback;
 
-  const RecordTake({super.key, this.voiceLocale, this.centered = false, this.check, this.onVerdict, this.onTake, this.autoFeedback = true});
+  const RecordTake({
+    super.key,
+    this.voiceLocale,
+    this.centered = false,
+    this.check,
+    this.onVerdict,
+    this.onTake,
+    this.onRecordStart,
+    this.onContinueWithoutRecording,
+    this.autoFeedback = true,
+  });
 
   /// A take stops by itself after this long: a line takes a few seconds; this ends a forgotten recording.
   static const maxTake = Duration(seconds: 15);
@@ -133,6 +124,15 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   PronunciationFeedback? _feedback;
   bool _feedbackFailed = false;
 
+  SpeechTarget? get _target {
+    final original = widget.check;
+    if (original == null) return null;
+    final id = ref.read(appStateProvider).content.referenceFor(original.expressionId);
+    if (id == null || id == original.expressionId) return id == null ? null : original;
+    final parts = id.split(':');
+    return SpeechTarget(expressionId: id, chapterKey: parts.first, missionKey: parts[1]);
+  }
+
   @override
   void dispose() {
     _endRecording();
@@ -154,6 +154,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   Future<void> _start() async {
     final create = ref.read(takeRecorderFactoryProvider);
     if (create == null || _state == _Take.starting || _state == _Take.recording) return;
+    widget.onRecordStart?.call();
     _take?.dispose();
     _take = null;
     // The reference voice must not end up in the take.
@@ -242,7 +243,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     } else {
       _take = take;
       setState(() => _state = _Take.recorded);
-      final checked = widget.check != null && ref.read(speechCheckerProvider) != null;
+      final checked = _target != null && ref.read(speechCheckerProvider) != null;
       if (!checked) widget.onTake?.call(TakeOutcome.recorded);
       unawaited(_check(take));
       // Realtime feedback: how it sounded, without asking (a model call per take, signed in only).
@@ -253,7 +254,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   /// Has the server check [take] when this line has a target and the course can be checked.
   Future<void> _check(RecordedTake take) async {
     final checker = ref.read(speechCheckerProvider);
-    final target = widget.check;
+    final target = _target;
     if (checker == null || target == null) return;
     setState(() => _checking = true);
     final verdict = await _assess(checker, take, target);
@@ -293,7 +294,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   /// Asks the AI how the current take sounded (on demand: each listen is a model call).
   Future<void> _coach() async {
     final coach = ref.read(pronunciationCoachProvider);
-    final target = widget.check;
+    final target = _target;
     final take = _take;
     if (coach == null || target == null || take == null || _coaching) return;
     setState(() {
@@ -345,28 +346,37 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     if (ref.watch(takeRecorderFactoryProvider) == null) return const SizedBox.shrink();
     final colors = ref.watch(appStateProvider.select((s) => s.colors));
     final l10n = context.l10n;
-    final voiceLocale = widget.voiceLocale;
-    final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
+    final voice = ref.watch(lineVoiceNowProvider(widget.voiceLocale));
+    final expressionId = widget.check?.expressionId;
+    final hasVoice = expressionId == null ? (voice?.available ?? false) : (voice?.canSay(expressionId: expressionId) ?? false);
     final note = TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted);
-    final checker = widget.check == null ? null : ref.watch(speechCheckerProvider);
-    final coach = widget.check == null ? null : ref.watch(pronunciationCoachProvider);
+    final checker = _target == null ? null : ref.watch(speechCheckerProvider);
+    final coach = _target == null ? null : ref.watch(pronunciationCoachProvider);
     final idleNote = checker == null ? l10n.recordStaysOnDevice : (checker.keepsRecordings ? l10n.recordCheckedKept : l10n.recordChecked);
 
-    final record = AudioChip(icon: LucideIcons.mic, label: l10n.recordYourself, onTap: _state == _Take.starting ? null : _start);
-    final tryAgain = AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordTryAgain, onTap: _start);
+    final recording = _state == _Take.recording;
+    final recorded = _state == _Take.recorded;
+    final retry = _state != _Take.idle && _state != _Take.starting && !recording;
+    final label = recording
+        ? l10n.recordStop
+        : recorded
+        ? l10n.recordAgain
+        : retry
+        ? l10n.recordTryAgain
+        : hasVoice && widget.onContinueWithoutRecording != null
+        ? l10n.recordAndCompare
+        : l10n.recordYourself;
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
+    final action = _state == _Take.starting
+        ? null
+        : recording
+        ? _stop
+        : _start;
 
     final (List<Widget> chips, String? message) = switch (_state) {
-      _Take.idle || _Take.starting => ([record], idleNote),
+      _Take.idle || _Take.starting => (<Widget>[], idleNote),
       _Take.recording => (
         [
-          AudioChip(
-            icon: LucideIcons.square,
-            label: l10n.recordStop,
-            semanticsLabel: l10n.recordStopSemantics,
-            background: colors.errorSoft,
-            foreground: colors.error,
-            onTap: _stop,
-          ),
           ExcludeSemantics(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -391,7 +401,6 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
             semanticsLabel: _playing ? l10n.recordStopPlayingSemantics : l10n.recordMyVoiceSemantics,
             onTap: _play,
           ),
-          AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordAgain, semanticsLabel: l10n.recordAgainSemantics, onTap: _start),
           if (coach != null && _feedback == null)
             AudioChip(
               icon: LucideIcons.sparkles,
@@ -407,23 +416,66 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
             ? (hasVoice ? '${l10n.recordCheckFailed} ${l10n.recordCompare(l10n.listen, l10n.recordMyVoice)}' : l10n.recordCheckFailed)
             : (hasVoice ? l10n.recordCompare(l10n.listen, l10n.recordMyVoice) : null),
       ),
-      _Take.silent => ([tryAgain], l10n.recordSilent),
-      _Take.blocked => ([tryAgain], l10n.recordBlocked),
-      _Take.noMicrophone => ([tryAgain], l10n.recordNoMicrophone),
-      _Take.failed => ([tryAgain], l10n.recordFailed),
+      _Take.silent => (<Widget>[], l10n.recordSilent),
+      _Take.blocked => (<Widget>[], l10n.recordBlocked),
+      _Take.noMicrophone => (<Widget>[], l10n.recordNoMicrophone),
+      _Take.failed => (<Widget>[], l10n.recordFailed),
     };
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: widget.centered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          alignment: widget.centered ? WrapAlignment.center : WrapAlignment.start,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: chips,
+        Semantics(
+          label: recording
+              ? l10n.recordStopSemantics
+              : recorded
+              ? l10n.recordAgainSemantics
+              : label,
+          button: true,
+          enabled: action != null,
+          onTap: action,
+          excludeSemantics: true,
+          child: TextButton(
+            onPressed: action,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: recording ? colors.error : accent.primary,
+                    boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: 0.20), blurRadius: 18)],
+                  ),
+                  child: SizedBox.square(
+                    dimension: 80,
+                    child: Icon(
+                      recording
+                          ? LucideIcons.square
+                          : retry
+                          ? LucideIcons.rotateCcw
+                          : LucideIcons.mic,
+                      size: 32,
+                      color: recording ? colors.background : accent.onPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                ),
+              ],
+            ),
+          ),
         ),
+        if (chips.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Wrap(spacing: 8, runSpacing: 8, alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, children: chips),
+          ),
+        if (widget.onContinueWithoutRecording != null && _state != _Take.starting && !recording)
+          TextButton(onPressed: widget.onContinueWithoutRecording, child: Text(l10n.continueWithoutRecording)),
         // Announced when it changes: recording started, the take is ready, or why there is none.
         Semantics(
           liveRegion: true,
@@ -436,7 +488,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
                 ),
         ),
         // Signed out on a course the server checks: say what an account adds, right where it would help.
-        if (_state == _Take.recorded && widget.check != null && checker == null && _checkableWithAccount(ref))
+        if (_state == _Take.recorded && _target != null && checker == null && _checkableWithAccount(ref))
           Padding(
             padding: const EdgeInsets.only(top: 6),
             child: TextButton.icon(
@@ -496,12 +548,27 @@ bool speakingRequired(WidgetRef ref) {
   return ref.watch(takeRecorderFactoryProvider) != null && !ref.read(speakingPauseProvider.notifier).active;
 }
 
+class ResumeRecordingButton extends ConsumerWidget {
+  const ResumeRecordingButton({super.key, required this.missionKey});
+
+  final String missionKey;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(takeRecorderFactoryProvider) == null) return const SizedBox.shrink();
+    return TextButton.icon(
+      icon: const Icon(LucideIcons.mic, size: 16),
+      label: Text(context.l10n.useMicrophone),
+      onPressed: () => ref.read(appStateProvider.notifier).setMissionQuiet(missionKey, false),
+    );
+  }
+}
+
 /// Under a speaking step's continue button while it waits for the line: what to do, and "Can't speak now".
 class SpeakingHint extends ConsumerWidget {
-  const SpeakingHint({super.key, required this.tries});
+  const SpeakingHint({super.key});
 
   /// Takes not understood so far.
-  final int tries;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -516,7 +583,7 @@ class SpeakingHint extends ConsumerWidget {
         spacing: 4,
         children: [
           Text(
-            tries == 0 ? l10n.speakToContinue : l10n.speakTryAgain(tries, SpeakingStep.maxTries),
+            l10n.speakToContinue,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: colors.textSecondary),
           ),

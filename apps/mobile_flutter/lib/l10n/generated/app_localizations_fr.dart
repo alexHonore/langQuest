@@ -88,6 +88,27 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get latinOnlySetting => 'Phonétique latine seule';
+
+  @override
+  String get latinOnlyHelp => 'Afficher la prononciation en lettres latines quand elle est disponible.';
+
+  @override
+  String get speakerFormTitle => 'Quelle forme utilisez-vous ?';
+
+  @override
+  String get speakerFormHelp => 'Ce choix règle les accords des phrases où vous parlez de vous.';
+
+  @override
+  String get speakerCourse => 'Par défaut';
+
+  @override
+  String get speakerMale => 'Masculin';
+
+  @override
+  String get speakerFemale => 'Féminin';
+
+  @override
   String get settings => 'Réglages';
 
   @override
@@ -100,7 +121,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get welcomeBody => 'De vraies situations et de vrais dialectes, enseignés avant d’être testés. Gratuit : sans abonnement, crédits ni paywall.';
 
   @override
-  String get welcomeLanguageLabel => 'Application et explications en';
+  String get welcomeLanguageLabel => 'Langue de l’application';
 
   @override
   String get welcomeContinue => 'Choisir un cours';
@@ -181,6 +202,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeNextMission => 'Prochaine mission';
+
+  @override
+  String get homeViewMission => 'Voir la mission';
+
+  @override
+  String get resumeLesson => 'Reprendre la leçon';
 
   @override
   String homeNextStop(String stop) {
@@ -281,6 +308,18 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String pathStartStop(String stop) {
     return 'Commencer : $stop';
+  }
+
+  @override
+  String pathLearnPhrases(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count phrases', one: '1 phrase');
+    return 'Apprenez $_temp0';
+  }
+
+  @override
+  String pathPractiseReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count réponses à pratiquer', one: '1 réponse à pratiquer');
+    return '$_temp0';
   }
 
   @override
@@ -1169,11 +1208,20 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String courseIncludesAudioLessons(String voice) {
-    return 'Des leçons audio tirées de chaque mission, lues par $voice';
+    return 'Des leçons audio lues par $voice';
   }
 
   @override
-  String get courseVoiceAi => 'une voix IA (avec un compte gratuit)';
+  String get courseVoiceAi => 'une voix IA';
+
+  @override
+  String get courseIncludesAiClips => 'Des phrases lues par une voix IA';
+
+  @override
+  String get courseVoiceWithAccount => 'Des extraits lus par une voix IA pour les missions prises en charge, avec un compte gratuit';
+
+  @override
+  String get courseMissingLineAudio => 'Des extraits audio pour les phrases du cours';
 
   @override
   String get courseVoiceDevice => 'la voix de votre appareil';
@@ -1509,6 +1557,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get recordSignInToCheck => 'Faites vérifier ce que vous avez dit et votre prononciation : créez un compte gratuit';
+
+  @override
+  String get recordAndCompare => 'Enregistrer et comparer';
+
+  @override
+  String get continueWithoutRecording => 'Continuer sans enregistrer';
+
+  @override
+  String get useMicrophone => 'Utiliser le micro';
+
+  @override
+  String get missionYourReply => 'Votre réponse';
 
   @override
   String get speakToContinue => 'Dites-le à voix haute pour continuer';

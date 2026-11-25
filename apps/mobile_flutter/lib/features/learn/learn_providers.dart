@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/content/content_bundle.dart';
 import '../../core/services/app_state.dart';
 import 'learn_content.dart';
 
@@ -11,7 +10,7 @@ final activeCourseIdProvider = Provider<String?>((ref) => ref.watch(appStateProv
 final learnPlanProvider = Provider.family<MissionLearnPlan?, String>((ref, missionKey) {
   final id = ref.watch(activeCourseIdProvider);
   if (id == null) return null;
-  final content = ref.watch(contentBundleProvider);
+  final content = ref.watch(appStateProvider.select((s) => s.content));
   final sep = id.indexOf('|');
   final course = content.course(id.substring(0, sep), id.substring(sep + 1));
   if (course == null || course.indexOfMission(missionKey) < 0) return null;

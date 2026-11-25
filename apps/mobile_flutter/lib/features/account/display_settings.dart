@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/services/app_state.dart';
+import '../../core/content/content_models.dart';
 import '../../core/services/learner_state.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
@@ -116,6 +117,8 @@ class DisplaySettings extends ConsumerWidget {
             ),
           ),
         ),
+        toggle(icon: LucideIcons.languages, label: l10n.latinOnlySetting, body: l10n.latinOnlyHelp, value: learner.latinOnly, onChanged: notifier.setLatinOnly),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 10), child: SpeakerFormPicker()),
         toggle(
           icon: LucideIcons.pause,
           label: l10n.reduceMotion,
@@ -130,6 +133,34 @@ class DisplaySettings extends ConsumerWidget {
           body: l10n.readAloudSettingBody,
           value: learner.readAloud,
           onChanged: notifier.setReadAloud,
+        ),
+      ],
+    );
+  }
+}
+
+class SpeakerFormPicker extends ConsumerWidget {
+  const SpeakerFormPicker({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final form = ref.watch(appStateProvider.select((s) => s.learner.speakerForm));
+    final l10n = context.l10n;
+    return Column(
+      children: [
+        Text(l10n.speakerFormTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 6),
+        Text(l10n.speakerFormHelp, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 10),
+        SegmentedButton<SpeakerForm>(
+          segments: [
+            ButtonSegment(value: SpeakerForm.course, label: Text(l10n.speakerCourse)),
+            ButtonSegment(value: SpeakerForm.masculine, label: Text(l10n.speakerMale)),
+            ButtonSegment(value: SpeakerForm.feminine, label: Text(l10n.speakerFemale)),
+          ],
+          selected: {form},
+          showSelectedIcon: false,
+          onSelectionChanged: (value) => ref.read(appStateProvider.notifier).setSpeakerForm(value.first),
         ),
       ],
     );

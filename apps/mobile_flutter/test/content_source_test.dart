@@ -39,6 +39,58 @@ String index(Map<String, String> files) => jsonEncode({'schemaVersion': 1, 'file
 
 void main() {
   group('the content bucket', () {
+    const chapters = 'content/chapters/arabic-egyptian.json';
+    const voices = 'content/voices/arabic-egyptian.json';
+    const previous = {chapters: 'content/chapters/arabic-egyptian.a007bace18c1.json', voices: 'content/voices/arabic-egyptian.7f4964870697.json'};
+
+    test('the previous public Cairo release reads the two replacement assets together', () async {
+      final bucket = FakeBucket({'index.json': index(previous)});
+      final seen = <String>[];
+      final source = ContentSource(
+        location: ContentLocation(Uri.parse(base)),
+        cache: MemoryContentCache(),
+        client: bucket.client,
+        readAsset: (key) async {
+          seen.add(key);
+          return key;
+        },
+      );
+      expect(await Future.wait([source.read(chapters), source.read(voices)]), ['assets/$chapters', 'assets/$voices']);
+      expect(seen, unorderedEquals(['assets/$chapters', 'assets/$voices']));
+      expect(bucket.requests, ['index.json']);
+    });
+
+    test('a newer Cairo release takes precedence, and an incomplete local pair falls back together', () async {
+      for (final newer in [true, false]) {
+        final files = {...previous, if (newer) chapters: 'content/chapters/arabic-egyptian.future.json'};
+        final bucket = FakeBucket({'index.json': index(files), files[chapters]!: 'published chapters', files[voices]!: 'published voices'});
+        final source = ContentSource(
+          location: ContentLocation(Uri.parse(base)),
+          cache: MemoryContentCache(),
+          client: bucket.client,
+          readAsset: (key) async {
+            if (newer) fail('The newer release is authoritative');
+            if (key.endsWith(voices)) throw StateError('missing asset');
+            return 'partial local copy';
+          },
+        );
+        expect(await Future.wait([source.read(chapters), source.read(voices)]), ['published chapters', 'published voices']);
+      }
+    });
+
+    test('old and new restaurant manifests play the same cleaned MP3, and other recordings keep their URL', () {
+      const old = 'audio/lines/ary-puck-8555a2b9476e888a.mp3';
+      final manifest = File('assets/audio/repairs.json').readAsStringSync();
+      final newKey = 'audio/${jsonDecode(manifest)[old.substring(6)]['file']}';
+      final root = Uri.parse('https://app.test/assets/assets/');
+      final location = ContentLocation(Uri.parse(base)).withAudioRepairs(manifest, root);
+      expect(location.clip('assets/$old'), root.resolve(newKey));
+      expect(location.clip('assets/audio/lines/clean/ary-puck-8555a2b9476e888a.b7756c3134b6.mp3'), root.resolve(newKey));
+      expect(location.clip('assets/$newKey'), root.resolve(newKey));
+      expect(File('assets/$newKey').existsSync(), isTrue);
+      expect(location.clip('assets/audio/lines/other.mp3'), Uri.parse('${base}audio/lines/other.mp3'));
+    });
+
     test('a file is read under its name-by-content, then kept: it is not fetched again', () async {
       final bucket = FakeBucket({
         'index.json': index({'content/chapters/spanish-spain.json': 'content/chapters/spanish-spain.abcdef123456.json'}),
@@ -123,7 +175,9 @@ void main() {
       expect(bundle.voices.clipOf(es), isNotNull);
       expect(bundle.voices.clipOf(ja), isNotNull);
 
-      final container = ProviderContainer(overrides: [...await testOverrides(content: bundle, read: read)]);
+      final container = ProviderContainer(
+        overrides: [...await testOverrides(content: bundle, read: read)],
+      );
       addTearDown(container.dispose);
       final notifier = container.read(appStateProvider.notifier)
         ..enroll('spanish-spain', 'en')

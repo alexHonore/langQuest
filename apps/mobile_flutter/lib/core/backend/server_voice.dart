@@ -105,7 +105,8 @@ const double slowPlaybackRate = 0.72;
 /// The course lines pre-recorded by natural AI voices and bundled with the app (`BundledVoices`): played for every
 /// learner, signed in or not, offline too. Null where clips cannot be played.
 class BundledVoice {
-  BundledVoice({required BundledVoices Function() voices, required this.player, required this.location}) : _voices = voices; // ignore: prefer_initializing_formals
+  BundledVoice({required BundledVoices Function() voices, required this.player, required this.location})
+    : _voices = voices; // ignore: prefer_initializing_formals
 
   /// The voices of the courses in memory, as they are now (a course read later adds its own).
   final BundledVoices Function() _voices;
@@ -154,7 +155,7 @@ enum LineVoiceSource { device, server, bundled, none }
 
 @immutable
 class LineVoice {
-  const LineVoice({required this.source, this.locale, this.server, this.bundled, required this.speech});
+  const LineVoice({required this.source, this.locale, this.server, this.bundled, this.references = const {}, required this.speech});
 
   /// The voice for lines without a bundled clip (`bundled` when only bundled clips can be played).
   final LineVoiceSource source;
@@ -167,32 +168,42 @@ class LineVoice {
   final ServerVoice? server;
   final SpeechService speech;
 
+  final Map<String, String?> references;
+  String? _reference(String? id) => references.containsKey(id) ? references[id] : id;
+
   bool get available => source != LineVoiceSource.none;
 
   /// Whether the course's lines are read by an AI voice here (bundled clips, or the server's voice).
   bool get ai => bundled != null || source == LineVoiceSource.server;
 
   /// Whether [expressionId] is read by an AI voice (its bundled clip, or the server's voice).
-  bool aiFor(String? expressionId) => (bundled?.has(expressionId) ?? false) || (source == LineVoiceSource.server && expressionId != null);
+  bool aiFor(String? expressionId) =>
+      (bundled?.has(_reference(expressionId)) ?? false) || (source == LineVoiceSource.server && _reference(expressionId) != null);
 
   /// Fetches the server's clip of a line ahead of time (nothing to do for the device voice).
   void prepare(String? expressionId, {bool slow = false}) {
+    expressionId = _reference(expressionId);
     if (bundled?.has(expressionId) ?? false) return;
     if (source == LineVoiceSource.server && expressionId != null) unawaited(server!.clip(expressionId));
   }
 
   /// Whether [expressionId] (or, without one, [text]) can be said: the server says approved lines only.
-  bool canSay({String? expressionId}) =>
-      (bundled?.has(expressionId) ?? false) ||
-      switch (source) {
-        LineVoiceSource.device => true,
-        LineVoiceSource.server => expressionId != null || locale != null,
-        LineVoiceSource.bundled || LineVoiceSource.none => false,
-      };
+  bool canSay({String? expressionId}) {
+    if (expressionId != null && _reference(expressionId) == null) return false;
+    expressionId = _reference(expressionId);
+    return (bundled?.has(expressionId) ?? false) ||
+        switch (source) {
+          LineVoiceSource.device => true,
+          LineVoiceSource.server => expressionId != null || locale != null,
+          LineVoiceSource.bundled || LineVoiceSource.none => false,
+        };
+  }
 
   /// Says a line: the approved line [expressionId] with the server's AI voice, else [text] with the device voice
   /// (also when the server has no clip for it).
   Future<void> say({required String text, String? expressionId, bool slow = false}) async {
+    if (expressionId != null && _reference(expressionId) == null) return;
+    expressionId = _reference(expressionId);
     if (expressionId != null && bundled != null && await bundled!.speak(expressionId, slow: slow)) return;
     switch (source) {
       case LineVoiceSource.device:
@@ -215,9 +226,10 @@ final lineVoiceProvider = FutureProvider.autoDispose.family<LineVoice, String?>(
   final speech = ref.watch(speechServiceProvider);
   final server = ref.watch(serverVoiceProvider);
   final bundled = ref.watch(bundledVoiceProvider);
-  if (server != null) return LineVoice(source: LineVoiceSource.server, server: server, bundled: bundled, speech: speech);
-  if (bundled != null) return LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: speech);
-  return LineVoice(source: LineVoiceSource.none, speech: speech);
+  final references = ref.watch(appStateProvider.select((s) => s.content.speakerReferences));
+  if (server != null) return LineVoice(references: references, source: LineVoiceSource.server, server: server, bundled: bundled, speech: speech);
+  if (bundled != null) return LineVoice(references: references, source: LineVoiceSource.bundled, bundled: bundled, speech: speech);
+  return LineVoice(references: references, source: LineVoiceSource.none, speech: speech);
 });
 
 /// The voice for lines as far as it is known right now: [lineVoiceProvider]'s once the device has answered about its
@@ -227,5 +239,8 @@ final lineVoiceNowProvider = Provider.autoDispose.family<LineVoice?, String?>((r
   final resolved = ref.watch(lineVoiceProvider(locale)).asData?.value;
   if (resolved != null) return resolved;
   final bundled = ref.watch(bundledVoiceProvider);
-  return bundled == null ? null : LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: ref.watch(speechServiceProvider));
+  final references = ref.watch(appStateProvider.select((s) => s.content.speakerReferences));
+  return bundled == null
+      ? null
+      : LineVoice(references: references, source: LineVoiceSource.bundled, bundled: bundled, speech: ref.watch(speechServiceProvider));
 });

@@ -169,14 +169,14 @@ void main() {
     expect(find.text('Answered out loud'), findsOneWidget);
     await tapText(t, 'Next');
 
-    // The rest by choosing: "I said it" waits for a take, until the learner says they can't speak now.
+    // The rest by choosing, with recording skipped for the rest of this mission.
     for (final (i, x) in plan.exchanges.skip(2).indexed) {
       await tapText(t, x.answer.text);
       if (i == 0) {
-        expect(find.text('Say it out loud to continue'), findsOneWidget);
-        await tapText(t, 'Can’t speak now');
+        await tapLabel(t, 'Continue without recording');
+      } else {
+        await tapText(t, 'Next');
       }
-      await tapText(t, 'I said it');
     }
     await tapText(t, 'Complete the mission (+50 XP)');
     expect(find.text('Practise it in a live call (free account)'), findsOneWidget);

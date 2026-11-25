@@ -10,12 +10,14 @@ import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import '../scenes/animated_scene.dart';
 import 'learn_content.dart';
+import 'learn_logic.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
 import 'record_take.dart';
@@ -41,7 +43,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   late final SpeechService _speech;
 
   /// The learner's line has to be said (with a microphone) before moving on.
-  final _step = SpeakingStep();
+  bool _saidLine = false;
 
   /// The conversation so far, above the line being taught: it follows the newest line.
   final _thread = ScrollController();
@@ -50,7 +52,16 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   void initState() {
     super.initState();
     _speech = ref.read(speechServiceProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _speakCurrent());
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    final saved = ref.read(appStateProvider).checkpoint(widget.missionKey, PathStop.learn);
+    if (plan != null && saved != null && saved.activity == LessonActivity.scene) {
+      final resumed = plan.sceneLines.indexWhere((line) => line.expression.id == saved.stepId);
+      if (resumed >= 0) _index = resumed;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _speakCurrent();
+    });
+    if (_index > 0) _followThread();
   }
 
   @override
@@ -100,14 +111,19 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   }
 
   void _next(MissionLearnPlan plan) {
+    final save = ref.read(appStateProvider.notifier);
     if (_index < plan.sceneLines.length - 1) {
-      _step.reset();
+      _saidLine = false;
       setState(() => _index++);
+      save.saveCheckpoint(widget.missionKey, LessonCheckpoint(LessonActivity.scene, plan.sceneLines[_index].expression.id));
       _followThread();
       _speakCurrent();
     } else {
       _utterance++;
       _speech.stop();
+      if (plan.phrases.firstOrNull case final phrase?) {
+        save.saveCheckpoint(widget.missionKey, LessonCheckpoint(LessonActivity.cards, phrase.id));
+      }
       context.pushReplacement('/learn/${widget.missionKey}/cards');
     }
   }
@@ -122,14 +138,14 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final l10n = context.l10n;
     final index = _index.clamp(0, plan.sceneLines.length - 1);
     final line = plan.sceneLines[index];
-    final hasVoice = ref.watch(lineVoiceProvider(plan.voiceLocale)).asData?.value.available ?? false;
+    final hasVoice = ref.watch(lineVoiceProvider(plan.voiceLocale)).asData?.value.canSay(expressionId: line.expression.id) ?? false;
     final learnerTurn = line.byLearner;
     final meloState = _speaking ? MeloState.curious : (learnerTurn ? MeloState.welcome : MeloState.companion);
     final sceneId = sceneIdForMission(plan.mission);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
-    // The learner's line waits for a take (understood where the server checks), unless speaking is paused.
-    final waiting = learnerTurn && speakingRequired(ref) && !_step.done;
+    final quiet = appState.progress.quietMissions.contains(widget.missionKey);
+    final waiting = learnerTurn && !quiet && speakingRequired(ref) && !_saidLine;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -206,17 +222,11 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                         faded: true,
                         fontSize: 16,
                       ),
-                    Container(
+                    Padding(
                       key: ValueKey(index),
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: learnerTurn ? accent.primarySoft : colors.surface,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: learnerTurn ? accent.primary.withValues(alpha: 0.7) : colors.border, width: learnerTurn ? 1.5 : 1),
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: learnerTurn ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                         children: [
                           Text(
                             learnerTurn ? l10n.sceneYourLine : line.speakerName,
@@ -225,29 +235,48 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                           const SizedBox(height: 6),
                           SizedBox(
                             width: double.infinity,
-                            child: TargetText(expression: line.expression, track: plan.track, fontSize: 24),
+                            child: TargetText(
+                              expression: line.expression,
+                              track: plan.track,
+                              fontSize: learnerTurn ? 30 : 24,
+                              textAlign: learnerTurn ? TextAlign.center : TextAlign.start,
+                            ),
                           ),
                           const SizedBox(height: 6),
-                          Text(plan.meaningOf(line.expression), style: TextStyle(fontSize: 15, height: 1.3, color: colors.textSecondary)),
+                          Text(
+                            plan.meaningOf(line.expression),
+                            textAlign: learnerTurn ? TextAlign.center : TextAlign.start,
+                            style: TextStyle(fontSize: 15, height: 1.3, color: colors.textSecondary),
+                          ),
                           if (note != null) ...[
                             const SizedBox(height: 4),
                             Text(
                               note,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                              textAlign: learnerTurn ? TextAlign.center : TextAlign.start,
                               style: TextStyle(fontSize: 12.5, color: colors.textMuted),
                             ),
                           ],
                           const SizedBox(height: 10),
                           ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
                           if (learnerTurn) ...[
-                            const SizedBox(height: 8),
-                            RecordTake(
-                              key: ValueKey('take-$index'),
-                              voiceLocale: plan.voiceLocale,
-                              check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                              onTake: (outcome) => setState(() => _step.take(outcome)),
-                            ),
+                            const SizedBox(height: 20),
+                            if (quiet)
+                              ResumeRecordingButton(missionKey: widget.missionKey)
+                            else
+                              RecordTake(
+                                key: ValueKey('take-$index'),
+                                centered: true,
+                                onRecordStart: () => setState(() => _saidLine = false),
+                                voiceLocale: plan.voiceLocale,
+                                check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                                onTake: (_) => setState(() => _saidLine = true),
+                                onContinueWithoutRecording: waiting
+                                    ? () {
+                                        ref.read(appStateProvider.notifier).setMissionQuiet(widget.missionKey, true);
+                                        _next(plan);
+                                      }
+                                    : null,
+                              ),
                           ],
                         ],
                       ),
@@ -260,24 +289,15 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (waiting)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: SpeakingHint(tries: _step.tries),
-                    ),
-                  LearnPrimaryButton(
-                    label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
-                    icon: LucideIcons.chevronRight,
-                    onPressed: waiting ? null : () => _next(plan),
-                  ),
-                ],
+            if (!waiting)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                child: LearnPrimaryButton(
+                  label: learnerTurn && !quiet ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
+                  icon: LucideIcons.chevronRight,
+                  onPressed: () => _next(plan),
+                ),
               ),
-            ),
           ],
         ),
       ),

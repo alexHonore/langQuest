@@ -116,31 +116,31 @@ void main() {
       container.read(appRouterProvider).go('/learn/$missionKey/scene');
       await settle(t, 1200);
       // Through the character's lines to the learner's first one.
-      while (find.text('I said it').evaluate().isEmpty) {
+      while (find.text('Continue without recording').evaluate().isEmpty) {
         await t.tap(find.text('Next').first);
         await settle(t);
       }
       return container;
     }
 
-    testWidgets('the learner\'s line waits for a take before "I said it" (no skipping)', (t) async {
+    testWidgets('a learner can record at the speaking step', (t) async {
       final semantics = t.ensureSemantics();
       await openScene(t);
-      expect(saidIt(t).onPressed, isNull);
-      expect(find.text('Say it out loud to continue'), findsOneWidget);
+      expect(find.text('I said it'), findsNothing);
+      expect(find.text('Continue without recording'), findsOneWidget);
       await tapLabel(t, 'Record yourself');
       await tapLabel(t, 'Stop recording');
       expect(saidIt(t).onPressed, isNotNull, reason: 'nothing can check it signed out: a real take is enough');
       semantics.dispose();
     });
 
-    testWidgets('checked: a take not understood asks again; after three tries the learner may move on', (t) async {
+    testWidgets('a checked take unlocks continue and can be redone in place', (t) async {
       final semantics = t.ensureSemantics();
       await openScene(t, checker: FakeChecker([for (var i = 0; i < 3; i++) const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: 'eh')]));
       await tapLabel(t, 'Record yourself');
       await tapLabel(t, 'Stop recording');
-      expect(saidIt(t).onPressed, isNull);
-      expect(find.text('Not quite yet: try again (1 of 3)'), findsOneWidget);
+      expect(saidIt(t).onPressed, isNotNull);
+      expect(find.text('Not quite'), findsOneWidget);
       for (var i = 0; i < 2; i++) {
         await tapLabel(t, 'Record again');
         await tapLabel(t, 'Stop recording');
@@ -149,13 +149,13 @@ void main() {
       semantics.dispose();
     });
 
-    testWidgets('"Can\'t speak now" lets the learner continue without speaking, for a while', (t) async {
+    testWidgets('continuing without recording saves the choice through the mission', (t) async {
       final semantics = t.ensureSemantics();
       final container = await openScene(t);
-      await t.tap(find.text('Can’t speak now'));
-      await settle(t);
-      expect(saidIt(t).onPressed, isNotNull);
-      expect(container.read(speakingPauseProvider.notifier).active, isTrue);
+      await tapLabel(t, 'Continue without recording');
+      expect(container.read(appStateProvider).progress.quietMissions, contains(missionKey));
+      expect(find.text('I said it'), findsNothing);
+      expect(find.text('Next'), findsOneWidget);
       semantics.dispose();
     });
   });

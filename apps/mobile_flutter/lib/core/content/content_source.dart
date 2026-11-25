@@ -18,7 +18,7 @@ const defaultContentBaseUrl = 'https://sb-languest.tayoo.app/storage/v1/object/p
 /// `index.json`), so a cached copy never goes stale; a copy without an index (the repository's own folder, served as
 /// is) is read under the same paths as in the repository.
 class ContentLocation {
-  ContentLocation(Uri base) : base = base.path.endsWith('/') ? base : base.replace(path: '${base.path}/');
+  ContentLocation(Uri base, {this.repairedClips = const {}}) : base = base.path.endsWith('/') ? base : base.replace(path: '${base.path}/');
 
   /// [url] (absolute, or relative to the page) as a location; the published bucket when it is empty.
   factory ContentLocation.parse(String? url) {
@@ -27,19 +27,36 @@ class ContentLocation {
   }
 
   final Uri base;
+  final Map<String, Uri> repairedClips;
+
+  /// Both the old and republished voice manifests point to the same clean, versioned audio in this release.
+  ContentLocation withAudioRepairs(String manifest, Uri assetRoot) {
+    final clips = <String, Uri>{};
+    final repairs = (jsonDecode(manifest) as Map).cast<String, dynamic>();
+    for (final entry in repairs.entries) {
+      final path = 'audio/${entry.value['file']}';
+      final asset = assetRoot.resolve(path);
+      clips['audio/${entry.key}'] = asset;
+      for (final previous in entry.value['previousFiles'] as List? ?? const []) {
+        clips['audio/$previous'] = asset;
+      }
+      clips[path] = asset;
+    }
+    return ContentLocation(base, repairedClips: clips);
+  }
 
   /// [repoPath] (`assets/audio/lines/x.mp3`, `assets/content/catalog.json`) without the app-bundle prefix.
   static String key(String repoPath) => repoPath.startsWith('assets/') ? repoPath.substring('assets/'.length) : repoPath;
 
   /// The address of the clip at [repoPath] (clips are named by what they say: they never change under a name).
-  Uri clip(String repoPath) => base.resolve(key(repoPath));
+  Uri clip(String repoPath) => repairedClips[key(repoPath)] ?? base.resolve(key(repoPath));
 }
 
 /// Reads the app's content from its [location], keeping on the device ([cache]) only what the learner selected: the
 /// shared files and the chapters and voices of the courses they read. A course left ([forgetCourse]) leaves the cache.
 /// Without the network, the cached copy is used.
 class ContentSource {
-  ContentSource({required this.location, required this.cache, http.Client? client}) : _client = client ?? http.Client();
+  ContentSource({required this.location, required this.cache, this.readAsset, http.Client? client}) : _client = client ?? http.Client();
 
   final ContentLocation location;
   final ContentCache cache;
@@ -47,6 +64,22 @@ class ContentSource {
 
   /// Repository path (without `assets/`) → object name in the bucket; empty when the copy has no index.
   Future<Map<String, String>>? _index;
+
+  final Future<String> Function(String)? readAsset;
+  Future<Map<String, String>>? _cairo;
+  static const _previousCairo = {
+    'content/chapters/arabic-egyptian.json': 'content/chapters/arabic-egyptian.a007bace18c1.json',
+    'content/voices/arabic-egyptian.json': 'content/voices/arabic-egyptian.7f4964870697.json',
+  };
+
+  Future<Map<String, String>> _readCairoAssets() async {
+    try {
+      return Map.fromEntries(await Future.wait(_previousCairo.keys.map((key) async => MapEntry(key, await readAsset!('assets/$key')))));
+    } catch (e) {
+      debugPrint('Cairo lesson assets unavailable: $e');
+      return {};
+    }
+  }
 
   static const indexKey = 'index.json';
 
@@ -83,6 +116,10 @@ class ContentSource {
   Future<String> read(String repoPath) async {
     final index = await (_index ??= _readIndex());
     final key = ContentLocation.key(repoPath);
+    if (readAsset != null && _previousCairo.containsKey(key) && _previousCairo.entries.every((e) => index[e.key] == e.value)) {
+      final local = (await (_cairo ??= _readCairoAssets()))[key];
+      if (local != null) return local;
+    }
     final object = index[key];
     // A named-by-content object never changes: the kept copy is the object. Without an index, the network decides.
     if (object != null) {

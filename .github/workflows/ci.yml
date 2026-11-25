@@ -81,15 +81,21 @@ jobs:
       - run: docker build -t langquest-web .
       - name: Serves the app
         run: |
-          # The content is not in the image (the app reads the content bucket): here the repository's own copy is
-          # served next to the app, so the smoke test reads this commit's content and needs no network.
+          # Reproduce the older public content index, including requests from the service worker.
+          cp apps/mobile_flutter/test/fixtures/previous_content_index.json apps/mobile_flutter/assets/index.json
           docker run -d --name web -p 8080:8080 -e LQ_CONTENT_BASE_URL=data/ -v "$PWD/apps/mobile_flutter/assets:/srv/data:ro" langquest-web
           for i in $(seq 1 30); do curl -fsS -o /dev/null http://localhost:8080/ && break; sleep 1; done
-          curl -fsS http://localhost:8080/ | grep -q 'flutter_bootstrap.js'
+          curl -fsS http://localhost:8080/ | grep -Eq 'src="flutter_bootstrap\.[a-f0-9]{16}\.js"'
           curl -fsS -o /dev/null http://localhost:8080/main.dart.js
-          # The app carries no course content or voice clips: they are published to the content bucket.
+          # The catalog and unchanged audio are fetched from the bucket. The release contains the reviewed replacements.
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/content/catalog.json)" = 404
-          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/audio/lines/)" = 404
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/audio/lines/ary-puck-401980711ca0baf0.mp3)" = 404
+          curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/chapters/arabic-egyptian.json
+          curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/voices/arabic-egyptian.json
+          repaired=$(node -p "require('./apps/mobile_flutter/assets/audio/repairs.json')['lines/ary-puck-8555a2b9476e888a.mp3'].file")
+          curl -fsS -o /dev/null "http://localhost:8080/assets/assets/audio/$repaired"
+          previous=/assets/assets/audio/lines/clean/ary-puck-8555a2b9476e888a.b7756c3134b6.mp3
+          test "$(curl -s -o /dev/null -w '%{redirect_url}' "http://localhost:8080$previous")" = "http://localhost:8080/assets/assets/audio/$repaired"
           curl -fsS -o /dev/null http://localhost:8080/data/content/catalog.json
           curl -fsS -o /dev/null http://localhost:8080/data/content/chapters/spanish-spain.json
           curl -fsS http://localhost:8080/sw.js | grep -q "langquest-v1"   # the offline service worker

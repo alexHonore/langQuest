@@ -6,6 +6,7 @@
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
 const { chromium } = require('playwright');
+const { createHash } = require('node:crypto');
 
 const BASE = process.argv[2] || 'http://localhost:8080/';
 
@@ -24,19 +25,20 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     };
   });
   const page = await context.newPage();
+  const scripts = new Map();
+  page.on('response', (response) => {
+    if (response.ok() && response.request().resourceType() === 'script') scripts.set(new URL(response.url()).pathname, response);
+  });
   const errors = [];
   page.on('pageerror', (e) => errors.push(`page error: ${e.message}`));
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console error: ${m.text()}`);
   });
-  // The repository's own content folder (served here) has no `index.json`: the app asks for it, gets a 404, and reads
-  // the files under their plain names. That 404 is expected; any other is an error.
-  let expected404 = 0;
-  const unexpected404 = [];
-  page.on('response', (r) => {
-    if (r.status() !== 404) return;
-    if (new URL(r.url()).pathname.endsWith('/data/index.json')) expected404 += 1;
-    else unexpected404.push(r.url());
+  // Exercise the public November index that used to hide the new Cairo dialogue after a web release.
+  const cairoAssets = new Set();
+  page.on('response', (response) => {
+    const path = new URL(response.url()).pathname;
+    if (response.ok() && path.startsWith('/assets/assets/content/')) cairoAssets.add(path.slice('/assets/assets/'.length));
   });
   // The content files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order: from the content bucket
   // (named by content, `chapters/<track>.<hash>.json`) or a plain copy of the repository's (CI), so the hash is dropped.
@@ -76,29 +78,37 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   await page.evaluate(() => document.querySelector('flt-semantics-placeholder')?.click());
   await page.waitForTimeout(800);
   ok('first frame');
+  for (const stem of ['flutter_bootstrap', 'main.dart']) {
+    const entry = [...scripts].find(([path]) => path.startsWith(`/${stem}.`));
+    if (!entry) throw new Error(`Missing release script: ${stem}`);
+    const hash = createHash('sha256').update(await entry[1].body()).digest('hex').slice(0, 16);
+    if (entry[0] !== `/${stem}.${hash}.js`) throw new Error(`The URL of ${stem} does not identify the bytes the browser loaded`);
+  }
   if (!content.includes('catalog.json')) throw new Error(`the catalog was not fetched (${JSON.stringify(content)})`);
   expectCourseFiles([], 'first visit');
   ok('a first visit fetches the catalog and no course');
 
+  await tap('Feminine');
   await tap('Choose a course', { exact: false });
-  await scrollTo('Spanish (Spain-Castilian)');
+  await scrollTo('Arabic (Egyptian)');
   expectCourseFiles([], 'the course list');
-  await tap('Spanish (Spain-Castilian)', { exact: false });
+  await tap('Arabic (Egyptian)', { exact: false });
   await tap('Start this course', { exact: false, wait: 1500 });
-  expectCourseFiles(['chapters/spanish-spain.json'], 'opening and starting Spanish');
-  ok('enrolled in Spanish (Spain), fetching that course only');
+  expectCourseFiles(['chapters/arabic-egyptian.json'], 'opening and starting Egyptian Arabic');
+  if (!['content/chapters/arabic-egyptian.json', 'content/voices/arabic-egyptian.json'].every((path) => cairoAssets.has(path))) throw new Error('The Cairo chapters and voices were not loaded together.');
+  ok('opened the current Egyptian Arabic course with the previous public index');
 
   // The first course ends the first run with a warm-up phrase.
   await expectButton('Record yourself');
   await tap('Start learning', { wait: 1500 });
-  ok('the first-run warm-up offers the first phrase, then Home');
+  await expectButton('Next');
+  ok('the first-run warm-up opens straight on the character’s first turn');
 
-  await tap('Next mission', { exact: false, wait: 1500 });
-  await tap('Start: Learn', { exact: false, wait: 1500 });
-  await expectButton('I said it');
-  ok('the scene lesson opens on the learner’s line');
+  await tap('Next');
+  await expectButton('Continue without recording');
+  ok('the scene offers a choice on the learner’s first line');
 
-  await tap('Record yourself', { wait: 1800 });
+  await tap('Record and compare', { wait: 1800 });
   await tap('Stop recording', { wait: 1200 });
   await expectButton('Play your recording');
   await tap('Play your recording', { wait: 600 });
@@ -107,21 +117,30 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     live: window.__streams.flatMap((s) => s.getTracks()).filter((t) => t.readyState !== 'ended').length,
   }));
   if (mic.streams !== 1 || mic.live !== 0) throw new Error(`the microphone was not released after the take (${JSON.stringify(mic)})`);
-  ok('record yourself: a take is recorded, plays back, and the microphone is released');
+  await tap('Record again', { wait: 1100 });
+  await tap('Stop recording', { wait: 600 });
+  await expectButton('Play your recording');
+  ok('recorded, played and redid a take with the same control');
+  await tap('I said it');
+  await tap('Close');
+  await expectButton('Resume lesson');
+  await tap('Resume lesson');
+  await expectButton('Next');
+  ok('Home resumes on the next character turn');
 
   // The practice session and the mini-games are built by seeded shuffles (32-bit arithmetic that only the compiled
   // app runs as JavaScript numbers): the session opens on its pairs, each card a button named by its phrase; the
   // games wait for a Learn stop to be done, and say so.
   await page.evaluate(() => {
-    location.hash = '#/learn/es_greet_and_introduce/practice';
+    location.hash = '#/learn/arabic_egyptian_greet_and_introduce/practice';
   });
   await page.waitForTimeout(2000);
-  await expectButton('Hola, buenos días.');
-  await expectButton('Hello, good morning.');
-  await tap('Hola, buenos días.', { wait: 400 });
-  await tap('Hello, good morning.', { wait: 900 });
-  await expectButton('Hola, buenos días., matched');
-  ok('the practice session opens on its pairs, and a pair matches');
+  await expectButton('صباح الخير, sabah el-kheir');
+  await expectButton('Bonjour.');
+  await tap('صباح الخير, sabah el-kheir', { wait: 400 });
+  await tap('Bonjour.', { wait: 900 });
+  await expectButton('صباح الخير, sabah el-kheir, matched');
+  ok('the practice session starts with French meanings, and a pair matches');
   await page.evaluate(() => {
     location.hash = '#/play';
   });
@@ -154,16 +173,13 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   await page.waitForTimeout(1500);
   await page.evaluate(() => document.querySelector('flt-semantics-placeholder')?.click());
   await page.waitForTimeout(800);
-  await button('Next mission', false).waitFor({ timeout: 15000 });
-  expectCourseFiles(['chapters/spanish-spain.json'], 'a reload');
-  ok('a reload fetches the learner\'s course only and opens on Home');
+  await expectButton('Resume lesson');
+  await button('from French', false).waitFor({ timeout: 15000 });
+  expectCourseFiles(['chapters/arabic-egyptian.json'], 'a reload');
+  ok('a reload opens Home with the French course and its saved lesson');
 
   await browser.close();
-  // The browser logs each 404 as a console error, without its address: drop as many as the expected ones.
-  let toDrop = expected404;
-  const real = errors.filter((e) => !(toDrop > 0 && /status of 404/.test(e) && toDrop-- > 0));
-  if (unexpected404.length) real.push(...unexpected404.map((u) => `404: ${u}`));
-  if (real.length) throw new Error(`${real.length} page error(s):\n  ${real.join('\n  ')}`);
+  if (errors.length) throw new Error(`${errors.length} page error(s):\n  ${errors.join('\n  ')}`);
   ok('no page errors');
 })().catch((e) => {
   console.error(`not ok - ${e.message}`);

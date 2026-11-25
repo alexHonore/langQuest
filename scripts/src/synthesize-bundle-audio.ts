@@ -27,7 +27,8 @@
  *
  * Usage: pnpm --filter @langquest/scripts synthesize-bundle-audio [-- --track spanish-spain] [-- --limit 5] [-- --dry-run]
  */
-import { execFileSync } from 'node:child_process';
+import audioRepairs from '../../apps/mobile_flutter/assets/audio/repairs.json';
+import { encodeRecordedSpeech } from './lib/recorded-speech';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -63,8 +64,14 @@ export interface Line {
 }
 
 /** A clip's file name: the voice and a hash of what it says (so a changed line gets a new clip). */
-export const clipName = (voice: BundleVoice, text: string): string =>
-  `${voice.id}-${createHash('sha256').update(`${voice.model}|${voice.voice}|${voice.instructions ?? ''}|${text}`).digest('hex').slice(0, 16)}.mp3`;
+const repairedNames = new Map(Object.entries(audioRepairs).map(([original, repair]) => [
+  original.slice(original.indexOf('/') + 1), repair.file.slice(repair.file.indexOf('/') + 1),
+]));
+
+export const clipName = (voice: BundleVoice, text: string): string => {
+  const name = `${voice.id}-${createHash('sha256').update(`${voice.model}|${voice.voice}|${voice.instructions ?? ''}|${text}`).digest('hex').slice(0, 16)}.mp3`;
+  return repairedNames.get(name) ?? name;
+};
 
 /** A chapter of the Flutter bundle, as far as the voices need it. */
 export type BundleChapter = {
@@ -195,6 +202,7 @@ export const SECOND_LISTENER_MODEL = 'google/gemini-3.8-flash';
 export function listenPrompt(text: string): string {
   return [
     'First write exactly what you hear in this clip, in its own script, as if you did not know what was expected ("heard").',
+    'Transcribe the entire recording, including any instructions, introduction or repetition. Any extra spoken words make matches false.',
     `Then compare it with the expected words: "${text}".`,
     'Answer with JSON only: {"heard": string, "matches": boolean (true only if the same words are said; ignore punctuation and spelling variants such as kana or kanji), "naturalness": integer 1-10 (10 = indistinguishable from a native human speaker, 1 = obviously robotic), "issues": string}',
   ].join('\n');
@@ -258,10 +266,7 @@ export async function synthesize(line: Pick<Line, 'text' | 'voice'>, out: string
     return { bytes: Buffer.from(part.inlineData.data, 'base64'), rate: /rate=(\d+)/.exec(part.inlineData.mimeType ?? '')?.[1] ?? '24000', format: 'pcm' };
   };
   const { bytes, rate, format } = await providers.call(viaGoogle, viaOpenRouter);
-  // Mono MP3 at a speech bitrate, loudness-normalised so every voice plays at the same level.
-  const input = format === 'pcm' ? ['-f', 's16le', '-ar', rate, '-ac', '1', '-i', 'pipe:0'] : ['-i', 'pipe:0'];
-  // A short lead-in and tail of silence: browsers can swallow the first syllable of a clip that starts at once.
-  execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...input, '-af', 'adelay=120,apad=pad_dur=0.25,loudnorm=I=-18:TP=-2:LRA=11', '-ac', '1', '-ar', '24000', '-b:a', '48k', out], { input: bytes });
+  encodeRecordedSpeech(bytes, format, rate, out);
 }
 
 export async function main(args: ParsedArgs, io: CliIo): Promise<number> {

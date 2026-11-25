@@ -504,4 +504,7 @@ class _FixedAccount extends AccountController {
 
   @override
   AccountState build() => fixed;
+
+  @override
+  void scheduleSync() {}
 }

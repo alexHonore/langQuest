@@ -13,6 +13,7 @@
 library;
 
 import '../../core/content/content_models.dart';
+import '../../core/services/learner_state.dart';
 import 'learn_content.dart';
 import 'learn_logic.dart';
 
@@ -278,6 +279,20 @@ class PracticeProgress {
 
   PracticeProgress.start(List<PracticeStep> steps) : this._(List.unmodifiable(steps), 0, const {});
 
+  /// Replay completed question boundaries. A changed activity starts fresh if its saved sequence no longer fits.
+  static PracticeProgress resume(List<PracticeStep> steps, LessonCheckpoint? saved) {
+    final start = PracticeProgress.start(steps);
+    if (saved?.activity != LessonActivity.practise) return start;
+    var progress = start;
+    for (final id in saved!.completedSteps) {
+      if (progress.finished || progress.current.id != id) return start;
+      final answer = saved.firstTry[id];
+      if (answer != null) progress = progress.answered(answer, again: progress.current is! BuildStep);
+      progress = progress.next();
+    }
+    return !progress.finished && progress.current.id == saved.stepId ? progress : start;
+  }
+
   /// The steps, with those to ask again appended as they are missed.
   final List<PracticeStep> queue;
   final int index;
@@ -307,6 +322,9 @@ class PracticeProgress {
 
   PracticeProgress next() => finished ? this : PracticeProgress._(queue, index + 1, firstTry);
 
+  LessonCheckpoint get checkpoint =>
+      LessonCheckpoint(LessonActivity.practise, current.id, completedSteps: [for (final step in queue.take(index)) step.id], firstTry: firstTry);
+
   /// Questions asked so far, and how many were right the first time.
   int get questions => firstTry.length;
   int get rightFirstTime => firstTry.values.where((right) => right).length;
@@ -335,43 +353,6 @@ enum TypedVerdict {
   typo,
 
   wrong,
-}
-
-const _folds = {
-  'a': 'áàâäãåāăạảấầẩẫậắằẳẵặ',
-  'c': 'çćč',
-  'd': 'đď',
-  'e': 'éèêëēėęěẹẻẽếềểễệɛ',
-  'i': 'íìîïīįịỉĩı',
-  'n': 'ñńň',
-  'o': 'óòôöõøōőọỏốồổỗộơớờởỡợɔ',
-  's': 'śšș',
-  't': 'țť',
-  'u': 'úùûüūůűụủũưứừửữự',
-  'y': 'ýÿỳỵỷỹ',
-  'z': 'źżž',
-  'ae': 'æ',
-  'oe': 'œ',
-  'ss': 'ß',
-  'l': 'ł',
-  'r': 'ř',
-  'g': 'ğ',
-};
-
-final Map<int, String> _foldByRune = {
-  for (final entry in _folds.entries)
-    for (final rune in entry.value.runes) rune: entry.key,
-};
-
-/// [text] in lower case without its accents (`¿Qué tal?` → `¿que tal?`), for a lenient comparison.
-String foldDiacritics(String text) {
-  final out = StringBuffer();
-  for (final rune in text.toLowerCase().runes) {
-    // Combining marks (a decomposed "é" is "e" + U+0301) are dropped.
-    if (rune >= 0x0300 && rune <= 0x036F) continue;
-    out.write(_foldByRune[rune] ?? String.fromCharCode(rune));
-  }
-  return out.toString();
 }
 
 /// Levenshtein distance between [a] and [b], by code unit.

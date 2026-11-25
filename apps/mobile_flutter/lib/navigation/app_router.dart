@@ -96,9 +96,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
       page('/welcome', (_) => const WelcomeScreen()),
-      page('/welcome/courses', (_) => const PickCourseScreen()),
+      page('/welcome/courses', (_) => const CatalogScreen(onboarding: true)),
       page('/catalog', (_) => const CatalogScreen()),
-      page('/course/:trackId', (s) => CourseDetailScreen(trackId: s.pathParameters['trackId']!)),
+      page('/course/:trackId', (s) => CourseDetailScreen(trackId: s.pathParameters['trackId']!, initialSource: s.uri.queryParameters['from'])),
       // Learn path (approved L1 + L3 inside N2): a mission node, then its learn, practise, play and mission stops.
       page('/path/:id', (s) => MissionPathScreen(missionKey: s.pathParameters['id']!)),
       page('/admin/models', (s) => const AdminModelsScreen()),

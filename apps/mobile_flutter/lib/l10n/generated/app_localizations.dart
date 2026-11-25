@@ -212,6 +212,48 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 mission} other{{count} missions}}'**
   String missionsCount(int count);
 
+  /// No description provided for @latinOnlySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Latin phonetics only'**
+  String get latinOnlySetting;
+
+  /// No description provided for @latinOnlyHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Latin pronunciation in place of the original script when a reading is available.'**
+  String get latinOnlyHelp;
+
+  /// No description provided for @speakerFormTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which form do you use?'**
+  String get speakerFormTitle;
+
+  /// No description provided for @speakerFormHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'This sets the grammar for phrases you say about yourself.'**
+  String get speakerFormHelp;
+
+  /// No description provided for @speakerCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get speakerCourse;
+
+  /// No description provided for @speakerMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Masculine'**
+  String get speakerMale;
+
+  /// No description provided for @speakerFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Feminine'**
+  String get speakerFemale;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
@@ -239,7 +281,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeLanguageLabel.
   ///
   /// In en, this message translates to:
-  /// **'App and explanations in'**
+  /// **'App language'**
   String get welcomeLanguageLabel;
 
   /// No description provided for @welcomeContinue.
@@ -392,6 +434,18 @@ abstract class AppLocalizations {
   /// **'Next mission'**
   String get homeNextMission;
 
+  /// No description provided for @homeViewMission.
+  ///
+  /// In en, this message translates to:
+  /// **'View mission'**
+  String get homeViewMission;
+
+  /// No description provided for @resumeLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume lesson'**
+  String get resumeLesson;
+
   /// No description provided for @homeNextStop.
   ///
   /// In en, this message translates to:
@@ -529,6 +583,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start: {stop}'**
   String pathStartStop(String stop);
+
+  /// No description provided for @pathLearnPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn {count, plural, =1{1 phrase} other{{count} phrases}}'**
+  String pathLearnPhrases(int count);
+
+  /// No description provided for @pathPractiseReplies.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 reply to practise} other{{count} replies to practise}}'**
+  String pathPractiseReplies(int count);
 
   /// No description provided for @pathContinueStop.
   ///
@@ -2003,7 +2069,7 @@ abstract class AppLocalizations {
   /// No description provided for @audioLibraryBody.
   ///
   /// In en, this message translates to:
-  /// **'Each lesson goes four ways: you listen, you repeat, you recall from memory, then you take your part in the conversation.'**
+  /// **'Listen, repeat and recall the phrases from each mission.'**
   String get audioLibraryBody;
 
   /// No description provided for @audioReadByAi.
@@ -2129,14 +2195,32 @@ abstract class AppLocalizations {
   /// No description provided for @courseIncludesAudioLessons.
   ///
   /// In en, this message translates to:
-  /// **'Audio lessons made from each mission, read by {voice}'**
+  /// **'Audio lessons read by {voice}'**
   String courseIncludesAudioLessons(String voice);
 
   /// No description provided for @courseVoiceAi.
   ///
   /// In en, this message translates to:
-  /// **'an AI voice (with a free account)'**
+  /// **'an AI voice'**
   String get courseVoiceAi;
+
+  /// No description provided for @courseIncludesAiClips.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-voiced phrase clips'**
+  String get courseIncludesAiClips;
+
+  /// No description provided for @courseVoiceWithAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-voiced clips for supported missions with a free account'**
+  String get courseVoiceWithAccount;
+
+  /// No description provided for @courseMissingLineAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio for the course phrases'**
+  String get courseMissingLineAudio;
 
   /// No description provided for @courseVoiceDevice.
   ///
@@ -2713,6 +2797,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Have LangQuest check what you said and how it sounded: create a free account'**
   String get recordSignInToCheck;
+
+  /// No description provided for @recordAndCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Record and compare'**
+  String get recordAndCompare;
+
+  /// No description provided for @continueWithoutRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without recording'**
+  String get continueWithoutRecording;
+
+  /// No description provided for @useMicrophone.
+  ///
+  /// In en, this message translates to:
+  /// **'Use microphone'**
+  String get useMicrophone;
+
+  /// No description provided for @missionYourReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reply'**
+  String get missionYourReply;
 
   /// No description provided for @speakToContinue.
   ///

@@ -314,7 +314,11 @@ void main() {
     });
 
     group('checked by the server', () {
-      const target = SpeechTarget(expressionId: 'ch:m:hola', chapterKey: 'ch', missionKey: 'm');
+      const target = SpeechTarget(
+        expressionId: 'es_es_ch1_arrival_madrid:es_greet_and_introduce:hola',
+        chapterKey: 'es_es_ch1_arrival_madrid',
+        missionKey: 'es_greet_and_introduce',
+      );
 
       testWidgets('a take is checked: understood, with what was heard, and the verdict is reported', (tester) async {
         final take = FakeTake();
@@ -329,7 +333,7 @@ void main() {
         await tap(tester, 'Stop recording');
         expect(find.text('Checking what you said…'), findsOneWidget);
         expect(checker.checked.single.$1, same(take));
-        expect(checker.checked.single.$2.expressionId, 'ch:m:hola');
+        expect(checker.checked.single.$2.expressionId, target.expressionId);
         expect(find.textContaining('Compare'), findsNothing, reason: 'the verdict replaces the comparison hint');
 
         checker.gate!.complete();

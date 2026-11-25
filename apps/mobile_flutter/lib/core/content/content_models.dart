@@ -9,7 +9,8 @@ library;
 enum Speaker { learner, character }
 
 /// The instruction languages this app's interface is translated into (CONVENTIONS §2.2: no mixed-language UI).
-const supportedInstructionLanguages = ['en', 'fr'];
+const preferredInstructionLanguage = 'fr';
+const supportedInstructionLanguages = [preferredInstructionLanguage, 'en'];
 
 String _str(Object? v) => v is String ? v : '';
 String? _strOrNull(Object? v) => v is String && v.isNotEmpty ? v : null;
@@ -65,6 +66,9 @@ class Meaning {
       Meaning(meaning: _str(json['meaning']), note: _strOrNull(json['note']), literal: _strOrNull(json['literal']));
 }
 
+/// The grammatical form the learner wants to use for their own lines.
+enum SpeakerForm { course, masculine, feminine }
+
 class Expression {
   /// Stable id `<chapter>:<mission>:<expression>` (the seed id the database derives its keys from).
   final String id;
@@ -110,6 +114,29 @@ class Expression {
     codeSwitchNote: _strOrNull(json['codeSwitchNote']),
     pronunciationNote: _strOrNull(json['pronunciationNote']),
   );
+
+  Expression withWording({String? text, List<ExpressionForm>? forms, required Map<String, Meaning> meanings, bool keepPronunciationNote = true}) => Expression(
+    id: id,
+    key: key,
+    intentKey: intentKey,
+    slotId: slotId,
+    speaker: speaker,
+    text: text ?? this.text,
+    forms: forms ?? this.forms,
+    meanings: meanings,
+    register: register,
+    codeSwitchNote: codeSwitchNote,
+    pronunciationNote: keepPronunciationNote ? pronunciationNote : null,
+  );
+
+  String displayLabel({required bool latinOnly}) {
+    final latin = romanization;
+    return latin == null
+        ? text
+        : latinOnly
+        ? latin
+        : '$text, $latin';
+  }
 
   bool get byLearner => speaker == Speaker.learner;
 
@@ -164,6 +191,7 @@ class Mission {
   final Map<String, String> titles;
   final Map<String, String> sceneNotes;
   final List<Expression> expressions;
+  final List<String> sceneOrder;
 
   const Mission({
     required this.key,
@@ -176,6 +204,7 @@ class Mission {
     required this.titles,
     required this.sceneNotes,
     required this.expressions,
+    this.sceneOrder = const [],
   });
 
   factory Mission.fromJson(Map<String, Object?> json, String chapterKey) => Mission(
@@ -189,6 +218,21 @@ class Mission {
     titles: _strMap(json['titles']),
     sceneNotes: _strMap(json['sceneNotes']),
     expressions: [for (final e in (json['expressions'] as List? ?? const [])) Expression.fromJson((e as Map).cast<String, Object?>())],
+    sceneOrder: _strList(json['sceneOrder']),
+  );
+
+  Mission withExpressions(List<Expression> lines) => Mission(
+    key: key,
+    chapterKey: chapterKey,
+    blueprintKey: blueprintKey,
+    missionType: missionType,
+    level: level,
+    situation: situation,
+    characterKey: characterKey,
+    titles: titles,
+    sceneNotes: sceneNotes,
+    expressions: lines,
+    sceneOrder: sceneOrder,
   );
 
   /// Title in [language]; null when the chapter has no overlay for it (never another language's title).
@@ -229,6 +273,20 @@ class Chapter {
     required this.characters,
     required this.missions,
   });
+
+  Chapter withMissions(List<Mission> adapted) => Chapter(
+    key: key,
+    chapterIndex: chapterIndex,
+    courseTrackId: courseTrackId,
+    targetVarietyId: targetVarietyId,
+    sourceLanguages: sourceLanguages,
+    titles: titles,
+    provenance: provenance,
+    nativeReviewed: nativeReviewed,
+    reviewStatus: reviewStatus,
+    characters: characters,
+    missions: adapted,
+  );
 
   factory Chapter.fromJson(Map<String, Object?> json) {
     final key = _str(json['key']);

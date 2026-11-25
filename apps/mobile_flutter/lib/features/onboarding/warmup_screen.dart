@@ -27,9 +27,8 @@ class WarmupScreen extends ConsumerWidget {
     final course = appState.activeCourse;
     final plan = course == null || course.missions.isEmpty ? null : ref.watch(learnPlanProvider(course.missions.first.key));
     final phrase = plan == null || plan.phrases.isEmpty ? null : plan.phrases.first;
-    // "Listen" only when there is something to listen to (no device voice for Darija, nor in some browsers).
-    final voiceLocale = plan?.voiceLocale;
-    final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
+    final voice = ref.watch(lineVoiceNowProvider(plan?.voiceLocale));
+    final hasVoice = phrase != null && (voice?.canSay(expressionId: phrase.id) ?? false);
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -54,13 +53,8 @@ class WarmupScreen extends ConsumerWidget {
             ),
             if (phrase != null && plan != null) ...[
               const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: colors.border),
-                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                 child: Column(
                   children: [
                     TargetText(expression: phrase, track: plan.track, fontSize: 26, textAlign: TextAlign.center),
@@ -79,7 +73,13 @@ class WarmupScreen extends ConsumerWidget {
               ),
             ],
           ],
-          bottom: [LearnPrimaryButton(label: l10n.warmupContinue, icon: LucideIcons.chevronRight, onPressed: () => context.go('/'))],
+          bottom: [
+            LearnPrimaryButton(
+              label: l10n.warmupContinue,
+              icon: LucideIcons.chevronRight,
+              onPressed: () => context.go(plan == null ? '/' : '/learn/${plan.mission.key}/scene'),
+            ),
+          ],
         ),
       ),
     );
