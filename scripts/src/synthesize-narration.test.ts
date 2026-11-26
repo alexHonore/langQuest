@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { clipName } from './synthesize-bundle-audio';
-import { NARRATOR_VOICES, narrationMap } from './synthesize-narration';
+import { NARRATOR_VOICES, narrationMap, SPOKEN_FORMS } from './synthesize-narration';
 
 describe('synthesize-narration', () => {
   it('has a narrator for each instruction language, unlike any course voice', () => {
@@ -22,5 +22,11 @@ describe('synthesize-narration', () => {
     const en = NARRATOR_VOICES.en!;
     expect(clipName(en, 'Your line')).toMatch(/^narrator-en-sulafat-[0-9a-f]{16}\.mp3$/);
     expect(clipName(en, 'Your line')).not.toBe(clipName(en, 'Your line!'));
+  });
+
+  it('reads a mispronounced sentence from its spoken form, still named and mapped by the sentence', () => {
+    expect(SPOKEN_FORMS['Lene dit']).toBe('Léné dit');
+    const fr = NARRATOR_VOICES.fr!;
+    expect(narrationMap(['Lene dit'], fr, (file) => file === clipName(fr, 'Lene dit'))).toEqual({ 'Lene dit': `assets/audio/narration/${clipName(fr, 'Lene dit')}` });
   });
 });

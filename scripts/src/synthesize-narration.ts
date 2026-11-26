@@ -71,6 +71,12 @@ export const NARRATOR_VOICES: Readonly<Record<string, BundleVoice>> = {
   },
 };
 
+/**
+ * How the narrator should read a sentence it would otherwise mispronounce (the app still looks the clip up by the
+ * sentence itself). "Lene dit" was always read as "lundi": the accents make the voice say the Danish name.
+ */
+export const SPOKEN_FORMS: Readonly<Record<string, string>> = { 'Lene dit': 'Léné dit' };
+
 /** `{ "<track>": { "<source>": ["sentence", …] } }`, as the app lists them. */
 export type NarrationTexts = Record<string, Record<string, string[]>>;
 
@@ -132,7 +138,7 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
       try {
         let kept = false;
         for (let attempt = 1; attempt <= attempts && !kept; attempt++) {
-          await synthesize(line, out, providers);
+          await synthesize({ text: SPOKEN_FORMS[line.text] ?? line.text, voice: line.voice }, out, providers);
           if (verify) {
             let heard = await listen(out, line.text, providers);
             if (!heard.ok) {
